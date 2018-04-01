@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>ContentManagement.Services</AssemblyName>
+    <PackageId>ContentManagement.Services</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContentManagement.Common\ContentManagement.Common.csproj" />
+    <ProjectReference Include="..\ContentManagement.DataLayer\ContentManagement.DataLayer.csproj" />
+    <ProjectReference Include="..\ContentManagement.Entities\ContentManagement.Entities.csproj" />
+    <ProjectReference Include="..\ContentManagement.ViewModels\ContentManagement.ViewModels.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0-preview1-final" />
+  </ItemGroup>
+  
+</Project>
