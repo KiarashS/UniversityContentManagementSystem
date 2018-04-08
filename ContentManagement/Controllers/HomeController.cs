@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ContentManagement.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +10,8 @@ using System.Threading;
 using Microsoft.AspNetCore.Localization;
 using ContentManagement.Infrastructure;
 using ContentManagement.Common.WebToolkit;
+using ContentManagement.Infrastructure.Seo;
+using Boilerplate.AspNetCore.Filters;
 
 namespace ContentManagement.Controllers
 {
@@ -42,7 +44,8 @@ namespace ContentManagement.Controllers
             var lang = _requestService.CurrentLanguage();
             var subDomain = _requestService.CurrentSubDomain();
             var isSubPortal = _requestService.IsSubPortal();
-
+            var seoService = (SeoService)HttpContext.RequestServices.GetService(typeof(SeoService));
+            ViewBag.Title = "کیارش سلیمان زاده";
             return View();
         }
 

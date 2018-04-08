@@ -25,7 +25,7 @@
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
-    <PackageReference Include="OwaspHeaders.Core" Version="3.0.0.3" />
+    <PackageReference Include="OwaspHeaders.Core" Version="3.1.0" />
     <PackageReference Include="R4Mvc" Version="1.0.0-alpha1-00260" />
     <PackageReference Include="R4Mvc.Tools" Version="1.0.0-alpha1-00260" />
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.12" />
@@ -39,9 +39,9 @@
     <PlatformTarget>anycpu</PlatformTarget>
   </PropertyGroup>
   
-  <Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
+  <!--<Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
     <Exec Command="dotnet bundle" />
-  </Target>
+  </Target>-->
   
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.1.0-preview1-final" />
@@ -64,10 +64,26 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Watch Remove="assets\js\common.js" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="assets\css\transform\ltr\" />
+    <Folder Include="assets\css\transform\ltr\" />
+    <Folder Include="assets\css\transform\rtl\" />
+    <Folder Include="assets\css\transform\rtl\" />
+    <Folder Include="assets\images\" />
+    <Folder Include="assets\fonts\" />
     <Folder Include="Errors\" />
     <Folder Include="logs\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
   </ItemGroup>
 
 </Project>

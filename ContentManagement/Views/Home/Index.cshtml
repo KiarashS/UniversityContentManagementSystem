@@ -2,9 +2,55 @@
     ViewData["Title"] = "Home Page";
     ViewData["Description"] = "The home page of my website";
 }
-
 <p>This is the index.cshtml</p>
+<button type="button" class="btn btn-primary" onclick="javascript:throw 'Too big'">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
 
+<br /><br />
+
+<button type="button" class="btn btn-outline-primary">Primary</button>
+<button type="button" class="btn btn-outline-secondary">Secondary</button>
+<button type="button" class="btn btn-outline-success">Success</button>
+<button type="button" class="btn btn-outline-danger">Danger</button>
+<button type="button" class="btn btn-outline-warning">Warning</button>
+<button type="button" class="btn btn-outline-info">Info</button>
+<button type="button" class="btn btn-outline-light">Light</button>
+<button type="button" class="btn btn-outline-dark">Dark</button>
+
+<br /><br />
+
+      <div class="selectgroup w-100">
+          <label class="selectgroup-item">
+              <input type="radio" name="transportation" value="2" class="selectgroup-input">
+              <span class="selectgroup-button selectgroup-button-icon"><i class="fe fe-smartphone"></i></span>
+          </label>
+          <label class="selectgroup-item">
+              <input type="radio" name="transportation" value="1" class="selectgroup-input" checked="">
+              <span class="selectgroup-button selectgroup-button-icon"><i class="fe fe-tablet"></i></span>
+          </label>
+          <label class="selectgroup-item">
+              <input type="radio" name="transportation" value="6" class="selectgroup-input">
+              <span class="selectgroup-button selectgroup-button-icon"><i class="fe fe-monitor"></i></span>
+          </label>
+          <label class="selectgroup-item">
+              <input type="radio" name="transportation" value="6" class="selectgroup-input">
+              <span class="selectgroup-button selectgroup-button-icon"><i class="fe fe-x"></i></span>
+          </label>
+      </div>
 @section Scripts {
     @*Insert any script tags for this page here*@
+}
+@if (CurrentLanguage().Language == Language.FA)
+{
+    <p condition-class-active="true" condition-class-active_aa="true" condition-class-active-bb="true">FA</p>
+}
+else
+{
+    <p>EN</p>
 }

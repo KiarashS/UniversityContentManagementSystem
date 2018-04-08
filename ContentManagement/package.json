@@ -3,23 +3,33 @@
   "name": "ContentManagement",
   "private": true,
   "devDependencies": {
-    "del": "2.2.2",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-concat": "2.6.1",
-    "gulp-csso": "3.0.0",
-    "gulp-uglify": "3.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-rtlcss": "^1.2.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "pump": "^3.0.0",
     "yarn": "^1.5.1"
   },
-  "description": "University Content Management System (UCMS)",
+  "description": "Enterprise Content Management System",
   "main": "index.js",
   "author": "Kiarash Soleimanzadeh",
+  "homepage": "http://www.kiarash.pro",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "jquery-ajax-unobtrusive": "^3.2.4",
     "jquery-validation": "^1.17.0",
     "jquery-validation-unobtrusive": "^3.2.9",
-    "popper.js": "^1.14.1"
+    "popper.js": "^1.14.3",
+    "tabler-ui": "^0.0.31"
   }
 }

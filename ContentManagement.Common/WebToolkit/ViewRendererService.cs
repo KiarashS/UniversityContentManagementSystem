@@ -21,7 +21,7 @@ namespace ContentManagement.Common.WebToolkit
     {
         public static IServiceCollection AddRazorViewRenderer(this IServiceCollection services)
         {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); Added by services.AddHttpContextAccessor();
             services.AddScoped<IViewRendererService, ViewRendererService>();
             return services;
         }

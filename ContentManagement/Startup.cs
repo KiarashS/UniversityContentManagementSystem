@@ -17,6 +17,8 @@ using ContentManagement.DataLayer.Context;
 using ContentManagement.IocConfig;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Logging;
+using Boilerplate.AspNetCore.Filters;
 
 namespace ContentManagement
 {
@@ -53,9 +55,6 @@ namespace ContentManagement
             services.AddExceptional(Configuration.GetSection("Exceptional"));//, settings =>
             //{
             //    settings.Store.ApplicationName = "CMS";
-            //    settings.Store.Type = "JSON";
-            //    settings.Store.Path = "Errors";
-            //    settings.Store.Size = 500;
             //    //settings.UseExceptionalPageOnThrow = Environment.IsDevelopment();
             //});
 
@@ -91,10 +90,20 @@ namespace ContentManagement
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+            var lowercaseUrls = true;
+            var appendTrailingSlash = true;
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = lowercaseUrls;
+                options.AppendTrailingSlash = appendTrailingSlash;
+            });
+
             services.AddMvc(options =>
             {
                 options.UseCustomStringModelBinder();
                 options.AllowEmptyInputInBodyModelBinding = true;
+                options.Filters.Add(new RedirectToCanonicalUrlAttribute(appendTrailingSlash, lowercaseUrls));
+                options.Filters.Add(new NoLowercaseQueryStringAttribute());
                 // options.Filters.Add(new NoBrowserCacheAttribute());
             })
             .AddJsonOptions(jsonOptions =>
@@ -123,18 +132,23 @@ namespace ContentManagement
                 options.MinificationSettings.RemoveHttpProtocolFromAttributes = true;
                 options.MinificationSettings.RemoveHttpsProtocolFromAttributes = true;
                 options.MinificationSettings.MinifyEmbeddedCssCode = false;
+                options.MinificationSettings.MinifyEmbeddedJsCode = false;
                 options.MinificationSettings.RemoveOptionalEndTags = false;
+                options.MinificationSettings.MinifyInlineCssCode = true;
+                options.MinificationSettings.MinifyInlineJsCode = true;
+                options.MinificationSettings.AttributeQuotesRemovalMode = WebMarkupMin.Core.HtmlAttributeQuotesRemovalMode.KeepQuotes;
             });
 
             services.AddRazorViewRenderer();
             //services.AddDNTCaptcha();
             services.AddMvcActionsDiscoveryService();
             services.AddProtectionProviderService();
+            services.AddRijndaelProviderService();
             services.AddCloudscribePagination();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             // Injecting the Owasp recommended HTTP Headers for increased security
             // app.UseSecureHeadersMiddleware(SecureHeadersMiddlewareExtensions.BuildDefaultConfiguration());
@@ -151,7 +165,7 @@ namespace ContentManagement
                 app.UseExceptionHandler("/error/index/500");
                 app.UseStatusCodePagesWithReExecute("/error/index/{0}");
             }
-
+            
             app.UseMiniProfiler();
 
             app.UseExceptional();
@@ -167,7 +181,7 @@ namespace ContentManagement
                 dbInitializer.Initialize();
                 dbInitializer.SeedData();
             }
-
+            
             app.UseStaticFiles(new StaticFileOptions()
             {
                 OnPrepareResponse = (context) =>

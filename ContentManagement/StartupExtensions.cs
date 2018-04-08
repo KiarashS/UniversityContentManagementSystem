@@ -1,5 +1,6 @@
 ﻿using ContentManagement.DataLayer.Context;
 using ContentManagement.Infrastructure;
+using ContentManagement.Infrastructure.Seo;
 using ContentManagement.Services;
 using ContentManagement.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -23,6 +24,7 @@ namespace ContentManagement
             services.AddScoped<ICookieValidatorService, CookieValidatorService>();
             services.AddScoped<IDbInitializerService, DbInitializerService>();
             services.AddScoped<IRequestService, RequestService>();
+            services.AddScoped<SeoService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)

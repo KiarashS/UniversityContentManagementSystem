@@ -7,7 +7,7 @@ namespace ContentManagement.Common.GuardToolkit
 {
     public class PasswordHasher : IPasswordHasher
     {
-        private readonly HMACSHA512 x = new HMACSHA512(Encoding.UTF8.GetBytes("realworld"));
+        private readonly HMACSHA512 x = new HMACSHA512(Encoding.UTF8.GetBytes("KiAContentManagementSystem"));
 
         public byte[] Hash(string password, byte[] salt)
         {
