@@ -18,6 +18,8 @@ using ContentManagement.Entities;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using ContentManagement.DataLayer.Mappings;
+using EFSecondLevelCache.Core;
+using EFSecondLevelCache.Core.Contracts;
 
 namespace ContentManagement.DataLayer.Context
 {
@@ -81,9 +83,14 @@ namespace ContentManagement.DataLayer.Context
 
             beforeSaveTriggers();
 
+            var changedEntityNames = this.GetChangedEntityNames();
+
             ChangeTracker.AutoDetectChangesEnabled = false; // for performance reasons, to avoid calling DetectChanges() again.
             var result = base.SaveChanges(acceptAllChangesOnSuccess);
             ChangeTracker.AutoDetectChangesEnabled = true;
+
+            this.GetService<IEFCacheServiceProvider>().InvalidateCacheDependencies(changedEntityNames);
+
             return result;
         }
 
@@ -93,9 +100,14 @@ namespace ContentManagement.DataLayer.Context
 
             beforeSaveTriggers();
 
+            var changedEntityNames = this.GetChangedEntityNames();
+
             ChangeTracker.AutoDetectChangesEnabled = false; // for performance reasons, to avoid calling DetectChanges() again.
             var result = base.SaveChanges();
             ChangeTracker.AutoDetectChangesEnabled = true;
+
+            this.GetService<IEFCacheServiceProvider>().InvalidateCacheDependencies(changedEntityNames);
+
             return result;
         }
 
@@ -105,9 +117,14 @@ namespace ContentManagement.DataLayer.Context
 
             beforeSaveTriggers();
 
+            var changedEntityNames = this.GetChangedEntityNames();
+
             ChangeTracker.AutoDetectChangesEnabled = false; // for performance reasons, to avoid calling DetectChanges() again.
             var result = base.SaveChangesAsync(cancellationToken);
             ChangeTracker.AutoDetectChangesEnabled = true;
+
+            this.GetService<IEFCacheServiceProvider>().InvalidateCacheDependencies(changedEntityNames);
+
             return result;
         }
 
@@ -117,16 +134,21 @@ namespace ContentManagement.DataLayer.Context
 
             beforeSaveTriggers();
 
+            var changedEntityNames = this.GetChangedEntityNames();
+
             ChangeTracker.AutoDetectChangesEnabled = false; // for performance reasons, to avoid calling DetectChanges() again.
             var result = base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
             ChangeTracker.AutoDetectChangesEnabled = true;
+
+            this.GetService<IEFCacheServiceProvider>().InvalidateCacheDependencies(changedEntityNames);
+
             return result;
         }
 
         private void beforeSaveTriggers()
         {
             validateEntities();
-            setShadowProperties();
+            //setShadowProperties();
             this.ApplyCorrectYeKe();
         }
 

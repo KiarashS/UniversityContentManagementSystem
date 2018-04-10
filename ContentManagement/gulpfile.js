@@ -39,7 +39,10 @@ var filesPath = {
         "node_modules/jquery-validation/dist/jquery.validate.min.js",
         "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
         "node_modules/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js",
-        "node_modules/bootstrap/dist/js/bootstrap.min.js",
+        //"node_modules/popper.js/dist/umd/popper.js",
+        //"node_modules/tabler-ui/dist/assets/js/vendors/bootstrap.bundle.min.js",
+        //"node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         "node_modules/tabler-ui/dist/assets/js/core.js",
         //"node_modules/tabler-ui/dist/assets/js/dashboard.js"
     ],
@@ -142,11 +145,11 @@ gulp.task("commonjs:min", function () {
         return;
 
     return gulp.src(filesPath.commonJs)
-        .pipe(concat("ff.js"))
+        .pipe(concat("common.js"))
         //.pipe(gulp.dest(filesPath.jsOutput))
-        .pipe(babel({
-            presets: ['env']
-        }))
+        //.pipe(babel({
+        //    presets: ['@babel/env']
+        //}))
         .pipe(uglify())
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(rename({ suffix: '.min' }))

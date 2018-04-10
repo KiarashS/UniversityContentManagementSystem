@@ -1,4 +1,5 @@
-﻿using ContentManagement.DataLayer.Context;
+﻿using CacheManager.Core;
+using ContentManagement.DataLayer.Context;
 using ContentManagement.Infrastructure;
 using ContentManagement.Infrastructure.Seo;
 using ContentManagement.Services;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -89,6 +91,17 @@ namespace ContentManagement
             };
 
             app.UseRequestLocalization(requestLocalizationOptions);
+        }
+
+        public static void AddInMemoryCacheServiceProvider(this IServiceCollection services)
+        {
+            services.AddSingleton(typeof(ICacheManager<>), typeof(BaseCacheManager<>));
+            services.AddSingleton(typeof(ICacheManagerConfiguration),
+                new CacheManager.Core.ConfigurationBuilder()
+                    .WithJsonSerializer()
+                    .WithMicrosoftMemoryCacheHandle()
+                    .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10))
+                    .Build());
         }
     }
 }

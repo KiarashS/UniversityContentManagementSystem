@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Logging;
 using Boilerplate.AspNetCore.Filters;
+using EFSecondLevelCache.Core;
 
 namespace ContentManagement
 {
@@ -114,12 +115,6 @@ namespace ContentManagement
             .AddDataAnnotationsLocalization()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddMiniProfiler(options =>
-            {
-                options.ResultsAuthorize = request => Environment.IsDevelopment();
-                options.ResultsListAuthorize = request => Environment.IsDevelopment();
-            }).AddEntityFramework();
-
             services.AddWebMarkupMin(options =>
             {
                 options.AllowMinificationInDevelopmentEnvironment = true;
@@ -145,6 +140,9 @@ namespace ContentManagement
             services.AddProtectionProviderService();
             services.AddRijndaelProviderService();
             services.AddCloudscribePagination();
+
+            services.AddEFSecondLevelCache();
+            services.AddInMemoryCacheServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -166,8 +164,6 @@ namespace ContentManagement
                 app.UseStatusCodePagesWithReExecute("/error/index/{0}");
             }
             
-            app.UseMiniProfiler();
-
             app.UseExceptional();
 
             app.UseLocalization();
@@ -181,7 +177,9 @@ namespace ContentManagement
                 dbInitializer.Initialize();
                 dbInitializer.SeedData();
             }
-            
+
+            app.UseEFSecondLevelCache();
+
             app.UseStaticFiles(new StaticFileOptions()
             {
                 OnPrepareResponse = (context) =>

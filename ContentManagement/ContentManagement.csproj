@@ -18,10 +18,9 @@
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
     <PackageReference Include="BundlerMinifier.Core" Version="2.6.362" />
     <PackageReference Include="Humanizer.Core" Version="2.2.0" />
+    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-preview1-final" />
-    <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.0.0-beta.41" />
-    <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.0.0-beta.41" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
@@ -29,10 +28,15 @@
     <PackageReference Include="R4Mvc" Version="1.0.0-alpha1-00260" />
     <PackageReference Include="R4Mvc.Tools" Version="1.0.0-alpha1-00260" />
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.12" />
+    <PackageReference Include="TagHelperPack" Version="0.1.0-ci-30" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.0" />
     <PackageReference Include="DNTCaptcha.Core" Version="1.4.3" />
     <PackageReference Include="DNTPersianUtils.Core" Version="2.3.0" />
+    <PackageReference Include="CacheManager.Core" Version="1.1.2" />
+    <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
+    <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
+    <PackageReference Include="EFSecondLevelCache.Core" Version="1.5.0" />
   </ItemGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

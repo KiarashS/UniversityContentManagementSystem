@@ -3,8 +3,8 @@
   "name": "ContentManagement",
   "private": true,
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.44",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
@@ -17,7 +17,7 @@
     "pump": "^3.0.0",
     "yarn": "^1.5.1"
   },
-  "description": "Enterprise Content Management System",
+  "description": "An Enterprise Content Management System",
   "main": "index.js",
   "author": "Kiarash Soleimanzadeh",
   "homepage": "http://www.kiarash.pro",
