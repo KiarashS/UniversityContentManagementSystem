@@ -9,7 +9,7 @@ var del = require("del"),
     rename = require('gulp-rename'),
     gutil = require('gulp-util'),
     pump = require('pump'),
-    babel = require('gulp-babel');
+    minify = require('gulp-minify');
 
 
 var filesPath = {
@@ -150,9 +150,15 @@ gulp.task("commonjs:min", function () {
         //.pipe(babel({
         //    presets: ['@babel/env']
         //}))
-        .pipe(uglify())
+        //.pipe(uglify())
+        .pipe(minify({
+            ext: {
+                min: '.min.js'
+            },
+            noSource: true
+        }))
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-        .pipe(rename({ suffix: '.min' }))
+        //.pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(filesPath.jsOutput));
 });
 
@@ -163,8 +169,12 @@ gulp.task("rtljs:min", function () {
     return gulp.src(filesPath.rtlJs)
         .pipe(concat("rtl.js"))
         //.pipe(gulp.dest(filesPath.jsOutput))
-        .pipe(uglify())
-        .pipe(rename({ suffix: '.min' }))
+        .pipe(minify({
+            ext: {
+                min: '.min.js'
+            },
+            noSource: true
+        }))
         .pipe(gulp.dest(filesPath.jsOutput));
 });
 
@@ -175,8 +185,12 @@ gulp.task("ltrjs:min", function () {
     return gulp.src(filesPath.ltrJs)
         .pipe(concat("ltr.js"))
         //.pipe(gulp.dest(filesPath.jsOutput))
-        .pipe(uglify())
-        .pipe(rename({ suffix: '.min' }))
+        .pipe(minify({
+            ext: {
+                min: '.min.js'
+            },
+            noSource: true
+        }))
         .pipe(gulp.dest(filesPath.jsOutput));
 });
 

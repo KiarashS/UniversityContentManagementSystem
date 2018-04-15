@@ -69,8 +69,8 @@ namespace ContentManagement.Services
                             DisplayName = siteSettings.AdminUserSeed.DisplayName,
                             Email = siteSettings.AdminUserSeed.Email,
                             IsActive = true,
-                            LastLoggedIn = null,
-                            LastLoggedIp = null,
+                            LastLogIn = null,
+                            LastIp = null,
                             Password = _securityService.GetSha256Hash(siteSettings.AdminUserSeed.Password),
                             SerialNumber = Guid.NewGuid().ToString("N")
                         };
@@ -87,6 +87,22 @@ namespace ContentManagement.Services
                         {
                             context.Add(new UserRole { Role = userRole, User = adminUser });
                         }
+                        context.SaveChanges();
+                    }
+
+                    // Add Main Portal
+                    if (!context.Set<Portal>().Any())
+                    {
+                        var mainPortal = new Portal
+                        {
+                            PortalKey = null,
+                            TitleFA = siteSettings.MainPortal.BaseTitleFa,
+                            DescriptionFA = siteSettings.MainPortal.BaseDescriptionFa,
+                            TitleEn = siteSettings.MainPortal.BaseTitleEn,
+                            DescriptionEn = siteSettings.MainPortal.BaseDescriptionEn
+                        };
+
+                        context.Add(mainPortal);
                         context.SaveChanges();
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Common.WebToolkit;
+using ContentManagement.Entities;
 using ContentManagement.Infrastructure.Seo;
 using ContentManagement.ViewModels.Settings;
 using Microsoft.AspNetCore.Http;
@@ -22,10 +23,16 @@ namespace ContentManagement.Infrastructure.Seo
             _siteSettings = siteSettings;
             _requestService = requestService;
 
-            BaseLinkCanonical = _siteSettings.Value.BaseLinkCanonical;
-            BaseTitle = _siteSettings.Value.BaseTitle;
-            MetaDescription = _siteSettings.Value.BaseDescription;
+            BaseLinkCanonical = _siteSettings.Value.MainPortal.BaseLinkCanonical;
+            BaseTitle = _siteSettings.Value.MainPortal.BaseTitleFa;
+            MetaDescription = _siteSettings.Value.MainPortal.BaseDescriptionFa;
             MetaContentLanguage = _requestService.CurrentLanguage().Language.ToString().ToLowerInvariant();
+
+            if (_requestService.CurrentLanguage().Language == Language.EN)
+            {
+                BaseTitle = _siteSettings.Value.MainPortal.BaseTitleEn;
+                MetaDescription = _siteSettings.Value.MainPortal.BaseDescriptionEn;
+            }
         }
 
         public string BaseLinkCanonical { get; set; }

@@ -25,7 +25,7 @@ namespace ContentManagement.Services
             _securityService.CheckArgumentIsNull(nameof(_securityService));
         }
 
-        public Task<User> FindUserAsync(int userId)
+        public Task<User> FindUserAsync(long userId)
         {
             return _users.FindAsync(userId);
         }
@@ -36,26 +36,26 @@ namespace ContentManagement.Services
             return _users.FirstOrDefaultAsync(x => x.Username == username && x.Password == passwordHash);
         }
 
-        public async Task<string> GetSerialNumberAsync(int userId)
+        public async Task<string> GetSerialNumberAsync(long userId)
         {
             var user = await FindUserAsync(userId).ConfigureAwait(false);
             return user.SerialNumber;
         }
 
-        public async Task UpdateUserLastActivityDateAsync(int userId)
+        public async Task UpdateUserLastActivityDateAsync(long userId)
         {
             var user = await FindUserAsync(userId).ConfigureAwait(false);
-            if (user.LastLoggedIn != null)
+            if (user.LastLogIn != null)
             {
                 var updateLastActivityDate = TimeSpan.FromMinutes(2);
                 var currentUtc = DateTimeOffset.UtcNow;
-                var timeElapsed = currentUtc.Subtract(user.LastLoggedIn.Value);
+                var timeElapsed = currentUtc.Subtract(user.LastLogIn.Value);
                 if (timeElapsed < updateLastActivityDate)
                 {
                     return;
                 }
             }
-            user.LastLoggedIn = DateTimeOffset.UtcNow;
+            user.LastLogIn = DateTimeOffset.UtcNow;
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
     }

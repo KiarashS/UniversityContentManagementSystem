@@ -10,16 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Navbar.cs" />
-    <Compile Remove="Portal.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0-preview1-final" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0-preview1-final" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-preview2-final" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-preview1-26216-02" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0-preview2-26406-04" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Common.WebToolkit;
+using ContentManagement.Entities;
 using ContentManagement.ViewModels.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;

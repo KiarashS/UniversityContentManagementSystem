@@ -16,7 +16,7 @@ namespace ContentManagement.DataLayer.Mappings
             builder.Property(e => e.Email).IsRequired();
             builder.HasIndex(e => e.Email).IsUnique();
             builder.Property(e => e.Password).IsRequired();
-            builder.Property(e => e.SerialNumber).HasMaxLength(450);
+            //builder.Property(e => e.SerialNumber).HasMaxLength(450);
         }
     }
 }

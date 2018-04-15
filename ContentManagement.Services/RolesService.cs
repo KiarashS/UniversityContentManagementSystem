@@ -24,7 +24,7 @@ namespace ContentManagement.Services
             _users = _uow.Set<User>();
         }
 
-        public Task<List<Role>> FindUserRolesAsync(int userId)
+        public Task<List<Role>> FindUserRolesAsync(long userId)
         {
             var userRolesQuery = from role in _roles
                                  from userRoles in role.UserRoles
@@ -34,7 +34,7 @@ namespace ContentManagement.Services
             return userRolesQuery.OrderBy(x => x.Name).ToListAsync();
         }
 
-        public async Task<bool> IsUserInRole(int userId, string roleName)
+        public async Task<bool> IsUserInRole(long userId, string roleName)
         {
             var userRolesQuery = from role in _roles
                                  where role.Name == roleName

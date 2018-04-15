@@ -9,9 +9,9 @@ namespace ContentManagement.ViewModels.Settings
         public Logging Logging { get; set; }
         public string DomainName { get; set; }
         public string[] SubDomainsBanList { get; set; }
-        public string BaseLinkCanonical { get; set; }
-        public string BaseTitle { get; set; }
-        public string BaseDescription { get; set; }
+        public int PageSize { get; set; }
+        public int SlideSize { get; set; }
+        public MainPortal MainPortal { get; set; }
         public Localization Localization { get; set; }
         public Smtp Smtp { get; set; }
         public Connectionstrings ConnectionStrings { get; set; }

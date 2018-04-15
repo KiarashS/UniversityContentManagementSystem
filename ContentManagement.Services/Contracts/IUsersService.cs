@@ -8,9 +8,9 @@ namespace ContentManagement.Services.Contracts
 {
     public interface IUsersService
     {
-        Task<string> GetSerialNumberAsync(int userId);
+        Task<string> GetSerialNumberAsync(long userId);
         Task<User> FindUserAsync(string username, string password);
-        Task<User> FindUserAsync(int userId);
-        Task UpdateUserLastActivityDateAsync(int userId);
+        Task<User> FindUserAsync(long userId);
+        Task UpdateUserLastActivityDateAsync(long userId);
     }
 }

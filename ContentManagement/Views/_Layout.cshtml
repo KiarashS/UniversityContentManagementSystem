@@ -31,6 +31,15 @@
             <span>&copy; @DateTime.Now.Year - ContentManagement</span>
         </div>
     </footer>
+
+    <span class="d-none" id="js-global-info"
+          data-image-upload-path="/redactorupload/imageupload"
+          data-js-error-path="/error/logjavascripterror"
+          data-ratings-path="/ratings/saveratings"
+          data-pdf-export-path="/topdf"
+          data-redactor-path="/Content/redactor"
+          data-file-upload-path=""></span>
+
     <script src="~/js/common.min.js" asp-append-version="true" async></script>
     @RenderSection("scripts", required: false)
 </body>
