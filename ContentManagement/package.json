@@ -28,6 +28,7 @@
     "jquery-validation": "^1.17.0",
     "jquery-validation-unobtrusive": "^3.2.9",
     "popper.js": "^1.14.3",
+    "startbootstrap-sb-admin": "^4.0.0",
     "tabler-ui": "^0.0.31"
   }
 }

@@ -74,6 +74,7 @@
   <ItemGroup>
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="Areas\Manage\Views\Shared\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\rtl\" />
@@ -88,6 +89,18 @@
   <ItemGroup>
     <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Update="Areas\Manage\Views\_Layout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>

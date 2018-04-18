@@ -19,16 +19,20 @@ var filesPath = {
         "assets/css/common-styles.css"
     ],
     rtlCss: [
-        "assets/css/transform/rtl/*.css",
+        //"assets/css/transform/rtl/*.css",
+        "assets/css/transform/rtl/bootstrap-rtl.css",
+        "assets/css/transform/rtl/sb-admin-rtl.css",
         "assets/css/rtl-styles.css"
     ],
     ltrCss: [
-        "assets/css/transform/ltr/*.css",
+        //"assets/css/transform/ltr/*.css",
+        "assets/css/transform/ltr/bootstrap.css",
+        "assets/css/transform/ltr/sb-admin.css",
         "assets/css/ltr-styles.css"
     ],
     transformCss: [
-        "node_modules/tabler-ui/dist/assets/css/dashboard.css",
-        //"node_modules/froala-design-blocks/dist/css/froala_blocks.css"
+        "node_modules/bootstrap/dist/css/bootstrap.css",
+        "node_modules/startbootstrap-sb-admin/css/sb-admin.css"
     ],
     cssOutput: "wwwroot/css/",
     transformCssOutput: "assets/css/transform/",
@@ -39,12 +43,8 @@ var filesPath = {
         "node_modules/jquery-validation/dist/jquery.validate.min.js",
         "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
         "node_modules/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js",
-        //"node_modules/popper.js/dist/umd/popper.js",
-        //"node_modules/tabler-ui/dist/assets/js/vendors/bootstrap.bundle.min.js",
-        //"node_modules/bootstrap/dist/js/bootstrap.min.js",
         "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-        "node_modules/tabler-ui/dist/assets/js/core.js",
-        //"node_modules/tabler-ui/dist/assets/js/dashboard.js"
+        "node_modules/startbootstrap-sb-admin/js/sb-admin.js"
     ],
     rtlJs: [],
     ltrJs: [],

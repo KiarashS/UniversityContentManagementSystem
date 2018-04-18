@@ -4,11 +4,18 @@ using ContentManagement.Infrastructure;
 using ContentManagement.Infrastructure.Seo;
 using ContentManagement.Services;
 using ContentManagement.Services.Contracts;
+using ContentManagement.ViewModels.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -48,10 +55,10 @@ namespace ContentManagement
             .AddCookie(options =>
             {
                 options.SlidingExpiration = false;
-                options.LoginPath = "/api/account/login";
-                options.LogoutPath = "/api/account/logout";
-                //options.AccessDeniedPath = new PathString("/Home/Forbidden/");
-                options.Cookie.Name = ".my.app1.cookie";
+                options.LoginPath = "/login/";
+                options.LogoutPath = "/login/logout/";
+                //options.AccessDeniedPath = new PathString("/error/index/403/");
+                options.Cookie.Name = ".user.cms.cookie";
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
@@ -102,6 +109,31 @@ namespace ContentManagement
                     .WithMicrosoftMemoryCacheHandle()
                     .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10))
                     .Build());
+        }
+
+        public static void AddCustomDataProtection(this IServiceCollection services, SiteSettings siteSettings)
+        {
+            services.AddScoped<IXmlRepository, DataProtectionKeyService>();
+            services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(serviceProvider =>
+            {
+                return new ConfigureOptions<KeyManagementOptions>(options =>
+                {
+                    var scopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
+                    using (var scope = scopeFactory.CreateScope())
+                    {
+                        options.XmlRepository = scope.ServiceProvider.GetService<IXmlRepository>();
+                    }
+                });
+            });
+            services
+                .AddDataProtection()
+                .SetDefaultKeyLifetime(siteSettings.CookieOptions.ExpireTimeSpan)
+                .SetApplicationName(siteSettings.CookieOptions.CookieName)
+                .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration
+                {
+                    EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+                    ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+                });
         }
     }
 }

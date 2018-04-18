@@ -16,9 +16,14 @@ using R4Mvc;
 [GeneratedCode("R4Mvc", "1.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    static readonly R4Mvc.ManageAreaClass s_Manage = new R4Mvc.ManageAreaClass();
+    public static R4Mvc.ManageAreaClass Manage => s_Manage;
     public static readonly ContentManagement.Controllers.ByController By = new ContentManagement.Controllers.R4MVC_ByController();
     public static readonly ContentManagement.Controllers.ErrorController Error = new ContentManagement.Controllers.R4MVC_ErrorController();
     public static readonly ContentManagement.Controllers.HomeController Home = new ContentManagement.Controllers.R4MVC_HomeController();
+    public static readonly ContentManagement.Controllers.LanguageController Language = new ContentManagement.Controllers.R4MVC_LanguageController();
+    public static readonly ContentManagement.Controllers.LoginController Login = new ContentManagement.Controllers.R4MVC_LoginController();
+    public static readonly R4Mvc.SharedController Shared = new R4Mvc.SharedController();
 }
 
 namespace R4Mvc
@@ -32,6 +37,38 @@ namespace R4Mvc
 
         public static Dummy Instance = new Dummy();
     }
+
+    [GeneratedCode("R4Mvc", "1.0"), DebuggerNonUserCode]
+    public partial class SharedController
+    {
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames => s_ViewNames;
+            public class _ViewNamesClass
+            {
+                public readonly string AccessDenied = "AccessDenied";
+                public readonly string Error = "Error";
+                public readonly string NotFound = "NotFound";
+                public readonly string _CustomValidationSummary = "_CustomValidationSummary";
+            }
+
+            public readonly string AccessDenied = "~/Views/Shared/AccessDenied.cshtml";
+            public readonly string Error = "~/Views/Shared/Error.cshtml";
+            public readonly string NotFound = "~/Views/Shared/NotFound.cshtml";
+            public readonly string _CustomValidationSummary = "~/Views/Shared/_CustomValidationSummary.cshtml";
+        }
+
+        static readonly ViewsClass s_Views = new ViewsClass();
+        public ViewsClass Views => s_Views;
+    }
+
+    [GeneratedCode("R4Mvc", "1.0"), DebuggerNonUserCode]
+    public partial class ManageAreaClass
+    {
+        public readonly string Name = "Manage";
+        public readonly ContentManagement.Areas.Manage.Controllers.HomeController Home = new ContentManagement.Areas.Manage.Controllers.R4MVC_HomeController();
+    }
 }
 
 [GeneratedCode("R4Mvc", "1.0"), DebuggerNonUserCode]
@@ -39,15 +76,35 @@ public static partial class Links
 {
     public static partial class css
     {
-        public static string abovethefold_css = "~/css/abovethefold.css";
-        public static string all_css = "~/css/all.css";
+        public static string common_min_css = "~/css/common.min.css";
+        public static string ltr_min_css = "~/css/ltr.min.css";
+        public static string rtl_min_css = "~/css/rtl.min.css";
+    }
+
+    public static partial class fonts
+    {
+        public static string fontawesome_webfont_eot = "~/fonts/fontawesome-webfont.eot";
+        public static string fontawesome_webfont_svg = "~/fonts/fontawesome-webfont.svg";
+        public static string fontawesome_webfont_ttf = "~/fonts/fontawesome-webfont.ttf";
+        public static string fontawesome_webfont_woff = "~/fonts/fontawesome-webfont.woff";
+        public static string fontawesome_webfont_woff2 = "~/fonts/fontawesome-webfont.woff2";
+        public static string FontAwesome_otf = "~/fonts/FontAwesome.otf";
     }
 
     public static partial class js
     {
-        public static string all_js = "~/js/all.js";
+        public static string common_min_js = "~/js/common.min.js";
     }
 
+    public static partial class statics
+    {
+        public static string login_css = "~/statics/login.css";
+        public static string login_js = "~/statics/login.js";
+        public static string logo_png = "~/statics/logo.png";
+        public static string NoScript_html = "~/statics/NoScript.html";
+    }
+
+    public static string favicon_ico = "~/favicon.ico";
     public static string favicon_png = "~/favicon.png";
 }
 

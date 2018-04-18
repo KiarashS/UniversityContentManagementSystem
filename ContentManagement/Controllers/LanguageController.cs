@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContentManagement.Controllers
 {
-    public class LanguageController : Controller
+    public partial class LanguageController : Controller
     {
-        public IActionResult Fa()
+        public virtual IActionResult Fa()
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -22,7 +22,7 @@ namespace ContentManagement.Controllers
             return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
         }
 
-        public IActionResult En()
+        public virtual IActionResult En()
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,

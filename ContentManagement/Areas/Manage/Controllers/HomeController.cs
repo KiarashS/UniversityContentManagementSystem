@@ -1,15 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ContentManagement.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    public class HomeController : Controller
+    [Authorize(Policy = CustomRoles.Admin)]
+    public partial class HomeController : Controller
     {
-        public IActionResult Index()
+        public virtual IActionResult Index()
         {
             return View();
         }

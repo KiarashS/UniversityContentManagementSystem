@@ -36,10 +36,24 @@ namespace ContentManagement.Services
             return _users.FirstOrDefaultAsync(x => x.Username == username && x.Password == passwordHash);
         }
 
+        public Task<User> FindUserByEmailAsync(string email, string password)
+        {
+            var passwordHash = _securityService.GetSha256Hash(password);
+            return _users.FirstOrDefaultAsync(x => x.Email == email && x.Password == passwordHash);
+        }
+
         public async Task<string> GetSerialNumberAsync(long userId)
         {
             var user = await FindUserAsync(userId).ConfigureAwait(false);
             return user.SerialNumber;
+        }
+
+        public async Task UpdateUserIpAsync(long userId, string ipAddress)
+        {
+            var user = await FindUserAsync(userId).ConfigureAwait(false);
+
+            user.LastIp = ipAddress;
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateUserLastActivityDateAsync(long userId)

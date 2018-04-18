@@ -19,6 +19,24 @@ namespace ContentManagement.DataLayer.Migrations
                 .HasAnnotation("ProductVersion", "2.1.0-preview2-30571")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ContentManagement.Entities.AppDataProtectionKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FriendlyName");
+
+                    b.Property<string>("XmlData");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FriendlyName")
+                        .IsUnique()
+                        .HasFilter("[FriendlyName] IS NOT NULL");
+
+                    b.ToTable("AppDataProtectionKeys");
+                });
+
             modelBuilder.Entity("ContentManagement.Entities.Content", b =>
                 {
                     b.Property<long>("Id")
@@ -246,7 +264,8 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<string>("SerialNumber");
+                    b.Property<string>("SerialNumber")
+                        .HasMaxLength(450);
 
                     b.Property<string>("Username")
                         .IsRequired()

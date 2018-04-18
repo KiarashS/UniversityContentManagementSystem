@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180414133703_V2018_04_14_1806")]
-    partial class V2018_04_14_1806
+    [Migration("20180416065543_V2018_04_16_1125")]
+    partial class V2018_04_16_1125
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,24 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.0-preview2-30571")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ContentManagement.Entities.AppDataProtectionKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FriendlyName");
+
+                    b.Property<string>("XmlData");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FriendlyName")
+                        .IsUnique()
+                        .HasFilter("[FriendlyName] IS NOT NULL");
+
+                    b.ToTable("AppDataProtectionKeys");
+                });
 
             modelBuilder.Entity("ContentManagement.Entities.Content", b =>
                 {
@@ -247,7 +265,8 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<string>("SerialNumber");
+                    b.Property<string>("SerialNumber")
+                        .HasMaxLength(450);
 
                     b.Property<string>("Username")
                         .IsRequired()

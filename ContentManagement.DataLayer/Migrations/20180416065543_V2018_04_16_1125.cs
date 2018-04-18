@@ -5,10 +5,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ContentManagement.DataLayer.Migrations
 {
-    public partial class V2018_04_14_1806 : Migration
+    public partial class V2018_04_16_1125 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AppDataProtectionKeys",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FriendlyName = table.Column<string>(nullable: true),
+                    XmlData = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppDataProtectionKeys", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Portal",
                 columns: table => new
@@ -56,7 +70,7 @@ namespace ContentManagement.DataLayer.Migrations
                     IsActive = table.Column<bool>(nullable: false),
                     LastLogIn = table.Column<DateTimeOffset>(nullable: true),
                     LastIp = table.Column<string>(nullable: true),
-                    SerialNumber = table.Column<string>(nullable: true)
+                    SerialNumber = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,6 +238,13 @@ namespace ContentManagement.DataLayer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppDataProtectionKeys_FriendlyName",
+                table: "AppDataProtectionKeys",
+                column: "FriendlyName",
+                unique: true,
+                filter: "[FriendlyName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Content_PortalId",
                 table: "Content",
                 column: "PortalId");
@@ -291,6 +312,9 @@ namespace ContentManagement.DataLayer.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AppDataProtectionKeys");
+
             migrationBuilder.DropTable(
                 name: "Content");
 
