@@ -107,6 +107,9 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50);
+
                     b.Property<int>("Language");
 
                     b.Property<long?>("ParentId");
@@ -171,7 +174,7 @@ namespace ContentManagement.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(500);
 
-                    b.Property<string>("DescriptionFA")
+                    b.Property<string>("DescriptionFa")
                         .IsRequired()
                         .HasMaxLength(500);
 
@@ -186,7 +189,7 @@ namespace ContentManagement.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.Property<string>("TitleFA")
+                    b.Property<string>("TitleFa")
                         .IsRequired()
                         .HasMaxLength(200);
 

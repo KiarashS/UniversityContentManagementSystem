@@ -12,6 +12,8 @@ using ContentManagement.Infrastructure;
 using ContentManagement.Common.WebToolkit;
 using ContentManagement.Infrastructure.Seo;
 using Boilerplate.AspNetCore.Filters;
+using Microsoft.AspNetCore.Authorization;
+using ContentManagement.Services;
 
 namespace ContentManagement.Controllers
 {
@@ -40,6 +42,7 @@ namespace ContentManagement.Controllers
             // The view being returned is calculated based on the name of the
             // controller (Home) and the name of the action method (Index).
             // So in this case, the view returned is /Views/Home/Index.cshtml.
+            return Redirect("/manage/");
             var userr = _userService.FindUserAsync(1).Result;
             var lang = _requestService.CurrentLanguage();
             var subDomain = _requestService.CurrentSubDomain();
@@ -74,6 +77,8 @@ namespace ContentManagement.Controllers
 
         //[Authorize]
         //[BasicAuthentication("kiarash", "admin@110", BasicRealm = "manage")]
+        [Authorize(Policy = CustomRoles.Admin)]
         public async virtual Task Exceptions() => await ExceptionalMiddleware.HandleRequestAsync(HttpContext);
+
     }
 }

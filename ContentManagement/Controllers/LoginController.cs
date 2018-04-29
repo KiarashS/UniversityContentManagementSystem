@@ -33,20 +33,22 @@ namespace ContentManagement.Controllers
             _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
         }
 
-        public virtual IActionResult Index()
+        public virtual IActionResult Index(string returnUrl = null)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction(MVC.Manage.Home.ActionNames.Index, MVC.Manage.Home.Name, new { area = MVC.Manage.Name });
             }
 
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost()]
-        public virtual async Task<IActionResult> Index(LoginModel loginUser)
+        [HttpPost]
+        public virtual async Task<IActionResult> Index(LoginModel loginUser, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (loginUser == null)
             {
                 ModelState.AddModelError("", "لطفاً پست الکترونیک و کلمه عبور را وارد نمائید.");
@@ -95,6 +97,11 @@ namespace ContentManagement.Controllers
             var userIpAddress = HttpContext.Connection.RemoteIpAddress;
             await _usersService.UpdateUserLastActivityDateAsync(user.Id).ConfigureAwait(false);
             await _usersService.UpdateUserIpAsync(user.Id, userIpAddress.ToString());
+
+            if(Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(url: returnUrl);
+            }
 
             return RedirectToAction(MVC.Manage.Home.ActionNames.Index, MVC.Manage.Home.Name, new { area = MVC.Manage.Name });
         }

@@ -1,7 +1,9 @@
 ﻿using ContentManagement.Infrastructure.Seo;
+using ContentManagement.ViewModels.Settings;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,12 @@ namespace ContentManagement.Infrastructure
 
         [RazorInject]
         public SeoService Seo { get; private set; }
-        //[RazorInject]        //public IHtmlLocalizerFactory MyHtmlLocalizerFactory { get; set; }
+
+        [RazorInject]
+        public IOptionsSnapshot<SiteSettings> SiteSettings { get; set; }
+
+        //[RazorInject]
+        //public IHtmlLocalizerFactory MyHtmlLocalizerFactory { get; set; }
 
         //public IHtmlLocalizer MySharedLocalizer => MyHtmlLocalizerFactory.Create(
         //            baseName: "SharedResource" /*مشخصات*/,

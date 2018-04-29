@@ -10,8 +10,8 @@ namespace ContentManagement.DataLayer.Mappings
         {
             builder.Property(x => x.PortalKey).HasMaxLength(400);
             builder.HasIndex(x => x.PortalKey).IsUnique();
-            builder.Property(x => x.TitleFA).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.DescriptionFA).HasMaxLength(500).IsRequired();
+            builder.Property(x => x.TitleFa).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.DescriptionFa).HasMaxLength(500).IsRequired();
             builder.Property(x => x.TitleEn).HasMaxLength(200).IsRequired();
             builder.Property(x => x.DescriptionEn).HasMaxLength(500).IsRequired();
         }

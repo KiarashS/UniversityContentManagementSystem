@@ -48,6 +48,13 @@ namespace ContentManagement.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("R4Mvc", "1.0"), DebuggerNonUserCode]
+        public virtual IActionResult Index()
+        {
+            return new R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+
         [GeneratedCode("R4Mvc", "1.0"), DebuggerNonUserCode]
         public LoginController Actions => MVC.Login;
         [GeneratedCode("R4Mvc", "1.0")]
@@ -101,23 +108,25 @@ namespace ContentManagement.Controllers
         }
 
         [NonAction]
-        partial void IndexOverride(R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult callInfo);
+        partial void IndexOverride(R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult callInfo, string returnUrl);
         [NonAction]
-        public override Microsoft.AspNetCore.Mvc.IActionResult Index()
+        public override Microsoft.AspNetCore.Mvc.IActionResult Index(string returnUrl)
         {
             var callInfo = new R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
             return callInfo;
         }
 
         [NonAction]
-        partial void IndexOverride(R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult callInfo, ContentManagement.Controllers.LoginModel loginUser);
+        partial void IndexOverride(R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult callInfo, ContentManagement.Controllers.LoginModel loginUser, string returnUrl);
         [NonAction]
-        public override System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult> Index(ContentManagement.Controllers.LoginModel loginUser)
+        public override System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult> Index(ContentManagement.Controllers.LoginModel loginUser, string returnUrl)
         {
             var callInfo = new R4Mvc_Microsoft_AspNetCore_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginUser", loginUser);
-            IndexOverride(callInfo, loginUser);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, loginUser, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as Microsoft.AspNetCore.Mvc.IActionResult);
         }
 

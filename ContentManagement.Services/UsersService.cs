@@ -72,5 +72,14 @@ namespace ContentManagement.Services
             user.LastLogIn = DateTimeOffset.UtcNow;
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
+
+        public async Task UpdateUserPasswordAsync(long userId, string password)
+        {
+            var user = await FindUserAsync(userId).ConfigureAwait(false);
+
+            user.Password = password;
+            user.SerialNumber = Guid.NewGuid().ToString("N");
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+        }
     }
 }

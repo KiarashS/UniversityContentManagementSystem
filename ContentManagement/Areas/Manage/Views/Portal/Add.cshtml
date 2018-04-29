@@ -1,0 +1,67 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.PortalViewModel
+@{
+    ViewData["Title"] = "ایجاد پرتال جدید";
+}
+
+
+<h3>ایجاد پرتال جدید</h3>
+
+<div class="container">
+    <div class="alert alert-info">
+        <strong>توجه</strong> عنوان و توضیحات پرتال نقش بسزایی در بهینه سازی پرتال برای موتورهای جستجو (SEO) دارند.
+    </div>
+    <form method="post" autocomplete="off" class="needs-validation" novalidate>
+        @{ await Html.RenderPartialAsync(MVC.Shared.Views._CustomValidationSummary); }
+
+        @if (ViewBag.IsOk != null && (bool)ViewBag.IsOk == true)
+        {
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                <div>عملیات با موفقیت انجام شد.</div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <label asp-for="PortalKey" class="col-sm-2 form-control-label">نام پرتال</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="PortalKey" placeholder="نام پرتال (بدون فاصله)">
+                <span asp-validation-for="PortalKey"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="TitleFa" class="col-sm-2 form-control-label">عنوان فارسی پرتال</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="TitleFa" placeholder="عنوان فارسی پرتال">
+                <span asp-validation-for="TitleFa"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="DescriptionFa" class="col-sm-2 form-control-label">توضیحات فارسی پرتال</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" asp-for="DescriptionFa" rows="3" placeholder="توضیحات فارسی پرتال"></textarea>
+                <span asp-validation-for="DescriptionFa"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="TitleEn" class="col-sm-2 form-control-label">عنوان انگلیسی پرتال</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="TitleEn" placeholder="عنوان انگلیسی پرتال">
+                <span asp-validation-for="TitleEn"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="DescriptionEn" class="col-sm-2 form-control-label">توضیحات انگلیسی پرتال</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" asp-for="DescriptionEn" rows="3" placeholder="توضیحات انگلیسی پرتال"></textarea>
+                <span asp-validation-for="DescriptionEn"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label"></label>
+            <div class="col-sm-10">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/portal/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>

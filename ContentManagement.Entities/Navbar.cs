@@ -18,6 +18,7 @@ namespace ContentManagement.Entities
         public string        Text                          { get; set; }
         public string        Url                           { get; set; }
         public int?          Priority                      { get; set; }
+        public string        Icon                          { get; set; }
         public virtual       Navbar Parent                 { get; set; }
         public virtual       ICollection<Navbar> Childrens { get; set; }
         public virtual       Portal Portal                 { get; set; }

@@ -9,8 +9,8 @@ using Microsoft.AspNetCore;
 using WebMarkupMin.AspNetCore2;
 using Microsoft.AspNetCore.Mvc;
 using ContentManagement.ViewModels.Settings;
-using ContentManagement.Common.WebToolkit;
-using ContentManagement.Common.GuardToolkit;
+//using ContentManagement.Common.WebToolkit;
+//using ContentManagement.Common.GuardToolkit;
 using ContentManagement.Common.PersianToolkit;
 using ContentManagement.Services.Contracts;
 using ContentManagement.DataLayer.Context;
@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Logging;
 using Boilerplate.AspNetCore.Filters;
 using EFSecondLevelCache.Core;
+using DNTCommon.Web.Core;
+using Ben.Diagnostics;
+using DataTables.AspNet.AspNetCore;
 
 namespace ContentManagement
 {
@@ -58,6 +61,9 @@ namespace ContentManagement
             //    settings.Store.ApplicationName = "CMS";
             //    //settings.UseExceptionalPageOnThrow = Environment.IsDevelopment();
             //});
+
+            services.AddDNTCommonWeb();
+            services.RegisterDataTables();
 
             services.Configure<SiteSettings>(options => Configuration.Bind(options));
             
@@ -109,7 +115,7 @@ namespace ContentManagement
             })
             .AddJsonOptions(jsonOptions =>
             {
-                jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                //jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization()
@@ -138,7 +144,7 @@ namespace ContentManagement
             //services.AddDNTCaptcha();
             services.AddMvcActionsDiscoveryService();
             services.AddProtectionProviderService();
-            services.AddRijndaelProviderService();
+            ContentManagement.Common.GuardToolkit.RijndaelProviderServiceExtensions.AddRijndaelProviderService(services);
             services.AddCloudscribePagination();
 
             services.AddEFSecondLevelCache();
@@ -166,6 +172,8 @@ namespace ContentManagement
             
             app.UseExceptional();
 
+            app.UseBlockingDetection();
+
             app.UseLocalization();
 
             app.UseAuthentication();
@@ -177,7 +185,7 @@ namespace ContentManagement
                 dbInitializer.Initialize();
                 dbInitializer.SeedData();
             }
-
+            
             app.UseEFSecondLevelCache();
 
             app.UseStaticFiles(new StaticFileOptions()

@@ -1,36 +1,118 @@
-﻿body {
+﻿shabnam {
+    font-family: Shabnam;
+}
+
+vazir {
+    font-family: Vazir;
+}
+
+html {
+    font-family: Vazir, sans-serif;
+}
+
+body {
     direction: rtl;
+    font-family: Vazir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-
-.bs-tooltip-right, .bs-tooltip-auto[x-placement^="right"] {
-    padding: 0 0.4rem;
+.tooltip {
+    font-family: Vazir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-    .bs-tooltip-right .arrow, .bs-tooltip-auto[x-placement^="right"] .arrow {
-        right: 0;
-        width: 0.4rem;
-        height: 0.8rem;
+.popover {
+    font-family: Vazir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/*h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Shabnam;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+    font-family: Shabnam;
+}*/
+
+/*ul#side-navbar {
+    overflow-y: scroll;
+}
+
+@media (min-width: 992px) {
+    .content-wrapper {
+        margin-right: 260px;
+    }
+}
+
+@media (min-width: 992px) {
+    body.sidenav-toggled .content-wrapper {
+        margin-right: 60px;
+    }
+}
+
+body.sidenav-toggled .navbar-sidenav {
+    width: 72px;
+}
+
+body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler .nav-item,
+body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler .nav-link {
+    width: 60px !important;
+}
+
+body.sidenav-toggled .navbar-sidenav .nav-item,
+body.sidenav-toggled .navbar-sidenav .nav-link {
+    width: 60px !important;
+}*/
+
+/*bootstrap callout*/
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-right-width: .25rem;
+    border-radius: .25rem
+}
+
+    .bd-callout h4 {
+        margin-top: 0;
+        margin-bottom: .25rem
     }
 
-        .bs-tooltip-right .arrow::before, .bs-tooltip-auto[x-placement^="right"] .arrow::before {
-            left: 0;
-            border-width: 0.4rem 0 0.4rem 0.4rem;
-            border-left-color: #000;
-        }
-
-.bs-tooltip-left, .bs-tooltip-auto[x-placement^="left"] {
-    padding: 0 0.4rem;
-}
-
-    .bs-tooltip-left .arrow, .bs-tooltip-auto[x-placement^="left"] .arrow {
-        left: 0;
-        width: 0.4rem;
-        height: 0.8rem;
+    .bd-callout p:last-child {
+        margin-bottom: 0
     }
 
-        .bs-tooltip-left .arrow::before, .bs-tooltip-auto[x-placement^="left"] .arrow::before {
-            right: 0;
-            border-width: 0.4rem 0.4rem 0.4rem 0;
-            border-right-color: #000;
-        }
+    .bd-callout code {
+        border-radius: .25rem
+    }
+
+    .bd-callout + .bd-callout {
+        margin-top: -.25rem
+    }
+
+.bd-callout-info {
+    border-right-color: #5bc0de
+}
+
+    .bd-callout-info h4 {
+        color: #5bc0de
+    }
+
+.bd-callout-warning {
+    border-right-color: #f0ad4e
+}
+
+    .bd-callout-warning h4 {
+        color: #f0ad4e
+    }
+
+.bd-callout-danger {
+    border-right-color: #d9534f
+}
+
+    .bd-callout-danger h4 {
+        color: #d9534f
+    }

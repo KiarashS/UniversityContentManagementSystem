@@ -34,6 +34,8 @@ namespace ContentManagement
             services.AddScoped<IDbInitializerService, DbInitializerService>();
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<SeoService>();
+            services.AddScoped<IPortalService, PortalService>();
+            services.AddScoped<INavbarService, NavbarService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)

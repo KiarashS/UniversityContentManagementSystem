@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ContentManagement.DataLayer.Migrations
 {
-    public partial class V2018_04_16_1125 : Migration
+    public partial class V2018_04_23_1223 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,8 +30,8 @@ namespace ContentManagement.DataLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PortalKey = table.Column<string>(maxLength: 400, nullable: true),
-                    TitleFA = table.Column<string>(maxLength: 200, nullable: false),
-                    DescriptionFA = table.Column<string>(maxLength: 500, nullable: false),
+                    TitleFa = table.Column<string>(maxLength: 200, nullable: false),
+                    DescriptionFa = table.Column<string>(maxLength: 500, nullable: false),
                     LogoFilenameFa = table.Column<string>(nullable: true),
                     BulletinFa = table.Column<string>(nullable: true),
                     TitleEn = table.Column<string>(maxLength: 200, nullable: false),
@@ -142,7 +142,8 @@ namespace ContentManagement.DataLayer.Migrations
                     Language = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
-                    Priority = table.Column<int>(nullable: true)
+                    Priority = table.Column<int>(nullable: true),
+                    Icon = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {

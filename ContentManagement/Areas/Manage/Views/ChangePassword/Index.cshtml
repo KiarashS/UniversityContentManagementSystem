@@ -1,0 +1,41 @@
+﻿<h3>تغییر کلمه عبور</h3>
+@model ContentManagement.Areas.Manage.Controllers.ChangePasswordModel
+
+<div class="container">
+    <form method="post" autocomplete="off">
+        @{ await Html.RenderPartialAsync(MVC.Shared.Views._CustomValidationSummary); }
+
+        @if(ViewBag.IsOk != null && (bool)ViewBag.IsOk == true)
+        {
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">×</a>
+                <div>عملیات با موفقیت انجام شد.</div>
+            </div>
+        }
+
+        <div class="form-group row">
+            <label asp-for="OldPassword" class="col-sm-2 form-control-label">کلمه عبور فعلی</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" asp-for="OldPassword" placeholder="کلمه عبور فعلی" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="NewPassword" class="col-sm-2 form-control-label">کلمه عبور جدید</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" asp-for="NewPassword" placeholder="کلمه عبور جدید" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="NewPasswordConfirm" class="col-sm-2 form-control-label">تکرار کلمه عبور جدید</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" asp-for="NewPasswordConfirm" placeholder="تکرار کلمه عبور جدید" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label"></label>
+            <div class="col-sm-10">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+            </div>
+        </div>
+    </form>
+</div>

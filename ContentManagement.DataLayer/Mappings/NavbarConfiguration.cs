@@ -8,6 +8,8 @@ namespace ContentManagement.DataLayer.Mappings
     {
         public void Configure(EntityTypeBuilder<Navbar> builder)
         {
+            builder.Property(x => x.Icon).HasMaxLength(50);
+
             // Self Referencing Entity
             builder.HasOne(x => x.Parent)
                     .WithMany(x => x.Childrens)

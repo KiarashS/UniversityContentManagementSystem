@@ -29,7 +29,7 @@
                     <div class="card fat">
                         <div class="card-body">
                             <h4 class="card-title">ورود به سیستم</h4>
-                            <form method="POST" autocomplete="off" asp-controller="login" asp-action="index">
+                            <form method="POST" autocomplete="off" asp-controller="login" asp-action="index" asp-route-returnurl="@ViewData["ReturnUrl"]">
 
                                 <div class="form-group">
                                     <label for="email">پست الکترونیک</label>

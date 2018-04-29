@@ -15,6 +15,7 @@ namespace ContentManagement.Infrastructure
         RequestLanguage CurrentLanguage();
         bool IsLocal();
         string CurrentSubDomain();
+        string CurrentPortal();
         bool IsSubPortal();
     }
 
@@ -89,6 +90,18 @@ namespace ContentManagement.Infrastructure
             {
                 return null;
             }
+        }
+
+        public string CurrentPortal()
+        {
+            var currentSubDomain = CurrentSubDomain();
+
+            if (string.IsNullOrEmpty(currentSubDomain) || currentSubDomain == "www")
+            {
+                return null;
+            }
+
+            return currentSubDomain;
         }
 
         public bool IsLocal()

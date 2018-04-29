@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180416065543_V2018_04_16_1125")]
-    partial class V2018_04_16_1125
+    [Migration("20180423075335_V2018_04_23_1223")]
+    partial class V2018_04_23_1223
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,6 +108,9 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50);
+
                     b.Property<int>("Language");
 
                     b.Property<long?>("ParentId");
@@ -172,7 +175,7 @@ namespace ContentManagement.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(500);
 
-                    b.Property<string>("DescriptionFA")
+                    b.Property<string>("DescriptionFa")
                         .IsRequired()
                         .HasMaxLength(500);
 
@@ -187,7 +190,7 @@ namespace ContentManagement.DataLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.Property<string>("TitleFA")
+                    b.Property<string>("TitleFa")
                         .IsRequired()
                         .HasMaxLength(200);
 

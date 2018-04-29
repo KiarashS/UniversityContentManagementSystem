@@ -14,5 +14,6 @@ namespace ContentManagement.Services.Contracts
         Task<User> FindUserAsync(long userId);
         Task UpdateUserLastActivityDateAsync(long userId);
         Task UpdateUserIpAsync(long userId, string ipAddress);
+        Task UpdateUserPasswordAsync(long userId, string password);
     }
 }

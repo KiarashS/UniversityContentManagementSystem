@@ -13,10 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ben.BlockingDetector" Version="0.0.3" />
     <PackageReference Include="Boilerplate.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
     <PackageReference Include="BundlerMinifier.Core" Version="2.6.375" />
+    <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
+    <PackageReference Include="DNTCommon.Web.Core" Version="1.1.0" />
     <PackageReference Include="Humanizer.Core" Version="2.2.0" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview2-final" />
@@ -24,10 +27,10 @@
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
-    <PackageReference Include="OwaspHeaders.Core" Version="3.1.1" />
+    <PackageReference Include="OwaspHeaders.Core" Version="3.3.1" />
     <PackageReference Include="R4Mvc" Version="1.0.0-alpha1-00260" />
     <PackageReference Include="R4Mvc.Tools" Version="1.0.0-alpha1-00260" />
-    <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.12" />
+    <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.29" />
     <PackageReference Include="TagHelperPack" Version="0.1.0-ci-30" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.0" />
@@ -47,6 +50,8 @@
     <Exec Command="dotnet bundle" />
   </Target>-->
   
+   <!--<Target Name="PrecompileRazorViews" AfterTargets="Build" DependsOnTargets="MvcRazorPrecompile" />-->
+    
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.1.0-preview1-final" />
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.6.362" />
@@ -74,7 +79,6 @@
   <ItemGroup>
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="Areas\Manage\Views\Shared\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\rtl\" />

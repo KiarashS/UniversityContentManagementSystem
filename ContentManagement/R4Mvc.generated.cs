@@ -67,7 +67,9 @@ namespace R4Mvc
     public partial class ManageAreaClass
     {
         public readonly string Name = "Manage";
+        public readonly ContentManagement.Areas.Manage.Controllers.ChangePasswordController ChangePassword = new ContentManagement.Areas.Manage.Controllers.R4MVC_ChangePasswordController();
         public readonly ContentManagement.Areas.Manage.Controllers.HomeController Home = new ContentManagement.Areas.Manage.Controllers.R4MVC_HomeController();
+        public readonly ContentManagement.Areas.Manage.Controllers.PortalController Portal = new ContentManagement.Areas.Manage.Controllers.R4MVC_PortalController();
     }
 }
 
@@ -78,26 +80,62 @@ public static partial class Links
     {
         public static string common_min_css = "~/css/common.min.css";
         public static string ltr_min_css = "~/css/ltr.min.css";
+        public static string manage_min_css = "~/css/manage.min.css";
         public static string rtl_min_css = "~/css/rtl.min.css";
     }
 
     public static partial class fonts
     {
+        public static string farsifonts_min_css = "~/fonts/farsifonts.min.css";
         public static string fontawesome_webfont_eot = "~/fonts/fontawesome-webfont.eot";
         public static string fontawesome_webfont_svg = "~/fonts/fontawesome-webfont.svg";
         public static string fontawesome_webfont_ttf = "~/fonts/fontawesome-webfont.ttf";
         public static string fontawesome_webfont_woff = "~/fonts/fontawesome-webfont.woff";
         public static string fontawesome_webfont_woff2 = "~/fonts/fontawesome-webfont.woff2";
         public static string FontAwesome_otf = "~/fonts/FontAwesome.otf";
+        public static string Shabnam_Bold_eot = "~/fonts/Shabnam-Bold.eot";
+        public static string Shabnam_Bold_ttf = "~/fonts/Shabnam-Bold.ttf";
+        public static string Shabnam_Bold_woff = "~/fonts/Shabnam-Bold.woff";
+        public static string Shabnam_Bold_woff2 = "~/fonts/Shabnam-Bold.woff2";
+        public static string Shabnam_Light_eot = "~/fonts/Shabnam-Light.eot";
+        public static string Shabnam_Light_ttf = "~/fonts/Shabnam-Light.ttf";
+        public static string Shabnam_Light_woff = "~/fonts/Shabnam-Light.woff";
+        public static string Shabnam_Light_woff2 = "~/fonts/Shabnam-Light.woff2";
+        public static string Shabnam_eot = "~/fonts/Shabnam.eot";
+        public static string Shabnam_ttf = "~/fonts/Shabnam.ttf";
+        public static string Shabnam_woff = "~/fonts/Shabnam.woff";
+        public static string Shabnam_woff2 = "~/fonts/Shabnam.woff2";
+        public static string Vazir_Bold_eot = "~/fonts/Vazir-Bold.eot";
+        public static string Vazir_Bold_ttf = "~/fonts/Vazir-Bold.ttf";
+        public static string Vazir_Bold_woff = "~/fonts/Vazir-Bold.woff";
+        public static string Vazir_Bold_woff2 = "~/fonts/Vazir-Bold.woff2";
+        public static string Vazir_Light_eot = "~/fonts/Vazir-Light.eot";
+        public static string Vazir_Light_ttf = "~/fonts/Vazir-Light.ttf";
+        public static string Vazir_Light_woff = "~/fonts/Vazir-Light.woff";
+        public static string Vazir_Light_woff2 = "~/fonts/Vazir-Light.woff2";
+        public static string Vazir_Medium_eot = "~/fonts/Vazir-Medium.eot";
+        public static string Vazir_Medium_ttf = "~/fonts/Vazir-Medium.ttf";
+        public static string Vazir_Medium_woff = "~/fonts/Vazir-Medium.woff";
+        public static string Vazir_Medium_woff2 = "~/fonts/Vazir-Medium.woff2";
+        public static string Vazir_Thin_eot = "~/fonts/Vazir-Thin.eot";
+        public static string Vazir_Thin_ttf = "~/fonts/Vazir-Thin.ttf";
+        public static string Vazir_Thin_woff = "~/fonts/Vazir-Thin.woff";
+        public static string Vazir_Thin_woff2 = "~/fonts/Vazir-Thin.woff2";
+        public static string Vazir_eot = "~/fonts/Vazir.eot";
+        public static string Vazir_ttf = "~/fonts/Vazir.ttf";
+        public static string Vazir_woff = "~/fonts/Vazir.woff";
+        public static string Vazir_woff2 = "~/fonts/Vazir.woff2";
     }
 
     public static partial class js
     {
         public static string common_min_js = "~/js/common.min.js";
+        public static string manage_min_js = "~/js/manage.min.js";
     }
 
     public static partial class statics
     {
+        public static string Datatable_Persian_json = "~/statics/Datatable.Persian.json";
         public static string login_css = "~/statics/login.css";
         public static string login_js = "~/statics/login.js";
         public static string logo_png = "~/statics/logo.png";
