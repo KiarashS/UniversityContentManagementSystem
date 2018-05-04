@@ -9,11 +9,12 @@ namespace ContentManagement.Services.Contracts
 {
     public interface INavbarService
     {
-        Task<bool> ValidatePortalKeyAsync(string portalKey);
-        Task AddOrUpdatePortalAsync(PortalViewModel portal);
-        Task<Portal> FindPortalByKeyAsync(string portalKey);
-        Task<Portal> FindPortalByIdAsync(int portalId);
-        Task<IList<PortalViewModel>> GetAllPortalsAsync();
-        Task DeletePortalAsync(int id);
+        Task AddOrUpdateNavbarAsync(NavbarViewModel navbar);
+        Task<Navbar> FindNavbarByIdAsync(long navbarId);
+        Task<IList<NavbarViewModel>> GetPagedNavbarsAsync(int portalId, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
+        Task<long> NavbarCountAsync();
+        Task<long> NavbarPagedCountAsync(int portalId, Language language = Language.FA, string searchTerm = null);
+        Task DeleteNavbarAsync(long id);
+        Task<Navbar> GetParentOfNavbarAsync(long parentId);
     }
 }

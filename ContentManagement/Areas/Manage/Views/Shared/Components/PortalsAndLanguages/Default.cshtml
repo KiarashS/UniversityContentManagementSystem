@@ -1,0 +1,13 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.PortalsAndLanguagesViewModel
+
+<div class="row">
+    <div class="col">
+        <label asp-for="PortalId">پرتال</label>
+        <select class="form-control" asp-for="PortalId" asp-items="Model.Portals"></select>
+    </div>
+    <div class="col">
+        <label asp-for="Language">زبان</label>
+        <select class="form-control" asp-for="Language" asp-items="Model.Languages"></select>
+    </div>
+</div>
+<hr />

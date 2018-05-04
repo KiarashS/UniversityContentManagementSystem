@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180423075335_V2018_04_23_1223")]
-    partial class V2018_04_23_1223
+    [Migration("20180501131807_V2018_05_01_1747")]
+    partial class V2018_05_01_1747
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,8 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<string>("IconColor")
                         .HasMaxLength(10);
 
+                    b.Property<bool>("IsBlankUrlTarget");
+
                     b.Property<int>("Language");
 
                     b.Property<int>("LinkType");
@@ -110,6 +112,8 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<string>("Icon")
                         .HasMaxLength(50);
+
+                    b.Property<bool>("IsBlankUrlTarget");
 
                     b.Property<int>("Language");
 
@@ -227,6 +231,8 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<string>("Filename")
                         .IsRequired();
+
+                    b.Property<bool>("IsBlankUrlTarget");
 
                     b.Property<int>("Language");
 

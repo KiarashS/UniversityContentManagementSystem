@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ContentManagement.DataLayer.Migrations
 {
-    public partial class V2018_04_23_1223 : Migration
+    public partial class V2018_05_01_1747 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -118,6 +118,7 @@ namespace ContentManagement.DataLayer.Migrations
                     Icon = table.Column<string>(maxLength: 50, nullable: true),
                     IconColor = table.Column<string>(maxLength: 10, nullable: true),
                     Url = table.Column<string>(nullable: false),
+                    IsBlankUrlTarget = table.Column<bool>(nullable: false),
                     Priority = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -142,6 +143,7 @@ namespace ContentManagement.DataLayer.Migrations
                     Language = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
+                    IsBlankUrlTarget = table.Column<bool>(nullable: false),
                     Priority = table.Column<int>(nullable: true),
                     Icon = table.Column<string>(maxLength: 50, nullable: true)
                 },
@@ -200,6 +202,7 @@ namespace ContentManagement.DataLayer.Migrations
                     SubTitle = table.Column<string>(nullable: true),
                     PublishDate = table.Column<DateTimeOffset>(nullable: false),
                     Url = table.Column<string>(nullable: true),
+                    IsBlankUrlTarget = table.Column<bool>(nullable: false),
                     Filename = table.Column<string>(nullable: false),
                     Priority = table.Column<int>(nullable: true)
                 },

@@ -1,10 +1,14 @@
 ﻿
+using ContentManagement.Common.WebToolkit.Attributes;
+
 namespace ContentManagement.Entities
 {
     public enum Language
     {
         //[Description("fa-IR")]
+        [LanguageTextInAdmin("فارسی")]
         FA = 1,
+        [LanguageTextInAdmin("انگلیسی")]
         EN = 2
     }
 

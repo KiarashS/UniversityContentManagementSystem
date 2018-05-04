@@ -37,7 +37,7 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction(MVC.Manage.Home.ActionNames.Index, MVC.Manage.Home.Name, new { area = MVC.Manage.Name });
+                return RedirectToAction("index", "home", "manage");
             }
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -103,7 +103,7 @@ namespace ContentManagement.Controllers
                 return Redirect(url: returnUrl);
             }
 
-            return RedirectToAction(MVC.Manage.Home.ActionNames.Index, MVC.Manage.Home.Name, new { area = MVC.Manage.Name });
+            return RedirectToAction("index", "home", "manage");
         }
 
         private async Task<ClaimsPrincipal> createCookieClaimsAsync(User user)
@@ -133,7 +133,7 @@ namespace ContentManagement.Controllers
         public async virtual Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
+            return RedirectToAction("index", "home");
         }
 
         //[HttpGet("[action]"), HttpPost("[action]")]

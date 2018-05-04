@@ -12,6 +12,7 @@ using ContentManagement.ViewModels.Settings;
 using Microsoft.Extensions.Options;
 using DataTables.AspNet.AspNetCore;
 using System.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -27,7 +28,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             _portalService.CheckArgumentIsNull(nameof(portalService));
 
             _siteSettings = siteSettings;
-            _portalService.CheckArgumentIsNull(nameof(siteSettings));
+            _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
         }
 
         public virtual IActionResult Index()
@@ -35,10 +36,15 @@ namespace ContentManagement.Areas.Manage.Controllers
             return View();
         }
 
-        public virtual async Task<IActionResult> List(IDataTablesRequest request)
+        public virtual async Task<IActionResult> List(IDataTablesRequest request, int portalId, Entities.Language language)
         {
             var portals = await _portalService.GetAllPortalsAsync().ConfigureAwait(false);
-            return Json(portals);
+
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+            return Json(portals, new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Include, ContractResolver = contractResolver });
         }
 
         public virtual IActionResult Add()
@@ -67,7 +73,7 @@ namespace ContentManagement.Areas.Manage.Controllers
 
             if (portal == null)
             {
-                return RedirectToAction(MVC.Manage.Portal.ActionNames.Index, MVC.Manage.Portal.Name, MVC.Manage.Name);
+                return RedirectToAction("index", "portal", "manage");
             }
 
             var portalViewModel = new PortalViewModel

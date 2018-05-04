@@ -17,6 +17,7 @@ namespace ContentManagement.Entities
         public Language      Language                      { get; set; } = Language.FA;
         public string        Text                          { get; set; }
         public string        Url                           { get; set; }
+        public bool          IsBlankUrlTarget              { get; set; }
         public int?          Priority                      { get; set; }
         public string        Icon                          { get; set; }
         public virtual       Navbar Parent                 { get; set; }

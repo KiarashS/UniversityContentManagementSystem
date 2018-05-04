@@ -11,7 +11,7 @@
         <strong>توجه</strong> عنوان و توضیحات پرتال نقش بسزایی در بهینه سازی پرتال برای موتورهای جستجو (SEO) دارند.
     </div>
     <form method="post" autocomplete="off" class="needs-validation" novalidate>
-        @{ await Html.RenderPartialAsync(MVC.Shared.Views._CustomValidationSummary); }
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
         @if (ViewBag.IsOk != null && (bool)ViewBag.IsOk == true)
         {

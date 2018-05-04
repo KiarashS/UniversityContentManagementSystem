@@ -19,7 +19,7 @@ namespace ContentManagement.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
+            return RedirectToAction("index", "home");
         }
 
         public virtual IActionResult En()
@@ -30,7 +30,7 @@ namespace ContentManagement.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
+            return RedirectToAction("index", "home");
         }
     }
 }

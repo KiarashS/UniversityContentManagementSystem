@@ -14,8 +14,8 @@ namespace ContentManagement.DataLayer.Mappings
             builder.HasOne(x => x.Parent)
                     .WithMany(x => x.Childrens)
                     .HasForeignKey(x => x.ParentId)
-                    .IsRequired(false);
-                    //.OnDelete(DeleteBehavior.ClientSetNull); // Default is ClientSetNull, because relationship is optional.
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.Restrict); // Default DeleteBehavior is ClientSetNull, because relationship is optional.
 
             builder .HasOne(x => x.Portal)
                     .WithMany(x => x.Navbars)

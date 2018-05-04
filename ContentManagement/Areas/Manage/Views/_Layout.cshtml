@@ -1,6 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
 @using System.Security.Claims
-@using ContentManagement.Areas.Manage.ViewComponents
 
 <!DOCTYPE html>
 <html lang="@CurrentLanguage().Language.ToString().ToLowerInvariant()">
@@ -14,6 +13,7 @@
     <link rel="stylesheet" href="~/css/common.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/rtl.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/manage.min.css" asp-append-version="true" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
     <title>@ViewData["Title"]</title>
     <noscript>
         <meta http-equiv="refresh" content="0;url=/statics/NoScript.html" />
@@ -22,7 +22,7 @@
 <body class="fixed-nav sticky-footer bg-dark">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-        <a class="navbar-brand" href="/manage/">مدیریت  پرتال ها</a>
+        <a class="navbar-brand" href="/manage/">پنل مدیریت</a>
         <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -5,7 +5,7 @@
 }
 
 <div class="alert alert-info" role="alert">
-    <strong>توجه</strong> پس از ایجاد هر پرتال باید یک ساب دامین دقیقا با نام پرتال ایجاد شود.
+    <strong>توجه</strong> پس از ایجاد هر پرتال باید یک ساب دامین دقیقا با نام پرتال ایجاد نمائید.
 </div>
 
 <div class="m-3">
@@ -39,6 +39,7 @@
                 language: {
                     "url": "/statics/Datatable.Persian.json"
                 },
+                ordering: false,
                 paging: false,
                 searching: false,
                 ajax: {
@@ -61,7 +62,7 @@
                         }
                         else
                         {
-                            return '<a href="/manage/portal/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-portal" title="حذف" data-id="' + data + '"><i class="fa fa-trash-o fa-lg"></i></a>';
+                            return '<a href="/manage/portal/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-portal" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
                         }
                     }
                 }]

@@ -23,6 +23,7 @@ using EFSecondLevelCache.Core;
 using DNTCommon.Web.Core;
 using Ben.Diagnostics;
 using DataTables.AspNet.AspNetCore;
+using Newtonsoft.Json.Serialization;
 
 namespace ContentManagement
 {
@@ -115,7 +116,11 @@ namespace ContentManagement
             })
             .AddJsonOptions(jsonOptions =>
             {
-                //jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                jsonOptions.SerializerSettings.ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                };
             })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization()

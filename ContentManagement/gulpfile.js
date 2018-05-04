@@ -15,7 +15,6 @@ var del = require("del"),
 var filesPath = {
     // CSS files
     commonCss: [
-        "node_modules/font-awesome/css/font-awesome.min.css",
         "node_modules/select2/dist/css/select2.min.css",
         "assets/css/common-styles.css"
     ],
@@ -35,6 +34,7 @@ var filesPath = {
         "assets/css/transform/rtl/dataTables.bootstrap4-rtl.css",
         "assets/css/transform/rtl/fixedHeader.bootstrap4-rtl.css",
         "assets/css/transform/rtl/responsive.bootstrap4-rtl.css",
+        "assets/css/transform/ltr/fontawesome-iconpicker.css",
     ],
     transformCss: [
         "node_modules/bootstrap/dist/css/bootstrap.css",
@@ -42,6 +42,7 @@ var filesPath = {
         "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css",
         "node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css",
         "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.css",
+        "node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
     ],
     cssOutput: "wwwroot/css/",
     transformCssOutput: "assets/css/transform/",
@@ -56,6 +57,7 @@ var filesPath = {
         "node_modules/sweetalert2/dist/sweetalert2.all.min.js",
         "node_modules/axios/dist/axios.min.js",
         "node_modules/select2/dist/js/select2.min.js",
+        "node_modules/select2/dist/js/i18n/fa.js",
         "node_modules/startbootstrap-sb-admin/js/sb-admin.js"
     ],
     rtlJs: [],
@@ -66,6 +68,7 @@ var filesPath = {
         "node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js",
         "node_modules/datatables.net-responsive/js/dataTables.responsive.min.js",
         "node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js",
+        "node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js",
     ],
     jsOutput: "wwwroot/js/",
 
@@ -73,7 +76,6 @@ var filesPath = {
     images: [],
     imagesOutput: "wwwroot/images/",
     fonts: [
-        "node_modules/font-awesome/fonts/*",
         "node_modules/vazir-font/dist/Vazir*.*",
         "node_modules/shabnam-font/dist/Shabnam*.*"
     ],

@@ -3,7 +3,7 @@
 
 <div class="container">
     <form method="post" autocomplete="off">
-        @{ await Html.RenderPartialAsync(MVC.Shared.Views._CustomValidationSummary); }
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
         @if(ViewBag.IsOk != null && (bool)ViewBag.IsOk == true)
         {
