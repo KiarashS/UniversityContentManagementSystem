@@ -24,6 +24,7 @@ using DNTCommon.Web.Core;
 using Ben.Diagnostics;
 using DataTables.AspNet.AspNetCore;
 using Newtonsoft.Json.Serialization;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 
 namespace ContentManagement
 {
@@ -154,6 +155,8 @@ namespace ContentManagement
 
             services.AddEFSecondLevelCache();
             services.AddInMemoryCacheServiceProvider();
+
+            services.AddCustomImageSharp();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -192,6 +195,8 @@ namespace ContentManagement
             }
             
             app.UseEFSecondLevelCache();
+
+            app.UseImageSharp();
 
             app.UseStaticFiles(new StaticFileOptions()
             {

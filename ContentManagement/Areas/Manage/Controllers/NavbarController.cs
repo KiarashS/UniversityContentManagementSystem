@@ -46,14 +46,23 @@ namespace ContentManagement.Areas.Manage.Controllers
             return new DataTablesJsonResult(response, true);
         }
 
-        public virtual async Task<IActionResult> NavbarList(int portalId, Entities.Language language, string term = null)
+        public virtual async Task<IActionResult> NavbarList(long id /*current navbar id*/, int portalId, Entities.Language language, string term = null)
         {
             var navbars = await _navbarService.GetPagedNavbarsAsync(portalId, language, term, 0, int.MaxValue);
-            var result = new { results = new List<object>() };
+            var currentNavbarParentId = navbars.Where(x => x.Id == id).Select(x => x.ParentId).SingleOrDefault();
+            navbars = navbars.Except(navbars.Where(x => x.Id == id).ToList()).ToList(); // Not allow to chosse current navbar as parent of itself
 
+            var result = new { results = new List<object>() };
             foreach (var item in navbars)
             {
-                result.results.Add(new { Id = item.Id, Text = item.Text });
+                if (currentNavbarParentId != null)
+                {
+                    result.results.Add(new { Id = item.Id, Text = item.Text, Selected = (currentNavbarParentId == item.Id) });
+                }
+                else
+                {
+                    result.results.Add(new { Id = item.Id, Text = item.Text });
+                }
             }
 
             return Json(result);

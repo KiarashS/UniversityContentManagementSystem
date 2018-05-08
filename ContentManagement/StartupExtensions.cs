@@ -12,10 +12,18 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.DataProtection.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SixLabors.ImageSharp.Web.Caching;
+using SixLabors.ImageSharp.Web.Commands;
+using SixLabors.ImageSharp.Web.DependencyInjection;
+using SixLabors.ImageSharp.Web.Memory;
+using SixLabors.ImageSharp.Web.Middleware;
+using SixLabors.ImageSharp.Web.Processors;
+using SixLabors.ImageSharp.Web.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,6 +44,7 @@ namespace ContentManagement
             services.AddScoped<SeoService>();
             services.AddScoped<IPortalService, PortalService>();
             services.AddScoped<INavbarService, NavbarService>();
+            services.AddScoped<ISlideService, SlideService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)
@@ -136,6 +145,30 @@ namespace ContentManagement
                     EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
                     ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
                 });
+        }
+
+        public static void AddCustomImageSharp(this IServiceCollection services)
+        {
+            services.AddImageSharpCore()
+                .SetRequestParser<QueryCollectionRequestParser>()
+                .SetBufferManager<PooledBufferManager>()
+                .SetCache(provider => new PhysicalFileSystemCache(
+                    provider.GetRequiredService<IHostingEnvironment>(),
+                    provider.GetRequiredService<IBufferManager>(),
+                    provider.GetRequiredService<IOptions<ImageSharpMiddlewareOptions>>())
+                {
+                    Settings =
+                    {
+                        [PhysicalFileSystemCache.Folder] = PhysicalFileSystemCache.DefaultCacheFolder,
+                        [PhysicalFileSystemCache.CheckSourceChanged] = "true"
+                    }
+                })
+                .SetCacheHash<CacheHash>()
+                .SetAsyncKeyLock<AsyncKeyLock>()
+                .AddResolver<PhysicalFileSystemResolver>()
+                .AddProcessor<ResizeWebProcessor>()
+                .AddProcessor<FormatWebProcessor>()
+                .AddProcessor<BackgroundColorWebProcessor>();
         }
     }
 }

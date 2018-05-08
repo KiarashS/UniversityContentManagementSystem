@@ -43,10 +43,18 @@ namespace ContentManagement.Areas.Manage.ViewComponents
 
                 if (portalId.HasValue && portalId > 0)
                 {
-                    vm.Portals.Add(new SelectListItem { Text = text, Value = portals[i].Id.ToString(), Selected = (portals[i].Id == portalId) });
+                    if (portalId.Value == portals[i].Id)
+                    {
+                        vm.PortalId = portalId.Value;
+                    }
+                    vm.Portals.Add(new SelectListItem { Text = text, Value = portals[i].Id.ToString(), Selected = (portalId.Value == portals[i].Id) });
                 }
                 else
                 {
+                    if (string.IsNullOrEmpty(portals[i].PortalKey))
+                    {
+                        vm.PortalId = portals[i].Id;
+                    }
                     vm.Portals.Add(new SelectListItem { Text = text, Value = portals[i].Id.ToString(), Selected = string.IsNullOrEmpty(portals[i].PortalKey) });
                 }
             }
@@ -59,11 +67,19 @@ namespace ContentManagement.Areas.Manage.ViewComponents
 
                 if (defaultLanguage != language)
                 {
-                    vm.Languages.Add(new SelectListItem { Text = text, Value = ((int)item).ToString(), Selected = item == language });
+                    if (language == item)
+                    {
+                        vm.Language = (int)language;
+                    }
+                    vm.Languages.Add(new SelectListItem { Text = text, Value = ((int)item).ToString(), Selected = language == item});
                 }
                 else
                 {
-                    vm.Languages.Add(new SelectListItem { Text = text, Value = ((int)item).ToString(), Selected = item == defaultLanguage });
+                    if (defaultLanguage == item)
+                    {
+                        vm.Language = (int)defaultLanguage;
+                    }
+                    vm.Languages.Add(new SelectListItem { Text = text, Value = ((int)item).ToString(), Selected = defaultLanguage == item });
                 }
             }
 

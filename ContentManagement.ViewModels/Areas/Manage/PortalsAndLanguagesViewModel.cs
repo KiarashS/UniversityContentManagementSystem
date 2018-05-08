@@ -15,7 +15,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
 
         public int PortalId { get; set; }
         public int Language { get; set; }
-        public List<SelectListItem> Portals { set; get; }
-        public List<SelectListItem> Languages { set; get; }
+        public IList<SelectListItem> Portals { set; get; }
+        public IList<SelectListItem> Languages { set; get; }
     }
 }

@@ -12,6 +12,7 @@ namespace ContentManagement.Services.Contracts
         Task AddOrUpdateNavbarAsync(NavbarViewModel navbar);
         Task<Navbar> FindNavbarByIdAsync(long navbarId);
         Task<IList<NavbarViewModel>> GetPagedNavbarsAsync(int portalId, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
+        //Task<IList<NavbarViewModel>> CurrentPortalNavbarsAsync(int portalId, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
         Task<long> NavbarCountAsync();
         Task<long> NavbarPagedCountAsync(int portalId, Language language = Language.FA, string searchTerm = null);
         Task DeleteNavbarAsync(long id);

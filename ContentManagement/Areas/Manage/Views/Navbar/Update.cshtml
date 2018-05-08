@@ -19,6 +19,8 @@
     <form method="post" autocomplete="off" class="needs-validation" novalidate>
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
+        <input type="hidden" asp-for="Id" />
+
         @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId, language = Model.Language })
 
         <div class="form-group row">
@@ -27,42 +29,42 @@
                 <select class="form-control" asp-for="ParentId" rows="3" placeholder="منوی والد">
                     <option asp-if="Model.ParentId != null && Model.ParentId != 0" value="@Model.ParentId">@ViewBag.ParentText</option>
                 </select>
-                <span asp-validation-for="ParentId"></span>
+                <span class="text-danger" asp-validation-for="ParentId"></span>
             </div>
         </div>
         <div class="form-group row">
             <label asp-for="Text" class="col-sm-2 form-control-label">متن لینک</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" asp-for="Text" placeholder="متن لینک">
-                <span asp-validation-for="Text"></span>
+                <span class="text-danger" asp-validation-for="Text"></span>
             </div>
         </div>
         <div class="form-group row">
             <label asp-for="Url" class="col-sm-2 form-control-label">آدرس لینک</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control text-right" dir="ltr" asp-for="Url" placeholder="آدرس لینک">
-                <span asp-validation-for="Url"></span>
+                <span class="text-danger" asp-validation-for="Url"></span>
             </div>
         </div>
         <div class="form-group row">
             <label asp-for="Priority" class="col-sm-2 form-control-label">اولویت</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" asp-for="Priority" placeholder="اولویت قرارگیری">
-                <span asp-validation-for="Priority"></span>
+                <span class="text-danger" asp-validation-for="Priority"></span>
             </div>
         </div>
         <div class="form-group row">
             <label asp-for="IsBlankUrlTarget" class="col-sm-2 form-control-label">نمایش در صفحه جدید؟</label>
             <div class="col-sm-10">
                 <input type="checkbox" class="form-control" asp-for="IsBlankUrlTarget" style="width: 2%;">
-                <span asp-validation-for="IsBlankUrlTarget"></span>
+                <span class="text-danger" asp-validation-for="IsBlankUrlTarget"></span>
             </div>
         </div>
         <div class="form-group row">
             <label asp-for="Icon" class="col-sm-2 form-control-label">آیکن</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control text-right" dir="ltr" asp-for="Icon" placeholder="آیکن">
-                <span asp-validation-for="Icon"></span>
+                <span class="text-danger" asp-validation-for="Icon"></span>
             </div>
         </div>
         <div class="form-group row">
@@ -78,7 +80,10 @@
 @section scripts
     {
     <script>
-        var select;
+        var select,
+            initialPortalId = $('#PortalId').val(),
+            initialLanguageId = $('#Language').val(),
+            initialParentId = $('#ParentId').val();
         $(document).ready(function () {
             select = $('#ParentId').select2({
                         dir: 'rtl',
@@ -92,6 +97,7 @@
                                 var query = {
                                     portalId: $('#PortalId').val(),
                                     language: $('#Language').val(),
+                                    id: $('#Id').val(),
                                     term: params.term
                                 }
 
@@ -110,7 +116,12 @@
             });
 
             $('#PortalId, #Language').on('change', function () {
-                $('#ParentId').val('').trigger('change');
+                if (initialPortalId != $('#PortalId').val() || initialLanguageId != $('#Language').val()) {
+                    $('#ParentId').val('').trigger('change');
+                }
+                else {
+                    $('#ParentId').val(initialParentId).trigger('change');
+                }
             });
         });
     </script>

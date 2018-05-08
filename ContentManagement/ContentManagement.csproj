@@ -17,17 +17,20 @@
     <PackageReference Include="Boilerplate.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
-    <PackageReference Include="BundlerMinifier.Core" Version="2.6.375" />
+    <PackageReference Include="BundlerMinifier.Core" Version="2.7.385" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.2.0" />
     <PackageReference Include="Humanizer.Core" Version="2.2.0" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-preview2-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-rc1-final" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
     <PackageReference Include="OwaspHeaders.Core" Version="3.3.2" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-dev001258" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-dev001258" />
+    <PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.0-dev000087" />
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.29" />
     <PackageReference Include="TagHelperPack" Version="0.1.0-ci-30" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
@@ -86,6 +89,7 @@
     <Folder Include="Errors\" />
     <Folder Include="logs\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\slides\" />
   </ItemGroup>
   
   <ItemGroup>
@@ -94,6 +98,15 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Content Update="Areas\Manage\Views\Slide\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Slide\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Slide\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\Navbar\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -64,7 +64,25 @@ namespace ContentManagement.Services
                 return;
             }
 
-            var currentNavbar = await FindNavbarByIdAsync(navbar.Id).ConfigureAwait(false);
+            var currentNavbar = await _navbar.Where(x => x.Id == navbar.Id).Include(x => x.Childrens).SingleOrDefaultAsync();
+
+            if (currentNavbar.PortalId != navbar.PortalId || currentNavbar.Language != navbar.Language)
+            {
+                var navbarChildrens = currentNavbar.Childrens;
+
+                foreach (var item in navbarChildrens)
+                {
+                    if (item.Childrens.Count > 0)
+                    {
+                        item.ParentId = navbar.ParentId;
+                    }
+                    else
+                    {
+                        item.PortalId = navbar.PortalId;
+                        item.Language = navbar.Language;
+                    }
+                }
+            }
 
             currentNavbar.Text = navbar.Text;
             currentNavbar.Url = navbar.Url;
@@ -72,8 +90,8 @@ namespace ContentManagement.Services
             currentNavbar.IsBlankUrlTarget = navbar.IsBlankUrlTarget;
             currentNavbar.Priority = navbar.Priority;
             currentNavbar.ParentId = navbar.ParentId;
-            currentNavbar.Language = navbar.Language;
             currentNavbar.PortalId = navbar.PortalId;
+            currentNavbar.Language = navbar.Language;
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
@@ -114,7 +132,7 @@ namespace ContentManagement.Services
         /// <returns>The <see cref="Task{Navbar}"/></returns>
         public async Task<Navbar> FindNavbarByIdAsync(long navbarId)
         {
-            var navbar = await _navbar.FirstOrDefaultAsync(p => p.Id == navbarId);
+            var navbar = await _navbar.FirstOrDefaultAsync(x => x.Id == navbarId);
             return navbar;
         }
 
@@ -143,10 +161,10 @@ namespace ContentManagement.Services
                                     .Skip(start)
                                     .Take(length)
                                     .Cacheable()
-                                    .Select(x => new { x.Id, x.Text, x.Url, x.Icon, x.IsBlankUrlTarget, x.Priority })
+                                    .Select(x => new { x.Id, x.Text, x.Url, x.Icon, x.IsBlankUrlTarget, x.Priority, x.ParentId })
                                     .ToListAsync();
 
-            return navbars.Select(x => new NavbarViewModel { Id = x.Id, Text = x.Text, Icon = x.Icon, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority }).ToList();
+            return navbars.Select(x => new NavbarViewModel { Id = x.Id, Text = x.Text, Icon = x.Icon, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority, ParentId = x.ParentId }).ToList();
         }
 
         /// <summary>
