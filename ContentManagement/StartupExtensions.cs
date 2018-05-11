@@ -5,6 +5,7 @@ using ContentManagement.Infrastructure.Seo;
 using ContentManagement.Services;
 using ContentManagement.Services.Contracts;
 using ContentManagement.ViewModels.Settings;
+using Ganss.XSS;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -42,9 +43,11 @@ namespace ContentManagement
             services.AddScoped<IDbInitializerService, DbInitializerService>();
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<SeoService>();
+            services.AddSingleton<IHtmlSanitizer>(s => new HtmlSanitizer());
             services.AddScoped<IPortalService, PortalService>();
             services.AddScoped<INavbarService, NavbarService>();
             services.AddScoped<ISlideService, SlideService>();
+            services.AddScoped<IPageService, PageService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)

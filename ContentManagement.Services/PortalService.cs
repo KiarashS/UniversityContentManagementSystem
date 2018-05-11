@@ -34,7 +34,8 @@ namespace ContentManagement.Services
                     TitleFa = portal.TitleFa,
                     DescriptionFa = portal.DescriptionFa,
                     TitleEn = portal.TitleEn,
-                    DescriptionEn = portal.DescriptionEn
+                    DescriptionEn = portal.DescriptionEn,
+                    ShowInMainPortal = portal.ShowInMainPortal
                 };
 
                 _portal.Add(newPortal);
@@ -44,7 +45,11 @@ namespace ContentManagement.Services
             
             var currentPortal = await FindPortalByIdAsync(portal.Id).ConfigureAwait(false);
 
-            currentPortal.PortalKey = portal.PortalKey;
+            if (currentPortal.PortalKey != null) // Do not manipulate the main portal
+            {
+                currentPortal.PortalKey = portal.PortalKey;
+                currentPortal.ShowInMainPortal = portal.ShowInMainPortal;
+            }
             currentPortal.TitleFa = portal.TitleFa;
             currentPortal.DescriptionFa = portal.DescriptionFa;
             currentPortal.TitleEn = portal.TitleEn;
@@ -70,7 +75,7 @@ namespace ContentManagement.Services
 
         public async Task<IList<PortalViewModel>> GetAllPortalsAsync()
         {
-            var portals = await _portal.Cacheable().Select(p => new { p.Id, p.PortalKey, p.TitleFa, p.DescriptionFa }).ToListAsync().ConfigureAwait(false);
+            var portals = await _portal.Cacheable().Select(p => new { p.Id, p.PortalKey, p.TitleFa, p.DescriptionFa, p.ShowInMainPortal }).ToListAsync().ConfigureAwait(false);
             var portalsViewModel = new List<PortalViewModel>();
 
             foreach (var item in portals)
@@ -80,7 +85,8 @@ namespace ContentManagement.Services
                     Id = item.Id,
                     PortalKey = item.PortalKey,
                     TitleFa = item.TitleFa,
-                    DescriptionFa = item.DescriptionFa
+                    DescriptionFa = item.DescriptionFa,
+                    ShowInMainPortal = item.ShowInMainPortal
                 });
             }
 

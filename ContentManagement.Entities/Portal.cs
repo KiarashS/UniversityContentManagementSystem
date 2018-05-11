@@ -25,6 +25,7 @@ namespace ContentManagement.Entities
         public string  DescriptionEn                 { get; set; }
         public string  LogoFilenameEn                { get; set; }
         public string  BulletinEn                    { get; set; }
+        public bool    ShowInMainPortal              { get; set; } // Show latest contents link in the main portal
         public virtual ICollection<Navbar> Navbars   { get; set; }
         public virtual ICollection<Page> Pages       { get; set; }
         public virtual ICollection<Slide> Slides     { get; set; }

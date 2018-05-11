@@ -36,6 +36,13 @@ var filesPath = {
         "assets/css/transform/rtl/responsive.bootstrap4-rtl.css",
         "assets/css/transform/ltr/fontawesome-iconpicker.css",
     ],
+    moveCss: [
+        //"assets/css/kendoui/kendo.common.min.css",
+        //"assets/css/kendoui/kendo.bootstrap-v4.min.css",
+        //"assets/css/kendoui/kendo.bootstrap.mobile.min.css",
+        //"assets/css/kendoui/kendo.rtl.min.css",
+        "assets/css/kendoui/**",
+    ],
     transformCss: [
         "node_modules/bootstrap/dist/css/bootstrap.css",
         "node_modules/startbootstrap-sb-admin/css/sb-admin.css",
@@ -50,6 +57,8 @@ var filesPath = {
     // JS files
     commonJs: [
         "node_modules/jquery/dist/jquery.min.js",
+        //"node_modules/moment/min/moment.min.js",
+        //"node_modules/moment-jalaali/build/moment-jalaali.js",
         "node_modules/jquery-validation/dist/jquery.validate.min.js",
         "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
         "node_modules/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js",
@@ -58,6 +67,7 @@ var filesPath = {
         "node_modules/axios/dist/axios.min.js",
         "node_modules/select2/dist/js/select2.min.js",
         "node_modules/select2/dist/js/i18n/fa.js",
+        "node_modules/clipboard/dist/clipboard.min.js",
         "node_modules/startbootstrap-sb-admin/js/sb-admin.js"
     ],
     rtlJs: [],
@@ -69,6 +79,14 @@ var filesPath = {
         "node_modules/datatables.net-responsive/js/dataTables.responsive.min.js",
         "node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js",
         "node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js",
+    ],
+    moveJs: [
+        //"assets/js/kendoui/kendo.all.min.js",
+        //"assets/js/kendoui/kendo.culture.fa-IR.min.js",
+        //"assets/js/kendoui/kendo.culture.fa.min.js",
+        //"assets/js/kendoui/kendo.messages.fa-IR.min.js",
+        //"assets/js/kendoui/kendo-global.fa-IR.js",
+        "assets/js/kendoui/**",
     ],
     jsOutput: "wwwroot/js/",
 
@@ -86,7 +104,7 @@ var filesPath = {
     fontsOutput: "wwwroot/fonts/"
 };
 
-gulp.task("default", ["css:transform", "fonts:farsi", "commoncss:min", "rtlcss:min", "ltrcss:min", "managecss:min", "commonjs:min", "rtljs:min", "ltrjs:min", "managejs:min", "images:move", "fonts:move"]);
+gulp.task("default", ["css:transform", "fonts:farsi", "commoncss:min", "rtlcss:min", "ltrcss:min", "managecss:min", "move:css", "commonjs:min", "rtljs:min", "ltrjs:min", "managejs:min", "move:js", "images:move", "fonts:move"]);
 gulp.task("clean", ["transformCss:clean", "css:clean", "js:clean", "images:clean", "fonts:clean"]);
 
 gulp.task("watch", ["default"], function () {
@@ -94,10 +112,12 @@ gulp.task("watch", ["default"], function () {
     gulp.watch(filesPath.rtlCss, ["rtlcss:min"]);
     gulp.watch(filesPath.ltrCss, ["ltrcss:min"]);
     gulp.watch(filesPath.manageCss, ["managecss:min"]);
+    gulp.watch(filesPath.moveCss, ["move:css"]);
     gulp.watch(filesPath.commonJs, ["commonjs:min"]);
     gulp.watch(filesPath.rtlJs, ["rtljs:min"]);
     gulp.watch(filesPath.ltrJs, ["ltrjs:min"]);
     gulp.watch(filesPath.manageJs, ["managejs:min"]);
+    gulp.watch(filesPath.moveJs, ["move:js"]);
     gulp.watch(filesPath.images, ["images:move"]);
     gulp.watch(filesPath.fonts, ["fonts:move"]);
     gulp.watch(filesPath.fontsFarsi, ["fonts:farsi"]);
@@ -168,6 +188,14 @@ gulp.task("managecss:min", function () {
     return gulp.src(filesPath.manageCss)
         .pipe(concat("manage.min.css"))
         .pipe(csso())
+        .pipe(gulp.dest(filesPath.cssOutput));
+});
+
+gulp.task("move:css", function () {
+    if (filesPath.moveCss.length == 0)
+        return;
+
+    return gulp.src(filesPath.moveCss)
         .pipe(gulp.dest(filesPath.cssOutput));
 });
 
@@ -249,6 +277,14 @@ gulp.task("managejs:min", function () {
             },
             noSource: true
         }))
+        .pipe(gulp.dest(filesPath.jsOutput));
+});
+
+gulp.task("move:js", function () {
+    if (filesPath.moveJs.length == 0)
+        return;
+
+    return gulp.src(filesPath.moveJs)
         .pipe(gulp.dest(filesPath.jsOutput));
 });
 

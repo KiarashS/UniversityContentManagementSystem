@@ -12,6 +12,7 @@ namespace ContentManagement.Entities
         public ContentType ContentType { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
+        public string RawText { get; set; }
         public string ImageName { get; set; }
         public DateTimeOffset PublishDate { get; set; } = DateTimeOffset.UtcNow;
         public int ViewCount { get; set; }

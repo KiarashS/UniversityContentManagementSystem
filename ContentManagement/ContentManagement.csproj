@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -20,6 +20,7 @@
     <PackageReference Include="BundlerMinifier.Core" Version="2.7.385" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.2.0" />
+    <PackageReference Include="HtmlSanitizer" Version="4.0.185" />
     <PackageReference Include="Humanizer.Core" Version="2.2.0" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-rc1-final" />
@@ -36,7 +37,7 @@
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.0" />
     <PackageReference Include="DNTCaptcha.Core" Version="1.4.3" />
-    <PackageReference Include="DNTPersianUtils.Core" Version="2.3.0" />
+    <PackageReference Include="DNTPersianUtils.Core" Version="2.4.0" />
     <PackageReference Include="CacheManager.Core" Version="1.1.2" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
@@ -75,6 +76,13 @@
   
   <ItemGroup>
     <Watch Remove="assets\js\common.js" />
+    <Watch Remove="assets\js\kendoui\kendo - Copy.messages.fa-IR.min.js" />
+    <Watch Remove="assets\js\kendoui\kendo-global.fa-IR.js" />
+    <Watch Remove="assets\js\kendoui\kendo.all.min.js" />
+    <Watch Remove="assets\js\kendoui\kendo.culture.fa-IR.min.js" />
+    <Watch Remove="assets\js\kendoui\kendo.culture.fa.min.js" />
+    <Watch Remove="assets\js\kendoui\kendo.messages.en-US.min.js" />
+    <Watch Remove="assets\js\kendoui\kendo.messages.fa-IR.min.js" />
   </ItemGroup>
   
   <ItemGroup>
@@ -89,6 +97,9 @@
     <Folder Include="Errors\" />
     <Folder Include="logs\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\contentfiles\" />
+    <Folder Include="wwwroot\contentimages\" />
+    <Folder Include="wwwroot\pagesimage\" />
     <Folder Include="wwwroot\slides\" />
   </ItemGroup>
   
@@ -98,6 +109,15 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Content Update="Areas\Manage\Views\Page\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Page\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Page\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\Slide\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -96,6 +96,7 @@ namespace ContentManagement.Services
                         var mainPortal = new Portal
                         {
                             PortalKey = null,
+                            ShowInMainPortal = false,
                             TitleFa = siteSettings.MainPortal.BaseTitleFa,
                             DescriptionFa = siteSettings.MainPortal.BaseDescriptionFa,
                             TitleEn = siteSettings.MainPortal.BaseTitleEn,

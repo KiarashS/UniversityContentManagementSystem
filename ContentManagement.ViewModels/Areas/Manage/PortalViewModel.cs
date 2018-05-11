@@ -25,5 +25,6 @@ namespace ContentManagement.ViewModels.Areas.Manage
         [Required(ErrorMessage = "توضیحات انگلیسی پرتال را به وارد نمایید.")]
         [MaxLength(500, ErrorMessage = "حداکثر طول توضیحات پرتال {1} کاراکتر می باشد.")]
         public string DescriptionEn { get; set; }
+        public bool ShowInMainPortal { get; set; }
     }
 }

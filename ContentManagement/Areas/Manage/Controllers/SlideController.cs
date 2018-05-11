@@ -79,7 +79,12 @@ namespace ContentManagement.Areas.Manage.Controllers
             using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(slide.Image.OpenReadStream()))
             {
                 image.Mutate(x => x
-                        .Resize(Infrastructure.Constants.SlideWidthSize, Infrastructure.Constants.SlideHeightSize));
+                        .Resize(new ResizeOptions
+                        {
+                            Size = new SixLabors.Primitives.Size(
+                                Infrastructure.Constants.SlideWidthSize, Infrastructure.Constants.SlideHeightSize),
+                            Mode = ResizeMode.Max
+                        }));
 
                 slide.Filename = slide.Image.FileName;
                 var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
@@ -144,7 +149,12 @@ namespace ContentManagement.Areas.Manage.Controllers
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(slide.Image.OpenReadStream()))
                 {
                     image.Mutate(x => x
-                            .Resize(Infrastructure.Constants.SlideWidthSize, Infrastructure.Constants.SlideHeightSize));
+                            .Resize(new ResizeOptions
+                            {
+                                Size = new SixLabors.Primitives.Size(
+                                Infrastructure.Constants.SlideWidthSize, Infrastructure.Constants.SlideHeightSize),
+                                Mode = ResizeMode.Max
+                            }));
 
                     slide.Filename = slide.Image.FileName;
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);

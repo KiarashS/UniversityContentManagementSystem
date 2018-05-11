@@ -23,6 +23,7 @@
                     <th>نام پرتال</th>
                     <th>عنوان فارسی پرتال</th>
                     <th>توضیحات فارسی پرتال</th>
+                    <th>نمایش اخبار در پرتال اصلی؟</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -53,8 +54,19 @@
                 ],
                 columnDefs: [
                 {
-                    "width": "4%",
+                    "width": "8%",
                     "targets": 3,
+                    "data": "showInMainPortal",
+                    "render": function (data, type, row, meta) {
+                        if (data) {
+                            return '<span>بله</span>';
+                        }
+                        return '<span>خیر</span>';
+                    }
+                },
+                {
+                    "width": "4%",
+                    "targets": 4,
                     "data": "id",
                     "render": function (data, type, row, meta) {
                         if (data == mainPortalId) {

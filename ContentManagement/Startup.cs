@@ -44,7 +44,7 @@ namespace ContentManagement
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseKestrel(opt => { opt.AddServerHeader = false; })
+                .UseKestrel(opt => { opt.AddServerHeader = false; opt.Limits.MaxRequestBodySize = 1073741824; /*1GB*/ })
                 .CaptureStartupErrors(true)
                 .UseSetting("detailedErrors", "true")
                 .UseDefaultServiceProvider((context, options) =>
@@ -235,6 +235,12 @@ namespace ContentManagement
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                    name: "pageRoute",
+                    template: "Page/{slug}",
+                    defaults: new { controller = "Page", action = "Index" }
                 );
 
                 routes.MapRoute(

@@ -83,7 +83,8 @@ namespace ContentManagement.Areas.Manage.Controllers
                 TitleFa = portal.TitleFa,
                 DescriptionFa = portal.DescriptionFa,
                 TitleEn = portal.TitleEn,
-                DescriptionEn = portal.DescriptionEn
+                DescriptionEn = portal.DescriptionEn,
+                ShowInMainPortal = portal.ShowInMainPortal
             };
 
             return View(portalViewModel);

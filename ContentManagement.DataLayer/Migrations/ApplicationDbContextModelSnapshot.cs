@@ -4,8 +4,7 @@ using ContentManagement.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.DataLayer.Migrations
 {
@@ -16,13 +15,15 @@ namespace ContentManagement.DataLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-preview2-30571")
+                .HasAnnotation("ProductVersion", "2.1.0-rc1-32029")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ContentManagement.Entities.AppDataProtectionKey", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FriendlyName");
 
@@ -40,7 +41,8 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.Content", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ContentType");
 
@@ -55,6 +57,8 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<int>("PortalId");
 
                     b.Property<DateTimeOffset>("PublishDate");
+
+                    b.Property<string>("RawText");
 
                     b.Property<string>("Text");
 
@@ -73,7 +77,8 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.Link", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Icon")
                         .HasMaxLength(50);
@@ -107,7 +112,8 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.Navbar", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Icon")
                         .HasMaxLength(50);
@@ -138,9 +144,10 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.Page", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ImageName");
+                    b.Property<string>("Imagename");
 
                     b.Property<bool>("IsActive");
 
@@ -149,6 +156,13 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<int>("PortalId");
 
                     b.Property<DateTimeOffset>("PublishDate");
+
+                    b.Property<string>("RawText")
+                        .IsRequired();
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.Property<string>("Text")
                         .IsRequired();
@@ -162,13 +176,17 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.HasIndex("PortalId");
 
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
                     b.ToTable("Page");
                 });
 
             modelBuilder.Entity("ContentManagement.Entities.Portal", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BulletinEn");
 
@@ -188,6 +206,8 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<string>("PortalKey")
                         .HasMaxLength(400);
+
+                    b.Property<bool>("ShowInMainPortal");
 
                     b.Property<string>("TitleEn")
                         .IsRequired()
@@ -209,7 +229,8 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -226,7 +247,8 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.Slide", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Filename")
                         .IsRequired();
@@ -257,7 +279,8 @@ namespace ContentManagement.DataLayer.Migrations
             modelBuilder.Entity("ContentManagement.Entities.User", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DisplayName");
 
