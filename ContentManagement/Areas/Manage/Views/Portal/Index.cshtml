@@ -4,8 +4,12 @@
     Layout = "~/Areas/Manage/Views/_Layout.cshtml";
 }
 
+<div class="alert alert-info">
+    نام پرتال حتماً می بایست انگلیسی باشد.
+</div>
+
 <div class="alert alert-info" role="alert">
-    <strong>توجه</strong> پس از ایجاد هر پرتال باید یک ساب دامین دقیقا با نام پرتال ایجاد نمائید.
+    <strong>توجه</strong> پس از ایجاد هر پرتال باید یک ساب دامین دقیقاً با نام پرتال ایجاد نمائید.
 </div>
 
 <div class="m-3">
@@ -47,12 +51,25 @@
                     url: '/manage/portal/list/',
                     dataSrc: ''
                 },
-                columns: [
-                    { data: 'portalKey' },
-                    { data: 'titleFa' },
-                    { data: 'descriptionFa' }
-                ],
                 columnDefs: [
+                {
+                    "targets": 0,
+                    "data": null,
+                    "render": function (data, type, row, meta) {
+                        if (!data.portalKey) {
+                            return '<a target="_blank" href="' + data.portalLink + '" rel="noreferrer">"پرتال اصلی"</a>&nbsp;<button type="button" class="btn clipboardjs btn-outline-info btn-sm" title="کپی!" data-clipboard-text="' + data.portalLink + '"><img src="/statics/clippy.svg" width="16" alt="کپی!"></button>';
+                        }
+                        return '<a target="_blank" href="' + data.portalLink + '" rel="noreferrer">' + data.portalKey + '</a>&nbsp;<button type="button" class="btn clipboardjs btn-outline-info btn-sm" title="کپی!" data-clipboard-text="' + data.portalLink + '"><img src="/statics/clippy.svg" width="16" alt="کپی!"></button>';
+                    }
+                },
+                {
+                    "targets": 1,
+                    "data": "titleFa",
+                },
+                {
+                    "targets": 2,
+                    "data": "descriptionFa"
+                },
                 {
                     "width": "8%",
                     "targets": 3,
@@ -117,6 +134,18 @@
                             });
                     }
                 })
+            });
+
+            var clipboard = new ClipboardJS('.clipboardjs');
+            clipboard.on('success', function (e) {
+                swal({
+                    title: 'کپی شد!',
+                    type: 'success',
+                    timer: 1000,
+                    confirmButtonText: 'بستن',
+                })
+
+                e.clearSelection();
             });
         });
     </script>

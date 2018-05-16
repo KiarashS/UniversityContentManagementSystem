@@ -1,0 +1,102 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.LinkViewModel
+
+@{
+    ViewData["Title"] = "ایجاد لینک جدید";
+}
+
+<style>
+    .iconpicker-items {
+        direction: ltr !important;
+    }
+
+    div.popover-title-text {
+        text-align: right !important;
+    }
+</style>
+
+<h3>ایجاد لینک جدید</h3>
+
+<div class="container">
+    <form method="post" autocomplete="off" class="needs-validation" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages))
+
+        <div class="form-group row">
+            <label asp-for="Text" class="col-sm-2 form-control-label">متن لینک</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Text" placeholder="متن لینک">
+                <span class="text-danger" asp-validation-for="Text"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Url" class="col-sm-2 form-control-label">آدرس لینک</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Url" dir="ltr" placeholder="آدرس لینک">
+                <span class="text-danger" asp-validation-for="Url"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="LinkType" class="col-sm-2 form-control-label">نوع لینک</label>
+            <div class="col-sm-10">
+                <select class="form-control" asp-for="LinkType" asp-items="Model.LinkTypes"></select>
+                <span class="text-danger" asp-validation-for="LinkType"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsBlankUrlTarget" class="col-sm-2 form-control-label">نمایش در صفحه جدید؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsBlankUrlTarget" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsBlankUrlTarget"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Priority" class="col-sm-2 form-control-label">اولویت</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" asp-for="Priority" placeholder="اولویت قرارگیری">
+                <span class="text-danger" asp-validation-for="Priority"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Icon" class="col-sm-2 form-control-label">آیکن</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control mb-1" asp-for="Icon" dir="ltr" placeholder="آیکن لینک">
+                <span class="text-danger" asp-validation-for="Icon"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IconColor" class="col-sm-2 form-control-label">رنگ آیکن</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control jscolor text-right" value="" asp-for="IconColor" dir="ltr" placeholder="رنگ آیکن لینک">
+                <span class="text-danger" asp-validation-for="IconColor"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/link/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script defer>
+        $(document).ready(function () {
+            $('#Icon').iconpicker({
+                title: 'لیست آیکن ها',
+                placement: 'inline',
+                templates: {
+                    search: '<input type="search" class="form-control iconpicker-search" placeholder="جهت جستجو تایپ نمائید" />'
+                }
+            });
+
+            // jscolor initialize
+            document.getElementById('IconColor').jscolor.value = null;
+            document.getElementById('IconColor').jscolor.hash = true;
+            document.getElementById('IconColor').jscolor.required = false;
+            document.getElementById('IconColor').value = '';
+        });
+    </script>
+}

@@ -19,9 +19,9 @@
         <meta http-equiv="refresh" content="0;url=/statics/NoScript.html" />
     </noscript>
 </head>
-<body class="fixed-nav sticky-footer bg-dark">
+<body id="page-top" class="sticky-footer bg-dark">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top" id="mainNav">
         <a class="navbar-brand" href="/manage/">پنل مدیریت</a>
         <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,10 +30,16 @@
             @await Component.InvokeAsync(nameof(DashboardSideNavbar))
 
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item" style="margin-left: 15px;">
+                    <div class="btn-group" role="group" aria-label="Quick Access">
+                        <a class="btn btn-success" href="/manage/content/add/" role="button">درج مطلب جدید</a>
+                        <a class="btn btn-info" href="/manage/link/add/" role="button">درج لینک جدید</a>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <div class="dropdown open">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @User.Claims.FirstOrDefault(c => c.Type == "DisplayName")?.Value
+                            @(User.Claims.FirstOrDefault(c => c.Type == "DisplayName")?.Value ?? "منوی کاربری")
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="/manage/changepassword/">تغییر کلمه عبور</a>

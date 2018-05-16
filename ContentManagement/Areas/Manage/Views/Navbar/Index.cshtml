@@ -65,10 +65,7 @@
                         "targets": 0,
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            if (data.isBlankUrlTarget) {
-                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.text + '</a>';
-                            }
-                            return '<a href="' + data.url + '" rel="noreferrer">' + data.text + '</a>';
+                            return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.text + '</a>';
                         }
                     },
                     {

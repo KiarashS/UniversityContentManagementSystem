@@ -101,5 +101,11 @@ namespace ContentManagement.Services
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
+
+        public async Task<long> PortalsCountAsync()
+        {
+            var portal = await _portal.LongCountAsync().ConfigureAwait(false);
+            return portal;
+        }
     }
 }

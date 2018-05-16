@@ -34,7 +34,7 @@ var filesPath = {
         "assets/css/transform/rtl/dataTables.bootstrap4-rtl.css",
         "assets/css/transform/rtl/fixedHeader.bootstrap4-rtl.css",
         "assets/css/transform/rtl/responsive.bootstrap4-rtl.css",
-        "assets/css/transform/ltr/fontawesome-iconpicker.css",
+        "node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
     ],
     moveCss: [
         //"assets/css/kendoui/kendo.common.min.css",
@@ -49,7 +49,6 @@ var filesPath = {
         "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css",
         "node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css",
         "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.css",
-        "node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
     ],
     cssOutput: "wwwroot/css/",
     transformCssOutput: "assets/css/transform/",
@@ -63,6 +62,7 @@ var filesPath = {
         "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
         "node_modules/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js",
         "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+        "node_modules/jquery.easing/jquery.easing.min.js",
         "node_modules/sweetalert2/dist/sweetalert2.all.min.js",
         "node_modules/axios/dist/axios.min.js",
         "node_modules/select2/dist/js/select2.min.js",
@@ -79,6 +79,7 @@ var filesPath = {
         "node_modules/datatables.net-responsive/js/dataTables.responsive.min.js",
         "node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js",
         "node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js",
+        "assets/js/lib/jscolor.js",
     ],
     moveJs: [
         //"assets/js/kendoui/kendo.all.min.js",

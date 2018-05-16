@@ -1,0 +1,341 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.PageViewModel
+
+@{
+    ViewData["Title"] = "ویرایش صفحه";
+}
+
+<link rel="stylesheet" href="~/css/kendo.common.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/kendo.office365.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/kendo.rtl.min.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/kendo.office365.mobile.min.css" asp-append-version="true" />
+
+<style>
+    .custom-file-input ~ .custom-file-label::after {
+        content: "انتخاب فایل";
+    }
+
+    .k-editor-dialog.k-viewhtml-dialog .k-editor-textarea.k-input,
+    #k-editor-image-url,
+    #k-editor-file-url,
+    #k-editor-link-url {
+        direction: ltr !important;
+        text-align: left !important;
+    }
+
+    #k-table-properties,
+    #k-cell-properties,
+    #k-accessibility-properties {
+        overflow-y: overlay !important;
+    }
+
+    .k-fullscreen .k-editor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100% !important;
+        z-index: 10000 !important;
+    }
+
+    .k-editor .k-i-my-horizontal-line {
+        background-image: url(/statics/HorizontalLine.png);
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .k-editor .k-i-my-direction-from-right {
+        background-image: url(/statics/ChevronLeft.png);
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .k-editor .k-i-my-direction-from-left {
+        background-image: url(/statics/ChevronRight.png);
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .k-editor .k-i-my-undo {
+        background-image: url(/statics/Undo.png);
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .k-editor .k-i-my-redo {
+        background-image: url(/statics/Redo.png);
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .k-editor .k-editor-full-screen {
+        background-image: url(/statics/FullScreen.png);
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+
+<h3>ویرایش صفحه</h3>
+
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        شناسه یکتا حتماً می بایست انگلیسی باشد.
+    </div>
+
+    <div class="alert alert-info" role="alert">
+        توجه داشته باشید که در صورت نیاز، سایز تصویر صفحه می بایست @ContentManagement.Infrastructure.Constants.PageImageWidthSize در @ContentManagement.Infrastructure.Constants.PageImageHeightSize پیکسل باشد.
+    </div>
+
+    <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId, language = Model.Language })
+
+        <div class="form-group row">
+            <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان صفحه">
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+        </div>
+        <input type="hidden" id="InitialSlug" name="InitialSlug" value="@Model.Slug" />
+        <div class="form-group row">
+            <label asp-for="Slug" class="col-sm-2 form-control-label">شناسه یکتا</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Slug" dir="ltr" placeholder="شناسه یکتا">
+                <span class="text-danger" asp-validation-for="Slug"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsActive" class="col-sm-2 form-control-label">صفحه فعال باشد؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsActive" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsActive"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-5">
+            <label asp-for="Image" class="col-sm-2 form-control-label">تصویر</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="Image" lang="fa">
+                <label class="custom-file-label" asp-for="Image">تصویر</label>
+                <span class="text-danger" asp-validation-for="Image"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label asp-for="Text">متن صفحه</label>
+                <div class="k-rtl">
+                    <textarea class="form-control" asp-for="Text" placeholder="متن صفحه" style="height: 450px !important;" required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/page/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script src="~/js/kendo.all.min.js" asp-append-version="true"></script>
+    <script src="~/js/kendo.culture.fa-IR.min.js" asp-append-version="true"></script>
+    <script src="~/js/kendo.culture.fa.min.js" asp-append-version="true"></script>
+    <script src="~/js/kendo.messages.fa-IR.min.js" asp-append-version="true"></script>
+    <script src="~/js/kendo-global.fa-IR.js" asp-append-version="true"></script>
+
+    <script defer>
+        var editorFileManagerPath = $('#js-global-info').data('editorFileManagerPath'),
+            editorImageManagerPath = $('#js-global-info').data('editorImageManagerPath');
+
+        var classHolder = $(document.documentElement);
+        var fullscreenChange = "webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange";
+        $(document).bind(fullscreenChange, $.proxy(classHolder.toggleClass, classHolder, "k-fullscreen"));
+
+        function toggleFullScreen() {
+            var docEl = document.documentElement;
+
+            var fullscreenElement =
+                document.fullscreenElement ||
+                document.mozFullScreenElement ||
+                document.webkitFullscreenElement ||
+                document.msFullscreenElement;
+
+            var requestFullScreen = docEl.requestFullscreen ||
+                docEl.msRequestFullscreen ||
+                docEl.mozRequestFullScreen ||
+                docEl.webkitRequestFullscreen;
+
+            var exitFullScreen = document.exitFullscreen ||
+                document.msExitFullscreen ||
+                document.mozCancelFullScreen ||
+                document.webkitExitFullscreen;
+
+            if (!requestFullScreen) {
+                return;
+            }
+
+            if (!fullscreenElement) {
+                requestFullScreen.call(docEl, Element.ALLOW_KEYBOARD_INPUT);
+            } else {
+                exitFullScreen.call(document);
+            }
+        }
+
+        $(document).ready(function () {
+            $("#Text").kendoEditor({
+                keydown: function (e) {
+                    if (e.keyCode == 9) {
+                        if (e.shiftKey) {
+                            e.sender.exec("outdent");
+                        }
+                        else {
+                            e.sender.exec("indent");
+                        }
+                        e.preventDefault();
+                    }
+                },
+                encoded: false,
+                resizable: {
+                    content: true
+                },
+                tools: [
+                    "bold", "italic", "underline", "strikethrough", "justifyRight",
+                    "justifyCenter", "justifyLeft", "justifyFull", "insertUnorderedList",
+                    "insertOrderedList", "indent", "outdent", "createLink", "unlink",
+                    "insertImage", "insertFile",
+                    "subscript", "superscript", "tableWizard", "createTable", "addRowAbove", "addRowBelow",
+                    "addColumnLeft", "addColumnRight", "deleteRow", "deleteColumn", "viewHtml",
+                    {
+                        name: "myHorizontalLine",
+                        tooltip: "درج خط افقی",
+                        exec: function (e) {
+                            var editor = $(this).data("kendoEditor");
+                            editor.exec("inserthtml", { value: '<hr/>' });
+                        }
+                    },
+                    {
+                        name: "myDirectionFromRight",
+                        tooltip: "راست به چپ",
+                        exec: function (e) {
+                            var editor = $(this).data("kendoEditor");
+                            var html = editor.selectedHtml();
+                            editor.exec("inserthtml", { value: '<p dir="rtl">' + html + '</p>' });
+                        }
+                    },
+                    {
+                        name: "myDirectionFromLeft",
+                        tooltip: "چپ به راست",
+                        exec: function (e) {
+                            var editor = $(this).data("kendoEditor");
+                            var html = editor.selectedHtml();
+                            editor.exec("inserthtml", { value: '<p dir="ltr">' + html + '</p>' });
+                        }
+                    },
+                    {
+                        name: "myUndo",
+                        tooltip: "undo",
+                        exec: function (e) {
+                            var editor = $(this).data("kendoEditor");
+                            editor.exec("undo");
+                        }
+                    },
+                    {
+                        name: "myRedo",
+                        tooltip: "redo",
+                        exec: function (e) {
+                            var editor = $(this).data("kendoEditor");
+                            editor.exec("redo");
+                        }
+                    },
+                    "formatting", "cleanFormatting",
+                    {
+                        name: "fontName",
+                        items: [].concat(
+                            [{ text: "Vazir", value: "Vazir, tahoma" }],
+                            [{ text: "Shabnam", value: "Shabnam, tahoma" }],
+                            kendo.ui.Editor.prototype.options.fontName[1],
+                            kendo.ui.Editor.prototype.options.fontName[2],
+                            kendo.ui.Editor.prototype.options.fontName[3],
+                            kendo.ui.Editor.prototype.options.fontName[4],
+                            kendo.ui.Editor.prototype.options.fontName[5],
+                            kendo.ui.Editor.prototype.options.fontName[6],
+                            kendo.ui.Editor.prototype.options.fontName[7],
+                            kendo.ui.Editor.prototype.options.fontName[8]
+                        )
+                    },
+                    "fontSize", "foreColor",
+                    "backColor",
+                    {
+                        name: "myFullScreen",
+                        template:
+                            '<a tabindex="0" role="button" class="k-tool k-group-start k-group-end" unselectable="on" title="تمام صفحه" onclick="toggleFullScreen()">' +
+                            '<span unselectable="on" class="k-tool-icon k-icon k-editor-full-screen">' +
+                            '</span>' +
+                            '</a>'
+                    },
+                    "print"
+                ],
+                imageBrowser: {
+                    messages: {
+                        dropFilesHere: "تصاویر خود را به اینجا کشیده و رها کنید",
+                        search: "جستجو"
+                    },
+                    transport: {
+                        read: {
+                            url: "@Url.Action("GetFilesList", "ImagesManager")",
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            type: 'GET',
+                            cache: false
+                        },
+                        destroy: {
+                            url: "@Url.Action("DestroyFile", "ImagesManager")",
+                            type: "POST"
+                        },
+                        create: {
+                            url: "@Url.Action("CreateFolder", "ImagesManager")",
+                            type: "POST"
+                        },
+                        thumbnailUrl: "@Url.Action("GetThumbnail", "ImagesManager")",
+                        uploadUrl: "@Url.Action("UploadFile", "ImagesManager")",
+                        @* imageUrl: "@Url.Action("GetFile", "ImagesManager")?path={0}" *@
+                        imageUrl: editorImageManagerPath + "{0}"
+                    }
+                },
+                fileBrowser: {
+                    messages: {
+                        dropFilesHere: "فایل‌های خود را به اینجا کشیده و رها کنید"
+                    },
+                    transport: {
+                        read: {
+                            url: "@Url.Action("GetFilesList", "FilesManager")",
+                            dataType: "json",
+                            contentType: 'application/json; charset=utf-8',
+                            type: 'GET',
+                            cache: false
+                        },
+                        destroy: {
+                            url: "@Url.Action("DestroyFile", "FilesManager")",
+                            type: "POST"
+                        },
+                        create: {
+                            url: "@Url.Action("CreateFolder", "FilesManager")",
+                            type: "POST"
+                        },
+                        uploadUrl: "@Url.Action("UploadFile", "FilesManager")",
+                        @*fileUrl: "@Url.Action("GetFile", "FilesManager")?path={0}"*@
+                        fileUrl: editorFileManagerPath + "{0}"
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -116,3 +116,9 @@ body.sidenav-toggled .navbar-sidenav .nav-link {
     .bd-callout-danger h4 {
         color: #d9534f
     }
+
+.card-body-icon {
+    top: -15px !important;
+    left: -5px !important;
+    font-size: 4.75rem !important;
+}

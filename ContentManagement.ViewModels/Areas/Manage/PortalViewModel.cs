@@ -26,5 +26,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         [MaxLength(500, ErrorMessage = "حداکثر طول توضیحات پرتال {1} کاراکتر می باشد.")]
         public string DescriptionEn { get; set; }
         public bool ShowInMainPortal { get; set; }
+
+        public string PortalLink { get; set; }
     }
 }

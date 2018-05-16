@@ -33,7 +33,6 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public bool IsActive { get; set; } = true;
         public string PortalKey { get; set; }
         public string RawText { get; set; }
-
         public string PageLink { get; set; }
 
         public string JPublishDate

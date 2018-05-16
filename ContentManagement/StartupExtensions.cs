@@ -48,6 +48,8 @@ namespace ContentManagement
             services.AddScoped<INavbarService, NavbarService>();
             services.AddScoped<ISlideService, SlideService>();
             services.AddScoped<IPageService, PageService>();
+            services.AddScoped<ILinkService, LinkService>();
+            services.AddScoped<IContentService, ContentService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)

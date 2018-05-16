@@ -1,11 +1,12 @@
-﻿<h3>تغییر کلمه عبور</h3>
-@model ContentManagement.Areas.Manage.Controllers.ChangePasswordModel
+﻿@model ContentManagement.Areas.Manage.Controllers.ChangePasswordModel
 
+<h3>تغییر کلمه عبور</h3>
+<hr />
 <div class="container">
     <form method="post" autocomplete="off">
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
-        @if(ViewBag.IsOk != null && (bool)ViewBag.IsOk == true)
+        @if (ViewBag.IsOk != null && (bool)ViewBag.IsOk == true)
         {
             <div class="alert alert-success">
                 <a href="#" class="close" data-dismiss="alert">×</a>

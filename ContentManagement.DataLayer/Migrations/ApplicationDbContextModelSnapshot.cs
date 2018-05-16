@@ -56,9 +56,13 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<int>("PortalId");
 
+                    b.Property<int?>("Priority");
+
                     b.Property<DateTimeOffset>("PublishDate");
 
                     b.Property<string>("RawText");
+
+                    b.Property<string>("Summary");
 
                     b.Property<string>("Text");
 

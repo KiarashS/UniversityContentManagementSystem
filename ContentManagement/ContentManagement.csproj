@@ -83,11 +83,13 @@
     <Watch Remove="assets\js\kendoui\kendo.culture.fa.min.js" />
     <Watch Remove="assets\js\kendoui\kendo.messages.en-US.min.js" />
     <Watch Remove="assets\js\kendoui\kendo.messages.fa-IR.min.js" />
+    <Watch Remove="assets\js\lib\jscolor.js" />
   </ItemGroup>
   
   <ItemGroup>
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Models\" />
+    <Folder Include="assets\css\lib\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\rtl\" />
@@ -109,6 +111,24 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Content Update="Areas\Manage\Views\Link\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Link\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Link\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Content\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Content\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Content\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\Page\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

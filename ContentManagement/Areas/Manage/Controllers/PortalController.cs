@@ -40,6 +40,13 @@ namespace ContentManagement.Areas.Manage.Controllers
         {
             var portals = await _portalService.GetAllPortalsAsync().ConfigureAwait(false);
 
+            foreach (var item in portals)
+            {
+                var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+                var pageHost = $"{item.PortalKey ?? "www"}.{baseOfCurrentDomain}";
+                item.PortalLink = Url.Action("index", "home", new { area = "" }, Request.Scheme, pageHost);
+            }
+
             DefaultContractResolver contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new CamelCaseNamingStrategy()

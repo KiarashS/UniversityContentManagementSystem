@@ -79,19 +79,13 @@
                         "data": null,
                         "render": function (data, type, row, meta) {
                             if (data.subTitle && data.url) {
-                                if (data.isBlankUrlTarget)
-                                    return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a><hr><span class="text-muted">زیرعنوان: ' + data.subTitle + '</span>';
-                                else
-                                    return '<a href="' + data.url + '" rel="noreferrer">' + data.title + '</a><hr><span class="text-muted">زیرعنوان: ' + data.subTitle + '</span>';
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
                             }
                             else if (data.subTitle && !data.url) {
-                                return '<span>' + data.title + '</span><hr><span class="text-muted">زیرعنوان: ' + data.subTitle + '</span>';
+                                return '<span>' + data.title + '</span><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
                             }
                             else if (!data.subTitle && data.url) {
-                                if (data.isBlankUrlTarget)
-                                    return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a>';
-                                else
-                                    return '<a href="' + data.url + '" rel="noreferrer">' + data.title + '</a>';
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a>';
                             }
                             else if (!data.subTitle && !data.url) {
                                 return '<span>' + data.title + '</span>';

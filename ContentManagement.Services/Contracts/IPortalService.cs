@@ -15,5 +15,6 @@ namespace ContentManagement.Services.Contracts
         Task<Portal> FindPortalByIdAsync(int portalId);
         Task<IList<PortalViewModel>> GetAllPortalsAsync();
         Task DeletePortalAsync(int id);
+        Task<long> PortalsCountAsync();
     }
 }

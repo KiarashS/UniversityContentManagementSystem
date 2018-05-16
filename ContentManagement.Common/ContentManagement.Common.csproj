@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AhoCorasick" Version="2.0.11" />
     <PackageReference Include="DNTPersianUtils.Core" Version="2.4.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.8.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0-rc1-final" />

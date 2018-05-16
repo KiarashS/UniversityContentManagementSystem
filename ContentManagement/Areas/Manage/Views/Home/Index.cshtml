@@ -1,35 +1,82 @@
-﻿<h2>Index</h2>
+﻿<h3>داشبورد</h3>
+<hr />
+<div class="row">
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fa fa-fw fa-columns"></i>
+                </div>
+                <div class="mr-5">تعداد پرتال ها: @ViewBag.PortalsCount</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/manage/portal/">
+                <span class="float-left">مدیریت پرتال ها</span>
+                <span class="float-right">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fa fa-fw fa-list"></i>
+                </div>
+                <div class="mr-5">تعداد مطالب: @ViewBag.ContentsCount</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/manage/content/">
+                <span class="float-left">مدیریت مطالب</span>
+                <span class="float-right">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="far fa-file"></i>
+                </div>
+                <div class="mr-5">تعداد صفحات: @ViewBag.PagesCount</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/manage/page/">
+                <span class="float-left">مدیریت صفحات</span>
+                <span class="float-right">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div class="mr-5">تعداد لینک ها: @ViewBag.LinksCount</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/manage/link/">
+                <span class="float-left">مدیریت لینک ها</span>
+                <span class="float-right">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
 
-<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-    Tooltip on top
-</button>
-<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
-    Tooltip on right
-</button>
-<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-    Tooltip on bottom
-</button>
-<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
-    Tooltip on left
-</button>
-
-
-<button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-    Popover on top
-</button>
-
-<button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-    Popover on right
-</button>
-
-<button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-sagittis lacus vel augue laoreet rutrum faucibus.">
-    Popover on bottom
-</button>
-
-<button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-    Popover on left
-</button>
-
-<button type="button" title="کیارش سیسی" data-tippy-placement="left" data-tippy-arrowtype="round" data-tippy-arrow="true">left</button>
-<button type="button" title="کیارش سیسی" data-tippy-placement="right" data-tippy-arrowtype="round" data-tippy-arrow="true">right</button>
+<div class="row mt-5">
+    <div class="col-xl-12 col-sm-12 mb-12">
+        <div class="card">
+            <h5 class="card-header">
+                <i class="far fa-star"></i>
+                دسترسی سریع
+            </h5>
+            <div class="card-block">
+                ...
+            </div>
+        </div>
+    </div>
+</div>

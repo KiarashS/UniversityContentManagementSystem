@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "مدیریت لینک ها";
+    Layout = "~/Areas/Manage/Views/_Layout.cshtml";
+}
+
+<div class="m-3">
+    <a class="btn btn-primary" role="button" href="/manage/link/add/">ایجاد لینک جدید</a>
+</div>
+
+@if (TempData["IsOk"] != null && (bool)TempData["IsOk"] == true)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <div>عملیات با موفقیت انجام شد.</div>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        لینک ها
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-row">
+                <div class="col-md-9">@await Component.InvokeAsync(nameof(PortalsAndLanguages))</div>
+                <div class="col-md-3">
+                    <label for="LinkType">نوع لینک</label>
+                    <select class="form-control" id="LinkType" name="LinkType" asp-items="@ViewBag.LinkTypes"></select>
+                    <hr />
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered table-sm table-hover" id="linksTable" style="width: 100%;">
+            <thead class="thead-default">
+                <tr>
+                    <th>لینک</th>
+                    <th>آیکن</th>
+                    <th>نمایش در صفحه جدید؟</th>
+                    <th>اولویت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var table;
+        $(document).ready(function () {
+            table = $('#linksTable').DataTable({
+                language: {
+                    "url": "/statics/Datatable.Persian.json"
+                },
+                ordering: false,
+                paging: true,
+                searching: true,
+                processing: true,
+                serverSide: true,
+                searchDelay: null,
+                ajax: {
+                    url: '/manage/link/list/',
+                    dataSrc: 'data',
+                    data: function (d) {
+                        d.portalId = $('#PortalId').val();
+                        d.language = $('#Language').val();
+                        d.linkType = $('#LinkType').val();
+                    }
+                },
+                columnDefs: [
+                    {
+                        "targets": 0,
+                        "className": "align-middle",
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.text + '</a>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 1,
+                        "className": "text-center align-middle",
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            if (data.icon) {
+                                if (data.iconColor) {
+                                    return '<i class="' + data.icon + '" style="color: ' + data.iconColor + ';"></i>';
+                                }
+                                else {
+                                    return '<i class="' + data.icon + '"></i>';
+                                }
+                            }
+
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "14%",
+                        "targets": 2,
+                        "className": "text-center align-middle",
+                        "data": "isBlankUrlTarget",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>بله</span>';
+                            }
+                            return '<span>خیر</span>';
+                        }
+                    },
+                    {
+                        "width": "11%",
+                        "targets": 3,
+                        "className": "text-center align-middle",
+                        "data": "priority",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "4%",
+                        "targets": 4,
+                        "className": "text-center align-middle",
+                        "data": "id",
+                        "render": function (data, type, row, meta) {
+                            return '<a href="/manage/link/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-link" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                        }
+                    }]
+            });
+
+            $('#linksTable tbody').on('click', 'a[data-role="delete-link"]', function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+
+                swal({
+                    title: 'آیا از انجام این کار اطمینان دارید؟',
+                    text: "این عملیات غیرقابل بازگشت می باشد!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'بله!',
+                    cancelButtonText: 'خیر',
+                    focusCancel: true,
+                    focusConfirm: false
+                }).then((result) => {
+                    if (result.value) {
+                        axios.post('/manage/link/delete/' + data.id + '/')
+                            .then(function (response) {
+                                row.remove().draw();
+                                swal({
+                                    title: 'انجام شد!',
+                                    text: response.data,
+                                    type: 'success',
+                                    confirmButtonText: 'بستن',
+                                })
+                            })
+                            .catch(function (error) {
+                                swal({
+                                    title: 'خطا!',
+                                    text: 'عملیات با خطا مواجه گشت.',
+                                    type: 'error',
+                                    confirmButtonText: 'بستن',
+                                })
+                            });
+                    }
+                })
+            });
+
+            $('#PortalId, #Language, #LinkType').on('change', function () {
+                table.ajax.reload(null, false); // user paging is not reset on reload
+            });
+        });
+    </script>
+}
