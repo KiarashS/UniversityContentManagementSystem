@@ -32,7 +32,7 @@ namespace ContentManagement.Services
                 var newLink = new Link
                 {
                     Text = link.Text,
-                    Url = link.Url,
+                    Url = link.Url.Trim(),
                     Icon = link.Icon,
                     IconColor = link.IconColor,
                     IsBlankUrlTarget = link.IsBlankUrlTarget,
@@ -49,7 +49,7 @@ namespace ContentManagement.Services
             var currentLink = await FindLinkByIdAsync(link.Id).ConfigureAwait(false);
 
             currentLink.Text = link.Text;
-            currentLink.Url = link.Url;
+            currentLink.Url = link.Url.Trim();
             currentLink.Icon = link.Icon;
             currentLink.IconColor = link.IconColor;
             currentLink.IsBlankUrlTarget = link.IsBlankUrlTarget;

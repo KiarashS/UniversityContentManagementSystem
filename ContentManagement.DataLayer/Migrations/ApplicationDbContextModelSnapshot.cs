@@ -46,7 +46,7 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<int>("ContentType");
 
-                    b.Property<string>("ImageName");
+                    b.Property<string>("Imagename");
 
                     b.Property<bool>("IsActive");
 

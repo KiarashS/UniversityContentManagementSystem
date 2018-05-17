@@ -31,7 +31,7 @@ namespace ContentManagement.Services
             {
                 var newPage = new Page
                 {
-                    Title = page.Title,
+                    Title = page.Title.Trim(),
                     Text = page.Text,
                     RawText = page.RawText,
                     Slug = page.Slug.GenerateSlug(),
@@ -47,7 +47,7 @@ namespace ContentManagement.Services
             }
             var currentPage = await FindPageByIdAsync(page.Id).ConfigureAwait(false);
 
-            currentPage.Title = page.Title;
+            currentPage.Title = page.Title.Trim();
             currentPage.Text = page.Text;
             currentPage.RawText = page.RawText;
             currentPage.Slug = page.Slug.GenerateSlug();

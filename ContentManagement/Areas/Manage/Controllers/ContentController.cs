@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ContentManagement.Common.ReflectionToolkit;
 using ContentManagement.Common.WebToolkit.Attributes;
+using System.Net;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -30,16 +31,16 @@ namespace ContentManagement.Areas.Manage.Controllers
     [Authorize(Policy = CustomRoles.Admin)]
     public partial class ContentController : Controller
     {
-        private readonly IPageService _pageService;
+        private readonly IContentService _contentService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
         private readonly IHostingEnvironment _env;
         private readonly IHtmlSanitizer _htmlSanitizer;
         private readonly IActionContextAccessor _actionContextAccessor;
 
-        public ContentController(IPageService pageService, IOptionsSnapshot<SiteSettings> siteSettings, IHostingEnvironment env, IHtmlSanitizer htmlSanitizer, IActionContextAccessor actionContextAccessor)
+        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IHostingEnvironment env, IHtmlSanitizer htmlSanitizer, IActionContextAccessor actionContextAccessor)
         {
-            _pageService = pageService;
-            _pageService.CheckArgumentIsNull(nameof(pageService));
+            _contentService = contentService;
+            _contentService.CheckArgumentIsNull(nameof(contentService));
 
             _siteSettings = siteSettings;
             _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
@@ -56,180 +57,176 @@ namespace ContentManagement.Areas.Manage.Controllers
 
         public virtual IActionResult Index(ContentManagement.Entities.ContentType? t)
         {
-            var linkTypesList = new List<SelectListItem>() { new SelectListItem { Text = "", Selected = true } };
-            var linkValues = Enum.GetValues(typeof(ContentManagement.Entities.LinkType)).Cast<ContentManagement.Entities.LinkType>();
+            var contentTypesList = new List<SelectListItem>() { new SelectListItem { Text = "", Selected = (t == null) } };
+            var contentValues = Enum.GetValues(typeof(ContentManagement.Entities.ContentType)).Cast<ContentManagement.Entities.ContentType>();
 
-            foreach (var item in linkValues)
+            foreach (var item in contentValues)
             {
                 var text = item.GetAttributeOfType<ContentTypeTextInAdminAttribute>().Description;
-                linkTypesList.Add(new SelectListItem { Text = text, Value = ((int)item).ToString() });
+                contentTypesList.Add(new SelectListItem { Text = text, Value = ((int)item).ToString(), Selected = (t == item) });
             }
 
-            ViewBag.LinkTypes = linkTypesList;
+            ViewBag.ContentTypes = contentTypesList;
             return View();
         }
 
-        public virtual async Task<IActionResult> List(IDataTablesRequest request, int portalId, Entities.Language language, ContentManagement.Entities.ContentType? type)
+        public virtual async Task<IActionResult> List(IDataTablesRequest request, int portalId, Entities.Language language, ContentManagement.Entities.ContentType? contentType)
         {
-            var pages = await _pageService.GetPagedPagesAsync(portalId, language, request.Search.Value, request.Start, request.Length).ConfigureAwait(false);
-            var pagesCount = await _pageService.PagesCountAsync();
-            var pagesPagedCount = await _pageService.PagesPagedCountAsync(portalId, language, request.Search.Value);
+            var contents = await _contentService.GetPagedContentsAsync(portalId, contentType, language, request.Search.Value, request.Start, request.Length).ConfigureAwait(false);
+            var contentsCount = await _contentService.ContentsCountAsync();
+            var contentsPagedCount = await _contentService.ContentsPagedCountAsync(portalId, contentType, language, request.Search.Value);
 
-            foreach (var item in pages)
+            foreach (var item in contents)
             {
                 var baseOfCurrentDomain = _siteSettings.Value.DomainName;
                 var pageHost = $"{item.PortalKey ?? "www"}.{baseOfCurrentDomain}";
-                item.PageLink = Url.RouteUrl("pageRoute", new { slug = item.Slug }, Request.Scheme, pageHost);
+                item.ContentLink = Url.RouteUrl("default", new { controller = "content", action = "detail", id = item.Id, title = WebUtility.UrlDecode(item.Title)}, Request.Scheme, pageHost);
             }
 
-            var response = DataTablesResponse.Create(request, (int)pagesCount, (int)pagesPagedCount, pages);
+            var response = DataTablesResponse.Create(request, (int)contentsCount, (int)contentsPagedCount, contents);
             return new DataTablesJsonResult(response, true);
         }
 
-        public virtual IActionResult Add()
+        public virtual IActionResult Add(ContentManagement.Entities.ContentType? t)
         {
-            return View();
+            var vm = new ContentViewModel(t);
+            return View(vm);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public virtual async Task<IActionResult> Add(PageViewModel page)
+        public virtual async Task<IActionResult> Add(ContentViewModel content)
         {
-            if (!page.Text.IsValidRequiredHtml())
+            if (!content.Text.IsValidRequiredHtml())
             {
-                ModelState.AddModelError("", "لطفاً متن صفحه را وارد نمائید.");
-                return View(page);
+                ModelState.AddModelError("", "لطفاً متن مطلب را وارد نمائید.");
+                return View(content);
             }
             else if (!ModelState.IsValid)
             {
-                return View(page);
+                return View(content);
             }
-            else if (string.IsNullOrEmpty(page.Slug.GenerateSlug()))
-            {
-                ModelState.AddModelError("", "لطفاً یک شناسه یکتا(انگلیسی) وارد نمائید.");
-                return View(page);
-            }
-            else if (page.Image != null && !page.Image.IsImageFile())
+            else if (content.Image != null && !content.Image.IsImageFile())
             {
                 ModelState.AddModelError("", "لطفاً یک تصویر معتبر انتخاب نمائید.");
-                return View(page);
+                return View(content);
             }
 
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
-            page.Text = _htmlSanitizer.Sanitize(page.Text);
-            page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
-            page.RawText = page.Text.CleanAllTagsExceptContent();
+            content.Text = _htmlSanitizer.Sanitize(content.Text);
+            content.Text = content.Text.NofollowExternalLinks(baseOfCurrentDomain);
+            content.RawText = content.Text.CleanAllTagsExceptContent();
 
-            if (page.Image != null)
+            if (content.Image != null)
             {
                 var webRoot = _env.WebRootPath;
-                using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(page.Image.OpenReadStream()))
+                using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(content.Image.OpenReadStream()))
                 {
                     image.Mutate(x => x
                             .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
-                                Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
+                                Infrastructure.Constants.ContentImageWidthSize, Infrastructure.Constants.ContentImageHeightSize),
                                 Mode = ResizeMode.Max }));
 
-                    page.Imagename = page.Image.FileName;
-                    var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
+                    content.Imagename = System.IO.Path.GetFileName(content.Image.FileName);
+                    var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
 
                     if (System.IO.File.Exists(file))
                     {
-                        page.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
-                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
+                        content.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
+                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
                     }
 
                     image.Save(file); // Automatic encoder selected based on extension.
-                    await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
+                    await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
                 }
             }
             else
             {
-                await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
+                await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
             }
 
             TempData["IsOk"] = true;
-            return RedirectToAction("index", "page", "manage");
+            return RedirectToAction("index", "content", "manage");
         }
 
         public async virtual Task<IActionResult> Update(long id)
         {
-            var page = await _pageService.FindPageByIdAsync(id);
+            var content = await _contentService.FindContentByIdAsync(id);
 
-            if (page == null)
+            if (content == null)
             {
-                return RedirectToAction("index", "page", "manage");
+                return RedirectToAction("index", "content", "manage");
             }
 
-            var pageViewModel = new PageViewModel
+            var contentViewModel = new ContentViewModel (content.ContentType)
             {
-                Id = page.Id,
-                Title = page.Title,
-                Text = page.Text,
-                Slug = page.Slug,
-                IsActive = page.IsActive,
-                PortalId = page.PortalId,
-                Language = page.Language
+                Id = content.Id,
+                Title = content.Title,
+                Text = content.Text,
+                RawText = content.RawText,
+                Summary = content.Summary,
+                Imagename = content.Imagename,
+                IsActive = content.IsActive,
+                IsFavorite = content.IsFavorite,
+                ContentType = content.ContentType,
+                Priority = content.Priority,
+                Language = content.Language,
+                PortalId = content.PortalId
             };
 
-            return View(pageViewModel);
+            return View(contentViewModel);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public virtual async Task<IActionResult> Update(PageViewModel page)
+        public virtual async Task<IActionResult> Update(ContentViewModel content)
         {
-            if (!page.Text.IsValidRequiredHtml())
+            if (!content.Text.IsValidRequiredHtml())
             {
-                ModelState.AddModelError("", "لطفاً متن صفحه را وارد نمائید.");
-                return View(page);
+                ModelState.AddModelError("", "لطفاً متن مطلب را وارد نمائید.");
+                return View(content);
             }
             else if (!ModelState.IsValid)
             {
-                return View(page);
-            }
-            else if (string.IsNullOrEmpty(page.Slug.GenerateSlug()))
-            {
-                ModelState.AddModelError("", "لطفاً یک شناسه یکتا(انگلیسی) وارد نمائید.");
-                return View(page);
+                return View(content);
             }
 
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
-            var currentImagename = await _pageService.GetPageImagenameAsync(page.Id);
-            if (page.Image != null)
+            var currentImagename = await _contentService.GetContentImagenameAsync(content.Id);
+            if (content.Image != null)
             {
-                if (!page.Image.IsImageFile())
+                if (!content.Image.IsImageFile())
                 {
                     ModelState.AddModelError("", "لطفاً یک تصویر معتبر انتخاب نمائید.");
-                    return View(page);
+                    return View(content);
                 }
 
                 var webRoot = _env.WebRootPath;
-                using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(page.Image.OpenReadStream()))
+                using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(content.Image.OpenReadStream()))
                 {
                     image.Mutate(x => x
                             .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
-                                Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
+                                Infrastructure.Constants.ContentImageWidthSize, Infrastructure.Constants.ContentImageHeightSize),
                                 Mode = ResizeMode.Max }));
 
-                    page.Imagename = page.Image.FileName;
-                    var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
+                    content.Imagename = System.IO.Path.GetFileName(content.Image.FileName);
+                    var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
 
                     if (System.IO.File.Exists(file))
                     {
-                        page.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
-                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
+                        content.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
+                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
                     }
 
                     image.Save(file); // Automatic encoder selected based on extension.
-                    page.Text = _htmlSanitizer.Sanitize(page.Text);
-                    page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
-                    page.RawText = page.Text.CleanAllTagsExceptContent();
-                    await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
+                    content.Text = _htmlSanitizer.Sanitize(content.Text);
+                    content.Text = content.Text.NofollowExternalLinks(baseOfCurrentDomain);
+                    content.RawText = content.Text.CleanAllTagsExceptContent();
+                    await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
 
                     if (!string.IsNullOrEmpty(currentImagename))
                     {
-                        var previousFile = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, currentImagename);
+                        var previousFile = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, currentImagename);
                         if (System.IO.File.Exists(previousFile))
                         {
                             System.IO.File.Delete(previousFile);
@@ -239,26 +236,26 @@ namespace ContentManagement.Areas.Manage.Controllers
             }
             else
             {
-                page.Imagename = currentImagename;
-                page.Text = _htmlSanitizer.Sanitize(page.Text);
-                page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
-                page.RawText = page.Text.CleanAllTagsExceptContent();
-                await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
+                content.Imagename = currentImagename;
+                content.Text = _htmlSanitizer.Sanitize(content.Text);
+                content.Text = content.Text.NofollowExternalLinks(baseOfCurrentDomain);
+                content.RawText = content.Text.CleanAllTagsExceptContent();
+                await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
             }
 
             TempData["IsOk"] = true;
-            return RedirectToAction("index", "page", "manage");
+            return RedirectToAction("index", "content", "manage");
         }
 
         [HttpPost]
         public virtual async Task<IActionResult> Delete(long id)
         {
-            var imagename = await _pageService.GetPageImagenameAsync(id);
+            var imagename = await _contentService.GetContentImagenameAsync(id);
 
             if(!string.IsNullOrEmpty(imagename))
             {
                 var webRoot = _env.WebRootPath;
-                var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, imagename);
+                var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, imagename);
 
                 if (System.IO.File.Exists(file))
                 {
@@ -266,26 +263,9 @@ namespace ContentManagement.Areas.Manage.Controllers
                 }
             }
             
-            await _pageService.DeletePageAsync(id);
+            await _contentService.DeleteContentAsync(id);
 
-            return Content("صفحه با موفقیت حذف شد.", "text/html", System.Text.Encoding.UTF8);
-        }
-
-        [HttpPost]
-        public virtual async Task<IActionResult> CheckSlug(string slug, string initialSlug)
-        {
-            slug = slug.GenerateSlug();
-            if (!string.IsNullOrEmpty(initialSlug) && slug.Trim() == initialSlug.Trim())
-            {
-                return Json(true);
-            }
-
-            if (string.IsNullOrEmpty(slug))
-            {
-                return Json(false);
-            }
-
-            return Json(!await _pageService.ValidatePageSlugAsync(slug));
+            return Content("مطلب با موفقیت حذف شد.", "text/html", System.Text.Encoding.UTF8);
         }
     }
 }

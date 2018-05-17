@@ -30,9 +30,9 @@ namespace ContentManagement.Services
             {
                 var newSlide = new Slide
                 {
-                    Title = slide.Title,
-                    Url = slide.SubTitle,
-                    SubTitle = slide.Url,
+                    Title = slide.Title.Trim(),
+                    Url = slide.SubTitle.Trim(),
+                    SubTitle = slide.Url.Trim(),
                     IsBlankUrlTarget = slide.IsBlankUrlTarget,
                     Priority = slide.Priority,
                     Filename = slide.Filename,
@@ -47,9 +47,9 @@ namespace ContentManagement.Services
 
             var currentSlide = await FindSlideByIdAsync(slide.Id).ConfigureAwait(false);
 
-            currentSlide.Title = slide.Title;
-            currentSlide.SubTitle = slide.SubTitle;
-            currentSlide.Url = slide.Url;
+            currentSlide.Title = slide.Title.Trim();
+            currentSlide.SubTitle = slide.SubTitle.Trim();
+            currentSlide.Url = slide.Url.Trim();
             currentSlide.IsBlankUrlTarget = slide.IsBlankUrlTarget;
             currentSlide.Priority = slide.Priority;
             currentSlide.Filename = slide.Filename;

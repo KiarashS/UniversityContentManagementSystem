@@ -1,17 +1,31 @@
-﻿using ContentManagement.Common.WebToolkit;
+﻿using ContentManagement.Common.ReflectionToolkit;
+using ContentManagement.Common.WebToolkit;
+using ContentManagement.Common.WebToolkit.Attributes;
 using ContentManagement.Entities;
 using DNTPersianUtils.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace ContentManagement.ViewModels.Areas.Manage
 {
     public class ContentViewModel
     {
+        public ContentViewModel(): this(null) {}
+
+        public ContentViewModel(ContentType? contentType = null)
+        {
+            if (contentType.HasValue)
+            {
+                ContentType = contentType.Value;
+            }
+        }
+
         public long Id { get; set; }
         [Required(ErrorMessage = "لطفاً پرتال را انتخاب نمایید.")]
         public int PortalId { get; set; }
@@ -42,6 +56,27 @@ namespace ContentManagement.ViewModels.Areas.Manage
             get
             {
                 return PublishDate.ToLongPersianDateTimeString();
+            }
+        }
+
+        public IList<SelectListItem> ContentTypes
+        {
+            get
+            {
+                var contentTypesList = new List<SelectListItem>() { new SelectListItem { Text = "", Selected = (Id == 0) } };
+                var contentValues = Enum.GetValues(typeof(ContentManagement.Entities.ContentType)).Cast<ContentManagement.Entities.ContentType>();
+
+                foreach (var item in contentValues)
+                {
+                    var text = item.GetAttributeOfType<ContentTypeTextInAdminAttribute>().Description;
+                    contentTypesList.Add(new SelectListItem { Text = text, Value = ((int)item).ToString(), Selected = (Id != 0 && item == ContentType) });
+                }
+
+                return contentTypesList;
+            }
+            set
+            {
+                ContentTypes = value;
             }
         }
     }

@@ -30,11 +30,11 @@ namespace ContentManagement.Services
             {
                 var newPortal = new Portal
                 {
-                    PortalKey = portal.PortalKey,
-                    TitleFa = portal.TitleFa,
-                    DescriptionFa = portal.DescriptionFa,
-                    TitleEn = portal.TitleEn,
-                    DescriptionEn = portal.DescriptionEn,
+                    PortalKey = portal.PortalKey.Trim(),
+                    TitleFa = portal.TitleFa.Trim(),
+                    DescriptionFa = portal.DescriptionFa.Trim(),
+                    TitleEn = portal.TitleEn.Trim(),
+                    DescriptionEn = portal.DescriptionEn.Trim(),
                     ShowInMainPortal = portal.ShowInMainPortal
                 };
 
@@ -47,13 +47,13 @@ namespace ContentManagement.Services
 
             if (currentPortal.PortalKey != null) // Do not manipulate the main portal
             {
-                currentPortal.PortalKey = portal.PortalKey;
+                currentPortal.PortalKey = portal.PortalKey.Trim();
                 currentPortal.ShowInMainPortal = portal.ShowInMainPortal;
             }
-            currentPortal.TitleFa = portal.TitleFa;
-            currentPortal.DescriptionFa = portal.DescriptionFa;
-            currentPortal.TitleEn = portal.TitleEn;
-            currentPortal.DescriptionEn = portal.DescriptionEn;
+            currentPortal.TitleFa = portal.TitleFa.Trim();
+            currentPortal.DescriptionFa = portal.DescriptionFa.Trim();
+            currentPortal.TitleEn = portal.TitleEn.Trim();
+            currentPortal.DescriptionEn = portal.DescriptionEn.Trim();
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }

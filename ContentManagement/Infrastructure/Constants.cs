@@ -9,6 +9,7 @@ namespace ContentManagement.Infrastructure
     {
         public static readonly string SlidesRootPath = "slides";
         public static readonly string PagesRootPath = "pagesimage";
+        public static readonly string ContentsRootPath = "contentimg";
         public static readonly string FilesManagerRootPath = "contentfiles";
         public static readonly string ImagesManagerRootPath = "contentimages";
 
@@ -18,8 +19,10 @@ namespace ContentManagement.Infrastructure
         public static readonly int PageImageWidthSize = 200;
         public static readonly int PageImageHeightSize = 200;
 
+        public static readonly int ContentImageWidthSize = 400;
+        public static readonly int ContentImageHeightSize = 200;
+
         public static readonly int EditorImageThumbWidthSize = 80;
         public static readonly int EditorImageThumbHeightSize = 80;
-
     }
 }

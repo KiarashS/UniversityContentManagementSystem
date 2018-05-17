@@ -86,7 +86,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                slide.Filename = slide.Image.FileName;
+                slide.Filename = System.IO.Path.GetFileName(slide.Image.FileName);
                 var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
 
                 if (System.IO.File.Exists(file))
@@ -156,7 +156,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                                 Mode = ResizeMode.Max
                             }));
 
-                    slide.Filename = slide.Image.FileName;
+                    slide.Filename = System.IO.Path.GetFileName(slide.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
 
                     if (System.IO.File.Exists(file))

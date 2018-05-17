@@ -32,7 +32,8 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" style="margin-left: 15px;">
                     <div class="btn-group" role="group" aria-label="Quick Access">
-                        <a class="btn btn-success" href="/manage/content/add/" role="button">درج مطلب جدید</a>
+                        <a class="btn btn-success" href="/manage/content/add/?t=news" role="button">درج خبر جدید</a>
+                        <a class="btn btn-warning" href="/manage/content/add/?t=announcement" role="button">درج اطلاعیه جدید</a>
                         <a class="btn btn-info" href="/manage/link/add/" role="button">درج لینک جدید</a>
                     </div>
                 </li>
@@ -77,7 +78,7 @@
           data-editor-file-manager-path="/@ContentManagement.Infrastructure.Constants.FilesManagerRootPath/"
           data-editor-image-manager-path="/@ContentManagement.Infrastructure.Constants.ImagesManagerRootPath/"
           data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"
-          data-file-upload-path=""></span>
+          data-content-image-path="/@ContentManagement.Infrastructure.Constants.ContentsRootPath/"></span>
 
     <script src="~/js/common.min.js" asp-append-version="true"></script>
     <script src="~/js/manage.min.js" asp-append-version="true"></script>

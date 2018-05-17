@@ -49,8 +49,8 @@ namespace ContentManagement.Services
             {
                 var newNavbar = new Navbar
                 {
-                    Text = navbar.Text,
-                    Url = navbar.Url,
+                    Text = navbar.Text.Trim(),
+                    Url = navbar.Url.Trim(),
                     Icon = navbar.Icon,
                     IsBlankUrlTarget = navbar.IsBlankUrlTarget,
                     Priority = navbar.Priority,
@@ -84,8 +84,8 @@ namespace ContentManagement.Services
                 }
             }
 
-            currentNavbar.Text = navbar.Text;
-            currentNavbar.Url = navbar.Url;
+            currentNavbar.Text = navbar.Text.Trim();
+            currentNavbar.Url = navbar.Url.Trim();
             currentNavbar.Icon = navbar.Icon;
             currentNavbar.IsBlankUrlTarget = navbar.IsBlankUrlTarget;
             currentNavbar.Priority = navbar.Priority;

@@ -15,6 +15,7 @@ var del = require("del"),
 var filesPath = {
     // CSS files
     commonCss: [
+        "node_modules/hover.css/css/hover-min.css",
         "node_modules/select2/dist/css/select2.min.css",
         "assets/css/common-styles.css"
     ],
@@ -68,6 +69,7 @@ var filesPath = {
         "node_modules/select2/dist/js/select2.min.js",
         "node_modules/select2/dist/js/i18n/fa.js",
         "node_modules/clipboard/dist/clipboard.min.js",
+        "node_modules/persianjs/persian.min.js",
         "node_modules/startbootstrap-sb-admin/js/sb-admin.js"
     ],
     rtlJs: [],

@@ -1,7 +1,11 @@
-﻿@model ContentManagement.ViewModels.Areas.Manage.PageViewModel
+﻿@model ContentManagement.ViewModels.Areas.Manage.ContentViewModel
+
+@using ContentManagement.Common.ReflectionToolkit;
+@using ContentManagement.Common.WebToolkit.Attributes;
 
 @{
-    ViewData["Title"] = "ویرایش صفحه";
+    var title = Model.ContentType != 0 ? $"ایجاد {Model.ContentType.GetAttributeOfType<ContentTypeTitleInAdminAttribute>().Description} جدید" : "ایجاد مطلب جدید";
+    ViewData["Title"] = title;
 }
 
 <link rel="stylesheet" href="~/css/kendo.common.min.css" asp-append-version="true" />
@@ -80,15 +84,11 @@
     }
 </style>
 
-<h3>ویرایش صفحه</h3>
+<h3>@title</h3>
 
 <div class="container">
     <div class="alert alert-info" role="alert">
-        شناسه یکتا حتماً می بایست انگلیسی باشد.
-    </div>
-
-    <div class="alert alert-info" role="alert">
-        توجه داشته باشید که در صورت نیاز، سایز تصویر صفحه می بایست @ContentManagement.Infrastructure.Constants.PageImageWidthSize در @ContentManagement.Infrastructure.Constants.PageImageHeightSize پیکسل باشد.
+        توجه داشته باشید که در صورت نیاز، سایز تصویر مطلب می بایست @ContentManagement.Infrastructure.Constants.ContentImageWidthSize در @ContentManagement.Infrastructure.Constants.ContentImageHeightSize پیکسل باشد.
     </div>
 
     <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
@@ -97,47 +97,67 @@
         @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId, language = Model.Language })
 
         <div class="form-group row">
+            <label asp-for="ContentType" class="col-sm-2 form-control-label">نوع مطلب</label>
+            <div class="col-sm-10">
+                <select class="form-control" asp-for="ContentType" asp-items="Model.ContentTypes"></select>
+                <span class="text-danger" asp-validation-for="ContentType"></span>
+            </div>
+        </div>
+        <div class="form-group row">
             <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان صفحه">
+                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان مطلب">
                 <span class="text-danger" asp-validation-for="Title"></span>
             </div>
         </div>
-        <input type="hidden" id="InitialSlug" name="InitialSlug" value="@Model.Slug" />
         <div class="form-group row">
-            <label asp-for="Slug" class="col-sm-2 form-control-label">شناسه یکتا</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" asp-for="Slug" dir="ltr" placeholder="شناسه یکتا">
-                <span class="text-danger" asp-validation-for="Slug"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="IsActive" class="col-sm-2 form-control-label">صفحه فعال باشد؟</label>
+            <label asp-for="IsActive" class="col-sm-2 form-control-label">مطلب فعال باشد؟</label>
             <div class="col-sm-10">
                 <input type="checkbox" class="form-control" asp-for="IsActive" style="width: 2%;">
                 <span class="text-danger" asp-validation-for="IsActive"></span>
             </div>
         </div>
+        <div class="form-group row">
+            <label asp-for="IsFavorite" class="col-sm-2 form-control-label">مطلب برگزیده است؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsFavorite" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsFavorite"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Priority" class="col-sm-2 form-control-label">اولویت</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" asp-for="Priority" placeholder="اولویت قرارگیری">
+                <span class="text-danger" asp-validation-for="Priority"></span>
+            </div>
+        </div>
         <div class="form-group row mb-5">
-            <label asp-for="Image" class="col-sm-2 form-control-label">تصویر</label>
+            <label asp-for="Image" class="col-sm-2 form-control-label">تصویر(اختیاری)</label>
             <div class="col-sm-10 custom-file">
                 <input type="file" class="custom-file-input" asp-for="Image" lang="fa">
-                <label class="custom-file-label" asp-for="Image">تصویر</label>
+                <label class="custom-file-label" asp-for="Image" style="margin-left: 15px; margin-right: 15px;">تصویر</label>
                 <span class="text-danger" asp-validation-for="Image"></span>
             </div>
         </div>
         <div class="form-group row">
+            <label asp-for="Summary" class="col-sm-2 form-control-label">خلاصه مطلب(اختیاری)</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" asp-for="Summary" placeholder="خلاصه مطلب" rows="5"></textarea>
+                <span class="text-danger" asp-validation-for="Summary"></span>
+            </div>
+        </div>
+        <div class="form-group row">
             <div class="col-sm-12">
-                <label asp-for="Text">متن صفحه</label>
+                <label asp-for="Text">متن مطلب</label>
                 <div class="k-rtl">
-                    <textarea class="form-control" asp-for="Text" placeholder="متن صفحه" style="height: 450px !important;" required></textarea>
+                    <textarea class="form-control" asp-for="Text" placeholder="متن مطلب" style="height: 450px !important;" required></textarea>
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
                 <button class="btn btn-primary" type="submit">ذخیره</button>
-                <a role="button" class="btn btn-secondary" href="/manage/page/">بازگشت</a>
+                <a role="button" class="btn btn-secondary" href="/manage/content/">بازگشت</a>
             </div>
         </div>
     </form>

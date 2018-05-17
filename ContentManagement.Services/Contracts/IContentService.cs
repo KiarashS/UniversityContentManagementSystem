@@ -9,11 +9,12 @@ namespace ContentManagement.Services.Contracts
 {
     public interface IContentService
     {
-        //Task AddOrUpdateLinkAsync(LinkViewModel link);
-        //Task<Link> FindLinkByIdAsync(long linkId);
-        //Task<IList<LinkViewModel>> GetPagedLinksAsync(int portalId, LinkType? linkType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
+        Task AddOrUpdateContentAsync(ContentViewModel content);
+        Task<Content> FindContentByIdAsync(long contentId);
+        Task<IList<ContentViewModel>> GetPagedContentsAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
         Task<long> ContentsCountAsync();
-        //Task<long> LinksPagedCountAsync(int portalId, LinkType? linkType, Language language = Language.FA, string searchTerm = null);
-        //Task DeleteLinkAsync(long id);
+        Task<long> ContentsPagedCountAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null);
+        Task DeleteContentAsync(long id);
+        Task<string> GetContentImagenameAsync(long id);
     }
 }

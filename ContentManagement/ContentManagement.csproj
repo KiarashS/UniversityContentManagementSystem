@@ -101,6 +101,7 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\contentfiles\" />
     <Folder Include="wwwroot\contentimages\" />
+    <Folder Include="wwwroot\contentimg\" />
     <Folder Include="wwwroot\pagesimage\" />
     <Folder Include="wwwroot\slides\" />
   </ItemGroup>

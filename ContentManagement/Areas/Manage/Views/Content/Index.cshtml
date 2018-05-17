@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "مدیریت صفحات";
+    ViewData["Title"] = "مدیریت مطالب";
     Layout = "~/Areas/Manage/Views/_Layout.cshtml";
 }
 
 <div class="m-3">
-    <a class="btn btn-primary" role="button" href="/manage/page/add/">ایجاد صفحه جدید</a>
+    <a class="btn btn-primary" role="button" href="/manage/content/add/">ایجاد مطلب جدید</a>
 </div>
 
 @if (TempData["IsOk"] != null && (bool)TempData["IsOk"] == true)
@@ -16,24 +16,33 @@
 }
 
 <div class="alert alert-info" role="alert">
-    توجه داشته باشید که در صورت نیاز، سایز تصویر صفحه می بایست @ContentManagement.Infrastructure.Constants.PageImageWidthSize در @ContentManagement.Infrastructure.Constants.PageImageHeightSize پیکسل باشد.
+    توجه داشته باشید که در صورت نیاز، سایز تصویر صفحه می بایست @ContentManagement.Infrastructure.Constants.ContentImageWidthSize در @ContentManagement.Infrastructure.Constants.ContentImageHeightSize پیکسل باشد.
 </div>
 
 <div class="card">
     <div class="card-header">
-        اسلایدها
+        مطالب
     </div>
     <div class="card-body">
         <form>
-            @await Component.InvokeAsync(nameof(PortalsAndLanguages))
+            <div class="form-row">
+                <div class="col-md-9">@await Component.InvokeAsync(nameof(PortalsAndLanguages))</div>
+                <div class="col-md-3">
+                    <label for="LinkType">نوع مطلب</label>
+                    <select class="form-control" id="ContentType" name="ContentType" asp-items="@ViewBag.ContentTypes"></select>
+                    <hr />
+                </div>
+            </div>
         </form>
-        <table class="table table-bordered table-sm table-hover" id="pagesTable" style="width: 100%;">
+        <table class="table table-bordered table-sm table-hover" id="contentsTable" style="width: 100%;">
             <thead class="thead-default">
                 <tr>
                     <th>تصویر</th>
                     <th>عنوان</th>
-                    <th>شناسه یکتا</th>
+                    <th>لینک مطلب</th>
                     <th>صفحه فعال است؟</th>
+                    <th>صفحه برگزیده است؟</th>
+                    <th>اولویت قرارگیری</th>
                     <th>تعداد مشاهده</th>
                     <th>عملیات</th>
                 </tr>
@@ -47,7 +56,7 @@
     <script>
         var table;
         $(document).ready(function () {
-            table = $('#pagesTable').DataTable({
+            table = $('#contentsTable').DataTable({
                 language: {
                     "url": "/statics/Datatable.Persian.json"
                 },
@@ -58,11 +67,12 @@
                 serverSide: true,
                 searchDelay: null,
                 ajax: {
-                    url: '/manage/page/list/',
+                    url: '/manage/content/list/',
                     dataSrc: 'data',
                     data: function (d) {
                         d.portalId = $('#PortalId').val();
                         d.language = $('#Language').val();
+                        d.contentType = $('#ContentType').val();
                     }
                 },
                 columnDefs: [
@@ -76,7 +86,7 @@
                                 return '<span class="text-muted">بدون تصویر</span>';
                             }
 
-                            var pageImagePath = $('#js-global-info').data('pageImagePath');
+                            var pageImagePath = $('#js-global-info').data('contentImagePath');
                             return '<img src="' + pageImagePath + data + '?width=75&height=75&rmode=max" />';
                         }
                     },
@@ -89,12 +99,12 @@
                         }
                     },
                     {
-                        "width": "20%",
+                        "width": "10%",
                         "targets": 2,
                         "className": "align-middle",
-                        "data": null,
+                        "data": 'contentLink',
                         "render": function (data, type, row, meta) {
-                            return '<span class="badge badge-warning">' + data.slug + '</span><br/><span class="text-muted">[<a target="_blank" href="' + data.pageLink + '">لینک صفحه</a> <button type="button" class="btn clipboardjs btn-outline-info btn-sm" title="کپی!" data-clipboard-text="' + data.pageLink + '"><img src="/statics/clippy.svg" width="16" alt="کپی!"></button>]</span>';
+                            return '<a target="_blank" href="' + persianJs(data).decodeURL() + '">لینک مطلب</a> <button type="button" class="btn clipboardjs btn-outline-info btn-sm" title="کپی!" data-clipboard-text="' + persianJs(data).decodeURL() + '"><img src="/statics/clippy.svg" width="16" alt="کپی!"></button>';
                         }
                     },
                     {
@@ -110,8 +120,32 @@
                         }
                     },
                     {
-                        "width": "10%",
+                        "width": "12%",
                         "targets": 4,
+                        "className": "text-center align-middle",
+                        "data": "isFavorite",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>بله</span>';
+                            }
+                            return '<span>خیر</span>';
+                        }
+                    },
+                    {
+                        "width": "11%",
+                        "targets": 5,
+                        "className": "text-center align-middle",
+                        "data": "priority",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "8%",
+                        "targets": 6,
                         "className": "text-center align-middle",
                         "data": "viewCount",
                         "render": function (data, type, row, meta) {
@@ -120,16 +154,16 @@
                     },
                     {
                         "width": "4%",
-                        "targets": 5,
+                        "targets": 7,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {
-                            return '<a href="/manage/page/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-page" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                            return '<a href="/manage/content/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-content" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
                         }
                     }]
             });
 
-            $('#pagesTable tbody').on('click', 'a[data-role="delete-page"]', function () {
+            $('#contentsTable tbody').on('click', 'a[data-role="delete-content"]', function () {
                 var row = table.row($(this).parents('tr'));
                 var data = row.data();
 
@@ -146,7 +180,7 @@
                     focusConfirm: false
                 }).then((result) => {
                     if (result.value) {
-                        axios.post('/manage/page/delete/' + data.id + '/')
+                        axios.post('/manage/content/delete/' + data.id + '/')
                             .then(function (response) {
                                 row.remove().draw();
                                 swal({
@@ -168,7 +202,7 @@
                 })
             });
 
-            $('#PortalId, #Language').on('change', function () {
+            $('#PortalId, #Language, #ContentType').on('change', function () {
                 table.ajax.reload(null, false); // user paging is not reset on reload
             });
 

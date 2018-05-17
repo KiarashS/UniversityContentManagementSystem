@@ -14,7 +14,7 @@ namespace ContentManagement.Entities
         public string Text { get; set; }
         public string RawText { get; set; }
         public string Summary { get; set; }
-        public string ImageName { get; set; }
+        public string Imagename { get; set; }
         public DateTimeOffset PublishDate { get; set; } = DateTimeOffset.UtcNow;
         public int ViewCount { get; set; }
         public bool IsActive { get; set; } = true;

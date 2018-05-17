@@ -9,7 +9,7 @@ namespace ContentManagement.Common.WebToolkit
     public static class HtmlExtensions
     {
         private static readonly Regex _pbrRegex = new Regex(@"<(?!br|/br|p|/p).+?>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex _htmlRegex = new Regex("<.*?>", RegexOptions.Compiled);
+        private static readonly Regex _htmlRegex = new Regex("<.*?>", RegexOptions.Compiled); // another regex = @"<(.|\n)*?>"
         private static readonly Regex _contentRegex = new Regex(@"<\/?script[^>]*?>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex _safeStrRegex = new Regex(@"<script[^>]*?>[\s\S]*?<\/script>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
@@ -87,6 +87,14 @@ namespace ContentManagement.Common.WebToolkit
         public static string CleanTags(this string html)
         {
             return _htmlRegex.Replace(html, string.Empty);
+
+            // حذف کدهای ویژه
+            //withoutHtml = withoutHtml.Replace("&nbsp;", " ");
+            //withoutHtml = withoutHtml.Replace("&zwnj;", " ");
+            //withoutHtml = withoutHtml.Replace("&quot;", " ");
+            //withoutHtml = withoutHtml.Replace("amp;", "");
+            //withoutHtml = withoutHtml.Replace("&laquo;", "«");
+            //withoutHtml = withoutHtml.Replace("&raquo;", "»");
         }
 
         /// <summary>
@@ -107,6 +115,14 @@ namespace ContentManagement.Common.WebToolkit
         public static string CleanScriptsTagsAndContents(this string html)
         {
             return _safeStrRegex.Replace(html, "");
+        }
+
+        public static string TruncateAtWord(this string rawHtml, int length)
+        {
+            if (rawHtml == null || rawHtml.Length < length || rawHtml.IndexOf(" ", length) == -1)
+                return rawHtml;
+
+            return rawHtml.Substring(0, rawHtml.IndexOf(" ", length));
         }
     }
 }

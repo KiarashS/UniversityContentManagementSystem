@@ -115,7 +115,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                                 Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
                                 Mode = ResizeMode.Max }));
 
-                    page.Imagename = page.Image.FileName;
+                    page.Imagename = System.IO.Path.GetFileName(page.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
 
                     if (System.IO.File.Exists(file))
@@ -197,7 +197,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                                 Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
                                 Mode = ResizeMode.Max }));
 
-                    page.Imagename = page.Image.FileName;
+                    page.Imagename = System.IO.Path.GetFileName(page.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
 
                     if (System.IO.File.Exists(file))
