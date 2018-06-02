@@ -1,7 +1,7 @@
 ﻿using CacheManager.Core;
 using ContentManagement.DataLayer.Context;
 using ContentManagement.Infrastructure;
-using ContentManagement.Infrastructure.Seo;
+using ContentManagement.Services.Seo;
 using ContentManagement.Services;
 using ContentManagement.Services.Contracts;
 using ContentManagement.ViewModels.Settings;
@@ -50,6 +50,7 @@ namespace ContentManagement
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<ILinkService, LinkService>();
             services.AddScoped<IContentService, ContentService>();
+            services.AddScoped<IUrlUtilityService, UrlUtilityService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)
@@ -74,7 +75,7 @@ namespace ContentManagement
                 options.LoginPath = "/login/";
                 options.LogoutPath = "/login/logout/";
                 //options.AccessDeniedPath = new PathString("/error/index/403/");
-                options.Cookie.Name = ".user.cms.cookie";
+                options.Cookie.Name = ".user.portal.cookie";
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
@@ -100,8 +101,8 @@ namespace ContentManagement
                 new CultureInfo("fa-IR"),
                 new CultureInfo("en-US")
             };
-            var requestLocalizationOptions = new RequestLocalizationOptions();
 
+            var requestLocalizationOptions = new RequestLocalizationOptions();
             requestLocalizationOptions.DefaultRequestCulture = new RequestCulture(new CultureInfo("en-US"), new CultureInfo("fa-IR"));
             requestLocalizationOptions.SupportedCultures = supportedCultures;
             requestLocalizationOptions.SupportedUICultures = supportedUICultures;

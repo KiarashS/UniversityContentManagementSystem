@@ -13,6 +13,7 @@ html {
 body {
     direction: rtl;
     font-family: Vazir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #eeeff1;
 }
 
 .tooltip {
@@ -121,4 +122,12 @@ body.sidenav-toggled .navbar-sidenav .nav-link {
     top: -15px !important;
     left: -5px !important;
     font-size: 4.75rem !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
 }

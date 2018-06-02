@@ -1,9 +1,7 @@
-﻿using Humanizer;
-using ContentManagement.ViewModels.Settings;
-using Microsoft.AspNetCore.Localization;
+﻿using ContentManagement.ViewModels.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using ContentManagement.Infrastructure;
+using ContentManagement.Services;
 
 namespace ContentManagement.Controllers
 {

@@ -4,6 +4,7 @@ namespace ContentManagement.Services
     using ContentManagement.DataLayer.Context;
     using ContentManagement.Entities;
     using ContentManagement.Services.Contracts;
+    using ContentManagement.ViewModels;
     using ContentManagement.ViewModels.Areas.Manage;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
@@ -30,9 +31,9 @@ namespace ContentManagement.Services
             {
                 var newSlide = new Slide
                 {
-                    Title = slide.Title.Trim(),
-                    Url = slide.SubTitle.Trim(),
-                    SubTitle = slide.Url.Trim(),
+                    Title = slide.Title?.Trim(),
+                    Url = slide.Url?.Trim(),
+                    SubTitle = slide.SubTitle?.Trim(),
                     IsBlankUrlTarget = slide.IsBlankUrlTarget,
                     Priority = slide.Priority,
                     Filename = slide.Filename,
@@ -47,9 +48,9 @@ namespace ContentManagement.Services
 
             var currentSlide = await FindSlideByIdAsync(slide.Id).ConfigureAwait(false);
 
-            currentSlide.Title = slide.Title.Trim();
-            currentSlide.SubTitle = slide.SubTitle.Trim();
-            currentSlide.Url = slide.Url.Trim();
+            currentSlide.Title = slide.Title?.Trim();
+            currentSlide.SubTitle = slide.SubTitle?.Trim();
+            currentSlide.Url = slide.Url?.Trim();
             currentSlide.IsBlankUrlTarget = slide.IsBlankUrlTarget;
             currentSlide.Priority = slide.Priority;
             currentSlide.Filename = slide.Filename;
@@ -100,6 +101,33 @@ namespace ContentManagement.Services
         {
             var filename = _slide.Where(x => x.Id == id).Select(x => x.Filename).SingleOrDefaultAsync();
             return filename;
+        }
+
+        public async Task<IList<SliderViewModel>> GetPortalSlidesAsync(string portalKey, Language language, int size)
+        {
+            var sliderViewModel = new List<SliderViewModel>();
+            var slides = await _slide
+                                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language)
+                                .OrderByDescending(x => x.Priority)
+                                .ThenByDescending(x => x.Id)
+                                .Select(x => new { x.Title, x.SubTitle, x.Url, x.PublishDate, x.Priority, x.IsBlankUrlTarget, x.Filename })
+                                .Cacheable()
+                                .ToListAsync();
+
+            foreach (var item in slides)
+            {
+                sliderViewModel.Add(new SliderViewModel {
+                    Url = item.Url,
+                    Title = item.Title,
+                    SubTitle = item.SubTitle,
+                    PublishDate = item.PublishDate,
+                    Priority = item.Priority,
+                    Filename = item.Filename,
+                    IsBlankUrlTarget = item.IsBlankUrlTarget
+                });
+            }
+
+            return sliderViewModel;
         }
 
         public async Task<long> SlideCountAsync()

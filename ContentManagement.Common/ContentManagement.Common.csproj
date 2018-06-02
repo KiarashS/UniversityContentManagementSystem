@@ -11,14 +11,15 @@
 
   <ItemGroup>
     <PackageReference Include="AhoCorasick" Version="2.0.11" />
+    <PackageReference Include="DNTCommon.Web.Core" Version="1.2.0" />
     <PackageReference Include="DNTPersianUtils.Core" Version="2.4.0" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.8.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0-rc1-final" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.0-rc1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.0-rc1-final" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.8.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

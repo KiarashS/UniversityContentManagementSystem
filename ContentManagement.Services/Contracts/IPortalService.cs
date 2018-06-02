@@ -16,5 +16,6 @@ namespace ContentManagement.Services.Contracts
         Task<IList<PortalViewModel>> GetAllPortalsAsync();
         Task DeletePortalAsync(int id);
         Task<long> PortalsCountAsync();
+        Task<string> GetPortalTitleAsync(string portalKey, Language language);
     }
 }

@@ -30,11 +30,11 @@ namespace ContentManagement.Services
             {
                 var newPortal = new Portal
                 {
-                    PortalKey = portal.PortalKey.Trim(),
-                    TitleFa = portal.TitleFa.Trim(),
-                    DescriptionFa = portal.DescriptionFa.Trim(),
-                    TitleEn = portal.TitleEn.Trim(),
-                    DescriptionEn = portal.DescriptionEn.Trim(),
+                    PortalKey = portal.PortalKey?.Trim(),
+                    TitleFa = portal.TitleFa?.Trim(),
+                    DescriptionFa = portal.DescriptionFa?.Trim(),
+                    TitleEn = portal.TitleEn?.Trim(),
+                    DescriptionEn = portal.DescriptionEn?.Trim(),
                     ShowInMainPortal = portal.ShowInMainPortal
                 };
 
@@ -47,30 +47,33 @@ namespace ContentManagement.Services
 
             if (currentPortal.PortalKey != null) // Do not manipulate the main portal
             {
-                currentPortal.PortalKey = portal.PortalKey.Trim();
+                currentPortal.PortalKey = portal.PortalKey?.Trim();
                 currentPortal.ShowInMainPortal = portal.ShowInMainPortal;
             }
-            currentPortal.TitleFa = portal.TitleFa.Trim();
-            currentPortal.DescriptionFa = portal.DescriptionFa.Trim();
-            currentPortal.TitleEn = portal.TitleEn.Trim();
-            currentPortal.DescriptionEn = portal.DescriptionEn.Trim();
+            currentPortal.TitleFa = portal.TitleFa?.Trim();
+            currentPortal.DescriptionFa = portal.DescriptionFa?.Trim();
+            currentPortal.TitleEn = portal.TitleEn?.Trim();
+            currentPortal.DescriptionEn = portal.DescriptionEn?.Trim();
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public Task<Portal> FindPortalByKeyAsync(string portalKey)
+        public async Task<Portal> FindPortalByKeyAsync(string portalKey)
         {
-            return _portal.FirstOrDefaultAsync(p => p.PortalKey == portalKey.Trim());
+            var portal = await _portal.FirstOrDefaultAsync(p => p.PortalKey == portalKey.Trim()).ConfigureAwait(false);
+            return portal;
         }
 
-        public Task<Portal> FindPortalByIdAsync(int portalId)
+        public async Task<Portal> FindPortalByIdAsync(int portalId)
         {
-            return _portal.FirstOrDefaultAsync(p => p.Id == portalId);
+            var portal = await _portal.FirstOrDefaultAsync(p => p.Id == portalId).ConfigureAwait(false);
+            return portal;
         }
 
-        public Task<bool> ValidatePortalKeyAsync(string portalKey)
+        public async Task<bool> ValidatePortalKeyAsync(string portalKey)
         {
-            return _portal.AnyAsync(p => p.PortalKey == portalKey.Trim());
+            var isExist = await _portal.Where(p => p.PortalKey == portalKey.Trim()).Cacheable().AnyAsync().ConfigureAwait(false);
+            return isExist;
         }
 
         public async Task<IList<PortalViewModel>> GetAllPortalsAsync()
@@ -106,6 +109,26 @@ namespace ContentManagement.Services
         {
             var portal = await _portal.LongCountAsync().ConfigureAwait(false);
             return portal;
+        }
+
+        public async Task<string> GetPortalTitleAsync(string portalKey, Language language)
+        {
+            IQueryable<string> query;
+
+            switch (language)
+            {
+                case Language.FA:
+                default:
+                    query = _portal.Where(x => x.PortalKey == portalKey).Select(x => x.TitleFa);
+                    break;
+                case Language.EN:
+                    query = _portal.Where(x => x.PortalKey == portalKey).Select(x => x.TitleEn);
+                    break;
+            }
+
+            var title = await query.Cacheable().FirstOrDefaultAsync();
+
+            return title;
         }
     }
 }

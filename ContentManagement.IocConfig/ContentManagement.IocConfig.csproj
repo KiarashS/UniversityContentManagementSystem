@@ -12,10 +12,10 @@
     <ProjectReference Include="..\ContentManagement.ViewModels\ContentManagement.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
   </ItemGroup>
 
 </Project>

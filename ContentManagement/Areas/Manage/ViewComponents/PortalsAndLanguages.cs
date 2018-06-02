@@ -24,7 +24,7 @@ namespace ContentManagement.Areas.Manage.ViewComponents
             _portalService.CheckArgumentIsNull(nameof(portalService));
 
             _siteSettings = siteSettings;
-            _portalService.CheckArgumentIsNull(nameof(siteSettings));
+            _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int? portalId, Entities.Language language = Entities.Language.FA)

@@ -25,6 +25,7 @@ using Ben.Diagnostics;
 using DataTables.AspNet.AspNetCore;
 using Newtonsoft.Json.Serialization;
 using SixLabors.ImageSharp.Web.DependencyInjection;
+using ContentManagement.Infrastructure;
 
 namespace ContentManagement
 {
@@ -111,6 +112,11 @@ namespace ContentManagement
             {
                 options.UseCustomStringModelBinder();
                 options.AllowEmptyInputInBodyModelBinding = true;
+                options.Filters.Add(new RequireWwwAttribute
+                {
+                    IgnoreLocalhost = false,
+                    Permanent = true
+                });
                 options.Filters.Add(new RedirectToCanonicalUrlAttribute(appendTrailingSlash, lowercaseUrls));
                 options.Filters.Add(new NoLowercaseQueryStringAttribute());
                 // options.Filters.Add(new NoBrowserCacheAttribute());
@@ -125,7 +131,7 @@ namespace ContentManagement
             })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization()
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddWebMarkupMin(options =>
             {
@@ -178,8 +184,6 @@ namespace ContentManagement
                 app.UseStatusCodePagesWithReExecute("/error/index/{0}");
             }
             
-            app.UseExceptional();
-
             app.UseBlockingDetection();
 
             app.UseLocalization();
@@ -229,6 +233,8 @@ namespace ContentManagement
             // app.UseCustomIdentityServices();
 
             // app.UseNoBrowserCache();
+
+            app.UseExceptional();
 
             app.UseMvc(routes =>
             {

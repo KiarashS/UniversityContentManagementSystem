@@ -4,6 +4,7 @@ namespace ContentManagement.Services
     using ContentManagement.DataLayer.Context;
     using ContentManagement.Entities;
     using ContentManagement.Services.Contracts;
+    using ContentManagement.ViewModels;
     using ContentManagement.ViewModels.Areas.Manage;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
@@ -49,8 +50,8 @@ namespace ContentManagement.Services
             {
                 var newNavbar = new Navbar
                 {
-                    Text = navbar.Text.Trim(),
-                    Url = navbar.Url.Trim(),
+                    Text = navbar.Text?.Trim(),
+                    Url = navbar.Url?.Trim(),
                     Icon = navbar.Icon,
                     IsBlankUrlTarget = navbar.IsBlankUrlTarget,
                     Priority = navbar.Priority,
@@ -84,8 +85,8 @@ namespace ContentManagement.Services
                 }
             }
 
-            currentNavbar.Text = navbar.Text.Trim();
-            currentNavbar.Url = navbar.Url.Trim();
+            currentNavbar.Text = navbar.Text?.Trim();
+            currentNavbar.Url = navbar.Url?.Trim();
             currentNavbar.Icon = navbar.Icon;
             currentNavbar.IsBlankUrlTarget = navbar.IsBlankUrlTarget;
             currentNavbar.Priority = navbar.Priority;
@@ -134,6 +135,22 @@ namespace ContentManagement.Services
         {
             var navbar = await _navbar.FirstOrDefaultAsync(x => x.Id == navbarId);
             return navbar;
+        }
+
+        public async Task<IList<Navbar>> GetHeaderNavbarsAsync(string portalKey, Language language)
+        {
+            var navbars = await _navbar
+                          .Where(x => x.Portal.PortalKey == portalKey && x.Language == language)
+                          .OrderByDescending(x => x.Priority)
+                          .ThenByDescending(x => x.Id)
+                          //.Cacheable()
+                          .ToListAsync(); // fills the childs list too
+
+            navbars = navbars
+                    .Where(x => x.Parent == null) // for TreeViewHelper
+                    .ToList();
+
+            return navbars;
         }
 
         /// <summary>

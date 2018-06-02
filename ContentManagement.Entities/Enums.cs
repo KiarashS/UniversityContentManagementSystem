@@ -31,7 +31,11 @@ namespace ContentManagement.Entities
         [LinkTypeTextInAdmin("لینک منابع الکترونیک")]
         ElectronicResource = 5,
         [LinkTypeTextInAdmin("لینک خروجی (پیوندها)")]
-        External           = 6
+        External           = 6,
+        [LinkTypeTextInAdmin("لینک هدر(بخش بالایی)")]
+        Header             = 7,
+        [LinkTypeTextInAdmin("لینک فوتر(بخش پایینی)")]
+        Footer             = 8
     }
 
     public enum ContentType

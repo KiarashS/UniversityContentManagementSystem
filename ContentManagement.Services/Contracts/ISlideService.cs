@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Entities;
+using ContentManagement.ViewModels;
 using ContentManagement.ViewModels.Areas.Manage;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace ContentManagement.Services.Contracts
         Task<long> SlidePagedCountAsync(int portalId, Language language = Language.FA, string searchTerm = null);
         Task DeleteSlideAsync(long id);
         Task<string> GetSlideFilenameAsync(long id);
+        Task<IList<SliderViewModel>> GetPortalSlidesAsync(string portalKey, Language language, int size);
     }
 }

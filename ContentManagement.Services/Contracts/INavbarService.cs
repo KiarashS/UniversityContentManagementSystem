@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Entities;
+using ContentManagement.ViewModels;
 using ContentManagement.ViewModels.Areas.Manage;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace ContentManagement.Services.Contracts
         Task<long> NavbarPagedCountAsync(int portalId, Language language = Language.FA, string searchTerm = null);
         Task DeleteNavbarAsync(long id);
         Task<Navbar> GetParentOfNavbarAsync(long parentId);
+        Task<IList<Navbar>> GetHeaderNavbarsAsync(string portalKey, Language language);
     }
 }

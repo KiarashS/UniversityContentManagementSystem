@@ -1,0 +1,32 @@
+﻿@model ContentManagement.ViewModels.HeaderLogoViewModel
+
+<div class="container-fluid bg-white">
+    <div class="container">
+        <div class="row align-items-center mb-2 pb-1 pt-1">
+
+            <div class="col-xl-6 col-sm-9">
+                <a href="/" title="@Model.PortalTitle" data-tippy data-tippy-placement="@(RequestService.IsRtl() ? "left" : "right")"><img src="~/statics/logo.png" alt="@Model.PortalTitle" class="header-logo" /></a>
+                <span>@Model.PortalTitle</span>
+            </div>
+
+            <div class="col-xl-2 col-sm-3" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+                <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-family: Tahoma; font-size: 0.9rem; text-decoration: none;">فارسی <span class="flag-icon flag-icon-ir"></span></a>
+                <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" title="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
+            </div>
+
+            <div class="col-xl-2 col-sm-4" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+                <span style="font-size:0.8rem;">@Model.TodayDate</span>
+            </div>
+
+            <div class="col-xl-2 col-sm-8" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-sm" placeholder="@SharedLocalizer["Search"]">
+                    <div class="input-group-append">
+                        <a class="btn btn-primary btn-sm"><i class="fas fa-search text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

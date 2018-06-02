@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ContentManagement.Entities.Navbar>
+
+<div asp-if="Model.Any()" class="container-fluid grey lighten-5">
+    <div class="container">
+        <div class="row align-items-center mb-3">
+            <div class="col">
+                <nav class="topbar-nav is-hoverable" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
+                    <ul class="metismenu" id="header-navbar">
+                        <partial name="_NavbarPartial" model="@Model" />
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

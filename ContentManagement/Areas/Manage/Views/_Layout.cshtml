@@ -2,7 +2,7 @@
 @using System.Security.Claims
 
 <!DOCTYPE html>
-<html lang="@CurrentLanguage().Language.ToString().ToLowerInvariant()">
+<html lang="@RequestService.CurrentLanguage().Language.ToString().ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="~/favicon.png" />
@@ -36,6 +36,9 @@
                         <a class="btn btn-warning" href="/manage/content/add/?t=announcement" role="button">درج اطلاعیه جدید</a>
                         <a class="btn btn-info" href="/manage/link/add/" role="button">درج لینک جدید</a>
                     </div>
+                </li>
+                <li class="nav-item" style="margin-left: 15px;">
+                    <a class="btn btn-danger" href="/" target="_blank" role="button">نمایش پرتال</a>
                 </li>
                 <li class="nav-item">
                     <div class="dropdown open">

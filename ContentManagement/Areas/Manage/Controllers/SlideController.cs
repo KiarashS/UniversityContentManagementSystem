@@ -83,7 +83,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                         {
                             Size = new SixLabors.Primitives.Size(
                                 Infrastructure.Constants.SlideWidthSize, Infrastructure.Constants.SlideHeightSize),
-                            Mode = ResizeMode.Max
+                            Mode = ResizeMode.Stretch
                         }));
 
                 slide.Filename = System.IO.Path.GetFileName(slide.Image.FileName);
@@ -95,8 +95,8 @@ namespace ContentManagement.Areas.Manage.Controllers
                     file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
                 }
 
-                image.Save(file); // Automatic encoder selected based on extension.
                 await _slideService.AddOrUpdateSlideAsync(slide).ConfigureAwait(false);
+                image.Save(file); // Automatic encoder selected based on extension.
             }
 
             TempData["IsOk"] = true;
@@ -153,7 +153,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                             {
                                 Size = new SixLabors.Primitives.Size(
                                 Infrastructure.Constants.SlideWidthSize, Infrastructure.Constants.SlideHeightSize),
-                                Mode = ResizeMode.Max
+                                Mode = ResizeMode.Stretch
                             }));
 
                     slide.Filename = System.IO.Path.GetFileName(slide.Image.FileName);
@@ -165,8 +165,8 @@ namespace ContentManagement.Areas.Manage.Controllers
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
                     }
 
-                    image.Save(file); // Automatic encoder selected based on extension.
                     await _slideService.AddOrUpdateSlideAsync(slide).ConfigureAwait(false);
+                    image.Save(file); // Automatic encoder selected based on extension.
 
                     var previousFile = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, currentFilename);
                     if (System.IO.File.Exists(previousFile))

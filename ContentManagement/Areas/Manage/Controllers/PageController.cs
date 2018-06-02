@@ -124,8 +124,8 @@ namespace ContentManagement.Areas.Manage.Controllers
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
                     }
 
-                    image.Save(file); // Automatic encoder selected based on extension.
                     await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
+                    image.Save(file); // Automatic encoder selected based on extension.
                 }
             }
             else
@@ -206,11 +206,11 @@ namespace ContentManagement.Areas.Manage.Controllers
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
                     }
 
-                    image.Save(file); // Automatic encoder selected based on extension.
                     page.Text = _htmlSanitizer.Sanitize(page.Text);
                     page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
                     page.RawText = page.Text.CleanAllTagsExceptContent();
                     await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
+                    image.Save(file); // Automatic encoder selected based on extension.
 
                     if (!string.IsNullOrEmpty(currentImagename))
                     {

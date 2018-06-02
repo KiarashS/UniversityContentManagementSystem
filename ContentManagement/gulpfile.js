@@ -17,7 +17,10 @@ var filesPath = {
     commonCss: [
         "node_modules/hover.css/css/hover-min.css",
         "node_modules/select2/dist/css/select2.min.css",
-        "assets/css/common-styles.css"
+        "node_modules/metismenu/dist/metisMenu.min.css",
+        "node_modules/lightslider/dist/css/lightslider.min.css",
+        "assets/css/lib/bootstrap-tabs-x-bs4.css",
+        "assets/css/common.css"
     ],
     rtlCss: [
         //"assets/css/transform/rtl/*.css",
@@ -37,6 +40,12 @@ var filesPath = {
         "assets/css/transform/rtl/responsive.bootstrap4-rtl.css",
         "node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
     ],
+    systemRtlCss: [
+        //"assets/css/transform/rtl/mdb.min-rtl.css",
+    ],
+    systemLtrCss: [
+        //"assets/css/transform/ltr/mdb.min.css",
+    ],
     moveCss: [
         //"assets/css/kendoui/kendo.common.min.css",
         //"assets/css/kendoui/kendo.bootstrap-v4.min.css",
@@ -50,6 +59,7 @@ var filesPath = {
         "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css",
         "node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css",
         "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.css",
+        //"assets/css/lib/mdb.min.css",
     ],
     cssOutput: "wwwroot/css/",
     transformCssOutput: "assets/css/transform/",
@@ -70,10 +80,20 @@ var filesPath = {
         "node_modules/select2/dist/js/i18n/fa.js",
         "node_modules/clipboard/dist/clipboard.min.js",
         "node_modules/persianjs/persian.min.js",
-        "node_modules/startbootstrap-sb-admin/js/sb-admin.js"
+        "node_modules/startbootstrap-sb-admin/js/sb-admin.js",
+        "node_modules/metismenu/dist/metisMenu.min.js",
+        "node_modules/lightslider/dist/js/lightslider.min.js",
+        "assets/js/lib/bootstrap-tabs-x.js",
+        "assets/js/common.js",
     ],
     rtlJs: [],
     ltrJs: [],
+    systemRtlJs: [
+        //"assets/js/lib/mdb.min.js",
+    ],
+    systemLtrJs: [
+        //"assets/js/lib/mdb.min.js",
+    ],
     manageJs: [
         "node_modules/datatables.net/js/jquery.dataTables.js",
         "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js",
@@ -94,8 +114,15 @@ var filesPath = {
     jsOutput: "wwwroot/js/",
 
     // etc. images, fonts, ...
-    images: [],
+    images: [
+        "assets/images/**",
+    ],
+    img: [
+        "node_modules/lightslider/dist/img/controls.png",
+        "assets/img/**",
+    ],
     imagesOutput: "wwwroot/images/",
+    imgOutput: "wwwroot/img/",
     fonts: [
         "node_modules/vazir-font/dist/Vazir*.*",
         "node_modules/shabnam-font/dist/Shabnam*.*"
@@ -107,7 +134,7 @@ var filesPath = {
     fontsOutput: "wwwroot/fonts/"
 };
 
-gulp.task("default", ["css:transform", "fonts:farsi", "commoncss:min", "rtlcss:min", "ltrcss:min", "managecss:min", "move:css", "commonjs:min", "rtljs:min", "ltrjs:min", "managejs:min", "move:js", "images:move", "fonts:move"]);
+gulp.task("default", ["css:transform", "fonts:farsi", "commoncss:min", "rtlcss:min", "ltrcss:min", "managecss:min", "systemRtlCss:min", "systemLtrCss:min", "move:css", "commonjs:min", "rtljs:min", "ltrjs:min", "managejs:min", "systemRtlJs:min", "systemLtrJs:min", "move:js", "images:move", "fonts:move"]);
 gulp.task("clean", ["transformCss:clean", "css:clean", "js:clean", "images:clean", "fonts:clean"]);
 
 gulp.task("watch", ["default"], function () {
@@ -115,11 +142,15 @@ gulp.task("watch", ["default"], function () {
     gulp.watch(filesPath.rtlCss, ["rtlcss:min"]);
     gulp.watch(filesPath.ltrCss, ["ltrcss:min"]);
     gulp.watch(filesPath.manageCss, ["managecss:min"]);
+    gulp.watch(filesPath.systemRtlCss, ["systemRtlCss:min"]);
+    gulp.watch(filesPath.systemLtrCss, ["systemLtrCss:min"]);
     gulp.watch(filesPath.moveCss, ["move:css"]);
     gulp.watch(filesPath.commonJs, ["commonjs:min"]);
     gulp.watch(filesPath.rtlJs, ["rtljs:min"]);
     gulp.watch(filesPath.ltrJs, ["ltrjs:min"]);
     gulp.watch(filesPath.manageJs, ["managejs:min"]);
+    gulp.watch(filesPath.systemRtlJs, ["systemRtlJs:min"]);
+    gulp.watch(filesPath.systemLtrJs, ["systemLtrJs:min"]);
     gulp.watch(filesPath.moveJs, ["move:js"]);
     gulp.watch(filesPath.images, ["images:move"]);
     gulp.watch(filesPath.fonts, ["fonts:move"]);
@@ -194,6 +225,26 @@ gulp.task("managecss:min", function () {
         .pipe(gulp.dest(filesPath.cssOutput));
 });
 
+gulp.task("systemRtlCss:min", function () {
+    if (filesPath.manageCss.length == 0)
+        return;
+
+    return gulp.src(filesPath.systemRtlCss)
+        .pipe(concat("portal.rtl.min.css"))
+        .pipe(csso())
+        .pipe(gulp.dest(filesPath.cssOutput));
+});
+
+gulp.task("systemLtrCss:min", function () {
+    if (filesPath.manageCss.length == 0)
+        return;
+
+    return gulp.src(filesPath.systemLtrCss)
+        .pipe(concat("portal.ltr.min.css"))
+        .pipe(csso())
+        .pipe(gulp.dest(filesPath.cssOutput));
+});
+
 gulp.task("move:css", function () {
     if (filesPath.moveCss.length == 0)
         return;
@@ -228,7 +279,10 @@ gulp.task("commonjs:min", function () {
             ext: {
                 min: '.min.js'
             },
-            noSource: true
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
         }))
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         //.pipe(rename({ suffix: '.min' }))
@@ -246,7 +300,10 @@ gulp.task("rtljs:min", function () {
             ext: {
                 min: '.min.js'
             },
-            noSource: true
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
 });
@@ -262,7 +319,10 @@ gulp.task("ltrjs:min", function () {
             ext: {
                 min: '.min.js'
             },
-            noSource: true
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
 });
@@ -278,7 +338,48 @@ gulp.task("managejs:min", function () {
             ext: {
                 min: '.min.js'
             },
-            noSource: true
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
+        }))
+        .pipe(gulp.dest(filesPath.jsOutput));
+});
+
+gulp.task("systemRtlJs:min", function () {
+    if (filesPath.manageJs.length == 0)
+        return;
+
+    return gulp.src(filesPath.systemRtlJs)
+        .pipe(concat("portal.js"))
+        //.pipe(gulp.dest(filesPath.jsOutput))
+        .pipe(minify({
+            ext: {
+                min: '.rtl.min.js'
+            },
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
+        }))
+        .pipe(gulp.dest(filesPath.jsOutput));
+});
+
+gulp.task("systemLtrJs:min", function () {
+    if (filesPath.manageJs.length == 0)
+        return;
+
+    return gulp.src(filesPath.systemLtrJs)
+        .pipe(concat("portal.js"))
+        //.pipe(gulp.dest(filesPath.jsOutput))
+        .pipe(minify({
+            ext: {
+                min: '.ltr.min.js'
+            },
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
 });
@@ -298,6 +399,15 @@ gulp.task("js:clean", function () {
 gulp.task('uglify-error-debugging', function (cb) {
     pump([
         gulp.src(filesPath.commonJs),
+        minify({
+            ext: {
+                min: '.min.js'
+            },
+            noSource: true,
+            preserveComments: function () {
+                return false;
+            }
+        }),
         uglify(),
         gulp.dest(filesPath.jsOutput)
     ], cb);
@@ -306,6 +416,9 @@ gulp.task('uglify-error-debugging', function (cb) {
 
 // Images
 gulp.task("images:move", function () {
+    gulp.src(filesPath.img)
+        .pipe(gulp.dest(filesPath.imgOutput));
+
     return gulp.src(filesPath.images)
                 .pipe(gulp.dest(filesPath.imagesOutput));
 });

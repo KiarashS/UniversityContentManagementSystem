@@ -8,6 +8,7 @@ namespace ContentManagement.Services
     using ContentManagement.ViewModels.Areas.Manage;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace ContentManagement.Services
             {
                 var newLink = new Link
                 {
-                    Text = link.Text,
-                    Url = link.Url.Trim(),
+                    Text = link.Text?.Trim(),
+                    Url = link.Url?.Trim(),
                     Icon = link.Icon,
                     IconColor = link.IconColor,
                     IsBlankUrlTarget = link.IsBlankUrlTarget,
@@ -48,8 +49,8 @@ namespace ContentManagement.Services
             }
             var currentLink = await FindLinkByIdAsync(link.Id).ConfigureAwait(false);
 
-            currentLink.Text = link.Text;
-            currentLink.Url = link.Url.Trim();
+            currentLink.Text = link.Text?.Trim();
+            currentLink.Url = link.Url?.Trim();
             currentLink.Icon = link.Icon;
             currentLink.IconColor = link.IconColor;
             currentLink.IsBlankUrlTarget = link.IsBlankUrlTarget;
@@ -101,6 +102,37 @@ namespace ContentManagement.Services
                                     .ToListAsync();
 
             return links.Select(x => new LinkViewModel { Id = x.Id, Text = x.Text, Url = x.Url, Icon = x.Icon, IconColor = x.IconColor, IsBlankUrlTarget = x.IsBlankUrlTarget, LinkType = x.LinkType, Priority = x.Priority }).ToList();
+        }
+
+        public async Task<IList<ViewModels.LinkViewModel>> GetLinksAsync(string portalKey, Language language, LinkType linkType, int maxSize = 6)
+        {
+            var links = await 
+                _link
+                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.LinkType == linkType)
+                .Select(x => new { x.Id, x.Url, x.Text, x.Icon, x.IconColor, x.IsBlankUrlTarget, x.Priority })
+                .OrderByDescending(x => x.Priority)
+                .ThenByDescending(x => x.Id)
+                .Take(maxSize)
+                .Cacheable()
+                .ToListAsync();
+
+            var linkViewModel = new List<ViewModels.LinkViewModel>();
+
+            foreach (var item in links)
+            {
+                linkViewModel.Add(new ViewModels.LinkViewModel
+                {
+                    Id = item.Id,
+                    Url = item.Url,
+                    Text = item.Text,
+                    Icon = item.Icon,
+                    IconColor = item.IconColor,
+                    IsBlankUrlTarget = item.IsBlankUrlTarget,
+                    Priority = item.Priority
+                });
+            }
+
+            return linkViewModel;
         }
 
         public async Task<long> LinksCountAsync()

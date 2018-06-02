@@ -31,10 +31,10 @@ namespace ContentManagement.Services
             {
                 var newContent = new Content
                 {
-                    Title = content.Title.Trim(),
+                    Title = content.Title?.Trim(),
                     Text = content.Text,
                     RawText = content.RawText,
-                    Summary = content.Summary,
+                    Summary = content.Summary?.Trim(),
                     Imagename = content.Imagename,
                     IsActive = content.IsActive,
                     IsFavorite = content.IsFavorite,
@@ -50,10 +50,10 @@ namespace ContentManagement.Services
             }
             var currentContent = await FindContentByIdAsync(content.Id).ConfigureAwait(false);
 
-            currentContent.Title = content.Title.Trim();
+            currentContent.Title = content.Title?.Trim();
             currentContent.Text = content.Text;
             currentContent.RawText = content.RawText;
-            currentContent.Summary = content.Summary;
+            currentContent.Summary = content.Summary?.Trim();
             currentContent.Imagename = content.Imagename;
             currentContent.IsActive = content.IsActive;
             currentContent.IsFavorite = content.IsFavorite;

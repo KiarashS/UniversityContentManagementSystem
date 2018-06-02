@@ -17,14 +17,14 @@
     <PackageReference Include="Boilerplate.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
-    <PackageReference Include="BundlerMinifier.Core" Version="2.7.385" />
+    <PackageReference Include="BundlerMinifier.Core" Version="2.8.391" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.2.0" />
     <PackageReference Include="HtmlSanitizer" Version="4.0.185" />
     <PackageReference Include="Humanizer.Core" Version="2.2.0" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
     <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
@@ -35,13 +35,13 @@
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.29" />
     <PackageReference Include="TagHelperPack" Version="0.1.0-ci-30" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
-    <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.0" />
-    <PackageReference Include="DNTCaptcha.Core" Version="1.4.3" />
+    <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.1" />
+    <PackageReference Include="DNTCaptcha.Core" Version="1.4.4" />
     <PackageReference Include="DNTPersianUtils.Core" Version="2.4.0" />
     <PackageReference Include="CacheManager.Core" Version="1.1.2" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
-    <PackageReference Include="EFSecondLevelCache.Core" Version="1.5.0" />
+    <PackageReference Include="EFSecondLevelCache.Core" Version="1.6.1" />
   </ItemGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -83,21 +83,23 @@
     <Watch Remove="assets\js\kendoui\kendo.culture.fa.min.js" />
     <Watch Remove="assets\js\kendoui\kendo.messages.en-US.min.js" />
     <Watch Remove="assets\js\kendoui\kendo.messages.fa-IR.min.js" />
+    <Watch Remove="assets\js\lib\bootstrap-tabs-x.js" />
+    <Watch Remove="assets\js\lib\bootstrap-tabs-x.min.js" />
     <Watch Remove="assets\js\lib\jscolor.js" />
   </ItemGroup>
   
   <ItemGroup>
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Models\" />
-    <Folder Include="assets\css\lib\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\ltr\" />
     <Folder Include="assets\css\transform\rtl\" />
     <Folder Include="assets\css\transform\rtl\" />
-    <Folder Include="assets\images\" />
     <Folder Include="assets\fonts\" />
+    <Folder Include="assets\images\" />
     <Folder Include="Errors\" />
     <Folder Include="logs\" />
+    <Folder Include="Resources\Controllers\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\contentfiles\" />
     <Folder Include="wwwroot\contentimages\" />
@@ -167,6 +169,18 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Manage\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\EssentialLinks\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\Slider\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\HeaderNavbar\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\HeaderLogo\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
