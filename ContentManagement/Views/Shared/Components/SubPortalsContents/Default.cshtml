@@ -1,0 +1,29 @@
+﻿@model IList<ContentManagement.ViewModels.SubPortalsContentsViewModel>
+
+<div asp-if="Model.Any()" class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card mt-2 mb-3">
+                <div class="card-header purple darken-1 text-white">
+                    <i class="fas fa-globe yellow-text"></i>&nbsp;@SharedLocalizer["Last Contents of Other Portals"]
+                </div>
+                <div class="card-body">
+
+                    @for (int i = 0; i < Model.Count; i += 3)
+                    {
+                        var item1 = Model.ElementAt(i);
+                        var item2 = Model.Count > i + 1 ? Model.ElementAt(i + 1) : null;
+                        var item3 = Model.Count > i + 2 ? Model.ElementAt(i + 2) : null;
+
+                        <div class="row" style="font-size: 0.9rem !important;">
+                            <div class="col-12 col-sm-12 col-md-4"><a class="nav-link hvr-underline-from-center" style="padding: 0.3rem 0.8rem !important;" href="@UrlUtilityService.GenerateUrl(item1.PortalKey, item1.Id, item1.Title, Url, Context.Request.Scheme, routeName: "default", controller: "content", action: "details")" target="_blank" title="@item1.GetPublishDate" data-tippy>@item1.Title&nbsp;<span class="badge badge-pill badge-success">@item1.PortalTitle</span>&nbsp;<span class="badge badge-pill badge-warning">@item1.TypeOfContent</span></a></div>
+                            <div class="col-12 col-sm-12 col-md-4" asp-if="@Model.Count > i + 1"><a class="nav-link hvr-underline-from-center" style="padding: 0.3rem 0.8rem !important;" href="@UrlUtilityService.GenerateUrl(item2.PortalKey, item2.Id, item2.Title, Url, Context.Request.Scheme, routeName: "default", controller: "content", action: "details")" target="_blank" title="@item2.GetPublishDate" data-tippy>@item2.Title&nbsp;<span class="badge badge-pill badge-success">@item2.PortalTitle</span>&nbsp;<span class="badge badge-pill badge-warning">@item2.TypeOfContent</span></a></div>
+                            <div class="col-12 col-sm-12 col-md-4" asp-if="@Model.Count > i + 2"><a class="nav-link hvr-underline-from-center" style="padding: 0.3rem 0.8rem !important;" href="@UrlUtilityService.GenerateUrl(item3.PortalKey, item3.Id, item3.Title, Url, Context.Request.Scheme, routeName: "default", controller: "content", action: "details")" target="_blank" title="@item3.GetPublishDate" data-tippy>@item3.Title</a>&nbsp;<span class="badge badge-pill badge-success">@item3.PortalTitle</span>&nbsp;<span class="badge badge-pill badge-warning">@item3.TypeOfContent</span></div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

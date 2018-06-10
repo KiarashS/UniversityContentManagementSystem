@@ -11,6 +11,7 @@ namespace ContentManagement.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     public class LinkService : ILinkService
@@ -109,7 +110,7 @@ namespace ContentManagement.Services
             var links = await 
                 _link
                 .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.LinkType == linkType)
-                .Select(x => new { x.Id, x.Url, x.Text, x.Icon, x.IconColor, x.IsBlankUrlTarget, x.Priority })
+                .Select(x => new { x.Id, x.Url, x.Text, x.Icon, x.IconColor, x.LinkType, x.IsBlankUrlTarget, x.Priority })
                 .OrderByDescending(x => x.Priority)
                 .ThenByDescending(x => x.Id)
                 .Take(maxSize)
@@ -127,6 +128,7 @@ namespace ContentManagement.Services
                     Text = item.Text,
                     Icon = item.Icon,
                     IconColor = item.IconColor,
+                    LinkType = item.LinkType,
                     IsBlankUrlTarget = item.IsBlankUrlTarget,
                     Priority = item.Priority
                 });
@@ -158,6 +160,38 @@ namespace ContentManagement.Services
 
             var count = await query.LongCountAsync().ConfigureAwait(false);
             return count;
+        }
+
+        public async Task<IList<ViewModels.LinkVisibilityViewModel>> CheckLinksVisibility(string portalKey, Language language, Func<Link, bool> predicate)
+        {
+            var vm = new List<ViewModels.LinkVisibilityViewModel>();
+            var links = _link
+                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language)
+                .Where(predicate)
+                .GroupBy(x => x.LinkType)
+                .Select(g => new { LinkType = g.Key, IsVisible = g.Any() });
+
+            // fill not existence enums with false IsVisible
+            foreach (LinkType item in Enum.GetValues(typeof(LinkType)))
+            {
+                if (links.Any(l => l. LinkType == item))
+                {
+                    vm.Add(new ViewModels.LinkVisibilityViewModel {
+                        LinkType = item,
+                        IsVisible = true
+                    });
+
+                    continue;
+                }
+
+                vm.Add(new ViewModels.LinkVisibilityViewModel
+                {
+                    LinkType = item,
+                    IsVisible = false
+                });
+            }
+
+            return vm;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace ContentManagement.ViewModels.Settings
         public MainPortal MainPortal { get; set; }
         public Localization Localization { get; set; }
         public int LoginCookieExpirationDays { get; set; }
+        public SocialNetworks SocialNetworks { get; set; }
         public Smtp Smtp { get; set; }
         public Connectionstrings ConnectionStrings { get; set; }
         public bool EnableEmailConfirmation { get; set; }

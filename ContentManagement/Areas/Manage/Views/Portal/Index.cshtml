@@ -8,7 +8,7 @@
     نام پرتال حتماً می بایست انگلیسی باشد.
 </div>
 
-<div class="alert alert-info" role="alert">
+<div class="alert alert-warning" role="alert">
     <strong>توجه</strong> پس از ایجاد هر پرتال باید یک ساب دامین دقیقاً با نام پرتال ایجاد نمائید.
 </div>
 
@@ -122,7 +122,7 @@
                                     text: response.data,
                                     type: 'success',
                                     confirmButtonText: 'بستن',
-                                })
+                                });
                             })
                             .catch(function (error) {
                                 swal({
@@ -130,7 +130,7 @@
                                     text: 'عملیات با خطا مواجه گشت.',
                                     type: 'error',
                                     confirmButtonText: 'بستن',
-                                })
+                                });
                             });
                     }
                 })
@@ -141,10 +141,12 @@
                 swal({
                     title: 'کپی شد!',
                     type: 'success',
-                    timer: 1000,
+                    //timer: 1000,
                     confirmButtonText: 'بستن',
-                })
-
+                    position: 'top-end',
+                    showConfirmButton: false
+                });
+                
                 e.clearSelection();
             });
         });

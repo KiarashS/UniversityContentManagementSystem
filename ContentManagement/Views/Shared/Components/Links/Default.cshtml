@@ -1,0 +1,49 @@
+﻿@model IList<ContentManagement.ViewModels.LinkViewModel>
+
+@{ 
+    var linkVisibility = (IList<ContentManagement.ViewModels.LinkVisibilityViewModel>)ViewBag.LinkVisibility;
+}
+
+<div asp-if="Model.Any()" class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2 mb-3">
+                <div class="card-body">
+                    <div id="links-tab" class="tabs-x tabs-above tab-bordered tabs-krajee tab-height-sm">
+
+                        <ul id="links-tabs-above" class="nav nav-tabs" role="tablist">
+                            <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" class="nav-item">
+                                <a class="nav-link" id="useful-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" href="#useful-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=useful" aria-controls="useful" aria-expanded="true">
+                                    <i class="fas fa-leaf"></i> @SharedLocalizer["Useful Links"]
+                                </a>
+                            </li>
+                            <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" class="nav-item">
+                                <a class="nav-link" id="electronic-service-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" href="#electronic-service-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=electronicservice" aria-controls="electronic-service">
+                                    <i class="fab fa-connectdevelop"></i> @SharedLocalizer["Electronic Services"]
+                                </a>
+                            </li>
+                            <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" class="nav-item">
+                                <a class="nav-link" id="electronic-resource-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" href="#electronic-resource-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=electronicresource" aria-controls="electronic-resource">
+                                    <i class="fas fa-database"></i> @SharedLocalizer["Electronic Resources"]
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div id="linksTabContent-tabs-above" class="tab-content">
+                            <div asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" class="tab-pane fade" condition-class-show="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" id="useful-tabs-above" role="tabpanel" aria-labelledby="useful-tab-tabs-above">
+                                <partial asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" model="Model" name="../../../link/_links.cshtml" />
+                            </div>
+                            <div asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" class="tab-pane fade" condition-class-show="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" id="electronic-service-tabs-above" role="tabpanel" aria-labelledby="electronic-service-tabs-above">
+                                <partial asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" model="Model" name="../../../link/_links.cshtml" />
+                            </div>
+                            <div asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" class="tab-pane fade" condition-class-show="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" id="electronic-resource-tabs-above" role="tabpanel" aria-labelledby="electronic-resource-tabs-above">
+                                <partial asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" model="Model" name="../../../link/_links.cshtml" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

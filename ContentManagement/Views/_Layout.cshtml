@@ -19,7 +19,7 @@
     @*<link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/css/portal.rtl.min.css" asp-append-version="true" />*@
     <link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/ltr.min.css" asp-append-version="true" />
     @*<link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/portal.ltr.min.css" asp-append-version="true" />*@
-    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
     <seo-link-canonical base="@($"//{Context.Request.Host.Value}/")" value="@WebUtility.UrlDecode(Context.Request.GetDisplayUrl())" />
     <seo-title></seo-title>
@@ -39,12 +39,14 @@
 
     @await Component.InvokeAsync(nameof(HeaderNavbar))
 
-    @await Component.InvokeAsync(nameof(Slider))
+    @RenderBody()
 
-    @await Component.InvokeAsync(nameof(EssentialLinks))
+    @await Component.InvokeAsync(nameof(Footer))
 
-    <div class="container">
-        @RenderBody()
+    <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 2.5rem; padding: 2px 5px; background-color: coral; z-index: 1000;">
+        <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" title="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+            <i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت
+        </a>
     </div>
 
     <span class="d-none" id="js-global-info"

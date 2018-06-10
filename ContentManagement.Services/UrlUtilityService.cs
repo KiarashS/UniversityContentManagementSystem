@@ -1,6 +1,8 @@
 ﻿using ContentManagement.ViewModels.Settings;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
+using System.Net;
 
 namespace ContentManagement.Services
 {
@@ -9,6 +11,7 @@ namespace ContentManagement.Services
         string Target(string url, bool isBlankUrlTarget = true);
         string ExternalClassName(string className = "external");
         bool IsExternal(string url);
+        string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "detail");
     }
 
     public class UrlUtilityService : IUrlUtilityService
@@ -58,6 +61,14 @@ namespace ContentManagement.Services
         {
             Uri result;
             return Uri.TryCreate(url, UriKind.Absolute, out result);
+        }
+
+        public string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "detail")
+        {
+            var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+            var pageHost = $"{portalKey ?? "www"}.{baseOfCurrentDomain}";
+
+            return url.RouteUrl(routeName, new { controller, action, area, id, title = !string.IsNullOrEmpty(title) ? WebUtility.UrlDecode(title) : null }, scheme, pageHost);
         }
     }
 }

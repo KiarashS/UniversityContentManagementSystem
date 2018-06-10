@@ -1,0 +1,26 @@
+﻿@model IList<ContentManagement.ViewModels.LinkViewModel>
+
+<div asp-if="Model.Any()" class="container">
+    <div class="row">
+        <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
+            <div class="card mt-2 mb-3">
+                <div class="card-header">
+                    <i class="fas fa-fighter-jet deep-orange-text"></i>&nbsp;@SharedLocalizer["Quick Links"]
+                </div>
+                <div class="card-body">
+
+                    @for (int i = 0; i < Model.Count; i += 4)
+                    {
+                        <div class="row" style="font-size: 0.9rem !important;">
+                            <div class="col-6 col-sm-6 col-md-3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i).Icon) ? Model.ElementAt(i).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i).Text</a></div>
+                            <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 1"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 1).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 1).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 1).Icon) ? Model.ElementAt(i + 1).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 1).Text</a></div>
+                            <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 2"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i + 2).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 2).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 2).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 2).Icon) ? Model.ElementAt(i + 2).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 2).Text</a></div>
+                            <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 3).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 3).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 3).Icon) ? Model.ElementAt(i + 3).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 3).Text</a></div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

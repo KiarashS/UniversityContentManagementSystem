@@ -188,7 +188,7 @@
                                     text: response.data,
                                     type: 'success',
                                     confirmButtonText: 'بستن',
-                                })
+                                });
                             })
                             .catch(function (error) {
                                 swal({
@@ -196,7 +196,7 @@
                                     text: 'عملیات با خطا مواجه گشت.',
                                     type: 'error',
                                     confirmButtonText: 'بستن',
-                                })
+                                });
                             });
                     }
                 })
@@ -211,9 +211,11 @@
                 swal({
                     title: 'کپی شد!',
                     type: 'success',
-                    timer: 1000,
+                    //timer: 1000,
                     confirmButtonText: 'بستن',
-                })
+                    position: 'top-end',
+                    showConfirmButton: false
+                });
 
                 e.clearSelection();
             });

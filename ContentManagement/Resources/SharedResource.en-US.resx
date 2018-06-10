@@ -112,4 +112,25 @@
   <data name="Essential Links" xml:space="preserve">
     <value>Essential Links</value>
   </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>{0}. All Rights Reserved ©</value>
+  </data>
+  <data name="External Links" xml:space="preserve">
+    <value>External Links</value>
+  </data>
+  <data name="Quick Links" xml:space="preserve">
+    <value>Quick Access</value>
+  </data>
+  <data name="Useful Links" xml:space="preserve">
+    <value>Useful Links</value>
+  </data>
+  <data name="Electronic Services" xml:space="preserve">
+    <value>Electronic Services</value>
+  </data>
+  <data name="Electronic Resources" xml:space="preserve">
+    <value>Electronic Resources</value>
+  </data>
+  <data name="Last Contents of Other Portals" xml:space="preserve">
+    <value>Last Contents of Other Portals</value>
+  </data>
 </root>

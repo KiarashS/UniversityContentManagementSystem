@@ -10,7 +10,9 @@ namespace ContentManagement.ViewModels.Settings
         public string BaseLinkCanonical { get; set; }
         public string BaseTitleFa { get; set; }
         public string BaseDescriptionFa { get; set; }
+        public string CopyrightFa { get; set; }
         public string BaseTitleEn { get; set; }
         public string BaseDescriptionEn { get; set; }
+        public string CopyrightEn { get; set; }
     }
 }

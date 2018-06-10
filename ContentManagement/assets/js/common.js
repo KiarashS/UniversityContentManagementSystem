@@ -15,6 +15,7 @@
             auto: true,
             loop: true,
             keyPress: true,
+            speed: 350,
             responsive: [
                 {
                     breakpoint: 800,
@@ -32,6 +33,15 @@
                     }
                 }
             ]
+        });
+    }
+
+    var $linksTab = $("#links-tab");
+    if ($linksTab.length > 0) {
+        $linksTab.tabsX({
+            ajaxSettings: {
+                dataType: 'html'
+            }
         });
     }
 });

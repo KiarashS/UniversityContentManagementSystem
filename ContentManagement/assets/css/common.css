@@ -2,6 +2,16 @@
     background-color: #eeeff1;
 }
 
+::selection {
+    background: rgba(87,184,0,.5); /* WebKit/Blink Browsers */
+    color: #fff;
+}
+
+::-moz-selection {
+    background: rgba(87,184,0,.5); /* Gecko Browsers */
+    color: #fff;
+}
+
 table.dataTable {
     border-spacing: 0;
 }
@@ -2142,30 +2152,6 @@ table.dataTable {
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.12), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
 }
 
-.purple-gradient {
-    background: -webkit-linear-gradient(50deg, #ff6ec4, #7873f5) !important;
-    background: -o-linear-gradient(50deg, #ff6ec4, #7873f5) !important;
-    background: linear-gradient(40deg, #ff6ec4, #7873f5) !important;
-}
-
-.peach-gradient {
-    background: -webkit-linear-gradient(50deg, #FFD86F, #FC6262) !important;
-    background: -o-linear-gradient(50deg, #FFD86F, #FC6262) !important;
-    background: linear-gradient(40deg, #FFD86F, #FC6262) !important;
-}
-
-.aqua-gradient {
-    background: -webkit-linear-gradient(50deg, #2096ff, #05ffa3) !important;
-    background: -o-linear-gradient(50deg, #2096ff, #05ffa3) !important;
-    background: linear-gradient(40deg, #2096ff, #05ffa3) !important;
-}
-
-.blue-gradient {
-    background: -webkit-linear-gradient(50deg, #45cafc, #303f9f) !important;
-    background: -o-linear-gradient(50deg, #45cafc, #303f9f) !important;
-    background: linear-gradient(40deg, #45cafc, #303f9f) !important;
-}
-
 .chip {
     display: inline-block;
     height: 32px;
@@ -2405,9 +2391,9 @@ table.dataTable {
             .topbar-nav .metismenu a:hover,
             .topbar-nav .metismenu a:focus,
             .topbar-nav .metismenu a:active {
-                color: #4c4e51; /*#f8f9fa*/
+                color: #fff; /*#f8f9fa*/
                 text-decoration: none;
-                background: #f8ad3c; /*#0b7285*/
+                background: #ffa200; /*#0b7285*/
             }
 
 @media (min-width: 992px) {
@@ -2446,21 +2432,6 @@ table.dataTable {
     }
 }
 
-.flex-caption {
-    width: 100%;
-    padding: 2%;
-    bottom: 0;
-    background: rgba(0,0,0,.5);
-    color: #fff;
-    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
-    font-size: 14px;
-    line-height: 18px;
-}
-
-.flexslider li a {
-    text-decoration: none !important;
-}
-
 .nounderline {
     text-decoration: none !important;
 }
@@ -2489,13 +2460,17 @@ table.dataTable {
     border-radius: 50%;
 }
 
+.nav-tabs .nav-item .nav-link {
+    border-top-width: 2px !important;
+}
+
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    border-color: #ffa500 #dee2e6 #fff !important;
+    border-color: #ffa200 #dee2e6 #fff !important;
     border-top-width: 2px !important;
 }
 
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
-    border-color: #ffcc6d #e9ecef #dee2e6 !important;
+    border-color: #fec458 #e9ecef #dee2e6 !important;
     border-top-width: 2px !important;
 }
 
@@ -2503,7 +2478,7 @@ table.dataTable {
 .nav-tabs .nav-item.show .nav-link:hover,
 .nav-tabs .nav-link.active:hover,
 .nav-tabs .nav-link.active:focus {
-    border-color: #ffa500 #dee2e6 #fff !important;
+    border-color: #ffa200 #dee2e6 #fff !important;
 }
 
 .nav-tabs .nav-link.disabled:hover,
@@ -2513,3 +2488,130 @@ table.dataTable {
     background-color: transparent !important;
     border-top-width: 1px !important;
 }
+
+.card.hoverable {
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+}
+
+    .card.hoverable:hover {
+        -webkit-box-shadow: 0 3px 20px rgba(128,128,128,0.23), 0 3px 30px rgba(0,0,0,0.16);
+        box-shadow: 0 3px 20px rgba(128,128,128,0.23), 0 3px 30px rgba(0,0,0,0.16);
+    }
+
+.card--oil:after {
+    background-image: -webkit-radial-gradient(top, rgba(106, 122, 135, 0.5), rgba(0, 0, 0, 0) 70%);
+    background-image: -o-radial-gradient(top, rgba(106, 122, 135, 0.5), rgba(0, 0, 0, 0) 70%);
+    background-image: radial-gradient(to bottom, rgba(106, 122, 135, 0.5), rgba(0, 0, 0, 0) 70%);
+}
+
+.card--tree:after {
+    background-image: -webkit-radial-gradient(top, rgba(106, 191, 96, 0.5), rgba(0, 0, 0, 0) 70%);
+    background-image: -o-radial-gradient(top, rgba(106, 191, 96, 0.5), rgba(0, 0, 0, 0) 70%);
+    background-image: radial-gradient(to bottom, rgba(106, 191, 96, 0.5), rgba(0, 0, 0, 0) 70%);
+}
+
+.card--water:after {
+    background-image: -webkit-radial-gradient(top, rgba(96, 203, 231, 0.5), rgba(0, 0, 0, 0) 70%);
+    background-image: -o-radial-gradient(top, rgba(96, 203, 231, 0.5), rgba(0, 0, 0, 0) 70%);
+    background-image: radial-gradient(to bottom, rgba(96, 203, 231, 0.5), rgba(0, 0, 0, 0) 70%);
+}
+
+.social {
+    background-image: url('/images/social.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+    .social.aparat {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -10px;
+    }
+
+    .social.bale {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -49px;
+    }
+
+    .social.bisphone {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -88px;
+    }
+
+    .social.eitaa {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -127px;
+    }
+
+    .social.facebook {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -166px;
+    }
+
+    .social.gap {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -205px;
+    }
+
+    .social.googleplus {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -244px;
+    }
+
+    .social.igap {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -283px;
+    }
+
+    .social.instagram {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -322px;
+    }
+
+    .social.soroush {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -361px;
+    }
+
+    .social.telegram {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -400px;
+    }
+
+    .social.twitter {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -439px;
+    }
+
+    .social.youtube {
+        width: 29px;
+        height: 29px;
+        background-position: -10px -478px;
+    }
+
+.bordered-link {
+    border: 2px solid rgba(255, 162, 30, 0.40);
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+}
+
+    .bordered-link:hover {
+        /*border-color: rgba(255, 162, 30, 0.40);*/
+        border: 2px solid #ffa21e;
+    }

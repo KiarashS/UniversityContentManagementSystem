@@ -42,54 +42,104 @@ namespace ContentManagement.Entities
     {
         [ContentTypeTextInAdmin("اخبار")]
         [ContentTypeTitleInAdmin("خبر")]
+        [ContentTypeTextFa("خبر")]
+        [ContentTypeTextEn("News")]
         News                    = 1,  // اخبار
+
         [ContentTypeTextInAdmin("اطلاعیه")]
         [ContentTypeTitleInAdmin("اطلاعیه")]
-        Announcement            = 2,  // اطلاعیه
+        [ContentTypeTextFa("اطلاعیه")]
+        [ContentTypeTextEn("Announcement")]
+        Announcement = 2,  // اطلاعیه
+
         [ContentTypeTextInAdmin("رویدادهای آینده")]
         [ContentTypeTitleInAdmin("رویداد")]
-        UpcomingEvent           = 3,  // رویدادهای آینده
+        [ContentTypeTextFa("رویدادهای آینده")]
+        [ContentTypeTextEn("Future Event")]
+        UpcomingEvent = 3,  // رویدادهای آینده
+
         [ContentTypeTextInAdmin("دستورالعمل ها")]
         [ContentTypeTitleInAdmin("دستورالعمل")]
-        Regulation              = 4,  // دستورالعمل ها و آیین نامه ها
+        [ContentTypeTextFa("دستورالعمل")]
+        [ContentTypeTextEn("Regulation")]
+        Regulation = 4,  // دستورالعمل ها و آیین نامه ها
+
         [ContentTypeTextInAdmin("همایش ها و سمینارها")]
         [ContentTypeTitleInAdmin("همایش/سمینار")]
-        Congress                = 5,  // همایش ها و سمینارها
+        [ContentTypeTextFa("همایش/سمینار")]
+        [ContentTypeTextEn("Congress/Seminar")]
+        Congress = 5,  // همایش ها و سمینارها
+
         [ContentTypeTextInAdmin("انتصابات")]
         [ContentTypeTitleInAdmin("اخبر نتصاب")]
-        Appointment             = 6,  // انتصابات
+        [ContentTypeTextFa("انتصابات")]
+        [ContentTypeTextEn("Appointment")]
+        Appointment = 6,  // انتصابات
+
         [ContentTypeTextInAdmin("تحقیق ها و پژوهش ها")]
         [ContentTypeTitleInAdmin("خبر تحقیقی/پژوهشی")]
-        Research                = 7,  // تحقیق ها و پژوهش ها
+        [ContentTypeTextFa("تحقیق/پژوهش")]
+        [ContentTypeTextEn("Research")]
+        Research = 7,  // تحقیق ها و پژوهش ها
+
         [ContentTypeTextInAdmin("نشریه ها")]
         [ContentTypeTitleInAdmin("خبر نشریه ای")]
-        Journal                 = 8,  // نشریه ها
+        [ContentTypeTextFa("نشریه")]
+        [ContentTypeTextEn("Journal")]
+        Journal = 8,  // نشریه ها
+
         [ContentTypeTextInAdmin("فرم های آموزشی و پژوهشی")]
         [ContentTypeTitleInAdmin("فرم آموزشی/پژوهشی")]
-        Form                    = 9,  // فرم های آموزشی و پژوهشی  و ...
+        [ContentTypeTextFa("نشریه")]
+        [ContentTypeTextEn("Journal")]
+        Form = 9,  // فرم های آموزشی و پژوهشی  و ...
+
         [ContentTypeTextInAdmin("فراخوان ها")]
         [ContentTypeTitleInAdmin("فراخوان")]
-        Recall                  = 10, // فراخوان ها
+        [ContentTypeTextFa("فراخوان")]
+        [ContentTypeTextEn("Recall")]
+        Recall = 10, // فراخوان ها
+
         [ContentTypeTextInAdmin("تقویم آموزشی")]
         [ContentTypeTitleInAdmin("تقویم آموزشی")]
-        EducationalCalendar     = 11, // تقویم آموزشی
+        [ContentTypeTextFa("تقویم آموزشی")]
+        [ContentTypeTextEn("Educational Calendar")]
+        EducationalCalendar = 11, // تقویم آموزشی
+
         [ContentTypeTextInAdmin("آموزش")]
         [ContentTypeTitleInAdmin("خبر آموزشی")]
-        Education               = 12, // آموزش
+        [ContentTypeTextFa("آموزش")]
+        [ContentTypeTextEn("Education")]
+        Education = 12, // آموزش
+
         [ContentTypeTextInAdmin("پژوهش و فناوری")]
         [ContentTypeTitleInAdmin("خبر پژوهشی و فناوری")]
-        ResearchAndTechnology   = 13, // پژوهش و فناوری
+        [ContentTypeTextFa("پژوهش و فناوری")]
+        [ContentTypeTextEn("Research and Technology")]
+        ResearchAndTechnology = 13, // پژوهش و فناوری
+
         [ContentTypeTextInAdmin("دانشجویی و فرهنگی")]
         [ContentTypeTitleInAdmin("خبر دانشجویی و فرهنگی")]
-        StudentAndCultural      = 14, // دانشجویی و فرهنگی
+        [ContentTypeTextFa("دانشجویی و فرهنگی")]
+        [ContentTypeTextEn("Student and Cultural")]
+        StudentAndCultural = 14, // دانشجویی و فرهنگی
+
         [ContentTypeTextInAdmin("مالی")]
         [ContentTypeTitleInAdmin("خبر مالی")]
-        Financial               = 15, // مالی
+        [ContentTypeTextFa("مالی")]
+        [ContentTypeTextEn("Financial")]
+        Financial = 15, // مالی
+
         [ContentTypeTextInAdmin("عقیدتی سیاسی")]
         [ContentTypeTitleInAdmin("خبر عقیدتی سیاسی")]
+        [ContentTypeTextFa("عقیدتی سیاسی")]
+        [ContentTypeTextEn("Political and Ideological")]
         PoliticalAndIdeological = 16, // عقیدتی سیاسی
+
         [ContentTypeTextInAdmin("آموزش مجازی")]
         [ContentTypeTitleInAdmin("خبر آموزش مجازی")]
+        [ContentTypeTextFa("آموزش مجازی")]
+        [ContentTypeTextEn("Virtual Learning")]
         VirtualLearning = 17  // آموزش مجازی
     }
 }

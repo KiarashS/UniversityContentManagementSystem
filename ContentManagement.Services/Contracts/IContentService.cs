@@ -1,8 +1,7 @@
 ﻿using ContentManagement.Entities;
+using ContentManagement.ViewModels;
 using ContentManagement.ViewModels.Areas.Manage;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContentManagement.Services.Contracts
@@ -16,5 +15,6 @@ namespace ContentManagement.Services.Contracts
         Task<long> ContentsPagedCountAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null);
         Task DeleteContentAsync(long id);
         Task<string> GetContentImagenameAsync(long id);
+        Task<IList<SubPortalsContentsViewModel>> GetSubPortalsContentsAsync(Language language = Language.FA, int maxSize = 30);
     }
 }

@@ -1,0 +1,27 @@
+{
+  "images": {
+    "aparat": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/aparat.png",
+    "bale": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/bale.png",
+    "bisphone": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/bisphone.png",
+    "eitaa": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/eitaa.png",
+    "facebook": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/facebook.png",
+    "gap": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/gap.png",
+    "googleplus": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/googleplus.png",
+    "igap": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/igap.png",
+    "instagram": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/instagram.png",
+    "soroush": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/soroush.png",
+    "telegram": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/telegram.png",
+    "twitter": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/twitter.png",
+    "youtube": "D:/My%20Work/Projects/ContentManagement/ContentManagement/assets/images/youtube.png"
+  },
+  "orientation": "vertical",
+  "optimize": "lossless",
+  "padding": 10,
+  "output": "png",
+  "stylesheet": "css",
+  "pathprefix": "",
+  "customstyles": {
+    "display": "inline-block"
+  },
+  "appendcachebustspritesuffix": false
+}

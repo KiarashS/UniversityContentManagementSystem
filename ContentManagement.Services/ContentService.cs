@@ -5,6 +5,7 @@ namespace ContentManagement.Services
     using ContentManagement.DataLayer.Context;
     using ContentManagement.Entities;
     using ContentManagement.Services.Contracts;
+    using ContentManagement.ViewModels;
     using ContentManagement.ViewModels.Areas.Manage;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
@@ -136,6 +137,34 @@ namespace ContentManagement.Services
         {
             var imagename = _content.Where(x => x.Id == id).Select(x => x.Imagename).SingleOrDefaultAsync();
             return imagename;
+        }
+
+        public async Task<IList<SubPortalsContentsViewModel>> GetSubPortalsContentsAsync(Language language = Language.FA, int maxSize = 30)
+        {
+            var subPortalsContentsViewModel = new List<SubPortalsContentsViewModel>();
+            var subPortalsContents = await _content
+                                        .Where(x => x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
+                                        .OrderByDescending(x => x.Priority)
+                                        .ThenByDescending(x => x.PublishDate).AsQueryable()
+                                        .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.Portal.PortalKey, PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
+                                        .Cacheable()
+                                        .ToListAsync();
+
+
+            foreach (var item in subPortalsContents)
+            {
+                subPortalsContentsViewModel.Add(new SubPortalsContentsViewModel {
+                    Id = item.Id,
+                    PortalKey = item.PortalKey,
+                    PortalTitle = item.PortalTitle,
+                    Language = language,
+                    ContentType = item.ContentType,
+                    Title = item.Title,
+                    PublishDate = item.PublishDate
+                });
+            }
+
+            return subPortalsContentsViewModel;
         }
     }
 }
