@@ -90,8 +90,8 @@ namespace ContentManagement.Entities
 
         [ContentTypeTextInAdmin("فرم های آموزشی و پژوهشی")]
         [ContentTypeTitleInAdmin("فرم آموزشی/پژوهشی")]
-        [ContentTypeTextFa("نشریه")]
-        [ContentTypeTextEn("Journal")]
+        [ContentTypeTextFa("فرم ها")]
+        [ContentTypeTextEn("Forms")]
         Form = 9,  // فرم های آموزشی و پژوهشی  و ...
 
         [ContentTypeTextInAdmin("فراخوان ها")]

@@ -23,11 +23,11 @@ namespace ContentManagement.ViewModels
             {
                 if (Language == Entities.Language.EN)
                 {
-                    return PublishDate.ToString("dddd, d MMMM yyyy, h:m:s tt");
+                    return PublishDate.ToString("MM/dd/yyyy"); //ToString("dddd, d MMMM yyyy, h:m:s tt")
                 }
                 else
                 {
-                    return PublishDate.ToLongPersianDateTimeString();
+                    return PublishDate.ToShortPersianDateString().ToPersianNumbers(); //ToLongPersianDateTimeString()
                 }
             }
         }

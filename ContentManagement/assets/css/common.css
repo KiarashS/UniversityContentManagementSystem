@@ -2,6 +2,11 @@
     background-color: #eeeff1;
 }
 
+::-moz-selection {
+    background: rgba(87,184,0,.5); /* WebKit/Blink Browsers */
+    color: #fff;
+}
+
 ::selection {
     background: rgba(87,184,0,.5); /* WebKit/Blink Browsers */
     color: #fff;
@@ -1542,54 +1547,41 @@ table.dataTable {
 
 /*** Global ***/
 .z-depth-0 {
-    -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
 
 .z-depth-1 {
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .z-depth-1-half {
-    -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
 .z-depth-2, .cascading-admin-card .admin-up .fa {
-    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .z-depth-3 {
-    -webkit-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 .z-depth-4 {
-    -webkit-box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
     box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
 }
 
 .z-depth-5 {
-    -webkit-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
     box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 }
 
 
 .hoverable {
-    -webkit-box-shadow: none;
     box-shadow: none;
-    -webkit-transition: all 0.55s ease-in-out;
-    -o-transition: all 0.55s ease-in-out;
     transition: all 0.55s ease-in-out;
 }
 
     .hoverable:hover {
-        -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -webkit-transition: all 0.55s ease-in-out;
-        -o-transition: all 0.55s ease-in-out;
         transition: all 0.55s ease-in-out;
     }
 
@@ -1602,7 +1594,6 @@ table.dataTable {
 }
 
 .card {
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     border: 0;
     font-weight: 400;
@@ -1610,7 +1601,6 @@ table.dataTable {
 
     .card[class*="border"] {
         border: 1px solid #9e9e9e;
-        -webkit-box-shadow: none;
         box-shadow: none;
     }
 
@@ -1619,14 +1609,10 @@ table.dataTable {
     }
 
     .card .card-body .card-title a {
-        -webkit-transition: 0.2s ease-in-out;
-        -o-transition: 0.2s ease-in-out;
         transition: 0.2s ease-in-out;
     }
 
         .card .card-body .card-title a:hover {
-            -webkit-transition: 0.2s ease-in-out;
-            -o-transition: 0.2s ease-in-out;
             transition: 0.2s ease-in-out;
         }
 
@@ -1637,21 +1623,17 @@ table.dataTable {
     }
 
     .card.card-image {
-        -webkit-background-size: cover;
         background-size: cover;
         background-position: center;
         width: 100%;
     }
 
         .card.card-image [class*="rgba-"] {
-            -webkit-border-radius: 0.25rem;
             border-radius: 0.25rem;
         }
 
     .card.card-cascade .view {
-        -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
         box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
-        -webkit-border-radius: 0.25rem;
         border-radius: 0.25rem;
     }
 
@@ -1669,7 +1651,6 @@ table.dataTable {
             }
 
     .card.card-cascade.wider {
-        -webkit-box-shadow: none;
         box-shadow: none;
         background-color: transparent;
     }
@@ -1679,22 +1660,18 @@ table.dataTable {
         }
 
         .card.card-cascade.wider .card-body {
-            -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
             margin-left: 4%;
             margin-right: 4%;
             background: #fff;
             z-index: 1;
-            -webkit-border-radius: 0 0 0.25rem 0.25rem;
             border-radius: 0 0 0.25rem 0.25rem;
         }
 
         .card.card-cascade.wider.reverse .card-body {
             z-index: 3;
             margin-top: -1rem;
-            -webkit-border-radius: 0.25rem;
             border-radius: 0.25rem;
-            -webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
             box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
         }
 
@@ -1766,11 +1743,8 @@ table.dataTable {
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
             -webkit-transform: translateX(0);
-            -ms-transform: translateX(0);
             transform: translateX(0);
-            -webkit-transition: -webkit-transform 0.35s ease;
             transition: -webkit-transform 0.35s ease;
-            -o-transition: transform 0.35s ease;
             transition: transform 0.35s ease;
             transition: transform 0.35s ease, -webkit-transform 0.35s ease;
         }
@@ -1781,11 +1755,8 @@ table.dataTable {
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
             -webkit-transform: translateX(-48px);
-            -ms-transform: translateX(-48px);
             transform: translateX(-48px);
-            -webkit-transition: -webkit-transform 0.35s ease;
             transition: -webkit-transform 0.35s ease;
-            -o-transition: transform 0.35s ease;
             transition: transform 0.35s ease;
             transition: transform 0.35s ease, -webkit-transform 0.35s ease;
         }
@@ -1862,14 +1833,10 @@ table.dataTable {
 
     .card-wrapper .front,
     .card-wrapper .back {
-        -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-        -webkit-border-radius: 0.25rem;
         border-radius: 0.25rem;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        -webkit-transition: 1s;
-        -o-transition: 1s;
         transition: 1s;
     }
 
@@ -1881,14 +1848,11 @@ table.dataTable {
 .testimonial-card .card-up {
     overflow: hidden;
     height: 120px;
-    -webkit-border-top-left-radius: 0.25rem;
     border-top-left-radius: 0.25rem;
-    -webkit-border-top-right-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
 }
 
 .testimonial-card .avatar {
-    -webkit-border-radius: 50%;
     border-radius: 50%;
     width: 120px;
     margin-top: -60px;
@@ -1917,10 +1881,8 @@ table.dataTable {
     }
 
 .accordion .card {
-    -webkit-box-shadow: none;
     box-shadow: none;
     border-bottom: 1px solid #eeeeee;
-    -webkit-border-radius: 0;
     border-radius: 0;
 }
 
@@ -1935,14 +1897,11 @@ table.dataTable {
         }
 
         .accordion .card .card-header a {
-            -webkit-transition: ease-in-out 0.3s;
-            -o-transition: ease-in-out 0.3s;
             transition: ease-in-out 0.3s;
         }
 
             .accordion .card .card-header a:not(.collapsed) .rotate-icon {
                 -webkit-transform: rotate(180deg);
-                -ms-transform: rotate(180deg);
                 transform: rotate(180deg);
             }
 
@@ -1997,15 +1956,11 @@ table.dataTable {
 
     .card.card-ecommerce .card-footer a {
         color: #757575;
-        -webkit-transition: 0.4s;
-        -o-transition: 0.4s;
         transition: 0.4s;
     }
 
         .card.card-ecommerce .card-footer a:hover {
             color: #d50000;
-            -webkit-transition: 0.4s;
-            -o-transition: 0.4s;
             transition: 0.4s;
         }
 
@@ -2017,7 +1972,6 @@ table.dataTable {
     border: 2px solid #e0e0e0;
     height: 7.5rem;
     width: 7.5rem;
-    -webkit-border-radius: 50%;
     border-radius: 50%;
 }
 
@@ -2041,7 +1995,6 @@ table.dataTable {
             color: #fff;
             text-align: left;
             margin-right: 1rem;
-            -webkit-border-radius: 3px;
             border-radius: 3px;
         }
 
@@ -2098,7 +2051,6 @@ table.dataTable {
             color: #fff;
             text-align: left;
             margin-right: 1rem;
-            -webkit-border-radius: 3px;
             border-radius: 3px;
         }
 
@@ -2148,7 +2100,6 @@ table.dataTable {
 }
 
 .card.card-cascade .view {
-    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.12), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
 }
 
@@ -2160,7 +2111,6 @@ table.dataTable {
     color: rgba(0, 0, 0, 0.6);
     line-height: 32px;
     padding: 0 12px;
-    -webkit-border-radius: 16px;
     border-radius: 16px;
     background-color: #eceff1;
     margin-bottom: 1rem;
@@ -2172,7 +2122,6 @@ table.dataTable {
         margin: 0 8px 0 -12px;
         height: 32px;
         width: 32px;
-        -webkit-border-radius: 50%;
         border-radius: 50%;
     }
 
@@ -2182,28 +2131,22 @@ table.dataTable {
         font-size: 16px;
         line-height: 32px;
         padding-left: 8px;
-        -webkit-transition: all 0.1s linear;
-        -o-transition: all 0.1s linear;
         transition: all 0.1s linear;
     }
 
 .chips {
     outline: none;
-    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     border-bottom: 1px solid #ced4da;
     margin-bottom: 30px;
     min-height: 45px;
     padding-bottom: 1rem;
-    -webkit-transition: all .3s;
-    -o-transition: all .3s;
     transition: all .3s;
 }
 
     .chips.focus {
         border-bottom: 1px solid #4285f4;
-        -webkit-box-shadow: 0 1px 0 0 #4285f4;
         box-shadow: 0 1px 0 0 #4285f4;
     }
 
@@ -2233,7 +2176,6 @@ table.dataTable {
 
         .chips .input:focus {
             border: 0 !important;
-            -webkit-box-shadow: none !important;
             box-shadow: none !important;
         }
 
@@ -2355,25 +2297,13 @@ table.dataTable {
     }
 
     .topbar-nav .metismenu {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
         flex-direction: column;
     }
 
         .topbar-nav .metismenu > li {
-            -webkit-box-flex: 1;
-            -ms-flex: 1 1 0%;
             flex: 1 1 0%;
-            display: -webkit-box;
-            display: -ms-flexbox;
             display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
             flex-direction: column;
             position: relative;
         }
@@ -2398,16 +2328,10 @@ table.dataTable {
 
 @media (min-width: 992px) {
     .topbar-nav .metismenu {
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: row;
         flex-direction: row;
     }
 
         .topbar-nav .metismenu > li {
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
             flex-direction: column;
         }
 
@@ -2490,31 +2414,22 @@ table.dataTable {
 }
 
 .card.hoverable {
-    -webkit-transition: 0.4s;
-    -o-transition: 0.4s;
     transition: 0.4s;
 }
 
     .card.hoverable:hover {
-        -webkit-box-shadow: 0 3px 20px rgba(128,128,128,0.23), 0 3px 30px rgba(0,0,0,0.16);
         box-shadow: 0 3px 20px rgba(128,128,128,0.23), 0 3px 30px rgba(0,0,0,0.16);
     }
 
 .card--oil:after {
-    background-image: -webkit-radial-gradient(top, rgba(106, 122, 135, 0.5), rgba(0, 0, 0, 0) 70%);
-    background-image: -o-radial-gradient(top, rgba(106, 122, 135, 0.5), rgba(0, 0, 0, 0) 70%);
     background-image: radial-gradient(to bottom, rgba(106, 122, 135, 0.5), rgba(0, 0, 0, 0) 70%);
 }
 
 .card--tree:after {
-    background-image: -webkit-radial-gradient(top, rgba(106, 191, 96, 0.5), rgba(0, 0, 0, 0) 70%);
-    background-image: -o-radial-gradient(top, rgba(106, 191, 96, 0.5), rgba(0, 0, 0, 0) 70%);
     background-image: radial-gradient(to bottom, rgba(106, 191, 96, 0.5), rgba(0, 0, 0, 0) 70%);
 }
 
 .card--water:after {
-    background-image: -webkit-radial-gradient(top, rgba(96, 203, 231, 0.5), rgba(0, 0, 0, 0) 70%);
-    background-image: -o-radial-gradient(top, rgba(96, 203, 231, 0.5), rgba(0, 0, 0, 0) 70%);
     background-image: radial-gradient(to bottom, rgba(96, 203, 231, 0.5), rgba(0, 0, 0, 0) 70%);
 }
 
@@ -2606,8 +2521,6 @@ table.dataTable {
     border: 2px solid rgba(255, 162, 30, 0.40);
     border-radius: 3px;
     margin-bottom: 0.5rem;
-    -webkit-transition: 0.4s;
-    -o-transition: 0.4s;
     transition: 0.4s;
 }
 
@@ -2615,3 +2528,24 @@ table.dataTable {
         /*border-color: rgba(255, 162, 30, 0.40);*/
         border: 2px solid #ffa21e;
     }
+
+.content-container {
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    padding: 5px 10px;
+}
+
+.content-container:hover {
+    border-color:#757575;
+}
+    .content-container a {
+        width: -webkit-max-content !important;
+        width: -moz-max-content !important;
+        width: max-content !important;
+        text-decoration: none !important;
+    }
+
+.w-max-content {
+    width: -webkit-max-content !important;
+    width: -moz-max-content !important;
+    width: max-content !important;
+}

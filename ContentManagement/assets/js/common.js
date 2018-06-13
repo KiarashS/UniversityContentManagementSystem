@@ -44,4 +44,17 @@
             }
         });
     }
+
+    var $newsTab = $("#newsandfavorite-tab");
+    if ($newsTab.length > 0) {
+        $newsTab.tabsX({
+            ajaxSettings: {
+                dataType: 'html'
+            }
+        });
+
+        $newsTab.on('tabsX:success', function (event, data, status, jqXHR) {
+            tippy('[data-tippy]');
+        });
+    }
 });

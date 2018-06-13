@@ -6,6 +6,7 @@ using ContentManagement.ViewModels.Settings;
 using ContentManagement.Services;
 using ContentManagement.Entities;
 using DNTCommon.Web.Core;
+using ContentManagement.Common.GuardToolkit;
 
 namespace ContentManagement.Controllers
 {
@@ -18,8 +19,13 @@ namespace ContentManagement.Controllers
         public LinkController(ILinkService linkService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService)
         {
             _linkService = linkService;
+            _linkService.CheckArgumentIsNull(nameof(linkService));
+
             _siteSettings = siteSettings;
+            _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
+
             _requestService = requestService;
+            _requestService.CheckArgumentIsNull(nameof(requestService));
         }
 
         //[ResponseCache(Duration = 3600)]

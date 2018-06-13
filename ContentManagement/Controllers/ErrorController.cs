@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ContentManagement.Common.GuardToolkit;
 
 namespace ContentManagement.Controllers
 {
@@ -12,6 +13,7 @@ namespace ContentManagement.Controllers
         public ErrorController(ILogger<ErrorController> logger)
         {
             _logger = logger;
+            _logger.CheckArgumentIsNull(nameof(logger));
         }
 
         public virtual IActionResult Index(int? id)

@@ -133,4 +133,22 @@
   <data name="Last Contents of Other Portals" xml:space="preserve">
     <value>آخرین مطالب سایر پرتال ها</value>
   </data>
+  <data name="View All" xml:space="preserve">
+    <value>مشاهده همه</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>اخبار</value>
+  </data>
+  <data name="Favorite Contents" xml:space="preserve">
+    <value>مطالب برگزیده</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>اطلاعیه ها</value>
+  </data>
+  <data name="Publish Date" xml:space="preserve">
+    <value>تاریخ انتشار</value>
+  </data>
+  <data name="Upcoming Events" xml:space="preserve">
+    <value>رویدادهای آینده</value>
+  </data>
 </root>

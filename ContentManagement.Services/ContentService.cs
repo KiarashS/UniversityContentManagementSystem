@@ -1,7 +1,6 @@
 namespace ContentManagement.Services
 {
     using ContentManagement.Common.GuardToolkit;
-    using ContentManagement.Common.WebToolkit;
     using ContentManagement.DataLayer.Context;
     using ContentManagement.Entities;
     using ContentManagement.Services.Contracts;
@@ -143,7 +142,7 @@ namespace ContentManagement.Services
         {
             var subPortalsContentsViewModel = new List<SubPortalsContentsViewModel>();
             var subPortalsContents = await _content
-                                        .Where(x => x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
+                                        .Where(x => x.IsActive && x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
                                         .OrderByDescending(x => x.Priority)
                                         .ThenByDescending(x => x.PublishDate).AsQueryable()
                                         .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.Portal.PortalKey, PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
@@ -165,6 +164,48 @@ namespace ContentManagement.Services
             }
 
             return subPortalsContentsViewModel;
+        }
+
+        public async Task<IList<ContentsViewModel>> GetContentsAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News, int start = 0, int length = 10)
+        {
+            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive)
+                                    .OrderByDescending(x => x.Priority)
+                                    .ThenByDescending(x => x.PublishDate)
+                                    .Skip(start)
+                                    .Take(length)
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.PublishDate })
+                                    .Cacheable()
+                                    .ToListAsync();
+
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, Language = language, ContentType = contentType}).ToList();
+        }
+
+        public async Task<IList<ContentsViewModel>> GetFavoritesAsync(string portalKey, Language language = Language.FA, int start = 0, int length = 10)
+        {
+            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive)
+                                    .OrderByDescending(x => x.Priority)
+                                    .ThenByDescending(x => x.PublishDate)
+                                    .Skip(start)
+                                    .Take(length)
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.PublishDate, x.ContentType })
+                                    .Cacheable()
+                                    .ToListAsync();
+
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
+        }
+
+        public async Task<bool> IsExistContent(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News)
+        {
+            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive).Cacheable().AnyAsync().ConfigureAwait(false);
+
+            return isExist;
+        }
+
+        public async Task<bool> IsExistFavorite(string portalKey, Language language = Language.FA)
+        {
+            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive).Cacheable().AnyAsync().ConfigureAwait(false);
+
+            return isExist;
         }
     }
 }

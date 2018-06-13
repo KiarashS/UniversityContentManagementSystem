@@ -1,0 +1,27 @@
+﻿@model IList<ContentManagement.ViewModels.ContentsViewModel>
+
+<container asp-if="Model.Any()">
+    <div class="row no-gutters" style="font-size: 0.9rem !important;">
+        <div class="col-12">
+            <ul class="list-unstyled">
+
+                @foreach (var item in Model)
+                {
+                    <li class="media" condition-class-my-2="Model.Count > 2 && (Model.First() != item || Model.Last() != item)" condition-class-mb-2="Model.Count == 2 && Model.First() == item">
+                        <img class="mr-3 img-fluid img-thumbnail hoverable" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=50" alt="@item.Title" title="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>
+                        <div class="media-body" style="font-size: 0.9rem !important;">
+                            <a style="font-size: 0.9rem !important;" href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline"><h5 class="mt-0 mb-1" style="font-size: 1rem !important;"><span class="hvr-pop">@item.Title</span></h5></a>
+                            <div class="text-muted float-right" title="@SharedLocalizer["Publish Date"]" style="font-size: 0.7rem !important;">@item.GetPublishDate</div>
+                            @item.GetSummary
+                        </div>
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+        <div class="col-12 clearfix">
+            <a class="float-right nounderline btn btn-primary" style="font-size: 0.8rem !important;" condition-class-hvr-icon-back="@RequestService.IsRtl()" condition-class-hvr-icon-forward="@RequestService.IsLtr()" href="/content/@ViewData["NewsQuery"]">@SharedLocalizer["View All"]&nbsp;<i class="hvr-icon fas" condition-class-fa-angle-double-left="@RequestService.IsRtl()" condition-class-fa-angle-double-right="@RequestService.IsLtr()"></i></a>
+        </div>
+    </div>
+</container>

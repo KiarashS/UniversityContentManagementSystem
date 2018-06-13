@@ -133,4 +133,22 @@
   <data name="Last Contents of Other Portals" xml:space="preserve">
     <value>Last Contents of Other Portals</value>
   </data>
+  <data name="View All" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="Favorite Contents" xml:space="preserve">
+    <value>Featured Contents</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>Announcements</value>
+  </data>
+  <data name="Publish Date" xml:space="preserve">
+    <value>Publish Date</value>
+  </data>
+  <data name="Upcoming Events" xml:space="preserve">
+    <value>Future Events</value>
+  </data>
 </root>
