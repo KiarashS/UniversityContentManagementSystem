@@ -16,6 +16,6 @@ namespace ContentManagement.Services.Contracts
         Task<long> LinksPagedCountAsync(int portalId, LinkType? linkType, Language language = Language.FA, string searchTerm = null);
         Task DeleteLinkAsync(long id);
         Task<IList<ViewModels.LinkViewModel>> GetLinksAsync(string portalKey, Language language, LinkType linkType, int maxSize = 6);
-        Task<IList<ViewModels.LinkVisibilityViewModel>> CheckLinksVisibility(string portalKey, Language language, Func<Link, bool> predicate);
+        Task<IList<ViewModels.LinkVisibilityViewModel>> CheckLinksVisibility(string portalKey, Language language);
     }
 }

@@ -19,6 +19,15 @@ namespace ContentManagement.ViewModels
         public DateTimeOffset PublishDate { get; set; }
 
 
+        public bool IsNew
+        {
+            get
+            {
+                var todayDate = DateTimeOffset.UtcNow;
+                return (PublishDate - todayDate).Days < 3;
+            }
+        }
+
         public string GetPublishDate
         {
             get
@@ -46,6 +55,23 @@ namespace ContentManagement.ViewModels
                 {
                     return ContentType.GetAttributeOfType<ContentTypeTextFaAttribute>().Description;
                 }
+            }
+        }
+
+        public string GetTitle
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Title) && ContentType == ContentType.Announcement)
+                {
+                    return Title.TruncateAtWord(27);
+                }
+                else if (!string.IsNullOrEmpty(Title))
+                {
+                    return Title.TruncateAtWord(50);
+                }
+
+                return string.Empty;
             }
         }
 

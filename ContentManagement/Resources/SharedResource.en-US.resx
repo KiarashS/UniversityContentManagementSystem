@@ -151,4 +151,31 @@
   <data name="Upcoming Events" xml:space="preserve">
     <value>Future Events</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Forms</value>
+  </data>
+  <data name="Educational Calendar" xml:space="preserve">
+    <value>Educational Calendar</value>
+  </data>
+  <data name="Student And Cultural" xml:space="preserve">
+    <value>Student and Cultural</value>
+  </data>
+  <data name="Political And Ideological" xml:space="preserve">
+    <value>Political and Ideological</value>
+  </data>
+  <data name="Other Contents" xml:space="preserve">
+    <value>Other Contents</value>
+  </data>
+  <data name="Content Type" xml:space="preserve">
+    <value>Content Type</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
 </root>

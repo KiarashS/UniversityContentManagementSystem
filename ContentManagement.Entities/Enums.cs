@@ -88,8 +88,8 @@ namespace ContentManagement.Entities
         [ContentTypeTextEn("Journal")]
         Journal = 8,  // نشریه ها
 
-        [ContentTypeTextInAdmin("فرم های آموزشی و پژوهشی")]
-        [ContentTypeTitleInAdmin("فرم آموزشی/پژوهشی")]
+        [ContentTypeTextInAdmin("فرم های آموزشی و پژوهشی و ...")]
+        [ContentTypeTitleInAdmin("فرم آموزشی/پژوهشی و ...")]
         [ContentTypeTextFa("فرم ها")]
         [ContentTypeTextEn("Forms")]
         Form = 9,  // فرم های آموزشی و پژوهشی  و ...

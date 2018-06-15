@@ -1,7 +1,6 @@
 namespace ContentManagement.Services
 {
     using ContentManagement.Common.GuardToolkit;
-    using ContentManagement.Common.WebToolkit;
     using ContentManagement.DataLayer.Context;
     using ContentManagement.Entities;
     using ContentManagement.Services.Contracts;
@@ -11,7 +10,6 @@ namespace ContentManagement.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     public class LinkService : ILinkService
@@ -162,19 +160,21 @@ namespace ContentManagement.Services
             return count;
         }
 
-        public async Task<IList<ViewModels.LinkVisibilityViewModel>> CheckLinksVisibility(string portalKey, Language language, Func<Link, bool> predicate)
+        public async Task<IList<ViewModels.LinkVisibilityViewModel>> CheckLinksVisibility(string portalKey, Language language)
         {
             var vm = new List<ViewModels.LinkVisibilityViewModel>();
-            var links = _link
+            var links = await _link
                 .Where(x => x.Portal.PortalKey == portalKey && x.Language == language)
-                .Where(predicate)
+                //.Where(predicate)
                 .GroupBy(x => x.LinkType)
-                .Select(g => new { LinkType = g.Key, IsVisible = g.Any() });
+                .Select(g => new { LinkType = g.Key, IsVisible = g.Any() })
+                .Cacheable()
+                .ToListAsync();
 
             // fill not existence enums with false IsVisible
             foreach (LinkType item in Enum.GetValues(typeof(LinkType)))
             {
-                if (links.Any(l => l. LinkType == item))
+                if (links.Any(l => l. LinkType == item && l.IsVisible))
                 {
                     vm.Add(new ViewModels.LinkVisibilityViewModel {
                         LinkType = item,

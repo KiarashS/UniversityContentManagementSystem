@@ -1,0 +1,46 @@
+﻿@using System.Collections.Generic
+@model IList<ContentManagement.ViewModels.ContentsViewModel>
+
+@{ 
+    var isOtherContents = (bool)ViewData["IsOtherContents"];
+}
+
+<container asp-if="Model.Any()">
+    <div class="row no-gutters" style="font-size: 0.9rem !important;">
+        <div class="col-12">
+            <container asp-if="isOtherContents">
+                <div class="col-12 col-sm-12 col-md-6 form-group">
+                    <label for="othercontentstype">
+                        @SharedLocalizer["Content Type"]:&nbsp;
+                    </label>
+                    <select id="othercontentstype" name="othercontentstype" asp-items="@((IList<SelectListItem>)ViewData["ContentTypes"])" class="form-control form-control-sm w-50 d-inline-block">
+                        <option value="all">@SharedLocalizer["All"]</option>
+                    </select>
+                </div>
+                <hr class="hr14" />
+            </container>
+
+            <ul class="list-unstyled">
+
+                @foreach (var item in Model)
+                {
+                    <li class="media content-item" condition-class-my-2="Model.Count > 2 && (Model.First() != item || Model.Last() != item)" condition-class-mb-2="Model.Count == 2 && Model.First() == item">
+                        @*<img class="mr-3 img-fluid img-thumbnail hoverable" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=50" alt="@item.Title" title="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>*@
+                        <div class="media-body" style="font-size: 0.8rem !important;">
+                            <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline"><h5 class="mt-0 mb-1" style="font-size: 0.9rem !important;"><span class="hvr-pop">@item.Title</span><container asp-if="item.IsNew">&nbsp;&nbsp;<span class="badge badge-pill badge-danger" style="font-size: 0.6rem !important;">@SharedLocalizer["New"]</span></container><container asp-if="isOtherContents">&nbsp;&nbsp;<span class="badge badge-pill badge-warning" style="font-size: 0.6rem !important;">@item.TypeOfContent</span></container></h5></a>
+                            <div class="text-muted float-right" title="@SharedLocalizer["Publish Date"]" style="font-size: 0.7rem !important;">@item.GetPublishDate</div>
+                            @item.GetSummary
+                        </div>
+                    </li>
+                }
+
+            </ul>
+
+            <hr class="hr14" />
+        </div>
+
+        <div class="col-12 mt-1">
+            <a class="float-right nounderline btn btn-primary" style="font-size: 0.8rem !important;" condition-class-hvr-icon-back="@RequestService.IsRtl()" condition-class-hvr-icon-forward="@RequestService.IsLtr()" href="/content/@ViewData["ContentsQuery"]">@SharedLocalizer["View All"]&nbsp;<i class="hvr-icon fas" condition-class-fa-angle-double-left="@RequestService.IsRtl()" condition-class-fa-angle-double-right="@RequestService.IsLtr()"></i></a>
+        </div>
+    </div>
+</container>

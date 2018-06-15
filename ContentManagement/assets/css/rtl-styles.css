@@ -1,9 +1,9 @@
-﻿shabnam {
-    font-family: Shabnam;
+﻿.shabnam {
+    font-family: Shabnam !important;
 }
 
-vazir {
-    font-family: Vazir;
+.vazir {
+    font-family: Vazir !important;
 }
 
 html {
@@ -353,4 +353,9 @@ footer {
 
 .kv-tab-loading {
     background-position: left 2px center !important;
+}
+
+.content-item {
+    border-right: 4px solid #ffc107 !important;
+    padding-right: 0.5rem !important;
 }

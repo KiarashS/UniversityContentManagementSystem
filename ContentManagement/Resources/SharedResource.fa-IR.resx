@@ -151,4 +151,31 @@
   <data name="Upcoming Events" xml:space="preserve">
     <value>رویدادهای آینده</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>جدید</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>آموزش</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>فرم ها</value>
+  </data>
+  <data name="Educational Calendar" xml:space="preserve">
+    <value>تقویم آموزشی</value>
+  </data>
+  <data name="Student And Cultural" xml:space="preserve">
+    <value>دانشجویی و فرهنگی</value>
+  </data>
+  <data name="Political And Ideological" xml:space="preserve">
+    <value>عقیدتی و سیاسی</value>
+  </data>
+  <data name="Other Contents" xml:space="preserve">
+    <value>سایر مطالب</value>
+  </data>
+  <data name="Content Type" xml:space="preserve">
+    <value>نوع مطلب</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>همه</value>
+  </data>
 </root>

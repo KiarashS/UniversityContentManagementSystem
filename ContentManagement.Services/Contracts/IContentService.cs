@@ -17,8 +17,10 @@ namespace ContentManagement.Services.Contracts
         Task<string> GetContentImagenameAsync(long id);
         Task<IList<SubPortalsContentsViewModel>> GetSubPortalsContentsAsync(Language language = Language.FA, int maxSize = 30);
         Task<IList<ContentsViewModel>> GetContentsAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News, int start = 0, int length = 10);
+        Task<IList<ContentsViewModel>> GetOtherContentsAsync(string portalKey, ContentType? contentType, Language language = Language.FA, int start = 0, int length = 10);
         Task<IList<ContentsViewModel>> GetFavoritesAsync(string portalKey, Language language = Language.FA, int start = 0, int length = 10);
         Task<bool> IsExistContent(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News);
         Task<bool> IsExistFavorite(string portalKey, Language language = Language.FA);
+        Task<IList<ViewModels.ContentVisibilityViewModel>> CheckContentsVisibility(string portalKey, Language language);
     }
 }

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row equal no-gutters mt-2 mb-3">
             <container asp-if="Model.AnyNewsAndEventAndFavorite">
-                <div class="@(Model.JustNewsAndEventAndFavorite ? "col-12 mb" : "col-12 col-sm-12 col-md-8 pr-sm-0 pr-md-3 mb-sm-4 mb-md-0")">
+                <div class="@(Model.JustNewsAndEventAndFavorite ? "col-12" : "col-12 col-sm-12 col-md-8 pr-sm-0 pr-md-3 mb-4 mb-md-0")">
                     <div class="card h-100">
                         <div class="card-body">
                             <div id="newsandfavorite-tab" class="tabs-x tabs-above tab-bordered tabs-krajee tab-height-lg">
@@ -22,7 +22,7 @@
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistFavorite" class="nav-item">
-                                        <a class="nav-link" id="favorite-tab-tabs-above" condition-class-active="Model.IsExistFavorite && !Model.IsExistNews" href="#favorite-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchnews/?favorite=true" aria-controls="favorite">
+                                        <a class="nav-link" id="favorite-tab-tabs-above" condition-class-active="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" href="#favorite-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchnews/?favorite=true" aria-controls="favorite">
                                             <i class="far fa-star yellow-text"></i> @SharedLocalizer["Favorite Contents"]
                                         </a>
                                     </li>
@@ -30,13 +30,13 @@
 
                                 <div id="newsTabContent-tabs-above" class="tab-content">
                                     <div asp-if="Model.IsExistNews" class="tab-pane fade" condition-class-show="Model.IsExistNews" condition-class-active="Model.IsExistNews" id="news-tabs-above" role="tabpanel" aria-labelledby="news-tab-tabs-above">
-                                        <partial asp-if="Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../content/_news.cshtml" />
+                                        <partial asp-if="Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
                                     </div>
-                                    <div asp-if="Model.IsExistEvent" class="tab-pane fade" condition-class-show="Model.IsExistEvent" condition-class-active="Model.IsExistEvent" id="event-tabs-above" role="tabpanel" aria-labelledby="event-tab-tabs-above">
-                                        <partial asp-if="Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../content/_news.cshtml" />
+                                    <div asp-if="Model.IsExistEvent" class="tab-pane fade" condition-class-show="Model.IsExistEvent && !Model.IsExistNews" condition-class-active="Model.IsExistEvent && !Model.IsExistNews" id="event-tabs-above" role="tabpanel" aria-labelledby="event-tab-tabs-above">
+                                        <partial asp-if="Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
                                     </div>
-                                    <div asp-if="Model.IsExistFavorite" class="tab-pane fade" condition-class-show="Model.IsExistFavorite && !Model.IsExistNews" condition-class-active="Model.IsExistFavorite && !Model.IsExistNews" id="favorite-tabs-above" role="tabpanel" aria-labelledby="favorite-tabs-above">
-                                        <partial asp-if="Model.IsExistFavorite && !Model.IsExistNews && !Model.IsExistEvent" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../content/_news.cshtml" />
+                                    <div asp-if="Model.IsExistFavorite" class="tab-pane fade" condition-class-show="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" condition-class-active="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" id="favorite-tabs-above" role="tabpanel" aria-labelledby="favorite-tabs-above">
+                                        <partial asp-if="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
                                     </div>
                                 </div>
 

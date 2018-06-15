@@ -281,3 +281,7 @@ footer {
     background: linear-gradient(40deg, #45cafc, #303f9f) !important;
 }
 
+.content-item {
+    border-left: 4px solid #ffc107 !important;
+    padding-left: 0.5rem !important;
+}

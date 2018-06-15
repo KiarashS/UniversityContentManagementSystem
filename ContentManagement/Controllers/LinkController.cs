@@ -37,7 +37,7 @@ namespace ContentManagement.Controllers
             //var linksSize = _siteSettings.Value.PagesSize.ExternalLinksSize;
             var vm = await _linkService.GetLinksAsync(_requestService.PortalKey(), currentLanguage, tab, int.MaxValue);
 
-            return PartialView("_links", vm);
+            return PartialView("_Links", vm);
         }
     }
 }

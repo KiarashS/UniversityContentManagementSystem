@@ -1,0 +1,76 @@
+﻿@using ContentManagement.ViewComponents
+@model ContentManagement.ViewModels.LatestContentsTabsViewModel
+
+@{ 
+    ViewData["ContentTypes"] = Model.OtherContentsItems;
+}
+
+<container asp-if="Model.ContentsViewModel.Any()">
+    <div class="container">
+        <div class="row mt-2 mb-3">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="contents-tab" class="tabs-x tabs-above tab-bordered tabs-krajee tab-height-lg">
+
+                                <ul id="contents-tabs-above" class="nav nav-tabs" role="tablist">
+                                    <li asp-if="Model.IsExistEducation" class="nav-item">
+                                        <a class="nav-link" id="education-tab-tabs-above" condition-class-active="Model.IsExistEducation && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" href="#education-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=education" aria-controls="education">
+                                            <i class="fas fa-chalkboard-teacher lime-text"></i> @SharedLocalizer["Education"]
+                                        </a>
+                                    </li>
+                                    <li asp-if="Model.IsExistForm" class="nav-item">
+                                        <a class="nav-link" id="form-tab-tabs-above" condition-class-active="Model.IsExistForm && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Form)" href="#form-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=form" aria-controls="form">
+                                            <i class="fas fa-paperclip lime-text"></i> @SharedLocalizer["Forms"]
+                                        </a>
+                                    </li>
+                                    <li asp-if="Model.IsExistEducationalCalendar" class="nav-item">
+                                        <a class="nav-link" id="educationalcalendar-tab-tabs-above" condition-class-active="Model.IsExistEducationalCalendar && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.EducationalCalendar)" href="#educationalcalendar-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=educationalcalendar" aria-controls="educationalcalendar">
+                                            <i class="far fa-calendar lime-text"></i> @SharedLocalizer["Educational Calendar"]
+                                        </a>
+                                    </li>
+                                    <li asp-if="Model.IsExistStudentAndCultural" class="nav-item">
+                                        <a class="nav-link" id="studentcultural-tab-tabs-above" condition-class-active="Model.IsExistStudentAndCultural && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.StudentAndCultural)" href="#studentcultural-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=studentandcultural" aria-controls="studentcultural">
+                                            <i class="fas fa-graduation-cap lime-text"></i> @SharedLocalizer["Student And Cultural"]
+                                        </a>
+                                    </li>
+                                    <li asp-if="Model.IsExistPoliticalAndIdeological" class="nav-item">
+                                        <a class="nav-link" id="politicalideological-tab-tabs-above" condition-class-active="Model.IsExistPoliticalAndIdeological && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.PoliticalAndIdeological)" href="#politicalideological-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=politicalandideological" aria-controls="politicalideological">
+                                            <i class="far fa-lightbulb lime-text"></i> @SharedLocalizer["Political And Ideological"]
+                                        </a>
+                                    </li>
+                                    <li asp-if="Model.IsExistOtherContents" class="nav-item">
+                                        <a class="nav-link" id="othercontents-tab-tabs-above" condition-class-active="Model.IsActiveOtherContents" href="#othercontents-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?othercontents=true" aria-controls="othercontents">
+                                            <i class="fas fa-ellipsis-h lime-text"></i> @SharedLocalizer["Other Contents"]
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div id="contentsTabContent-tabs-above" class="tab-content">
+                                    <div asp-if="Model.IsExistEducation" class="tab-pane fade" condition-class-show="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" condition-class-active="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" id="education-tabs-above" role="tabpanel" aria-labelledby="education-tab-tabs-above">
+                                        <partial asp-if="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
+                                    </div>
+                                    <div asp-if="Model.IsExistForm" class="tab-pane fade" condition-class-show="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Form)" condition-class-active="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Form)" id="form-tabs-above" role="tabpanel" aria-labelledby="form-tab-tabs-above">
+                                        <partial asp-if="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Form)" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
+                                    </div>
+                                    <div asp-if="Model.IsExistEducationalCalendar" class="tab-pane fade" condition-class-show="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.EducationalCalendar)" condition-class-active="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.EducationalCalendar)" id="educationalcalendar-tabs-above" role="tabpanel" aria-labelledby="educationalcalendar-tab-tabs-above">
+                                        <partial asp-if="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.EducationalCalendar)" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
+                                    </div>
+                                    <div asp-if="Model.IsExistStudentAndCultural" class="tab-pane fade" condition-class-show="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.StudentAndCultural)" condition-class-active="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.StudentAndCultural)" id="studentcultural-tabs-above" role="tabpanel" aria-labelledby="studentcultural-tab-tabs-above">
+                                        <partial asp-if="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.StudentAndCultural)" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
+                                    </div>
+                                    <div asp-if="Model.IsExistPoliticalAndIdeological" class="tab-pane fade" condition-class-show="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.PoliticalAndIdeological)" condition-class-active="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.PoliticalAndIdeological)" id="politicalideological-tabs-above" role="tabpanel" aria-labelledby="politicalideological-tab-tabs-above">
+                                        <partial asp-if="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.PoliticalAndIdeological)" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
+                                    </div>
+                                    <div asp-if="Model.IsExistOtherContents" class="tab-pane fade" condition-class-show="Model.IsActiveOtherContents" condition-class-active="Model.IsActiveOtherContents" id="othercontents-tabs-above" role="tabpanel" aria-labelledby="othercontents-tabs-above">
+                                        <partial asp-if="Model.IsActiveOtherContents" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</container>

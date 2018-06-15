@@ -33,7 +33,7 @@ namespace ContentManagement.ViewComponents
             var currentLanguage = _requestService.CurrentLanguage().Language;
             //var linksSize = _siteSettings.Value.PagesSize.ExternalLinksSize;
             var selectedLinkType = LinkType.Useful; // default value
-            var linkVisibiilty = await _linkService.CheckLinksVisibility(_requestService.PortalKey(), currentLanguage, x => (x.LinkType == LinkType.Useful || x.LinkType == LinkType.ElectronicService || x.LinkType == LinkType.ElectronicResource));
+            var linkVisibiilty = await _linkService.CheckLinksVisibility(_requestService.PortalKey(), currentLanguage); // x => (x.LinkType == LinkType.Useful || x.LinkType == LinkType.ElectronicService || x.LinkType == LinkType.ElectronicResource))
 
             if (linkVisibiilty.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibiilty.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible))
             {

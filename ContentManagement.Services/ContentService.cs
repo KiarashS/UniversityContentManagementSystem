@@ -8,6 +8,7 @@ namespace ContentManagement.Services
     using ContentManagement.ViewModels.Areas.Manage;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -206,6 +207,85 @@ namespace ContentManagement.Services
             var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive).Cacheable().AnyAsync().ConfigureAwait(false);
 
             return isExist;
+        }
+
+        public async Task<IList<ViewModels.ContentVisibilityViewModel>> CheckContentsVisibility(string portalKey, Language language)
+        {
+            var vm = new List<ViewModels.ContentVisibilityViewModel>();
+            var contents = await _content
+                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+                .GroupBy(x => x.ContentType)
+                .Select(g => new { ContentType = g.Key, IsVisible = g.Any() })
+                .Cacheable()
+                .ToListAsync();
+
+            // fill not existence enums with false IsVisible
+            foreach (ContentType item in Enum.GetValues(typeof(ContentType)))
+            {
+                if (contents.Any(l => l.ContentType == item && l.IsVisible))
+                {
+                    vm.Add(new ViewModels.ContentVisibilityViewModel
+                    {
+                        ContentType = item,
+                        IsVisible = true
+                    });
+
+                    continue;
+                }
+
+                vm.Add(new ViewModels.ContentVisibilityViewModel
+                {
+                    ContentType = item,
+                    IsVisible = false
+                });
+            }
+
+            foreach (var item in vm.ToList())
+            {
+                if (item.ContentType == ContentType.News ||
+                    item.ContentType == ContentType.UpcomingEvent ||
+                    item.ContentType == ContentType.Announcement)
+                {
+                    vm.Remove(item);
+                }
+            }
+
+            return vm;
+        }
+
+        public async Task<IList<ContentsViewModel>> GetOtherContentsAsync(string portalKey, ContentType? contentType, Language language = Language.FA, int start = 0, int length = 10)
+        {
+            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive).AsQueryable();
+
+            if (contentType.HasValue)
+            {
+                query = query.Where(x => x.ContentType == contentType.Value);
+            }
+            else
+            {
+                query = query.Where(x =>
+                                        x.ContentType == ContentType.Congress ||
+                                        x.ContentType == ContentType.Regulation ||
+                                        x.ContentType == ContentType.Appointment ||
+                                        x.ContentType == ContentType.Research ||
+                                        x.ContentType == ContentType.Journal ||
+                                        x.ContentType == ContentType.Recall ||
+                                        x.ContentType == ContentType.ResearchAndTechnology ||
+                                        x.ContentType == ContentType.Financial ||
+                                        x.ContentType == ContentType.VirtualLearning
+                );
+            }
+
+            var contents = await query
+                                    .OrderByDescending(x => x.Priority)
+                                    .ThenByDescending(x => x.PublishDate)
+                                    .Skip(start)
+                                    .Take(length)
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.PublishDate, x.ContentType })
+                                    .Cacheable()
+                                    .ToListAsync();
+
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
         }
     }
 }
