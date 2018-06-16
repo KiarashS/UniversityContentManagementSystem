@@ -178,4 +178,34 @@
   <data name="All" xml:space="preserve">
     <value>همه</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>صفحه اصلی</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>مطالب</value>
+  </data>
+  <data name="Favorite Content" xml:space="preserve">
+    <value>مطلب برگزیده</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>مشاهده</value>
+  </data>
+  <data name="Publish At" xml:space="preserve">
+    <value>انتشار در</value>
+  </data>
+  <data name="Error!" xml:space="preserve">
+    <value>خطا !</value>
+  </data>
+  <data name="Sorry Error Occurred" xml:space="preserve">
+    <value>متاسفانه در حین پردازش درخواست جاری خطایی رخ داده‌است.</value>
+  </data>
+  <data name="Back To Home Page" xml:space="preserve">
+    <value>بازگشت به صفحه اصلی</value>
+  </data>
+  <data name="Not Found 404" xml:space="preserve">
+    <value>اطلاعات درخواستی یافت نشد (404)</value>
+  </data>
+  <data name="Access Denied" xml:space="preserve">
+    <value>متاسفانه شما مجوز دسترسی به صفحه‌ی درخواستی را ندارید (403)</value>
+  </data>
 </root>

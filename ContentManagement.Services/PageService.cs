@@ -74,6 +74,36 @@ namespace ContentManagement.Services
             return page;
         }
 
+        public async Task<ViewModels.PageViewModel> GetPageDetails(string portalKey, Language language, string slug)
+        {
+            slug = slug.Trim();
+            var page = await _page
+                                .Where(x => x.IsActive && x.Slug == slug && x.Portal.PortalKey == portalKey && x.Language == language)
+                                .Cacheable()
+                                .SingleOrDefaultAsync();
+
+            if (page == null)
+            {
+                return null;
+            }
+
+            page.ViewCount++;
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+
+            return new ViewModels.PageViewModel
+            {
+                Id = page.Id,
+                Slug = page.Slug,
+                Title = page.Title,
+                Text = page.Text,
+                RawText = page.RawText,
+                Imagename = page.Imagename,
+                Language = page.Language,
+                PublishDate = page.PublishDate,
+                ViewCount = page.ViewCount
+            };
+        }
+
         public async Task<IList<PageViewModel>> GetPagedPagesAsync(int portalId, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10)
         {
             var query = _page.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();
@@ -119,6 +149,11 @@ namespace ContentManagement.Services
 
             var count = await query.LongCountAsync().ConfigureAwait(false);
             return count;
+        }
+
+        public Task UpdateViewCount(string portalKey, Language language, string slug)
+        {
+            throw new System.NotImplementedException();
         }
 
         public Task<bool> ValidatePageSlugAsync(string slug)

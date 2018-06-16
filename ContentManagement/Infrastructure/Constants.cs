@@ -19,8 +19,8 @@ namespace ContentManagement.Infrastructure
         public static readonly int PageImageWidthSize = 200;
         public static readonly int PageImageHeightSize = 200;
 
-        public static readonly int ContentImageWidthSize = 400;
-        public static readonly int ContentImageHeightSize = 200;
+        public static readonly int ContentImageWidthSize = 300;
+        public static readonly int ContentImageHeightSize = 300;
 
         public static readonly int EditorImageThumbWidthSize = 80;
         public static readonly int EditorImageThumbHeightSize = 80;

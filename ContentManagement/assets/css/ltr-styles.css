@@ -285,3 +285,29 @@ footer {
     border-left: 4px solid #ffc107 !important;
     padding-left: 0.5rem !important;
 }
+
+.breadcrumb {
+    background-color: #fff !important;
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.breadcrumb li + li {
+    padding-left: 0.5rem;
+}
+
+    .breadcrumb li + li::before {
+        display: inline-block;
+        padding-right: 0.5rem;
+        color: #6c757d;
+        content: "\\";
+    }
+
+    .breadcrumb li + li:hover::before {
+        text-decoration: underline;
+    }
+
+    .breadcrumb li + li:hover::before {
+        text-decoration: none;
+    }

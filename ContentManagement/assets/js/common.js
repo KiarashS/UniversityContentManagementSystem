@@ -76,32 +76,42 @@
         });
     }
 
-        $(document).on('change', '#othercontentstype', function () {
-            var type = this.value;
-            var fetchContentsBasePath = $('#js-global-info').data('fetchContentsPath');
-            var fetchContentsPath = fetchContentsBasePath + '?othercontents=true';
+    $(document).on('change', '#othercontentstype', function () {
+        var type = this.value;
+        var fetchContentsBasePath = $('#js-global-info').data('fetchContentsPath');
+        var fetchContentsPath = fetchContentsBasePath + '?othercontents=true';
 
-            axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-            document.body.style.cursor = 'wait';
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        document.body.style.cursor = 'wait';
 
-            if (type && type.toLowerCase() != 'all')
-            {
-                axios.post(fetchContentsPath + '&t=' + type.toLowerCase()/*, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }*/)
-                    .then(function (response) {
-                        $('#othercontents-tabs-above').html(response.data).hide().fadeIn();
-                        tippy('[data-tippy]');
-                    });
-
-                document.body.style.cursor = 'default';
-                return;
-            }
-
-            axios.post(fetchContentsPath/*, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }*/)
+        if (type && type.toLowerCase() != 'all')
+        {
+            axios.post(fetchContentsPath + '&t=' + type.toLowerCase()/*, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }*/)
                 .then(function (response) {
                     $('#othercontents-tabs-above').html(response.data).hide().fadeIn();
                     tippy('[data-tippy]');
                 });
 
             document.body.style.cursor = 'default';
-        });
+            return;
+        }
+
+        axios.post(fetchContentsPath/*, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }*/)
+            .then(function (response) {
+                $('#othercontents-tabs-above').html(response.data).hide().fadeIn();
+                tippy('[data-tippy]');
+            });
+
+        document.body.style.cursor = 'default';
+    });
+
+    var $contentDetail = $("#content-detail");
+    if ($contentDetail.length > 0) {
+        $contentDetail.find('img').addClass('img-fluid img-thumbnail m-1'); //responsive images
+    }
+
+    var $pageDetail = $("#page-detail");
+    if ($pageDetail.length > 0) {
+        $pageDetail.find('img').addClass('img-fluid img-thumbnail m-1'); //responsive images
+    }
 });

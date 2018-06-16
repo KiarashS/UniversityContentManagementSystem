@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Entities;
+using ContentManagement.ViewModels;
 using ContentManagement.ViewModels.Areas.Manage;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace ContentManagement.Services.Contracts
         Task DeletePortalAsync(int id);
         Task<long> PortalsCountAsync();
         Task<string> GetPortalTitleAsync(string portalKey, Language language);
+        Task<SeoViewModel> GetPortalSeoInfo(string portalKey, Language language);
     }
 }

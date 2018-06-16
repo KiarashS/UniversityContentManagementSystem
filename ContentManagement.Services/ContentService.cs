@@ -26,7 +26,7 @@ namespace ContentManagement.Services
             _content = _uow.Set<Content>();
         }
 
-        public async Task AddOrUpdateContentAsync(ContentViewModel content)
+        public async Task AddOrUpdateContentAsync(ContentManagement.ViewModels.Areas.Manage.ContentViewModel content)
         {
             if (content.Id == 0) // Add
             {
@@ -81,7 +81,7 @@ namespace ContentManagement.Services
             return content;
         }
 
-        public async Task<IList<ContentViewModel>> GetPagedContentsAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10)
+        public async Task<IList<ContentManagement.ViewModels.Areas.Manage.ContentViewModel>> GetPagedContentsAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10)
         {
             var query = _content.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();
 
@@ -105,7 +105,7 @@ namespace ContentManagement.Services
                                     .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
                                     .ToListAsync();
 
-            return links.Select(x => new ContentViewModel(null) { Id = x.Id, Title = x.Title, Text = x.Text, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, IsActive = x.IsActive, IsFavorite = x.IsFavorite, ViewCount = x.ViewCount, Priority = x.Priority, PortalKey = x.PortalKey }).ToList();
+            return links.Select(x => new ContentManagement.ViewModels.Areas.Manage.ContentViewModel(null) { Id = x.Id, Title = x.Title, Text = x.Text, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, IsActive = x.IsActive, IsFavorite = x.IsFavorite, ViewCount = x.ViewCount, Priority = x.Priority, PortalKey = x.PortalKey }).ToList();
         }
 
         public async Task<long> ContentsCountAsync()
@@ -286,6 +286,63 @@ namespace ContentManagement.Services
                                     .ToListAsync();
 
             return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
+        }
+
+        public async Task<ViewModels.ContentViewModel> GetContentDetails(string portalKey, Language language, long id)
+        {
+            var content = await _content
+                                        .Where(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+                                        //.Select(x => new { x.Id, x.Title, x.Text, x.RawText, x.Summary, x.Imagename, x.PublishDate, x.ContentType, x.IsFavorite, x.ViewCount })
+                                        .Cacheable()
+                                        .SingleOrDefaultAsync().ConfigureAwait(false);
+
+            if (content == null)
+            {
+                return null;
+            }
+
+            content.ViewCount++;
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+
+            return new ViewModels.ContentViewModel
+            {
+                Id = content.Id,
+                Title = content.Title,
+                Text = content.Text,
+                RawText = content.RawText,
+                Summary = content.Summary,
+                ContentType = content.ContentType,
+                Imagename = content.Imagename,
+                Language = language,
+                PublishDate = content.PublishDate,
+                IsFavorite = content.IsFavorite,
+                ViewCount = content.ViewCount
+            };
+        }
+
+        public async Task UpdateViewCount(string portalKey, Language language, long id)
+        {
+            var content = await _content
+                                        .Where(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+                                        .SingleOrDefaultAsync().ConfigureAwait(false);
+            if (content == null)
+            {
+                return;
+            }
+
+            content.ViewCount++;
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<string> GetTitle(string portalKey, Language language, long id)
+        {
+            var title = await _content
+                                        .Where(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+                                        .Select(x => x.Title)
+                                        .Cacheable()
+                                        .SingleOrDefaultAsync().ConfigureAwait(false);
+
+            return title;
         }
     }
 }

@@ -8,6 +8,7 @@ using ContentManagement.Services.Contracts;
 using ContentManagement.Common.GuardToolkit;
 using ContentManagement.ViewModels.Areas.Manage;
 using EFSecondLevelCache.Core;
+using ContentManagement.ViewModels;
 
 namespace ContentManagement.Services
 {
@@ -129,6 +130,20 @@ namespace ContentManagement.Services
             var title = await query.Cacheable().FirstOrDefaultAsync();
 
             return title;
+        }
+
+        public async Task<SeoViewModel> GetPortalSeoInfo(string portalKey, Language language)
+        {
+            var info = await _portal
+                                .Where(x => x.PortalKey == portalKey)
+                                .Select(x => new { Title = language == Language.EN ? x.TitleEn : x.TitleFa, Description = language == Language.EN ? x.DescriptionEn : x.DescriptionFa })
+                                .Cacheable()
+                                .SingleOrDefaultAsync();
+
+            return new SeoViewModel {
+                Title = info.Title,
+                Description = info.Description
+            };
         }
     }
 }

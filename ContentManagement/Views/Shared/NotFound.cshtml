@@ -1,11 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "یافت نشد!";
+    ViewData["Title"] = SharedLocalizer["Not Found 404"];
     this.Context.Response.StatusCode = (int)HttpStatusCode.Gone;
 }
 
-<div class="top20">
-    <div class="alert alert-warning">
-        <h1><span aria-hidden="true" class="fa fa-warning"></span>خطا</h1>
-        <h3>اطلاعات درخواستی یافت نشد.</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-body text-warning text-center">
+                    <h1><span aria-hidden="true" class="fas fa-exclamation-triangle"></span>@SharedLocalizer["Error!"]</h1>
+                    <h3>@SharedLocalizer["Not Found 404"]</h3>
+                    <br />
+                    <br />
+                    <a href="/" class="btn btn-primary">@SharedLocalizer["Back To Home Page"]</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

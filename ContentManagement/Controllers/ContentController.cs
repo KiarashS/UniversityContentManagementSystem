@@ -14,6 +14,8 @@ using ContentManagement.Common.ReflectionToolkit;
 using Microsoft.Extensions.Localization;
 using DNTCommon.Web.Core;
 using ContentManagement.Services.Seo;
+using System.Net;
+using DNTBreadCrumb.Core;
 
 namespace ContentManagement.Controllers
 {
@@ -22,7 +24,7 @@ namespace ContentManagement.Controllers
         private readonly IContentService _contentService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
         private readonly IRequestService _requestService;
-        private readonly IStringLocalizer _sharedLocalizer;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly SeoService _seoService;
 
         public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService)
@@ -176,7 +178,51 @@ namespace ContentManagement.Controllers
 
         public async virtual Task<IActionResult> Details(long id, string title)
         {
-            return Content("");
+            if (id == 0)
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
+            var portalKey = _requestService.PortalKey();
+            var language = _requestService.CurrentLanguage().Language;
+            var contentTitle = await _contentService.GetTitle(portalKey, language, id).ConfigureAwait(false);
+
+            if (string.IsNullOrEmpty(contentTitle))
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
+            if (string.IsNullOrEmpty(title) || !string.Equals(title, contentTitle))
+            {
+                return RedirectToActionPermanent("details", "content", new { id, title = WebUtility.UrlDecode(contentTitle) });
+            }
+
+            //await _contentService.UpdateViewCount(portalKey, language, id).ConfigureAwait(false);
+            var contentDetails = await _contentService.GetContentDetails(portalKey, language, id).ConfigureAwait(false);
+
+            if (contentDetails == null)
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
+            _seoService.Title = contentDetails.Title;
+            _seoService.MetaDescription = contentDetails.GetSummary;
+
+            this.AddBreadCrumb(new BreadCrumb
+            {
+                Title = _sharedLocalizer["Contents"],
+                Url = Url.Action("Index", "Content", values: new { area = "" }),
+                Order = 1,
+                GlyphIcon = "fas fa-list"
+            });
+            this.AddBreadCrumb(new BreadCrumb
+            {
+                Title = title,
+                Order = 2,
+                GlyphIcon = "far fa-newspaper"
+            });
+
+            return View(contentDetails);
         }
     }
 }

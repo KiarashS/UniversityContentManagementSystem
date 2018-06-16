@@ -8,6 +8,7 @@ using ContentManagement.ViewModels.Settings;
 using ContentManagement.Services;
 using ContentManagement.Services.Seo;
 using Microsoft.AspNetCore.Authorization;
+using DNTBreadCrumb.Core;
 
 namespace ContentManagement.Controllers
 {

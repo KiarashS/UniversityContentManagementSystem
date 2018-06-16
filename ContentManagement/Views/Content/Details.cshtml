@@ -1,6 +1,73 @@
-﻿
+﻿@model ContentManagement.ViewModels.ContentViewModel
+
 @{
     Layout = "~/Views/_Layout.cshtml";
 }
 
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @*<div class="card">
+                <div class="card-body">*@
+                    <nav aria-label="breadcrumb">
+                        <breadcrumb asp-homepage-title="@SharedLocalizer["Home"].Value"
+                                    asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                                    asp-homepage-glyphicon="fas fa-home"></breadcrumb>
+                    </nav>
+                @*</div>
+            </div>*@
+        </div>
+    </div>
+</div>
 
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="content-title d-inline-block mb-0">@Model.Title</h2><container asp-if="Model.IsFavorite">&nbsp;<span class="far fa-star fa-lg yellow-text" title="@SharedLocalizer["Favorite Content"]"></span></container>
+                </div>
+                <div class="card-body">
+                    @*<container asp-if="Model.HasSummary || Model.HasImage">
+                        <div class="row mb-3">
+                            <container asp-if="Model.HasSummary">
+                                <div class="col-12 col-sm-12" condition-class-col-md-8="Model.HasImage">
+                                    <div class="jumbotron">
+                                        @Model.Summary
+                                    </div>
+                                </div>
+                            </container>
+                            <container asp-if="Model.HasImage">
+                                <div class="col-12 col-sm-12 h-100 text-center" condition-class-col-md-4="Model.HasSummary">
+                                    <img src="/@(ContentManagement.Infrastructure.Constants.ContentsRootPath)/@Model.Imagename" alt="@Model.Title" class="img-fluid img-thumbnail z-depth-1" />
+                                </div>
+                            </container>
+                        </div>
+                    </container>*@
+                    <container asp-if="Model.HasSummary">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="jumbotron">
+                                    @Model.Summary
+                                </div>
+                            </div>
+                        </div>
+                    </container>
+                    <container asp-if="Model.HasImage">
+                        <div class="row mb-3">
+                            <div class="col-12 text-center">
+                                <img src="/@(ContentManagement.Infrastructure.Constants.ContentsRootPath)/@Model.Imagename" alt="@Model.Title" class="img-fluid img-thumbnail z-depth-1" />
+                            </div>
+                        </div>
+                    </container>
+                    <div id="content-detail">@Html.Raw(Model.Text)</div>
+                </div>
+                <div class="card-footer">
+                    <span class="mr-3"><i class="far fa-clock"></i> @SharedLocalizer["Publish At"]: @Model.GetPublishDate <container asp-if="Model.IsNew"><span class="badge badge-pill badge-danger">@SharedLocalizer["New"]</span></container></span>
+                    <span class="mr-3"><i class="fas fa-eye"></i> @SharedLocalizer["View"]: @Model.GetViewCount</span>
+                    <span><i class="fas fa-tag"></i> @SharedLocalizer["Content Type"]: @Model.TypeOfContent</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

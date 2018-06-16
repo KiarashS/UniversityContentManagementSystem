@@ -178,4 +178,34 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Contents" xml:space="preserve">
+    <value>Contents</value>
+  </data>
+  <data name="Favorite Content" xml:space="preserve">
+    <value>Favorite Content</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Publish At" xml:space="preserve">
+    <value>Publish at</value>
+  </data>
+  <data name="Error!" xml:space="preserve">
+    <value>Error !</value>
+  </data>
+  <data name="Sorry Error Occurred" xml:space="preserve">
+    <value>Sorry, an error occurred while processing the current request.</value>
+  </data>
+  <data name="Back To Home Page" xml:space="preserve">
+    <value>Back to Home Page</value>
+  </data>
+  <data name="Not Found 404" xml:space="preserve">
+    <value>Not Found (404)</value>
+  </data>
+  <data name="Access Denied" xml:space="preserve">
+    <value>Sorry, you do not have permission to access the requested page (403)</value>
+  </data>
 </root>

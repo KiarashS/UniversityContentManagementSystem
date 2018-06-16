@@ -13,6 +13,7 @@
     @*<meta name="application-name" content="CMS" />
         <meta name="msapplication-config" content="/browserconfig.xml" />*@
     @*<style>@Html.Raw(System.IO.File.ReadAllText("wwwroot/css/abovethefold.css"))</style>*@
+    <link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/fonts/farsifonts.min.css" />
     <link asp-if="RequestService.IsLtr()" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext" />
     <link rel="stylesheet" href="~/css/common.min.css" asp-append-version="true" />
     <link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/css/rtl.min.css" asp-append-version="true" />

@@ -17,10 +17,12 @@ namespace ContentManagement.Services
     public class UrlUtilityService : IUrlUtilityService
     {
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
+        private readonly IRequestService _requestService;
 
-        public UrlUtilityService(IOptionsSnapshot<SiteSettings> siteSettings)
+        public UrlUtilityService(IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService)
         {
             _siteSettings = siteSettings ?? throw new ArgumentNullException(nameof(siteSettings));
+            _requestService = requestService ?? throw new ArgumentNullException(nameof(requestService));
         }
 
         public string Target(string url, bool isBlankUrlTarget = true)
@@ -67,8 +69,15 @@ namespace ContentManagement.Services
         {
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
             var pageHost = $"{portalKey ?? "www"}.{baseOfCurrentDomain}";
-
-            return url.RouteUrl(routeName, new { controller, action, area, id, title = !string.IsNullOrEmpty(title) ? WebUtility.UrlDecode(title) : null }, scheme, pageHost);
+            
+            if (string.Equals(portalKey, _requestService.PortalKey()))
+            {
+                return url.RouteUrl(routeName, new { controller, action, area, id, title = !string.IsNullOrEmpty(title) ? WebUtility.UrlDecode(title) : null });
+            }
+            else
+            {
+                return url.RouteUrl(routeName, new { controller, action, area, id, title = !string.IsNullOrEmpty(title) ? WebUtility.UrlDecode(title) : null }, scheme, pageHost);
+            }
         }
     }
 }

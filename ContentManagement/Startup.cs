@@ -119,6 +119,7 @@ namespace ContentManagement
                 });
                 options.Filters.Add(new RedirectToCanonicalUrlAttribute(appendTrailingSlash, lowercaseUrls));
                 options.Filters.Add(new NoLowercaseQueryStringAttribute());
+                options.Filters.Add(typeof(SetSeoMetaValuesAttribute));
                 // options.Filters.Add(new NoBrowserCacheAttribute());
             })
             .AddJsonOptions(jsonOptions =>
@@ -184,7 +185,7 @@ namespace ContentManagement
                 app.UseStatusCodePagesWithReExecute("/error/index/{0}");
             }
             
-            app.UseBlockingDetection();
+            //app.UseBlockingDetection();
 
             app.UseLocalization();
 

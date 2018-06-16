@@ -1,13 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "عدم دسترسی!";
+    ViewData["Title"] = SharedLocalizer["Error!"];
     this.Context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
 }
 
-<div class="panel panel-danger top30">
-    <div class="panel-heading">
-        <h3 class="panel-title">@ViewData["Title"]</h3>
-    </div>
-    <div class="panel-body">
-        متاسفانه شما مجوز دسترسی به صفحه‌ی درخواستی را ندارید.
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-body text-danger text-center">
+                    <h1><span aria-hidden="true" class="fas fa-ban"></span>@SharedLocalizer["Error!"]</h1>
+                    <h3>@SharedLocalizer["Access Denied"]</h3>
+                    <br />
+                    <br />
+                    <a href="/" class="btn btn-primary">@SharedLocalizer["Back To Home Page"]</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
