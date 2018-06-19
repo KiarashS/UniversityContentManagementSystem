@@ -1,0 +1,9 @@
+﻿@model ContentManagement.ViewModels.ContentsViewModel
+
+<div class="col-12 content-item mt-2" style="font-size: 0.8rem !important;">
+    <img src="@(!string.IsNullOrEmpty(Model.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{Model.Imagename}" : "/statics/logo.png")?width=45" class="img-fluid img-thumbnail mr-1 hoverable" alt="@Model.Title" title="@Model.Title" data-tippy />
+    <a href="@Model.Link" class="nounderline" style="font-size: 0.9rem !important;"><span class="hvr-pop">@Model.Title</span> <span class="badge badge-warning" style="font-size: 0.7rem !important;">@Model.TypeOfContent</span></a>
+    <container asp-if="@Model.IsNew"> <span class="badge badge-danger" style="font-size: 0.6rem !important;">@SharedLocalizer["New"]</span></container>
+    <div class="float-right text-muted" title="@SharedLocalizer["Publish Date"]">@Model.GetPublishDate</div>
+    <div class="mt-2" title="@SharedLocalizer["Summary"]">@Model.GetSummary</div>
+</div>

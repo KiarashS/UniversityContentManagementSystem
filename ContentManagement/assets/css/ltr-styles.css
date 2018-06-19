@@ -286,6 +286,11 @@ footer {
     padding-left: 0.5rem !important;
 }
 
+.content-title {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+}
+
 .breadcrumb {
     background-color: #fff !important;
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
@@ -311,3 +316,20 @@ footer {
     .breadcrumb li + li:hover::before {
         text-decoration: none;
     }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #section-to-print, #section-to-print * {
+        visibility: visible;
+    }
+
+    #section-to-print {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}

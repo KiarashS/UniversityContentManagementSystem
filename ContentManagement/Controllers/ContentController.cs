@@ -16,6 +16,7 @@ using DNTCommon.Web.Core;
 using ContentManagement.Services.Seo;
 using System.Net;
 using DNTBreadCrumb.Core;
+using ContentManagement.ViewModels;
 
 namespace ContentManagement.Controllers
 {
@@ -25,9 +26,10 @@ namespace ContentManagement.Controllers
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
         private readonly IRequestService _requestService;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+        private readonly IUrlUtilityService _urlUtilityService;
         private readonly SeoService _seoService;
 
-        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService)
+        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService, IUrlUtilityService urlUtilityService)
         {
             _contentService = contentService;
             _contentService.CheckArgumentIsNull(nameof(contentService));
@@ -43,6 +45,81 @@ namespace ContentManagement.Controllers
 
             _seoService = seoService;
             _seoService.CheckArgumentIsNull(nameof(seoService));
+
+            _urlUtilityService = urlUtilityService;
+            _urlUtilityService.CheckArgumentIsNull(nameof(urlUtilityService));
+        }
+
+
+        public async virtual Task<IActionResult> Index(int? page, ContentType? t, bool otherContents = false, bool favorite = false)
+        {
+            if (!page.HasValue || page < 1)
+            {
+                page = 1;
+            }
+
+            var vm = new ContentsListViewModel();
+            var portalKey = _requestService.PortalKey();
+            var language = _requestService.CurrentLanguage().Language;
+            vm.Page = page.Value;
+            vm.PageSize = _siteSettings.Value.PagesSize.ContentsSize;
+            //vm.Start = (vm.Page - 1) * vm.PageSize;
+            vm.Start = (vm.PageSize * vm.Page) - vm.PageSize;
+            vm.ContentType = t;
+            vm.OtherContents = otherContents;
+            vm.Favorite = favorite;
+            vm.Language = language;
+
+            if (favorite)
+            {
+                vm.ContentsViewModel = await _contentService.GetFavoritesAsync(portalKey, t, language, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.FavoritesCountAsync(portalKey, t, language);
+
+                _seoService.Title = _sharedLocalizer["Favorite Contents"];
+                if (t.HasValue)
+                {
+                    _seoService.Title = _sharedLocalizer["Favorite Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                }
+            }
+            else if (otherContents)
+            {
+                vm.ContentsViewModel = await _contentService.GetOtherContentsAsync(portalKey, t, language, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.OtherContentsCountAsync(portalKey, t, language);
+
+                _seoService.Title = _sharedLocalizer["Other Contents"];
+                if (t.HasValue)
+                {
+                    _seoService.Title = _sharedLocalizer["Other Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                }
+            }
+            else if (t.HasValue)
+            {
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, language, t.Value, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, language, t.Value);
+                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+            }
+            else
+            {
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, language, ContentType.News, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, language, ContentType.News);
+                t = ContentType.News;
+                vm.ContentType = t;
+                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+            }
+
+            foreach (var item in vm.ContentsViewModel)
+            {
+                item.Link = _urlUtilityService.GenerateUrl(portalKey, item.Id, item.Title, Url, scheme: Request.Scheme);
+            }
+
+            this.AddBreadCrumb(new BreadCrumb
+            {
+                Title = _sharedLocalizer["Contents"],
+                Order = 1,
+                GlyphIcon = "fas fa-list"
+            });
+
+            return View(vm);
         }
 
         //[ResponseCache(Duration = 3600)]
@@ -60,7 +137,7 @@ namespace ContentManagement.Controllers
                 ViewData["NewsQuery"] = "?favorite=true";
                 ViewData["IsFavorite"] = true;
                 size = _siteSettings.Value.PagesSize.FavoritesTabSize;
-                vm = await _contentService.GetFavoritesAsync(currentPortalKey, currentLanguage, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetFavoritesAsync(currentPortalKey, null, currentLanguage, 0, size).ConfigureAwait(false);
             }
             else if ( t == ContentType.UpcomingEvent)
             {

@@ -41,7 +41,7 @@ namespace ContentManagement.ViewComponents
             vm.IsExistNews = vm.NewsOrEventsOrFavoritesViewModel.Any(x => x.ContentType == Entities.ContentType.News);
             vm.IsExistEvent = await _contentService.IsExistContent(_requestService.PortalKey(), currentLanguage, Entities.ContentType.UpcomingEvent).ConfigureAwait(false);
             vm.IsExistAnnouncement = await _contentService.IsExistContent(_requestService.PortalKey(), currentLanguage, Entities.ContentType.Announcement).ConfigureAwait(false);
-            vm.IsExistFavorite = await _contentService.IsExistFavorite(_requestService.PortalKey(), currentLanguage).ConfigureAwait(false);
+            vm.IsExistFavorite = await _contentService.IsExistFavorite(_requestService.PortalKey(), null, currentLanguage).ConfigureAwait(false);
 
 
             if (!vm.IsExistNews && vm.IsExistAnnouncement) // just for tab initialize, in order
@@ -50,7 +50,7 @@ namespace ContentManagement.ViewComponents
             }
             else if (!vm.IsExistNews && vm.IsExistFavorite)
             {
-                vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetFavoritesAsync(_requestService.PortalKey(), currentLanguage, 0, favoriteContentsSize).ConfigureAwait(false);
+                vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetFavoritesAsync(_requestService.PortalKey(), null, currentLanguage, 0, favoriteContentsSize).ConfigureAwait(false);
             }
 
 

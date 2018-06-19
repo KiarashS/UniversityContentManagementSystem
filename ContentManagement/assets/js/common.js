@@ -114,4 +114,80 @@
     if ($pageDetail.length > 0) {
         $pageDetail.find('img').addClass('img-fluid img-thumbnail m-1'); //responsive images
     }
+
+    var $contentsForm = $("#contents-form");
+    if ($contentsForm.length > 0) {
+        $contentsForm.on('submit', function (e) {
+            e.preventDefault();
+
+            var contentsPath = $('#js-global-info').data('contentsPath');
+            var contentsFormType = $contentsForm.find('#ContentType').val();
+            var otherContentsForm = $contentsForm.find('#OtherContents').is(':checked');
+            var favoriteForm = $contentsForm.find('#Favorite').is(':checked');
+            window.location = contentsPath + '?t=' + contentsFormType + '&othercontents=' + otherContentsForm + '&favorite=' + favoriteForm;
+        });
+    }
+
+    var $searchInput = $("#search-input");
+    if ($searchInput.length > 0) {
+
+        var $jsGlobalInfo = $('#js-global-info');
+
+        $searchInput.typeahead({
+            minLength: 3,
+            dynamic: true,
+            delay: 500,
+            hint: true,
+            maxItem: 0,
+            searchOnFocus: true,
+            backdrop: {
+                "opacity": 0.45,
+                "filter": "alpha(opacity=45)",
+                "background-color": "#eaf3ff"
+            },
+            template: function (query, item) {
+                console.log(item);
+                var moreResults = $jsGlobalInfo.data('searchAutocompleteMoreresult');
+                var searchPath = $jsGlobalInfo.data('searchPath');
+
+                var template = '<div class="row no-gutters">' +
+                                '<div class="col-12">' +
+                                '<img class="img-thumbnail d-sm-none d-md-inline mr-1" src="{{imagename}}?width=37">' +
+                                '<span>{{title}}</span>&nbsp;' +
+                                '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
+                                '</div>' +
+                                '</div>';
+                
+                if (item.isLastItem === true) {
+                    template = template +
+                        '<div class="row no-gutters">' +
+                        '<div class="col-12">' +
+                        '<a class="mt-1 float-right" href="' + searchPath + '?q=' + query + '">' + moreResults + '</a>' +
+                        '</div>' +
+                        '</div>';
+                }
+
+                return template;
+            },
+            emptyTemplate: function (query) {
+                return $jsGlobalInfo.data('searchAutocompleteNoresult').replace('##', '{{').replace('**', '}}').replace('{{query}}', '<strong>' + query + '</strong>');
+            },
+            source: {
+                results: {
+                    display: ['title', 'text'],
+                    href: '{{link}}',
+                    ajax: function (query) {
+                        return {
+                            type: 'POST',
+                            url: $jsGlobalInfo.data('searchAutocompletePath'),
+                            path: "data.results",
+                            data: {
+                                q: '{{query}}'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 });

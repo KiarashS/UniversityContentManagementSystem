@@ -11,7 +11,7 @@ namespace ContentManagement.Services
         string Target(string url, bool isBlankUrlTarget = true);
         string ExternalClassName(string className = "external");
         bool IsExternal(string url);
-        string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "detail");
+        string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "details");
     }
 
     public class UrlUtilityService : IUrlUtilityService

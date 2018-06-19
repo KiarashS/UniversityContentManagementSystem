@@ -26,12 +26,14 @@ var filesPath = {
         //"assets/css/transform/rtl/*.css",
         "assets/css/transform/rtl/bootstrap-rtl.css",
         "assets/css/transform/rtl/sb-admin-rtl.css",
+        "assets/css/transform/rtl/jquery.typeahead.min-rtl.css",
         "assets/css/rtl-styles.css"
     ],
     ltrCss: [
         //"assets/css/transform/ltr/*.css",
         "assets/css/transform/ltr/bootstrap.css",
         "assets/css/transform/ltr/sb-admin.css",
+        "node_modules/jquery-typeahead/dist/jquery.typeahead.min.css",
         "assets/css/ltr-styles.css"
     ],
     manageCss: [
@@ -59,6 +61,7 @@ var filesPath = {
         "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css",
         "node_modules/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css",
         "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.css",
+        "node_modules/jquery-typeahead/dist/jquery.typeahead.min.css",
         //"assets/css/lib/mdb.min.css",
     ],
     cssOutput: "wwwroot/css/",
@@ -84,6 +87,7 @@ var filesPath = {
         "node_modules/metismenu/dist/metisMenu.min.js",
         "node_modules/lightslider/dist/js/lightslider.min.js",
         "assets/js/lib/bootstrap-tabs-x.js",
+        "node_modules/jquery-typeahead/dist/jquery.typeahead.min.js",
         "assets/js/common.js",
     ],
     rtlJs: [],

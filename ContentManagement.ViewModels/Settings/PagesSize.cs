@@ -32,6 +32,10 @@ namespace ContentManagement.ViewModels.Settings
         public int PoliticalAndIdeologicalsTabSize { get; set; }
         public int VirtualLearningsTabSize { get; set; }
         public int OtherContentsTabSize { get; set; }
+        public int ContentsSize { get; set; }
+        public int SearchSize { get; set; }
+        public int SearchAutoCompleteSize { get; set; }
+
         //public int UsefulLinksSize { get; set; }
         //public int ElectronicServiceLinksSize { get; set; }
         //public int ElectronicResourceLinksSize { get; set; }

@@ -208,4 +208,37 @@
   <data name="Access Denied" xml:space="preserve">
     <value>Sorry, you do not have permission to access the requested page (403)</value>
   </data>
+  <data name="First Page" xml:space="preserve">
+    <value>First page</value>
+  </data>
+  <data name="Last Page" xml:space="preserve">
+    <value>Last page</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Next page</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Previous page</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="There Is No Information To Display" xml:space="preserve">
+    <value>There is no Information to Display.</value>
+  </data>
+  <data name="Sorry An Error Occurred" xml:space="preserve">
+    <value>Sorry, An Error Occurred !</value>
+  </data>
+  <data name="Search AutoComplete NoResult" xml:space="preserve">
+    <value>No result for ##query**.</value>
+  </data>
+  <data name="View More Results" xml:space="preserve">
+    <value>View more results ...</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
 </root>

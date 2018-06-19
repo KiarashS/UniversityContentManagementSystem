@@ -17,6 +17,7 @@ namespace ContentManagement.ViewModels
         public string RawText { private get; set; }
         public string Imagename { get; set; }
         public DateTimeOffset PublishDate { get; set; }
+        public string Link { get; set; }
 
 
         public bool IsNew
@@ -24,7 +25,7 @@ namespace ContentManagement.ViewModels
             get
             {
                 var todayDate = DateTimeOffset.UtcNow;
-                return (PublishDate - todayDate).Days < 3;
+                return (todayDate - PublishDate).Days < 3;
             }
         }
 

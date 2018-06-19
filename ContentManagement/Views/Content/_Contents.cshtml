@@ -13,7 +13,7 @@
                     <label for="othercontentstype">
                         @SharedLocalizer["Content Type"]:&nbsp;
                     </label>
-                    <select id="othercontentstype" name="othercontentstype" asp-items="@((IList<SelectListItem>)ViewData["ContentTypes"])" class="form-control form-control-sm w-50 d-inline-block">
+                    <select id="othercontentstype" name="othercontentstype" asp-items="@((IList<SelectListItem>)ViewData["ContentTypes"])" class="form-control form-control-sm w-50 d-inline-block custom-select custom-select-sm">
                         <option value="all">@SharedLocalizer["All"]</option>
                     </select>
                 </div>

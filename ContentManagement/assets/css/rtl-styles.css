@@ -388,6 +388,28 @@ footer {
 
 .content-title{
     font-family: Shabnam, Vazir, Tahoma !important;
-    font-size: 1.4rem !important;
+    font-size: 1.1rem !important;
     font-weight: 700 !important;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #section-to-print, #section-to-print * {
+        visibility: visible;
+    }
+
+    #section-to-print {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.typeahead__container {
+    font-family: Vazir, Tahoma, sans-serif !important;
+    font-size: 1rem !important;
 }

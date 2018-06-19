@@ -43,7 +43,7 @@ namespace ContentManagement.ViewModels
             get
             {
                 var todayDate = DateTimeOffset.UtcNow;
-                return (PublishDate - todayDate).Days < 3;
+                return (todayDate - PublishDate).Days < 3;
             }
         }
 

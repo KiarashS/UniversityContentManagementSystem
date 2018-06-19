@@ -1,26 +1,18 @@
 ﻿@model ContentManagement.ViewModels.PageViewModel
 
-@{
-    Layout = "~/Views/_Layout.cshtml";
-}
-
 <div class="container">
     <div class="row">
         <div class="col-12">
-            @*<div class="card">
-                <div class="card-body">*@
-                    <nav aria-label="breadcrumb">
-                        <breadcrumb asp-homepage-title="@SharedLocalizer["Home"].Value"
-                                    asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
-                                    asp-homepage-glyphicon="fas fa-home"></breadcrumb>
-                    </nav>
-                @*</div>
-            </div>*@
+            <nav aria-label="breadcrumb">
+                <breadcrumb asp-homepage-title="@SharedLocalizer["Home"].Value"
+                            asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                            asp-homepage-glyphicon="fas fa-home"></breadcrumb>
+            </nav>
         </div>
     </div>
 </div>
 
-<div class="container">
+<div id="section-to-print" class="container">
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
@@ -28,6 +20,7 @@
                     <h2 class="content-title mb-0">@Model.Title</h2>
                 </div>
                 <div class="card-body">
+                    <div class="clearfix d-print-none"><div class="float-right"><a href="#" onclick="javascript: window.print();" title="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a></div></div>
                     <container asp-if="Model.HasImage">
                         <div class="row mb-3">
                             <div class="col-12 text-center">
@@ -37,7 +30,7 @@
                     </container>
                     <div id="page-detail">@Html.Raw(Model.Text)</div>
                 </div>
-                @*<div class="card-footer">
+                @*<div class="card-footer" style="font-size: 0.9rem !important;">
                     <span class="mr-3"><i class="far fa-clock"></i> @SharedLocalizer["Publish At"]: @Model.GetPublishDate</span>
                     <span><i class="fas fa-eye"></i> @SharedLocalizer["View"]: @Model.GetViewCount</span>
                 </div>*@

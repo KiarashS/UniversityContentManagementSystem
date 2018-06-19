@@ -1,0 +1,89 @@
+﻿@model ContentManagement.ViewModels.ContentsListViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <breadcrumb asp-homepage-title="@SharedLocalizer["Home"].Value"
+                            asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                            asp-homepage-glyphicon="fas fa-home"></breadcrumb>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="content-title mb-0"><i class="fas fa-list"></i> @SharedLocalizer["Contents"]</h2>
+                </div>
+                <div class="card-body">
+
+                    <form id="contents-form" class="form-inline unselectable">
+                        <div class="form-group mb-2 mr-sm-2">
+                            <label style="font-size: 0.9rem !important;" asp-for="@Model.ContentType">@SharedLocalizer["Content Type"]:&nbsp;</label>
+                            <select class="form-control form-control-sm custom-select custom-select-sm " name="t" asp-items="@Model.ContentTypeItems" asp-for="@Model.ContentType">
+                                <option value="">@SharedLocalizer["Content Type"]</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2 mr-sm-2 custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" asp-for="@Model.OtherContents">
+                            <label style="font-size: 0.9rem !important;" class="custom-control-label" asp-for="@Model.OtherContents">
+                                @SharedLocalizer["Other Contents"]
+                            </label>
+                        </div>
+
+                        <div class="mb-2 mr-sm-2 custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" asp-for="@Model.Favorite">
+                            <label style="font-size: 0.9rem !important;" class="custom-control-label" asp-for="@Model.Favorite">
+                                @SharedLocalizer["Favorite Contents"]
+                            </label>
+                        </div>
+
+                        <button class="btn btn-outline btn-outline-primary mb-2 btn-sm">@SharedLocalizer["View"]</button>
+                    </form>
+
+                    <hr class="hr14" />
+
+                    @foreach (var item in Model.ContentsViewModel)
+                    {
+                        <partial name="_ContentsList" model="item" />
+                    }
+
+                    @if (!Model.ContentsViewModel.Any())
+                    {
+                        <div class="text-center">@SharedLocalizer["There Is No Information To Display"]</div>
+                    }
+
+                    <container asp-if="Model.TotalCount > Model.PageSize">
+                        <nav class="mt-4" aria-label="contents navigation">
+                            <cs-pager asp-action="Index"
+                                      asp-controller="Content"
+                                      cs-paging-pagesize="@Model.PageSize"
+                                      cs-paging-pagenumber="@Model.Page"
+                                      cs-paging-totalitems="@Model.TotalCount"
+                                      cs-pagenumber-param="page"
+                                      asp-route-t="@Model.ContentType.ToString().ToLowerInvariant()"
+                                      asp-route-favorite="@Model.Favorite.ToString().ToLowerInvariant()"
+                                      asp-route-othercontents="@Model.OtherContents.ToString().ToLowerInvariant()"
+                                      cs-first-page-title="@SharedLocalizer["First Page"].Value"
+                                      cs-last-page-title="@SharedLocalizer["Last Page"].Value"
+                                      cs-previous-page-title="@SharedLocalizer["Previous Page"].Value"
+                                      cs-next-page-title="@SharedLocalizer["Next Page"].Value"
+                                      cs-show-first-last="true"
+                                      cs-pager-ul-class="pagination pagination-sm justify-content-center"
+                                      cs-pager-li-current-class="page-item active"
+                                      cs-pager-li-other-class="page-item"
+                                      cs-pager-li-non-active-class="page-item disabled"
+                                      cs-pager-link-current-class="page-link"
+                                      cs-pager-link-other-class="page-link"></cs-pager>
+                        </nav>
+                    </container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

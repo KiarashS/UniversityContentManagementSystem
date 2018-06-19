@@ -208,4 +208,37 @@
   <data name="Access Denied" xml:space="preserve">
     <value>متاسفانه شما مجوز دسترسی به صفحه‌ی درخواستی را ندارید (403)</value>
   </data>
+  <data name="First Page" xml:space="preserve">
+    <value>اولین صفحه</value>
+  </data>
+  <data name="Last Page" xml:space="preserve">
+    <value>آخرین صفحه</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>صفحه بعد</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>صفحه قبل</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>پرینت</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="There Is No Information To Display" xml:space="preserve">
+    <value>اطلاعاتی جهت نمایش وجود ندارد.</value>
+  </data>
+  <data name="Sorry An Error Occurred" xml:space="preserve">
+    <value>متاسفانه خطایی رخ داده است !</value>
+  </data>
+  <data name="Search AutoComplete NoResult" xml:space="preserve">
+    <value>نتیجه ای برای ##query** یافت نشد.</value>
+  </data>
+  <data name="View More Results" xml:space="preserve">
+    <value>مشاهده نتایج بیشتر ...</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>خلاصه</value>
+  </data>
 </root>

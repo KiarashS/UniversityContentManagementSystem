@@ -4,27 +4,57 @@
     <div class="container">
         <div class="row align-items-center pb-1 pt-1">
 
-            <div class="col-xl-6 col-sm-9">
+            <div class="col-md-4 col-sm-12 col-12">
                 <a href="/" title="@Model.PortalTitle" data-tippy data-tippy-placement="@(RequestService.IsRtl() ? "left" : "right")"><img src="~/statics/logo.png" alt="@Model.PortalTitle" class="header-logo" /></a>
-                <span>@Model.PortalTitle</span>
+                <span style="font-size: 0.9rem !important;">@Model.PortalTitle</span>
             </div>
 
-            <div class="col-xl-2 col-sm-3" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
-                <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-family: Tahoma; font-size: 0.9rem; text-decoration: none;">فارسی <span class="flag-icon flag-icon-ir"></span></a>
-                <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" title="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
-            </div>
-
-            <div class="col-xl-2 col-sm-4" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
-                <span style="font-size:0.8rem;">@Model.TodayDate</span>
-            </div>
-
-            <div class="col-xl-2 col-sm-8" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
-                <div class="input-group">
-                    <input type="text" class="form-control form-control-sm" placeholder="@SharedLocalizer["Search"]">
-                    <div class="input-group-append">
-                        <a class="btn btn-primary btn-sm"><i class="fas fa-search text-white"></i></a>
+            <div class="col-md-5 col-sm-12 col-12" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+                @*<form>
+            <div class="typeahead__container">
+                <div class="typeahead__field">
+                    <div class="input-group">
+                        <span class="typeahead__query"><input type="search" name="q" autocomplete="off" class="form-control form-control-sm js-typeahead" placeholder="@SharedLocalizer["Search"]"></span>
+                        <div class="input-group-append">
+                            <span class="typeahead__button"><a class="btn btn-primary btn-sm"><i class="fas fa-search text-white typeahead__search-icon"></i></a></span>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </form>*@
+                <form action="/search/">
+                    <div class="typeahead__container">
+                        <div class="typeahead__field">
+
+                            <span class="typeahead__query">
+                                <input id="search-input"
+                                       class="form-control js-typeahead"
+                                       placeholder="@SharedLocalizer["Search"]"
+                                       name="q"
+                                       type="search"
+                                       autocomplete="off">
+                            </span>
+                            <span class="typeahead__button">
+                                <button type="submit">
+                                    <span class="typeahead__search-icon"></span>
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            @*<div class="col-md-2 col-sm-6 col-6 text-sm-left" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+                <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-family: Tahoma; font-size: 0.9rem; text-decoration: none;">فارسی <span class="flag-icon flag-icon-ir"></span></a>
+                <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" title="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
+            </div>*@
+
+            <div class="col-md-3 col-sm-12 col-12" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+                <span style="font-size:0.8rem;">@Model.TodayDate</span>
+                |
+                <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-family: Tahoma; font-size: 0.9rem; text-decoration: none;">فارسی <span class="flag-icon flag-icon-ir"></span></a>
+                <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" title="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
             </div>
 
         </div>
