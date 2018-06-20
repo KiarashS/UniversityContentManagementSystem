@@ -15,7 +15,17 @@ namespace ContentManagement.ViewModels
         public ContentType ContentType { get; set; }
         public string Title { get; set; }
         public DateTimeOffset PublishDate { get; set; }
-        
+        public bool IsFavorite { get; set; }
+
+
+        public bool IsNew
+        {
+            get
+            {
+                var todayDate = DateTimeOffset.UtcNow;
+                return (todayDate - PublishDate).Days < 3;
+            }
+        }
 
         public string GetPublishDate
         {

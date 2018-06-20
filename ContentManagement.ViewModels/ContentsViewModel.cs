@@ -18,6 +18,7 @@ namespace ContentManagement.ViewModels
         public string Imagename { get; set; }
         public DateTimeOffset PublishDate { get; set; }
         public string Link { get; set; }
+        public bool IsFavorite { get; set; }
 
 
         public bool IsNew
