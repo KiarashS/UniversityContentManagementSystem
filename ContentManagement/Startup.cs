@@ -26,6 +26,8 @@ using DataTables.AspNet.AspNetCore;
 using Newtonsoft.Json.Serialization;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using ContentManagement.Infrastructure;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ContentManagement
 {
@@ -120,6 +122,7 @@ namespace ContentManagement
                 options.Filters.Add(new RedirectToCanonicalUrlAttribute(appendTrailingSlash, lowercaseUrls));
                 options.Filters.Add(new NoLowercaseQueryStringAttribute());
                 options.Filters.Add(typeof(SetSeoMetaValuesAttribute));
+                //options.Filters.Add(new RequireHttpsAttribute() { Permanent = true });
                 // options.Filters.Add(new NoBrowserCacheAttribute());
             })
             .AddJsonOptions(jsonOptions =>
@@ -165,6 +168,14 @@ namespace ContentManagement
 
             services.AddCustomImageSharp();
             services.AddCloudscribePagination();
+
+            //services.AddHttpsRedirection(options => options.HttpsPort = 8930);
+            services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(100);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -182,10 +193,13 @@ namespace ContentManagement
             else
             {
                 app.UseResponseCaching();
+                app.UseHsts();
                 app.UseExceptionHandler("/error/index/500");
                 app.UseStatusCodePagesWithReExecute("/error/index/{0}");
             }
-            
+
+            app.UseHttpsRedirection();
+
             //app.UseBlockingDetection();
 
             app.UseLocalization();
@@ -216,6 +230,13 @@ namespace ContentManagement
                 }
             });
 
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @".well-known")),
+            //    RequestPath = new PathString("/.well-known"),
+            //    ServeUnknownFileTypes = true // serve extensionless files
+            //});
+
             // Serve wwwroot as root
             //app.UseFileServer();
 
@@ -243,6 +264,12 @@ namespace ContentManagement
                 routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                routes.MapRoute(
+                    name: "exceptionsRoute",
+                    template: "exceptions/{*assets}",
+                    defaults: new { controller = "Home", action = "Exceptions" }
                 );
 
                 routes.MapRoute(

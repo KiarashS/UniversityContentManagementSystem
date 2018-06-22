@@ -12,6 +12,7 @@ namespace ContentManagement.Services
         string ExternalClassName(string className = "external");
         bool IsExternal(string url);
         string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "details");
+        string GeneratePageUrl(string portalKey, long id, string slug, IUrlHelper url, string scheme, string routeName = "pageRoute", string area = null, string controller = "page", string action = "index");
     }
 
     public class UrlUtilityService : IUrlUtilityService
@@ -77,6 +78,26 @@ namespace ContentManagement.Services
             else
             {
                 return url.RouteUrl(routeName, new { controller, action, area, id, title = !string.IsNullOrEmpty(title) ? WebUtility.UrlDecode(title) : null }, scheme, pageHost);
+            }
+        }
+
+        public string GeneratePageUrl(string portalKey, long id, string slug, IUrlHelper url, string scheme, string routeName = "pageRoute", string area = null, string controller = "page", string action = "index")
+        {
+            if (string.IsNullOrEmpty(slug))
+            {
+                return "#";
+            }
+
+            var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+            var pageHost = $"{portalKey ?? "www"}.{baseOfCurrentDomain}";
+
+            if (string.Equals(portalKey, _requestService.PortalKey()))
+            {
+                return url.RouteUrl(routeName, new { controller, action, area, slug = WebUtility.UrlDecode(slug)});
+            }
+            else
+            {
+                return url.RouteUrl(routeName, new { controller, action, area, id, slug =WebUtility.UrlDecode(slug) }, scheme, pageHost);
             }
         }
     }

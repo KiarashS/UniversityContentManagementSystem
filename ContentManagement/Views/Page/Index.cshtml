@@ -17,7 +17,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="content-title mb-0">@Model.Title</h2>
+                    <h2 class="content-title mb-0"><i class="far fa-file-alt"></i> <a class="nounderline" href="@UrlUtilityService.GeneratePageUrl(RequestService.PortalKey(), Model.Id, Model.Slug, Url, scheme: Context.Request.Scheme)">@Model.Title</a></h2>
                 </div>
                 <div class="card-body">
                     <div class="clearfix d-print-none"><div class="float-right"><a href="#" onclick="javascript: window.print();" title="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a></div></div>

@@ -151,8 +151,8 @@
                 var searchPath = $jsGlobalInfo.data('searchPath');
 
                 var template = '<div class="row no-gutters">' +
-                                '<div class="col-12">' +
-                                '<img class="img-thumbnail d-sm-none d-md-inline mr-1" src="{{imagename}}?width=37">' +
+                                '<div class="col-12" style="font-size: 0.8rem !important;">' +
+                                '<img class="img-thumbnail d-sm-none d-md-inline mr-1" src="{{imagename}}?width=35">' +
                                 '<span>{{title}}</span>&nbsp;' +
                                 '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
                                 '</div>' +
@@ -161,7 +161,7 @@
                 if (item.isLastItem === true) {
                     template = template +
                         '<div class="row no-gutters">' +
-                        '<div class="col-12">' +
+                        '<div class="col-12" style="font-size: 0.8rem !important;">' +
                         '<a class="mt-1 float-right" href="' + searchPath + '?q=' + query + '">' + moreResults + '</a>' +
                         '</div>' +
                         '</div>';

@@ -9,6 +9,7 @@ using ContentManagement.Services;
 using ContentManagement.Services.Seo;
 using Microsoft.AspNetCore.Authorization;
 using DNTBreadCrumb.Core;
+using System.IO;
 
 namespace ContentManagement.Controllers
 {
@@ -65,5 +66,13 @@ namespace ContentManagement.Controllers
         //[BasicAuthentication("kiarash", "admin@110", BasicRealm = "manage")]
         [Authorize(Policy = CustomRoles.Admin)]
         public async virtual Task Exceptions() => await ExceptionalMiddleware.HandleRequestAsync(HttpContext);
+
+        [HttpGet("/.well-known/acme-challenge/{id}")]
+        public IActionResult LetsEncrypt(string id, [FromServices] IHostingEnvironment env)
+        {
+            id = Path.GetFileName(id); // security cleaning
+            var file = Path.Combine(env.ContentRootPath, ".well-known", "acme-challenge", id);
+            return PhysicalFile(file, "text/plain");
+        }
     }
 }
