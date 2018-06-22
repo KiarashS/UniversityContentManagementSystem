@@ -152,6 +152,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 Title = page.Title,
                 Text = page.Text,
                 Slug = page.Slug,
+                Imagename = page.Imagename,
                 IsActive = page.IsActive,
                 PortalId = page.PortalId,
                 Language = page.Language

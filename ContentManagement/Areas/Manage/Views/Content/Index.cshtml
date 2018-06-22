@@ -86,8 +86,8 @@
                                 return '<span class="text-muted">بدون تصویر</span>';
                             }
 
-                            var pageImagePath = $('#js-global-info').data('contentImagePath');
-                            return '<img src="' + pageImagePath + data + '?width=100&height=50&rmode=max" />';
+                            var contentImagePath = $('#js-global-info').data('contentImagePath');
+                            return '<a title="مشاهده تصویر" target="_blank" href="' + contentImagePath + data + '"><img src="' + contentImagePath + data + '?width=100&height=50&rmode=max" /></a>';
                         }
                     },
                     {

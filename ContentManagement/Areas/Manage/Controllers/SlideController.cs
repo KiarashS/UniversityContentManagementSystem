@@ -117,6 +117,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 Id = slide.Id,
                 Title = slide.Title,
                 SubTitle = slide.SubTitle,
+                Filename = slide.Filename,
                 Url = slide.Url,
                 IsBlankUrlTarget = slide.IsBlankUrlTarget,
                 Priority = slide.Priority,
