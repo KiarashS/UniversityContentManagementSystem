@@ -274,4 +274,5 @@ ContentManagement/Errors/*.json
 ContentManagement/logs/
 Errors/
 Errors/*.json
-wwwroot/is-cache/**
+logs/
+/ContentManagement/wwwroot/is-cache
