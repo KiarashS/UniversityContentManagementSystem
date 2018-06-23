@@ -79,7 +79,7 @@ namespace ContentManagement.Services
             slug = slug.Trim();
             var page = await _page
                                 .Where(x => x.IsActive && x.Slug == slug && x.Portal.PortalKey == portalKey && x.Language == language)
-                                .Cacheable()
+                                //.Cacheable() // remove `Cacheable` because this prevent updating ViewCount
                                 .SingleOrDefaultAsync();
 
             if (page == null)
@@ -149,11 +149,6 @@ namespace ContentManagement.Services
 
             var count = await query.LongCountAsync().ConfigureAwait(false);
             return count;
-        }
-
-        public Task UpdateViewCount(string portalKey, Language language, string slug)
-        {
-            throw new System.NotImplementedException();
         }
 
         public Task<bool> ValidatePageSlugAsync(string slug)

@@ -190,4 +190,29 @@
             }
         });
     }
+
+    var $qrcodeButton = $("#qrcode-button");
+    if ($qrcodeButton.length > 0) {
+        var url = $qrcodeButton.data('url');
+        if (url && url != "#")
+        {
+            var typeNumber = 0;
+            var errorCorrectionLevel = 'M';
+            var qr = qrcode(typeNumber, errorCorrectionLevel);
+            qr.addData(url);
+            qr.make();
+
+            $(document).on('click', '#qrcode-button', function () {
+                swal({
+                    type: null,
+                    html: qr.createImgTag(),
+                    target: document.getElementById('swal-container'),
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    //focusConfirm: true,
+                    //confirmButtonText: '<i class="fa fa-thumbs-up"></i>'
+                });
+            });
+        }
+    }
 });

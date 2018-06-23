@@ -83,6 +83,41 @@ namespace ContentManagement.Services
 
         public async Task<IList<ContentManagement.ViewModels.Areas.Manage.ContentViewModel>> GetPagedContentsAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10)
         {
+            if (!string.IsNullOrEmpty(searchTerm) && searchTerm.StartsWith("@id", StringComparison.InvariantCultureIgnoreCase))
+            {
+                long id;
+                if (long.TryParse(searchTerm.ToLowerInvariant().Replace("@id", string.Empty).Trim(), out id))
+                {
+                    var content = await _content
+                                        .Where(x => x.Id == id)
+                                        .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Language, x.ContentType, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
+                                        .SingleOrDefaultAsync();
+
+                    if (content == null)
+                    {
+                        return new List<ContentManagement.ViewModels.Areas.Manage.ContentViewModel>();
+                    }
+
+                    return new List<ContentManagement.ViewModels.Areas.Manage.ContentViewModel> {
+                        new ViewModels.Areas.Manage.ContentViewModel{
+                            Id = content.Id,
+                            PortalKey = content.PortalKey,
+                            ContentType = content.ContentType,
+                            Imagename = content.Imagename,
+                            IsActive = content.IsActive,
+                            IsFavorite = content.IsFavorite,
+                            Priority = content.Priority,
+                            PublishDate = content.PublishDate,
+                            Text = content.Text,
+                            Title = content.Title,
+                            Summary = content.Summary,
+                            ViewCount = content.ViewCount,
+                            Language = content.Language
+                        }
+                    };
+                }
+            }
+
             var query = _content.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();
 
             if (contentType.HasValue)
@@ -96,7 +131,7 @@ namespace ContentManagement.Services
                 query = query.Where(x => x.Text.Contains(searchTerm) || x.RawText.Contains(searchTerm));
             }
 
-            var links = await query
+            var contents = await query
                                     .OrderByDescending(x => x.Priority)
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
@@ -105,7 +140,7 @@ namespace ContentManagement.Services
                                     .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
                                     .ToListAsync();
 
-            return links.Select(x => new ContentManagement.ViewModels.Areas.Manage.ContentViewModel(null) { Id = x.Id, Title = x.Title, Text = x.Text, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, IsActive = x.IsActive, IsFavorite = x.IsFavorite, ViewCount = x.ViewCount, Priority = x.Priority, PortalKey = x.PortalKey }).ToList();
+            return contents.Select(x => new ContentManagement.ViewModels.Areas.Manage.ContentViewModel(null) { Id = x.Id, Title = x.Title, Text = x.Text, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, IsActive = x.IsActive, IsFavorite = x.IsFavorite, ViewCount = x.ViewCount, Priority = x.Priority, PortalKey = x.PortalKey }).ToList();
         }
 
         public async Task<long> ContentsCountAsync()
@@ -116,6 +151,15 @@ namespace ContentManagement.Services
 
         public async Task<long> ContentsPagedCountAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null)
         {
+            if (!string.IsNullOrEmpty(searchTerm) && searchTerm.StartsWith("@id", StringComparison.InvariantCultureIgnoreCase))
+            {
+                long id;
+                if (long.TryParse(searchTerm.ToLowerInvariant().Replace("@id", string.Empty).Trim(), out id))
+                {
+                    return await _content.LongCountAsync(x => x.Id == id).ConfigureAwait(false);
+                }
+            }
+
             var query = _content.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();
 
             if (contentType.HasValue)
@@ -370,7 +414,7 @@ namespace ContentManagement.Services
             var content = await _content
                                         .Where(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
                                         //.Select(x => new { x.Id, x.Title, x.Text, x.RawText, x.Summary, x.Imagename, x.PublishDate, x.ContentType, x.IsFavorite, x.ViewCount })
-                                        .Cacheable()
+                                        //.Cacheable() // remove `Cacheable` because this prevent updating ViewCount
                                         .SingleOrDefaultAsync()
                                         .ConfigureAwait(false);
 

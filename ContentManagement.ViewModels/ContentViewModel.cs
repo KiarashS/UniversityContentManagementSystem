@@ -62,6 +62,21 @@ namespace ContentManagement.ViewModels
             }
         }
 
+        public string GetId
+        {
+            get
+            {
+                if (Language == Entities.Language.EN)
+                {
+                    return Id.ToString();
+                }
+                else
+                {
+                    return Id.ToString().ToPersianNumbers();
+                }
+            }
+        }
+
         public string GetViewCount
         {
             get

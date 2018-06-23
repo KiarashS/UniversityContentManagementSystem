@@ -241,4 +241,10 @@
   <data name="Summary" xml:space="preserve">
     <value>خلاصه</value>
   </data>
+  <data name="Content Code" xml:space="preserve">
+    <value>کد مطلب</value>
+  </data>
+  <data name="QR Code" xml:space="preserve">
+    <value>کد پاسخ سریع (کیو آر کد)</value>
+  </data>
 </root>

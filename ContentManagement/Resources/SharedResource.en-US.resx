@@ -241,4 +241,10 @@
   <data name="Summary" xml:space="preserve">
     <value>Summary</value>
   </data>
+  <data name="Content Code" xml:space="preserve">
+    <value>Content Code</value>
+  </data>
+  <data name="QR Code" xml:space="preserve">
+    <value>QR Code</value>
+  </data>
 </root>

@@ -88,6 +88,8 @@ var filesPath = {
         "node_modules/lightslider/dist/js/lightslider.min.js",
         "assets/js/lib/bootstrap-tabs-x.js",
         "node_modules/jquery-typeahead/dist/jquery.typeahead.min.js",
+        "node_modules/qrcode-generator/qrcode.js",
+        "node_modules/qrcode-generator/qrcode_UTF8.js",
         "assets/js/common.js",
     ],
     rtlJs: [],
