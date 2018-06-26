@@ -1,0 +1,11 @@
+{ 
+  "author": "KiarashS <https://www.kiarash.pro/>", 
+  "classifications": [ "MVC", ".NET Core", "ASP.NET Core" ],  
+  "name": "Empty CMS.ContentManagement project", 
+  "identity": "CMS.ContentManagement", 
+  "shortName": "contentmanagement", 
+  "tags": { 
+    "language": "C#" 
+  }, 
+  "sourceName": "ContentManagement" 
+}
