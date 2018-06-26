@@ -122,10 +122,36 @@ namespace ContentManagement.Areas.Manage.Controllers
                 var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(content.Image.OpenReadStream()))
                 {
-                    image.Mutate(x => x
-                            .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
-                                Infrastructure.Constants.ContentImageWidthSize, Infrastructure.Constants.ContentImageHeightSize),
-                                Mode = ResizeMode.Max }));
+                    if (image.Width > Infrastructure.Constants.ContentImageWidthSize && image.Height <= Infrastructure.Constants.ContentImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                            .Resize(new ResizeOptions
+                            {
+                                Size = new SixLabors.Primitives.Size(
+                                Infrastructure.Constants.ContentImageWidthSize),
+                                Mode = ResizeMode.Max
+                            }));
+                    }
+                    else if (image.Width <= Infrastructure.Constants.ContentImageWidthSize && image.Height > Infrastructure.Constants.ContentImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.ContentImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
+                    else if (image.Width > Infrastructure.Constants.ContentImageWidthSize && image.Height > Infrastructure.Constants.ContentImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.ContentImageWidthSize, Infrastructure.Constants.ContentImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
 
                     content.Imagename = System.IO.Path.GetFileName(content.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
@@ -204,10 +230,30 @@ namespace ContentManagement.Areas.Manage.Controllers
                 var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(content.Image.OpenReadStream()))
                 {
-                    image.Mutate(x => x
+                    if (image.Width > Infrastructure.Constants.ContentImageWidthSize && image.Height <= Infrastructure.Constants.ContentImageHeightSize)
+                    {
+                        image.Mutate(x => x
                             .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
-                                Infrastructure.Constants.ContentImageWidthSize, Infrastructure.Constants.ContentImageHeightSize),
+                                Infrastructure.Constants.ContentImageWidthSize),
                                 Mode = ResizeMode.Max }));
+                    }
+                    else if (image.Width <= Infrastructure.Constants.ContentImageWidthSize && image.Height > Infrastructure.Constants.ContentImageHeightSize)
+                    {
+                         image.Mutate(x => x
+                            .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
+                                Infrastructure.Constants.ContentImageHeightSize),
+                                Mode = ResizeMode.Max }));
+                    }
+                    else if (image.Width > Infrastructure.Constants.ContentImageWidthSize && image.Height > Infrastructure.Constants.ContentImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.ContentImageWidthSize, Infrastructure.Constants.ContentImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
 
                     content.Imagename = System.IO.Path.GetFileName(content.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);

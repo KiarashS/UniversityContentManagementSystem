@@ -110,10 +110,36 @@ namespace ContentManagement.Areas.Manage.Controllers
                 var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(page.Image.OpenReadStream()))
                 {
-                    image.Mutate(x => x
-                            .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
-                                Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
-                                Mode = ResizeMode.Max }));
+                    if (image.Width > Infrastructure.Constants.PageImageWidthSize && image.Height <= Infrastructure.Constants.PageImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                            .Resize(new ResizeOptions
+                            {
+                                Size = new SixLabors.Primitives.Size(
+                                Infrastructure.Constants.PageImageWidthSize),
+                                Mode = ResizeMode.Max
+                            }));
+                    }
+                    else if (image.Width <= Infrastructure.Constants.PageImageWidthSize && image.Height > Infrastructure.Constants.PageImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.PageImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
+                    else if (image.Width > Infrastructure.Constants.PageImageWidthSize && image.Height > Infrastructure.Constants.PageImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
 
                     page.Imagename = System.IO.Path.GetFileName(page.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
@@ -193,10 +219,36 @@ namespace ContentManagement.Areas.Manage.Controllers
                 var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(page.Image.OpenReadStream()))
                 {
-                    image.Mutate(x => x
-                            .Resize(new ResizeOptions { Size = new SixLabors.Primitives.Size(
-                                Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
-                                Mode = ResizeMode.Max }));
+                    if (image.Width > Infrastructure.Constants.PageImageWidthSize && image.Height <= Infrastructure.Constants.PageImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                            .Resize(new ResizeOptions
+                            {
+                                Size = new SixLabors.Primitives.Size(
+                                Infrastructure.Constants.PageImageWidthSize),
+                                Mode = ResizeMode.Max
+                            }));
+                    }
+                    else if (image.Width <= Infrastructure.Constants.PageImageWidthSize && image.Height > Infrastructure.Constants.PageImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.PageImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
+                    else if (image.Width > Infrastructure.Constants.PageImageWidthSize && image.Height > Infrastructure.Constants.PageImageHeightSize)
+                    {
+                        image.Mutate(x => x
+                           .Resize(new ResizeOptions
+                           {
+                               Size = new SixLabors.Primitives.Size(
+                               Infrastructure.Constants.PageImageWidthSize, Infrastructure.Constants.PageImageHeightSize),
+                               Mode = ResizeMode.Max
+                           }));
+                    }
 
                     page.Imagename = System.IO.Path.GetFileName(page.Image.FileName);
                     var file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);

@@ -49,8 +49,8 @@ namespace ContentManagement.Services
                 await _uow.SaveChangesAsync().ConfigureAwait(false);
                 return;
             }
-            var currentContent = await FindContentByIdAsync(content.Id).ConfigureAwait(false);
 
+            var currentContent = await FindContentByIdAsync(content.Id).ConfigureAwait(false);
             currentContent.Title = content.Title?.Trim();
             currentContent.Text = content.Text;
             currentContent.RawText = content.RawText;

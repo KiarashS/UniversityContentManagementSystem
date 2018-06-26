@@ -152,7 +152,7 @@
 
                 var template = '<div class="row no-gutters">' +
                                 '<div class="col-12" style="font-size: 0.8rem !important;">' +
-                                '<img class="img-thumbnail d-sm-none d-md-inline mr-1" src="{{imagename}}?width=35">' +
+                                '<img class="img-thumbnail d-sm-none d-md-inline mr-1" src="{{imagename}}?width=35&height=35&rmode=pad&bgcolor=white">' +
                                 '<span>{{title}}</span>&nbsp;' +
                                 '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
                                 '</div>' +
