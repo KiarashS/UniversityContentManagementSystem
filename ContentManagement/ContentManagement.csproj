@@ -56,7 +56,17 @@
   </Target>-->
   
    <!--<Target Name="PrecompileRazorViews" AfterTargets="Build" DependsOnTargets="MvcRazorPrecompile" />-->
-    
+
+  <Target Name="CreateLogsFolder" AfterTargets="AfterPublish">
+    <MakeDir Directories="$(PublishDir)logs" Condition="!Exists('$(PublishDir)logs')" />
+    <MakeDir Directories="$(PublishUrl)logs" Condition="!Exists('$(PublishUrl)logs')" />
+  </Target>
+
+  <Target Name="CreateErrorsFolder" AfterTargets="AfterPublish">
+    <MakeDir Directories="$(PublishDir)Errors" Condition="!Exists('$(PublishDir)Errors')" />
+    <MakeDir Directories="$(PublishUrl)Errors" Condition="!Exists('$(PublishUrl)Errors')" />
+  </Target>
+  
   <ItemGroup>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.6.362" />
     <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.1.0-preview1-final" />-->
@@ -226,7 +236,12 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <Content Remove="Errors\**" />
+    <Content Remove="logs\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
