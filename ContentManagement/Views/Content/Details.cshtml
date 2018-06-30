@@ -51,7 +51,7 @@
                     <container asp-if="Model.HasImage">
                         <div class="row mb-3">
                             <div class="col-12 text-center">
-                                <img src="/@(ContentManagement.Infrastructure.Constants.ContentsRootPath)/@Model.Imagename" alt="@Model.Title" class="img-fluid img-thumbnail z-depth-1" />
+                                <img src="/@(ContentManagement.Infrastructure.Constants.ContentsRootPath)/@Model.Imagename" asp-append-version="true" alt="@Model.Title" class="img-fluid img-thumbnail z-depth-1" />
                             </div>
                         </div>
                     </container>

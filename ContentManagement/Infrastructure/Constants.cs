@@ -17,10 +17,10 @@ namespace ContentManagement.Infrastructure
         public static readonly int SlideHeightSize = 350;
 
         public static readonly int PageImageWidthSize = 700;
-        public static readonly int PageImageHeightSize = 250;
+        public static readonly int PageImageHeightSize = 300;
 
         public static readonly int ContentImageWidthSize = 700;
-        public static readonly int ContentImageHeightSize = 250;
+        public static readonly int ContentImageHeightSize = 300;
 
         public static readonly int EditorImageThumbWidthSize = 80;
         public static readonly int EditorImageThumbHeightSize = 80;

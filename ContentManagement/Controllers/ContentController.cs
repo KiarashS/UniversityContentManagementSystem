@@ -50,7 +50,6 @@ namespace ContentManagement.Controllers
             _urlUtilityService.CheckArgumentIsNull(nameof(urlUtilityService));
         }
 
-
         public async virtual Task<IActionResult> Index(int? page, ContentType? t, bool otherContents = false, bool favorite = false)
         {
             if (!page.HasValue || page < 1)

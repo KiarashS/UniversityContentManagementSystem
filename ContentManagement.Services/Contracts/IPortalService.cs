@@ -19,5 +19,6 @@ namespace ContentManagement.Services.Contracts
         Task<long> PortalsCountAsync();
         Task<string> GetPortalTitleAsync(string portalKey, Language language);
         Task<SeoViewModel> GetPortalSeoInfo(string portalKey, Language language);
+        Task<IList<PortalKeyViewModel>> GetPortalsKeyAsync();
     }
 }

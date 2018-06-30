@@ -145,5 +145,15 @@ namespace ContentManagement.Services
                 Description = info.Description
             };
         }
+
+        public async Task<IList<PortalKeyViewModel>> GetPortalsKeyAsync()
+        {
+            var portalsKey = await _portal
+                                        .Select(x => new { x.Id, x.PortalKey })
+                                        .Cacheable()
+                                        .ToListAsync().ConfigureAwait(false);
+
+            return portalsKey.Select(x => new PortalKeyViewModel { Id = x.Id, PortalKey = x.PortalKey }).ToList();
+        }
     }
 }
