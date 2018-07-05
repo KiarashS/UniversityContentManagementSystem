@@ -63,7 +63,8 @@ namespace ContentManagement.Controllers
 
             var sb = new StringBuilder();
             sb.AppendLine("User-agent: *");
-            //sb.AppendLine("Disallow:");
+            sb.AppendLine("Disallow: /login/");
+            sb.AppendLine("Disallow: /manage/*");
             sb.AppendLine($"Sitemap: {siteMapFullUrl}");
             return sb.ToString();
         }

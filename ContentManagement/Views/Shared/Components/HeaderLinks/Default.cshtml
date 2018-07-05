@@ -4,12 +4,12 @@
     <div class="container">
         <div class="row" style="font-size: 0.9rem !important;">
             <div class="col">
-                <ul class="list-inline mt-2 mb-2">
+                <ul class="mt-2 mb-2 header-links">
                     @foreach (var item in Model)
                     {
-                        <li class="list-inline-item" condition-class-mr-1="Model.First() != item">
-                            <a href="@(item.Url ?? "#")" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" title="@item.Text" data-tippy><i asp-if="@(!string.IsNullOrEmpty(item.Icon))" condition-style-color="@item.IconColor" class="@item.Icon"></i> @item.Text</a>
-                            <span asp-if="@Model.Last() != item">|</span>
+                        <li>
+                            <a href="@(item.Url ?? "#")" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" class="nounderline" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" title="@item.Text" data-tippy><i asp-if="@(!string.IsNullOrEmpty(item.Icon))" condition-style-color="@item.IconColor" class="@item.Icon"></i> @item.Text</a>
+                            @*<span asp-if="@Model.Last() != item">|</span>*@
                         </li>
                     }
                 </ul>

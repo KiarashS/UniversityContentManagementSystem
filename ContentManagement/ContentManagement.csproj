@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <MvcRazorCompileOnPublish>true</MvcRazorCompileOnPublish>
@@ -11,7 +10,6 @@
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Ben.BlockingDetector" Version="0.0.3" />
     <PackageReference Include="Boilerplate.AspNetCore" Version="3.0.0" />
@@ -23,7 +21,7 @@
     <PackageReference Include="DNTCommon.Web.Core" Version="1.3.0" />
     <PackageReference Include="HtmlSanitizer" Version="4.0.185" />
     <PackageReference Include="Humanizer.Core" Version="2.4.2" />
-    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
+    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.4.0" />
     <!--<PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />-->
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
@@ -46,33 +44,26 @@
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />
     <PackageReference Include="EFSecondLevelCache.Core" Version="1.6.1" />
   </ItemGroup>
-  
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <PlatformTarget>anycpu</PlatformTarget>
   </PropertyGroup>
-  
   <!--<Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
     <Exec Command="dotnet bundle" />
   </Target>-->
-  
-   <!--<Target Name="PrecompileRazorViews" AfterTargets="Build" DependsOnTargets="MvcRazorPrecompile" />-->
-
+  <!--<Target Name="PrecompileRazorViews" AfterTargets="Build" DependsOnTargets="MvcRazorPrecompile" />-->
   <Target Name="CreateLogsFolder" AfterTargets="AfterPublish">
     <MakeDir Directories="$(PublishDir)logs" Condition="!Exists('$(PublishDir)logs')" />
     <MakeDir Directories="$(PublishUrl)logs" Condition="!Exists('$(PublishUrl)logs')" />
   </Target>
-
   <Target Name="CreateErrorsFolder" AfterTargets="AfterPublish">
     <MakeDir Directories="$(PublishDir)Errors" Condition="!Exists('$(PublishDir)Errors')" />
     <MakeDir Directories="$(PublishUrl)Errors" Condition="!Exists('$(PublishUrl)Errors')" />
   </Target>
-  
   <ItemGroup>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.6.362" />
     <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.1.0-preview1-final" />-->
     <!--<DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.1" />-->
   </ItemGroup>
-  
   <ItemGroup>
     <ProjectReference Include="..\ContentManagement.Common\ContentManagement.Common.csproj" />
     <ProjectReference Include="..\ContentManagement.DataLayer\ContentManagement.DataLayer.csproj" />
@@ -81,12 +72,10 @@
     <ProjectReference Include="..\ContentManagement.Services\ContentManagement.Services.csproj" />
     <ProjectReference Include="..\ContentManagement.ViewModels\ContentManagement.ViewModels.csproj" />
   </ItemGroup>
-  
   <ItemGroup>
     <!-- extends watching group to include *.js files -->
     <Watch Include="**\*.js" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*;wwwroot\**\*;src\**\*" />
   </ItemGroup>
-  
   <ItemGroup>
     <Watch Remove="assets\js\common.js" />
     <Watch Remove="assets\js\kendoui\kendo - Copy.messages.fa-IR.min.js" />
@@ -100,7 +89,6 @@
     <Watch Remove="assets\js\lib\bootstrap-tabs-x.min.js" />
     <Watch Remove="assets\js\lib\jscolor.js" />
   </ItemGroup>
-  
   <ItemGroup>
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Models\" />
@@ -120,12 +108,10 @@
     <Folder Include="wwwroot\pagesimage\" />
     <Folder Include="wwwroot\slides\" />
   </ItemGroup>
-  
   <ItemGroup>
     <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
   </ItemGroup>
-  
   <ItemGroup>
     <Content Update="Areas\Manage\Views\Link\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
@@ -236,12 +222,10 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
+  <!--<ItemGroup>
     <Content Remove="Errors\**" />
     <Content Remove="logs\**" />
-  </ItemGroup>
-
+  </ItemGroup>-->
   <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -250,5 +234,4 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

@@ -66,7 +66,17 @@ namespace ContentManagement.Services
                 // subDomain = host.Split('.')[0];
                 if (_httpContextAccessor.HttpContext.IsLocal())
                 {
-                    subDomain = host.Substring(0, host.IndexOf(localhost)).Trim().ToLowerInvariant();
+                    if (host.IndexOf(localhost) >= 0)
+                    {
+                        subDomain = host.Substring(0, host.IndexOf(localhost)).Trim().ToLowerInvariant();
+                    }
+                    else
+                    {
+                        _httpContextAccessor
+                            .HttpContext
+                            .Response
+                            .Redirect($"{_httpContextAccessor.HttpContext.Request.Scheme}://{localhost}", true);
+                    }
                 }
                 else
                 {

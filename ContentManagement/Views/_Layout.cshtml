@@ -80,6 +80,10 @@
     @*<script asp-if="RequestService.IsLtr()" src="~/js/ltr.min.js" asp-append-version="true"></script>*@
     @*<script asp-if="RequestService.IsLtr()" src="~/js/portal.ltr.min.js" asp-append-version="true"></script>*@
     @RenderSection("scripts", required: false)
+
+    <cache expires-sliding="@TimeSpan.FromHours(6)">
+        <google-analytics tracking-id="@SiteSettings.Value.GoogleAnalyticsTrackingId" />
+    </cache>
 </body>
 </html>
 

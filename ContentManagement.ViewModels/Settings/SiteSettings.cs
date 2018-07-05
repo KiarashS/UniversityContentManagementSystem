@@ -7,6 +7,7 @@ namespace ContentManagement.ViewModels.Settings
     {
         public AdminUserSeed AdminUserSeed { get; set; }
         public Logging Logging { get; set; }
+        public string GoogleAnalyticsTrackingId { get; set; }
         public string DomainName { get; set; }
         public string[] SubDomainsBanList { get; set; }
         public PagesSize PagesSize { get; set; }
