@@ -16,7 +16,7 @@
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
     <PackageReference Include="BundlerMinifier.Core" Version="2.8.391" />
-    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.4" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.5" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.3.0" />
     <PackageReference Include="HtmlSanitizer" Version="4.0.185" />
@@ -35,7 +35,7 @@
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.0-dev000087" />
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0-rc2.30" />
     <PackageReference Include="TagHelperPack" Version="0.1.0-ci-30" />
-    <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.2" />
+    <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.4.4" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.6.1" />
     <PackageReference Include="DNTCaptcha.Core" Version="1.4.4" />
     <PackageReference Include="DNTPersianUtils.Core" Version="2.4.0" />
@@ -222,10 +222,10 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
-  <!--<ItemGroup>
+  <ItemGroup>
     <Content Remove="Errors\**" />
     <Content Remove="logs\**" />
-  </ItemGroup>-->
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

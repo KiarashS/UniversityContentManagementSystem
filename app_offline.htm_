@@ -1,0 +1,12 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>App is Offline! | سیستم در حال بروزرسانی می باشد!</title>
+</head>
+<body>
+<div>Updating Application...</div>
+<br/><br/>
+<div style="text-align: right; direction: rtl;">در حال بروزرسانی...</div>
+</body>
+</html>

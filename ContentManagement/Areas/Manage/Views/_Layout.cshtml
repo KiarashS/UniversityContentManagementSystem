@@ -1,5 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
 @using System.Security.Claims
+@using DNTCommon.Web.Core
 
 <!DOCTYPE html>
 <html lang="@RequestService.CurrentLanguage().Language.ToString().ToLowerInvariant()">
@@ -13,6 +14,12 @@
     <link rel="stylesheet" href="~/css/common.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/rtl.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/manage.min.css" asp-append-version="true" />
+
+    <container asp-if="@(!ViewContext.HttpContext.IsLocal())">
+        <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
+        <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
+    </container>
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
     <title>@ViewData["Title"]</title>
@@ -83,6 +90,15 @@
           data-editor-image-manager-path="/@ContentManagement.Infrastructure.Constants.ImagesManagerRootPath/"
           data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"
           data-content-image-path="/@ContentManagement.Infrastructure.Constants.ContentsRootPath/"></span>
+
+    <container asp-if="@(!ViewContext.HttpContext.IsLocal())">
+        <script>
+        LogRocket.identify('@(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value)', {
+            name: '@(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value)',
+            email: '@(User.Claims.First(c => c.Type == ClaimTypes.Email).Value)'
+        });
+        </script>
+    </container>
 
     <script src="~/js/common.min.js" asp-append-version="true"></script>
     <script src="~/js/manage.min.js" asp-append-version="true"></script>

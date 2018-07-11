@@ -1,5 +1,6 @@
 ﻿@using ContentManagement.ViewComponents
 @using Microsoft.AspNetCore.Http.Extensions
+@using DNTCommon.Web.Core
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
 
 <!DOCTYPE html>
@@ -20,6 +21,10 @@
     @*<link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/css/portal.rtl.min.css" asp-append-version="true" />*@
     <link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/ltr.min.css" asp-append-version="true" />
     @*<link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/portal.ltr.min.css" asp-append-version="true" />*@
+    <container asp-if="@(!ViewContext.HttpContext.IsLocal())">
+        <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
+        <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
+    </container>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
 
     <seo-link-canonical base="@($"//{Context.Request.Host.Value}/")" value="@WebUtility.UrlDecode(Context.Request.GetDisplayUrl())" />
