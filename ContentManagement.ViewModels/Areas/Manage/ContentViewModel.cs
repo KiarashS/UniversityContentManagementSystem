@@ -49,7 +49,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public int? Priority { get; set; }
         public string PortalKey { get; set; }
         public string ContentLink { get; set; }
-        
+
 
         public string JPublishDate
         {

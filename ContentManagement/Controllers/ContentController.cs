@@ -268,6 +268,7 @@ namespace ContentManagement.Controllers
                 return RedirectToAction("index", "error", new { id = 404 });
             }
 
+            contentTitle = ContentManagement.Common.WebToolkit.Slug.SeoFriendlyTitle(contentTitle);
             if (string.IsNullOrEmpty(title) || !string.Equals(title, contentTitle))
             {
                 return RedirectToActionPermanent("details", "content", new { id, title = WebUtility.UrlDecode(contentTitle) });

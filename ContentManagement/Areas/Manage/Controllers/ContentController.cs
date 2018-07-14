@@ -80,7 +80,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             {
                 var baseOfCurrentDomain = _siteSettings.Value.DomainName;
                 var pageHost = $"{item.PortalKey ?? "www"}.{baseOfCurrentDomain}";
-                item.ContentLink = Url.RouteUrl("default", new { controller = "content", action = "details", id = item.Id, title = WebUtility.UrlDecode(item.Title)}, Request.Scheme, pageHost);
+                item.ContentLink = Url.RouteUrl("default", new { controller = "content", action = "details", id = item.Id, title = WebUtility.UrlDecode(item.Title.SeoFriendlyTitle()) }, Request.Scheme, pageHost);
             }
 
             var response = DataTablesResponse.Create(request, (int)contentsCount, (int)contentsPagedCount, contents);

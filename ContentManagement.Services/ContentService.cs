@@ -128,7 +128,7 @@ namespace ContentManagement.Services
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 searchTerm = searchTerm.Trim();
-                query = query.Where(x => x.Text.Contains(searchTerm) || x.RawText.Contains(searchTerm));
+                query = query.Where(x => x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm));
             }
 
             var contents = await query

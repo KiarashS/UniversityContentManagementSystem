@@ -73,6 +73,7 @@ namespace ContentManagement.Services
         public string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "detail", bool forceAbsoluteUrl = false)
         {
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+            title = ContentManagement.Common.WebToolkit.Slug.SeoFriendlyTitle(title);
             
             if (string.Equals(portalKey, _requestService.PortalKey()) && !forceAbsoluteUrl)
             {
