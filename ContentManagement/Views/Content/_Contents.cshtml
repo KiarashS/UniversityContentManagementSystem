@@ -14,7 +14,7 @@
                         @SharedLocalizer["Content Type"]:&nbsp;
                     </label>
                     <select id="othercontentstype" name="othercontentstype" asp-items="@((IList<SelectListItem>)ViewData["ContentTypes"])" class="form-control form-control-sm w-50 d-inline-block custom-select custom-select-sm">
-                        <option value="all">@SharedLocalizer["All"]</option>
+                        <option value="all">@SharedLocalizer["View All"]</option>
                     </select>
                 </div>
                 <hr class="hr14" />
@@ -40,7 +40,7 @@
         </div>
 
         <div class="col-12 mt-1">
-            <a class="float-right nounderline btn btn-primary" style="font-size: 0.8rem !important;" condition-class-hvr-icon-back="@RequestService.IsRtl()" condition-class-hvr-icon-forward="@RequestService.IsLtr()" href="/content/@ViewData["ContentsQuery"]">@SharedLocalizer["View All"]&nbsp;<i class="hvr-icon fas" condition-class-fa-angle-double-left="@RequestService.IsRtl()" condition-class-fa-angle-double-right="@RequestService.IsLtr()"></i></a>
+            <a class="float-right nounderline btn btn-success" style="font-size: 0.8rem !important;" condition-class-hvr-icon-back="@RequestService.IsRtl()" condition-class-hvr-icon-forward="@RequestService.IsLtr()" href="/content/@ViewData["ContentsQuery"]">@SharedLocalizer["View All"]&nbsp;<i class="hvr-icon fas" condition-class-fa-angle-double-left="@RequestService.IsRtl()" condition-class-fa-angle-double-right="@RequestService.IsLtr()"></i></a>
         </div>
     </div>
 </container>

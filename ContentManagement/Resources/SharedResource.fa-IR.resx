@@ -134,7 +134,7 @@
     <value>آخرین مطالب سایر پرتال ها</value>
   </data>
   <data name="View All" xml:space="preserve">
-    <value>مشاهده همه</value>
+    <value>نمایش همه</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>اخبار</value>
@@ -188,7 +188,7 @@
     <value>مطلب برگزیده</value>
   </data>
   <data name="View" xml:space="preserve">
-    <value>مشاهده</value>
+    <value>نمایش</value>
   </data>
   <data name="Publish At" xml:space="preserve">
     <value>انتشار در</value>
