@@ -215,4 +215,17 @@
             });
         }
     }
+
+    var $searchForm = $("#search-form");
+    if ($searchForm.length > 0) {
+        $searchForm.submit(function (e) {
+            var $searchInput = $("#search-input");
+            if ($searchInput.val().trim().length <= 0) {
+                $searchInput.val('');
+                $searchInput.focus();
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
 });
