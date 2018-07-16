@@ -436,3 +436,47 @@ ul.header-links li:first-child {
 ul.header-links li:not(:last-child) {
     border-left: 1px solid #ccc;
 }
+
+.badge-promo {
+    position: relative;
+    overflow: hidden;
+    max-height: 60px;
+    margin-bottom: -8px;
+    z-index: 1;
+    padding: 12px 14px;
+    border-radius: 2px 2px 0 0;
+    color: #fff;
+    text-align: right;
+    border-top-right-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+}
+
+    .badge-promo:before, .badge-promo:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .badge-promo:before {
+        background: #a5daff;
+        height: 100%;
+        width: 110%;
+        transform-origin: bottom left;
+        transform: rotate(-1deg);
+    }
+
+    .badge-promo:after {
+        background: #3fb0ff;
+        transform: rotate(3deg);
+        transform-origin: bottom right;
+        height: 100%;
+        width: 110%;
+    }
+
+.badge-promo-content {
+    position: relative;
+    z-index: 1;
+    font-family: sans-serif;
+    font-size: 18px;
+}
