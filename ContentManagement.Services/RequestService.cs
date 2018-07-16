@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ContentManagement.Services
 {
@@ -152,6 +153,11 @@ namespace ContentManagement.Services
             }
 
             return portalKey;
+        }
+
+        private bool IsIp(string input)
+        {
+            return Regex.IsMatch(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", input); // return main portal if host is IP
         }
     }
 
