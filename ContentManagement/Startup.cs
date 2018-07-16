@@ -199,7 +199,7 @@ namespace ContentManagement
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCustomHeader("Server", "KIA");
             //app.UseBlockingDetection();
 
             app.UseLocalization();
