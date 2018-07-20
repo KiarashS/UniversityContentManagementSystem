@@ -140,33 +140,36 @@ var filesPath = {
     fontsOutput: "wwwroot/fonts/"
 };
 
-gulp.task("default", ["css:transform", "fonts:farsi", "commoncss:min", "rtlcss:min", "ltrcss:min", "managecss:min", "systemRtlCss:min", "systemLtrCss:min", "move:css", "commonjs:min", "rtljs:min", "ltrjs:min", "managejs:min", "systemRtlJs:min", "systemLtrJs:min", "move:js", "images:move", "fonts:move"]);
-gulp.task("clean", ["transformCss:clean", "css:clean", "js:clean", "images:clean", "fonts:clean"]);
+gulp.task("default", gulp.series(cssTransform, fontsFarsi, commonCssMin, rtlCssMin, ltrCssMin, manageCssMin, systemRtlCssMin, systemLtrCssMin, moveCss, commonJsMin, rtlJsMin, ltrJsMin, manageJsMin, systemRtlJsMin, systemLtrJsMin, moveJs, imagesMove, fontsMove));
+gulp.task("clean", gulp.series(transformCssClean, cssClean, jsClean, imagesClean, fontsClean));
 
-gulp.task("watch", ["default"], function () {
-    gulp.watch(filesPath.commonCss, ["commoncss:min"]);
-    gulp.watch(filesPath.rtlCss, ["rtlcss:min"]);
-    gulp.watch(filesPath.ltrCss, ["ltrcss:min"]);
-    gulp.watch(filesPath.manageCss, ["managecss:min"]);
-    gulp.watch(filesPath.systemRtlCss, ["systemRtlCss:min"]);
-    gulp.watch(filesPath.systemLtrCss, ["systemLtrCss:min"]);
-    gulp.watch(filesPath.moveCss, ["move:css"]);
-    gulp.watch(filesPath.commonJs, ["commonjs:min"]);
-    gulp.watch(filesPath.rtlJs, ["rtljs:min"]);
-    gulp.watch(filesPath.ltrJs, ["ltrjs:min"]);
-    gulp.watch(filesPath.manageJs, ["managejs:min"]);
-    gulp.watch(filesPath.systemRtlJs, ["systemRtlJs:min"]);
-    gulp.watch(filesPath.systemLtrJs, ["systemLtrJs:min"]);
-    gulp.watch(filesPath.moveJs, ["move:js"]);
-    gulp.watch(filesPath.images, ["images:move"]);
-    gulp.watch(filesPath.fonts, ["fonts:move"]);
-    gulp.watch(filesPath.fontsFarsi, ["fonts:farsi"]);
-});
+gulp.task("watch", gulp.series("default", function watch() {
+    gulp.watch(filesPath.commonCss, commonCssMin);
+    gulp.watch(filesPath.rtlCss, rtlCssMin);
+    gulp.watch(filesPath.ltrCss, ltrCssMin);
+    gulp.watch(filesPath.manageCss, manageCssMin);
+    gulp.watch(filesPath.systemRtlCss, systemRtlCssMin);
+    gulp.watch(filesPath.systemLtrCss, systemLtrCssMin);
+    gulp.watch(filesPath.moveCss, moveCss);
+    gulp.watch(filesPath.commonJs, commonJsMin);
+    gulp.watch(filesPath.rtlJs, rtlJsMin);
+    gulp.watch(filesPath.ltrJs, ltrJsMin);
+    gulp.watch(filesPath.manageJs, manageJsMin);
+    gulp.watch(filesPath.systemRtlJs, systemRtlJsMin);
+    gulp.watch(filesPath.systemLtrJs, systemLtrJsMin);
+    gulp.watch(filesPath.moveJs, moveJs);
+    gulp.watch(filesPath.images, imagesMove);
+    gulp.watch(filesPath.fonts, fontsMove);
+    gulp.watch(filesPath.fontsFarsi, fontsFarsi);
+    //done();
+}));
 
 // CSS
-gulp.task("css:transform", function () {
-    if (filesPath.transformCss.length == 0)
+function cssTransform() {
+    if (filesPath.transformCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.transformCss)
         //.pipe(sourcemaps.init())
@@ -176,13 +179,13 @@ gulp.task("css:transform", function () {
         .pipe(rename({ suffix: '-rtl' })) // Append "-rtl" to the filename.
         //.pipe(sourcemaps.write('dist')) // Output source maps.
         .pipe(gulp.dest(filesPath.transformCssOutput + 'rtl/')); // Output RTL stylesheets.
-});
+};
 
-gulp.task("transformCss:clean", function () {
+function transformCssClean() {
     return del([filesPath.transformCssOutput + 'ltr/*', filesPath.transformCssOutput + 'rtl/*']);
-});
+};
 
-gulp.task("commoncss:min", function () {
+function commonCssMin() {
     //gulp.src(filesPath.cssInput + "abovethefold.css")
     //    .pipe(csso())
     //    .pipe(gulp.dest(filesPath.cssOutput));
@@ -192,87 +195,103 @@ gulp.task("commoncss:min", function () {
     //    .pipe(csso())
     //    .pipe(gulp.dest(filesPath.cssOutput));
 
-    if (filesPath.commonCss.length == 0)
+    if (filesPath.commonCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.commonCss)
         .pipe(concat("common.min.css"))
         .pipe(csso())
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("rtlcss:min", function () {
-    if (filesPath.rtlCss.length == 0)
+function rtlCssMin() {
+    if (filesPath.rtlCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.rtlCss)
         .pipe(concat("rtl.min.css"))
         .pipe(csso())
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("ltrcss:min", function () {
-    if (filesPath.ltrCss.length == 0)
+function ltrCssMin() {
+    if (filesPath.ltrCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.ltrCss)
         .pipe(concat("ltr.min.css"))
         .pipe(csso())
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("managecss:min", function () {
-    if (filesPath.manageCss.length == 0)
+function manageCssMin() {
+    if (filesPath.manageCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.manageCss)
         .pipe(concat("manage.min.css"))
         .pipe(csso())
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("systemRtlCss:min", function () {
-    if (filesPath.manageCss.length == 0)
+function systemRtlCssMin(done) {
+    if (filesPath.systemRtlCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.systemRtlCss)
         .pipe(concat("portal.rtl.min.css"))
         .pipe(csso())
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("systemLtrCss:min", function () {
-    if (filesPath.manageCss.length == 0)
+function systemLtrCssMin(done) {
+    if (filesPath.systemLtrCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.systemLtrCss)
         .pipe(concat("portal.ltr.min.css"))
         .pipe(csso())
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("move:css", function () {
-    if (filesPath.moveCss.length == 0)
+function moveCss(done) {
+    if (filesPath.moveCss.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.moveCss)
         .pipe(gulp.dest(filesPath.cssOutput));
-});
+};
 
-gulp.task("css:clean", function () {
+function cssClean() {
     return del(filesPath.cssOutput);
-});
+};
 
 
 // JavaScript
-gulp.task("commonjs:min", function () {
+function commonJsMin(done) {
     //return gulp.src([filesPath.jsInput + "/*.js"])
     //    .pipe(concat("all.js"))
     //    .pipe(uglify())
     //    .pipe(gulp.dest(filesPath.jsOutput));
 
-    if (filesPath.commonJs.length == 0)
+    if (filesPath.commonJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.commonJs)
         .pipe(concat("common.js"))
@@ -293,11 +312,13 @@ gulp.task("commonjs:min", function () {
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         //.pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("rtljs:min", function () {
-    if (filesPath.rtlJs.length == 0)
+function rtlJsMin(done) {
+    if (filesPath.rtlJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.rtlJs)
         .pipe(concat("rtl.js"))
@@ -312,11 +333,13 @@ gulp.task("rtljs:min", function () {
             }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("ltrjs:min", function () {
-    if (filesPath.ltrJs.length == 0)
+function ltrJsMin(done) {
+    if (filesPath.ltrJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.ltrJs)
         .pipe(concat("ltr.js"))
@@ -331,11 +354,13 @@ gulp.task("ltrjs:min", function () {
             }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("managejs:min", function () {
-    if (filesPath.manageJs.length == 0)
+function manageJsMin(done) {
+    if (filesPath.manageJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.manageJs)
         .pipe(concat("manage.js"))
@@ -350,11 +375,13 @@ gulp.task("managejs:min", function () {
             }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("systemRtlJs:min", function () {
-    if (filesPath.manageJs.length == 0)
+function systemRtlJsMin(done) {
+    if (filesPath.systemRtlJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.systemRtlJs)
         .pipe(concat("portal.js"))
@@ -369,11 +396,13 @@ gulp.task("systemRtlJs:min", function () {
             }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("systemLtrJs:min", function () {
-    if (filesPath.manageJs.length == 0)
+function systemLtrJsMin(done) {
+    if (filesPath.systemLtrJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.systemLtrJs)
         .pipe(concat("portal.js"))
@@ -388,21 +417,23 @@ gulp.task("systemLtrJs:min", function () {
             }
         }))
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("move:js", function () {
-    if (filesPath.moveJs.length == 0)
+function moveJs(done) {
+    if (filesPath.moveJs.length == 0) {
+        done();
         return;
+    }
 
     return gulp.src(filesPath.moveJs)
         .pipe(gulp.dest(filesPath.jsOutput));
-});
+};
 
-gulp.task("js:clean", function () {
+function jsClean() {
     return del(filesPath.jsOutput);
-});
+};
 
-gulp.task('uglify-error-debugging', function (cb) {
+function uglifyErrorDebugging(cb) {
     pump([
         gulp.src(filesPath.commonJs),
         minify({
@@ -417,36 +448,36 @@ gulp.task('uglify-error-debugging', function (cb) {
         uglify(),
         gulp.dest(filesPath.jsOutput)
     ], cb);
-});
+};
 
 
 // Images
-gulp.task("images:move", function () {
+function imagesMove() {
     gulp.src(filesPath.img)
         .pipe(gulp.dest(filesPath.imgOutput));
 
     return gulp.src(filesPath.images)
                 .pipe(gulp.dest(filesPath.imagesOutput));
-});
+};
 
-gulp.task("images:clean", function () {
+function imagesClean() {
     return del(filesPath.imagesOutput);
-});
+};
 
 
 // Fonts
-gulp.task("fonts:move", function () {
+function fontsMove() {
     return gulp.src(filesPath.fonts)
                 .pipe(gulp.dest(filesPath.fontsOutput));
-});
+};
 
-gulp.task("fonts:clean", function () {
+function fontsClean() {
     return del(filesPath.fontsOutput);
-});
+};
 
-gulp.task("fonts:farsi", function () {
+function fontsFarsi() {
     return gulp.src(filesPath.fontsFarsi)
                 .pipe(concat("farsifonts.min.css"))
                 .pipe(csso())
                 .pipe(gulp.dest(filesPath.fontsOutput));
-});
+};
