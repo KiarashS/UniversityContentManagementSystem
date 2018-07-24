@@ -194,12 +194,12 @@ namespace ContentManagement
             else
             {
                 app.UseResponseCaching();
-                app.UseHsts();
+                //app.UseHsts();
                 app.UseExceptionHandler("/error/index/500");
                 app.UseStatusCodePagesWithReExecute("/error/index/{0}");
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             //app.UseBlockingDetection();
             app.UseLocalization();
             app.UseAuthentication();
