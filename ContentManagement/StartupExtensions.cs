@@ -109,11 +109,11 @@ namespace ContentManagement
             requestLocalizationOptions.RequestCultureProviders = new List<IRequestCultureProvider>
             {
                 new QueryStringRequestCultureProvider(),
-                new CookieRequestCultureProvider(),
+                new CookieRequestCultureProvider(),// { CookieName = ".language.portal.cookie" },
                 new FaRequestCultureProvider(),
                 //new RouteDataRequestCultureProvider()
             };
-
+            
             app.UseRequestLocalization(requestLocalizationOptions);
         }
 

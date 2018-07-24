@@ -38,11 +38,11 @@ namespace ContentManagement.Controllers
             // The view being returned is calculated based on the name of the
             // controller (Home) and the name of the action method (Index).
             // So in this case, the view returned is /Views/Home/Index.cshtml.
-            var lang = _requestService.CurrentLanguage();
-            var subDomain = _requestService.CurrentSubDomain();
-            var isSubPortal = _requestService.IsSubPortal();
-            var seoService = (SeoService)HttpContext.RequestServices.GetService(typeof(SeoService));
-            ViewBag.Title = "کیارش سلیمان زاده";
+            //var lang = _requestService.CurrentLanguage();
+            //var subDomain = _requestService.CurrentSubDomain();
+            //var isSubPortal = _requestService.IsSubPortal();
+            //var seoService = (SeoService)HttpContext.RequestServices.GetService(typeof(SeoService));
+            //ViewBag.Title = "کیارش سلیمان زاده";
             return View();
         }
 

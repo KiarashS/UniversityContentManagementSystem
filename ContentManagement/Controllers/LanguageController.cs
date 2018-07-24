@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace ContentManagement.Controllers
 {
@@ -13,6 +15,10 @@ namespace ContentManagement.Controllers
     {
         public virtual IActionResult Fa()
         {
+            //var locOptions = (IOptions<RequestLocalizationOptions>)HttpContext.RequestServices.GetService(typeof(IOptions<RequestLocalizationOptions>));
+            //var provider = locOptions.Value.RequestCultureProviders.SingleOrDefault(x => x.GetType() == typeof(CookieRequestCultureProvider));
+            //var cookieName = ((CookieRequestCultureProvider)provider).CookieName;
+
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(new CultureInfo("en-US"), new CultureInfo("fa-IR"))),
@@ -24,6 +30,10 @@ namespace ContentManagement.Controllers
 
         public virtual IActionResult En()
         {
+            //var locOptions = (IOptions<RequestLocalizationOptions>)HttpContext.RequestServices.GetService(typeof(IOptions<RequestLocalizationOptions>));
+            //var provider = locOptions.Value.RequestCultureProviders.SingleOrDefault(x => x.GetType() == typeof(CookieRequestCultureProvider));
+            //var cookieName = ((CookieRequestCultureProvider)provider).CookieName;
+
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(new CultureInfo("en-US"), new CultureInfo("en-US"))),

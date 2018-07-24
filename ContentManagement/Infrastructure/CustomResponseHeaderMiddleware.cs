@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,10 @@ namespace ContentManagement.Infrastructure
             context.Response.OnStarting((state) =>
             {
                 var httpContext = (HttpContext)state;
-                httpContext.Response.Headers.Add(_key, _value);
+                if (!httpContext.Response.Headers.TryGetValue(_key.ToLowerInvariant(), out StringValues headerValue))
+                {
+                    httpContext.Response.Headers.Add(_key.ToLowerInvariant(), _value);
+                }
                 return Task.FromResult(0);
             }, context);
 

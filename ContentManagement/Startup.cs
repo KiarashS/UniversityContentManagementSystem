@@ -183,6 +183,7 @@ namespace ContentManagement
         {
             // Injecting the Owasp recommended HTTP Headers for increased security
             // app.UseSecureHeadersMiddleware(SecureHeadersMiddlewareExtensions.BuildDefaultConfiguration());
+            app.UseCustomHeader("server", "KIA");
 
             if (env.IsDevelopment())
             {
@@ -199,11 +200,8 @@ namespace ContentManagement
             }
 
             app.UseHttpsRedirection();
-            app.UseCustomHeader("Server", "KIA");
             //app.UseBlockingDetection();
-
             app.UseLocalization();
-
             app.UseAuthentication();
 
             var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
