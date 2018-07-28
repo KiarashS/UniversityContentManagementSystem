@@ -17,6 +17,8 @@ using ContentManagement.Services.Seo;
 using System.Net;
 using DNTBreadCrumb.Core;
 using ContentManagement.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace ContentManagement.Controllers
 {
@@ -28,8 +30,9 @@ namespace ContentManagement.Controllers
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IUrlUtilityService _urlUtilityService;
         private readonly SeoService _seoService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService, IUrlUtilityService urlUtilityService)
+        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService, IUrlUtilityService urlUtilityService, IHostingEnvironment hostingEnvironment)
         {
             _contentService = contentService;
             _contentService.CheckArgumentIsNull(nameof(contentService));
@@ -48,6 +51,9 @@ namespace ContentManagement.Controllers
 
             _urlUtilityService = urlUtilityService;
             _urlUtilityService.CheckArgumentIsNull(nameof(urlUtilityService));
+
+            _hostingEnvironment = hostingEnvironment;
+            _hostingEnvironment.CheckArgumentIsNull(nameof(hostingEnvironment));
         }
 
         public async virtual Task<IActionResult> Index(int? page, ContentType? t, bool otherContents = false, bool favorite = false)
@@ -300,6 +306,15 @@ namespace ContentManagement.Controllers
             });
 
             return View(contentDetails);
+        }
+
+        public virtual IActionResult GetImage(string name)
+        {
+            var imageName = System.IO.Path.GetFileName(name);
+            var imagePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, Infrastructure.Constants.ContentsRootPath, imageName);
+            new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
+
+            return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
         }
     }
 }

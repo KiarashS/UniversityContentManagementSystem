@@ -146,13 +146,13 @@
                 "background-color": "#eaf3ff"
             },
             template: function (query, item) {
-                console.log(item);
                 var moreResults = $jsGlobalInfo.data('searchAutocompleteMoreresult');
                 var searchPath = $jsGlobalInfo.data('searchPath');
+                var randomNumber = Math.floor(Math.random() * (10000000 - 100000 + 1)) + 100000;
 
                 var template = '<div class="row no-gutters">' +
-                                '<div class="col-12" style="font-size: 0.8rem !important;">' +
-                                '<img class="img-thumbnail d-sm-none d-md-inline mr-1" src="{{imagename}}?width=35&height=35&rmode=pad&bgcolor=white">' +
+                    '<div class="col-12" style="font-size: 0.8rem !important;">' +
+                    '<img class="img-thumbnail d-sm-none d-md-inline mr-1" style="max-width: 35px; max-height: 35px;" src="{{imagename}}?width=35&height=35&rmode=pad&bgcolor=white&v=' + randomNumber + '">' +
                                 '<span>{{title}}</span>&nbsp;' +
                                 '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
                                 '</div>' +
