@@ -49,7 +49,7 @@
 
     @await Component.InvokeAsync(nameof(Footer))
 
-    <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 2.5rem; padding: 2px 5px; background-color: coral; z-index: 1000;">
+    <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 6.5rem; padding: 2px 5px; background-color: coral; z-index: 1000;">
         <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" title="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
             <i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت
         </a>
@@ -59,6 +59,7 @@
           data-slides-path="/@ContentManagement.Infrastructure.Constants.SlidesRootPath/"
           data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"
           data-content-image-path="/@ContentManagement.Infrastructure.Constants.ContentsRootPath/"
+          data-image-link-path="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/"
           data-fetch-contents-path="/content/fetchcontents/"
           data-contents-path="/content/"
           data-search-path="/search/"

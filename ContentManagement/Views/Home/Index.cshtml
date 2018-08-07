@@ -7,9 +7,9 @@
 
 @await Component.InvokeAsync(nameof(Slider))
 
-@await Component.InvokeAsync(nameof(EssentialLinks))
-
 @await Component.InvokeAsync(nameof(LatestNewsOrEventsOrFavorites))
+
+@await Component.InvokeAsync(nameof(EssentialLinks))
 
 @await Component.InvokeAsync(nameof(QuickLinks))
 
@@ -18,5 +18,7 @@
 <container asp-if="!RequestService.IsSubPortal()">@await Component.InvokeAsync(nameof(SubPortalsContents))</container>
 
 @await Component.InvokeAsync(nameof(Links))
+
+@await Component.InvokeAsync(nameof(ImageLinks))
 
 @await Component.InvokeAsync(nameof(ExternalLinks))

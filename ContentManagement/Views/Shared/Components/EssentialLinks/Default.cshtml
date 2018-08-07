@@ -1,11 +1,12 @@
 ﻿@model IList<ContentManagement.ViewModels.LinkViewModel>
 
-<div asp-if="Model.Any()" class="container">
+<div asp-if="Model.Any()" class="container-fluid">
     <div class="row">
         <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
             <div class="card hoverable mt-2 mb-3">
-                <div class="text-white badge-promo">
-                    <span class="badge-promo-content"><i class="fas fa-syringe yellow-text"></i>&nbsp;@SharedLocalizer["Essential Links"]</span>
+                <div class="card-header text-white purple-gradient">
+                    @*<span class="badge-promo-content"><i class="fas fa-syringe purple-text"></i>&nbsp;@SharedLocalizer["Essential Links"]</span>*@
+                    <i class="fas fa-syringe purple-text"></i>&nbsp;@SharedLocalizer["Essential Links"]
                 </div>
                 <div class="card-body">
 

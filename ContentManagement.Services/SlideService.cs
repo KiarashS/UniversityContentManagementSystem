@@ -97,9 +97,9 @@ namespace ContentManagement.Services
             return slides.Select(x => new SlideViewModel { Id = x.Id, Title = x.Title, SubTitle = x.SubTitle, Filename = x.Filename, PublishDate = x.PublishDate, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority }).ToList();
         }
 
-        public Task<string> GetSlideFilenameAsync(long id)
+        public async Task<string> GetSlideFilenameAsync(long id)
         {
-            var filename = _slide.Where(x => x.Id == id).Select(x => x.Filename).SingleOrDefaultAsync();
+            var filename = await _slide.Where(x => x.Id == id).Select(x => x.Filename).SingleOrDefaultAsync().ConfigureAwait(false);
             return filename;
         }
 

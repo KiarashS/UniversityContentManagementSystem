@@ -114,11 +114,11 @@ namespace ContentManagement
             {
                 options.UseCustomStringModelBinder();
                 options.AllowEmptyInputInBodyModelBinding = true;
-                options.Filters.Add(new RequireWwwAttribute
-                {
-                    IgnoreLocalhost = false,
-                    Permanent = true
-                });
+                //options.Filters.Add(new RequireWwwAttribute
+                //{
+                //    IgnoreLocalhost = false,
+                //    Permanent = true
+                //});
                 options.Filters.Add(new RedirectToCanonicalUrlAttribute(appendTrailingSlash, lowercaseUrls));
                 options.Filters.Add(new NoLowercaseQueryStringAttribute());
                 options.Filters.Add(typeof(SetSeoMetaValuesAttribute));
@@ -146,8 +146,8 @@ namespace ContentManagement
             .AddHtmlMinification(options =>
             {
                 options.MinificationSettings.RemoveRedundantAttributes = true;
-                options.MinificationSettings.RemoveHttpProtocolFromAttributes = true;
-                options.MinificationSettings.RemoveHttpsProtocolFromAttributes = true;
+                //options.MinificationSettings.RemoveHttpProtocolFromAttributes = true;
+                //options.MinificationSettings.RemoveHttpsProtocolFromAttributes = true;
                 options.MinificationSettings.MinifyEmbeddedCssCode = false;
                 options.MinificationSettings.MinifyEmbeddedJsCode = false;
                 options.MinificationSettings.RemoveOptionalEndTags = false;

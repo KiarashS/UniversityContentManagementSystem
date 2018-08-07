@@ -15,7 +15,7 @@ namespace ContentManagement.DataLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rc1-32029")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -76,6 +76,39 @@ namespace ContentManagement.DataLayer.Migrations
                     b.HasIndex("PortalId");
 
                     b.ToTable("Content");
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ImageLink", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Imagename")
+                        .IsRequired();
+
+                    b.Property<bool>("IsBlankUrlTarget");
+
+                    b.Property<int>("Language");
+
+                    b.Property<int>("PortalId");
+
+                    b.Property<int?>("Priority");
+
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.Property<string>("Url")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortalId");
+
+                    b.ToTable("ImageLink");
                 });
 
             modelBuilder.Entity("ContentManagement.Entities.Link", b =>
@@ -337,6 +370,14 @@ namespace ContentManagement.DataLayer.Migrations
                 {
                     b.HasOne("ContentManagement.Entities.Portal", "Portal")
                         .WithMany("Contents")
+                        .HasForeignKey("PortalId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ImageLink", b =>
+                {
+                    b.HasOne("ContentManagement.Entities.Portal", "Portal")
+                        .WithMany("ImageLinks")
                         .HasForeignKey("PortalId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

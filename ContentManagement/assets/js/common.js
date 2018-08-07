@@ -5,6 +5,7 @@
     if ($headerNavbar.length > 0)
     {
         $headerNavbar.metisMenu();
+        stickybits('#header-navbar-container');
     }
 
     var $essentialLinks = $("#essential-links");

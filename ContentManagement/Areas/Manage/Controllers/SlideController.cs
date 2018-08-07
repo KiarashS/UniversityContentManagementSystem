@@ -165,6 +165,11 @@ namespace ContentManagement.Areas.Manage.Controllers
                         slide.Filename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
                     }
+                    else if (string.Equals(currentFilename, slide.Filename, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        slide.Filename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
+                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
+                    }
 
                     await _slideService.AddOrUpdateSlideAsync(slide).ConfigureAwait(false);
                     image.Save(file); // Automatic encoder selected based on extension.

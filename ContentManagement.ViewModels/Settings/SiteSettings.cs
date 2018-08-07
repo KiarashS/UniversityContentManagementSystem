@@ -9,6 +9,8 @@ namespace ContentManagement.ViewModels.Settings
         public Logging Logging { get; set; }
         public string GoogleAnalyticsTrackingId { get; set; }
         public string DomainName { get; set; }
+        public string WebMailAddress { get; set; }
+        public string BaseColor { get; set; }
         public string[] SubDomainsBanList { get; set; }
         public PagesSize PagesSize { get; set; }
         public MainPortal MainPortal { get; set; }

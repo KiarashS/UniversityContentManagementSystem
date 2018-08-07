@@ -1,0 +1,91 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.ImageLinkViewModel
+@{
+    ViewData["Title"] = "ویرایش لینک تصویری";
+}
+
+<style>
+    .custom-file-input ~ .custom-file-label::after {
+        content: "انتخاب فایل";
+    }
+</style>
+
+<h3>ویرایش لینک تصویری</h3>
+
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        توجه داشته باشید که سایز تصویر لینک تصویری می بایست @ContentManagement.Infrastructure.Constants.LinkImageWidthSize در @ContentManagement.Infrastructure.Constants.LinkImageHeightSize پیکسل باشد.
+    </div>
+
+    <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId, language = Model.Language })
+
+        <div class="form-group row">
+            <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان لینک">
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Description" class="col-sm-2 form-control-label">توضیحات</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" asp-for="Description" rows="3" placeholder="توضیحات لینک"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Url" class="col-sm-2 form-control-label">آدرس لینک</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" dir="ltr" asp-for="Url" placeholder="آدرس لینک">
+                <span class="text-danger" asp-validation-for="Url"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Priority" class="col-sm-2 form-control-label">اولویت</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" asp-for="Priority" placeholder="اولویت قرارگیری">
+                <span class="text-danger" asp-validation-for="Priority"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsBlankUrlTarget" class="col-sm-2 form-control-label">نمایش در صفحه جدید؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsBlankUrlTarget" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsBlankUrlTarget"></span>
+            </div>
+        </div>
+        <div class="form-group row" condition-class-mb-5="string.IsNullOrEmpty(Model.Imagename)" condition-class-mb-0="!string.IsNullOrEmpty(Model.Imagename)">
+            <label asp-for="Image" class="col-sm-2 form-control-label">تصویر</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="Image" lang="fa">
+                <label class="custom-file-label" asp-for="Image" style="margin-left: 15px; margin-right: 15px;">تصویر</label>
+                <span class="text-danger" asp-validation-for="Image"></span>
+            </div>
+        </div>
+        <container asp-if="!string.IsNullOrEmpty(Model.Imagename)">
+            <div class="form-group row mb-5">
+                <label class="col-sm-2 form-control-label">&nbsp;</label>
+                <div class="col-sm-10 custom-file">
+                    <a href="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@Model.Imagename" target="_blank">مشاهده تصویر فعلی</a>
+                </div>
+            </div>
+        </container>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label"></label>
+            <div class="col-sm-10">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/imagelink/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+        });
+    </script>
+}

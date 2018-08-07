@@ -49,6 +49,7 @@ namespace ContentManagement
             services.AddScoped<ISlideService, SlideService>();
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<ILinkService, LinkService>();
+            services.AddScoped<IImageLinkService, ImageLinkService>();
             services.AddScoped<IContentService, ContentService>();
             services.AddScoped<IUrlUtilityService, UrlUtilityService>();
         }

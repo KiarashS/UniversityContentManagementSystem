@@ -43,6 +43,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         [UploadFileExtensions(".png,.jpg,.jpeg,.gif", ErrorMessage = "لطفاً یک تصویر با پسوندهای .png,.jpg,.jpeg,.gif آپلود نمائید.")]
         public IFormFile Image { get; set; }
         public string Imagename { get; set; }
+        public bool EnableImage { get; set; }
         public int ViewCount { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsFavorite { get; set; } = false;

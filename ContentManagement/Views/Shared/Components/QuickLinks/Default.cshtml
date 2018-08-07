@@ -1,26 +1,69 @@
 ﻿@model IList<ContentManagement.ViewModels.LinkViewModel>
 
-<div asp-if="Model.Any()" class="container">
-    <div class="row">
-        <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
-            <div class="card mt-2 mb-3">
-                <div class="card-header">
-                    <i class="fas fa-fighter-jet deep-orange-text"></i>&nbsp;@SharedLocalizer["Quick Links"]
+<container asp-if="Model.Any()">
+    <div id="quickLinksModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"><i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="card-body">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
 
-                    @for (int i = 0; i < Model.Count; i += 4)
-                    {
-                        <div class="row" style="font-size: 0.9rem !important;">
-                            <div class="col-6 col-sm-6 col-md-3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i).Icon) ? Model.ElementAt(i).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i).Text</a></div>
-                            <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 1"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 1).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 1).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 1).Icon) ? Model.ElementAt(i + 1).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 1).Text</a></div>
-                            <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 2"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i + 2).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 2).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 2).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 2).Icon) ? Model.ElementAt(i + 2).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 2).Text</a></div>
-                            <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 3).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 3).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 3).Icon) ? Model.ElementAt(i + 3).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 3).Text</a></div>
+                                @for (int i = 0; i < Model.Count; i += 4)
+                                {
+                                    <div class="row" style="font-size: 0.9rem !important;">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i).Icon) ? Model.ElementAt(i).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i).Text</a></div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3" asp-if="@Model.Count > i + 1"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 1).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 1).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 1).Icon) ? Model.ElementAt(i + 1).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 1).Text</a></div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3" asp-if="@Model.Count > i + 2"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i + 2).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 2).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 2).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 2).Icon) ? Model.ElementAt(i + 2).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 2).Text</a></div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-3" asp-if="@Model.Count > i + 3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 3).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 3).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 3).Icon) ? Model.ElementAt(i + 3).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 3).Text</a></div>
+                                    </div>
+                                }
+
+                            </div>
                         </div>
-                    }
-
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 8.5rem; padding: 2px 5px; background-color: #58359c; z-index: 1000;">
+        <a style="color: #fff; text-decoration: none;" target="_blank" href="#" data-toggle="modal" data-target="#quickLinksModal" title="@SharedLocalizer["Quick Links"]" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+            <i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]
+        </a>
+    </div>
+</container>
+
+
+@*<container asp-if="Model.Any()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
+                <div class="card mt-2 mb-3">
+                    <div class="card-header">
+                        <i class="fas fa-fighter-jet purple-text"></i>&nbsp;@SharedLocalizer["Quick Links"]
+                    </div>
+                    <div class="card-body">
+
+                        @for (int i = 0; i < Model.Count; i += 4)
+                        {
+                            <div class="row" style="font-size: 0.9rem !important;">
+                                <div class="col-6 col-sm-6 col-md-3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i).Icon) ? Model.ElementAt(i).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i).Text</a></div>
+                                <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 1"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 1).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 1).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 1).Icon) ? Model.ElementAt(i + 1).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 1).Text</a></div>
+                                <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 2"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i + 2).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 2).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 2).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 2).Icon) ? Model.ElementAt(i + 2).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 2).Text</a></div>
+                                <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 3"><a class="nav-link bordered-link hvr-grow-shadow" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 3).IconColor" condition-class-deep-purple-text="@string.IsNullOrEmpty(Model.ElementAt(i + 3).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 3).Icon) ? Model.ElementAt(i + 3).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 3).Text</a></div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</container>*@

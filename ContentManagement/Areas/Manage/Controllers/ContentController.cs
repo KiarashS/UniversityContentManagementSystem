@@ -106,7 +106,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             {
                 return View(content);
             }
-            else if (content.Image != null && !content.Image.IsImageFile())
+            else if (content.EnableImage && content.Image != null && !content.Image.IsImageFile())
             {
                 ModelState.AddModelError("", "لطفاً یک تصویر معتبر انتخاب نمائید.");
                 return View(content);
@@ -117,7 +117,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             content.Text = content.Text.NofollowExternalLinks(baseOfCurrentDomain);
             content.RawText = content.Text.CleanAllTagsExceptContent();
 
-            if (content.Image != null)
+            if (content.EnableImage && content.Image != null)
             {
                 var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(content.Image.OpenReadStream()))
@@ -192,6 +192,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 RawText = content.RawText,
                 Summary = content.Summary,
                 Imagename = content.Imagename,
+                EnableImage = !string.IsNullOrEmpty(content.Imagename),
                 IsActive = content.IsActive,
                 IsFavorite = content.IsFavorite,
                 ContentType = content.ContentType,
@@ -217,9 +218,10 @@ namespace ContentManagement.Areas.Manage.Controllers
                 return View(content);
             }
 
+            var webRoot = _env.WebRootPath;
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
             var currentImagename = await _contentService.GetContentImagenameAsync(content.Id);
-            if (content.Image != null)
+            if (content.EnableImage && content.Image != null)
             {
                 if (!content.Image.IsImageFile())
                 {
@@ -227,7 +229,6 @@ namespace ContentManagement.Areas.Manage.Controllers
                     return View(content);
                 }
 
-                var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(content.Image.OpenReadStream()))
                 {
                     if (image.Width > Infrastructure.Constants.ContentImageWidthSize && image.Height <= Infrastructure.Constants.ContentImageHeightSize)
@@ -263,6 +264,11 @@ namespace ContentManagement.Areas.Manage.Controllers
                         content.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
                     }
+                    else if (string.Equals(currentImagename, content.Imagename, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        content.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
+                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
+                    }
 
                     content.Text = _htmlSanitizer.Sanitize(content.Text);
                     content.Text = content.Text.NofollowExternalLinks(baseOfCurrentDomain);
@@ -279,6 +285,23 @@ namespace ContentManagement.Areas.Manage.Controllers
                         }
                     }
                 }
+            }
+            else if (!content.EnableImage) // Remove Image
+            {
+                if (!string.IsNullOrEmpty(currentImagename))
+                {
+                    var previousFile = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, currentImagename);
+                    if (System.IO.File.Exists(previousFile))
+                    {
+                        System.IO.File.Delete(previousFile);
+                    }
+                }
+
+                content.Imagename = null;
+                content.Text = _htmlSanitizer.Sanitize(content.Text);
+                content.Text = content.Text.NofollowExternalLinks(baseOfCurrentDomain);
+                content.RawText = content.Text.CleanAllTagsExceptContent();
+                await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
             }
             else
             {

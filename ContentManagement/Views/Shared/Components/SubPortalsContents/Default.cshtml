@@ -1,11 +1,11 @@
 ﻿@model IList<ContentManagement.ViewModels.SubPortalsContentsViewModel>
 
-<div asp-if="Model.Any()" class="container">
+<div asp-if="Model.Any()" class="container-fluid">
     <div class="row">
         <div class="col">
             <div class="card mt-2 mb-3">
                 <div class="card-header"> @*  purple darken-1 text-white *@
-                    <i class="fas fa-globe deep-orange-text"></i>&nbsp;@SharedLocalizer["Last Contents of Other Portals"]
+                    <i class="fas fa-globe purple-text"></i>&nbsp;@SharedLocalizer["Last Contents of Other Portals"]
                 </div>
                 <div class="card-body">
 

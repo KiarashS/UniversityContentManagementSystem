@@ -30,6 +30,7 @@ namespace ContentManagement.Entities
         public virtual ICollection<Page> Pages       { get; set; }
         public virtual ICollection<Slide> Slides     { get; set; }
         public virtual ICollection<Link> Links       { get; set; }
+        public virtual ICollection<ImageLink> ImageLinks { get; set; }
         public virtual ICollection<Content> Contents { get; set; }
     }
 }

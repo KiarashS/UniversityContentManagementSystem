@@ -1,11 +1,11 @@
 ﻿@model IList<ContentManagement.ViewModels.LinkViewModel>
 
-<div asp-if="Model.Any()" class="container">
+<div asp-if="Model.Any()" class="container-fluid">
     <div class="row">
         <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
             <div class="card mt-2 mb-3">
                 <div class="card-header">
-                    <i class="fas fa-external-link-alt deep-orange-text"></i>&nbsp;@SharedLocalizer["External Links"]
+                    <i class="fas fa-external-link-alt purple-text"></i>&nbsp;@SharedLocalizer["External Links"]
                 </div>
                 <div class="card-body">
 

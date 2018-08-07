@@ -115,12 +115,6 @@
   <data name="Copyright" xml:space="preserve">
     <value>کلیه ی حقوق مادی و معنوی این سایت متعلق به {0} می باشد.</value>
   </data>
-  <data name="External Links" xml:space="preserve">
-    <value>پیوندها</value>
-  </data>
-  <data name="Quick Links" xml:space="preserve">
-    <value>دسترسی سریع</value>
-  </data>
   <data name="Electronic Resources" xml:space="preserve">
     <value>منابع الکترونیک</value>
   </data>
@@ -246,5 +240,14 @@
   </data>
   <data name="QR Code" xml:space="preserve">
     <value>کد پاسخ سریع (کیو آر کد)</value>
+  </data>
+  <data name="External Links" xml:space="preserve">
+    <value>پیوندها</value>
+  </data>
+  <data name="Quick Links" xml:space="preserve">
+    <value>دسترسی سریع</value>
+  </data>
+  <data name="Web Mail" xml:space="preserve">
+    <value>پست الکترونیکی</value>
   </data>
 </root>

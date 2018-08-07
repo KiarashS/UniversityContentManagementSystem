@@ -247,4 +247,7 @@
   <data name="QR Code" xml:space="preserve">
     <value>QR Code</value>
   </data>
+  <data name="Web Mail" xml:space="preserve">
+    <value>Web Mail</value>
+  </data>
 </root>

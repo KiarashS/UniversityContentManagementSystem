@@ -2312,18 +2312,17 @@ table.dataTable {
             position: relative;
             display: block;
             padding: 15px;
-            color: #adb5bd;
+            color: rgb(198, 193, 193);
             outline-width: 0;
             transition: all .3s ease-out;
         }
-
 
             .topbar-nav .metismenu a:hover,
             .topbar-nav .metismenu a:focus,
             .topbar-nav .metismenu a:active {
                 color: #fff; /*#f8f9fa*/
                 text-decoration: none;
-                background: #ffa200; /*#0b7285*/
+                background: #9933CC; /*#0b7285*/
             }
 
 @media (min-width: 992px) {
@@ -2584,4 +2583,102 @@ hr.hr14 {
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.header-logo-container {
+    display: inline-block;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    color: #f5f5dc;
+    border-radius: 3px;
+    -webkit-transition: all .55s ease;
+    -o-transition: all .55s ease;
+    transition: all .55s ease;
+}
+
+.search-input {
+    -webkit-transition: all .55s ease;
+    -o-transition: all .55s ease;
+    transition: all .55s ease;
+    width: 50%;
+}
+.search-input:focuspa {
+    width: 100%;
+}
+
+.z-index-1000{
+    z-index: 1000 !important;
+}
+
+@media (max-width: 767.98px) {
+    #header-navbar-container {
+        position: static !important;
+    }
+}
+
+.color-bg1 {
+    background-color: #4b2e83 !important;
+}
+
+.color-bg2 {
+    background-color: rgba(75, 46, 131, 0.85) !important;
+}
+
+.color-text1 {
+    color: rgba(255, 255, 255, 0.74) !important;
+}
+
+.color-text2 {
+    color: #4b2e83 !important;
+}
+
+.typeahead__field .typeahead__hint:active, .typeahead__field .typeahead__hint:focus, .typeahead__field [contenteditable]:active, .typeahead__field [contenteditable]:focus, .typeahead__field input:active, .typeahead__field input:focus, .typeahead__field textarea:active, .typeahead__field textarea:focus {
+    border-color: #f434ff;
+    box-shadow: 0 0 0 0.2rem rgba(244, 52, 255, 0.74);
+    outline: 0;
+}
+
+.typeahead__container button:active, .typeahead__container button:focus {
+    border-color: #f434ff;
+    box-shadow: 0 0 0 0.2rem rgba(244, 52, 255, 0.74);
+    outline: 0;
+}
+
+.btn-circle.btn-xl {
+    width: 70px !important;
+    height: 70px !important;
+    padding: 10px 16px !important;
+    border-radius: 35px !important;
+    font-size: 24px !important;
+    line-height: 1.33 !important;
+}
+
+.btn-circle {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 6px 0px !important;
+    border-radius: 15px !important;
+    text-align: center !important;
+    font-size: 15px !important;
+    line-height: 1.42857 !important;
+}
+
+.shadow-bottom {
+    -webkit-box-shadow: 0px 2px 7px #000;
+    box-shadow: 0px 2px 7px #000;
+}
+
+.tippy-tooltip.gradienttheme-theme {
+    background: #7F00FF !important; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E100FF, #7F00FF) !important; /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E100FF, #7F00FF) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+@media (min-width: 768px) {
+    .modal-xl {
+        width: 90% !important;
+        max-width: 1200px !important;
+    }
 }

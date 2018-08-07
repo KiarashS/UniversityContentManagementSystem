@@ -4,7 +4,7 @@
     var linkVisibility = (IList<ContentManagement.ViewModels.LinkVisibilityViewModel>)ViewBag.LinkVisibility;
 }
 
-<div asp-if="Model.Any()" class="container">
+<div asp-if="Model.Any()" class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card mt-2 mb-3">
@@ -14,17 +14,17 @@
                         <ul id="links-tabs-above" class="nav nav-tabs" role="tablist">
                             <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" class="nav-item">
                                 <a class="nav-link" id="useful-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && x.IsVisible)" href="#useful-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=useful" aria-controls="useful">
-                                    <i class="fas fa-leaf lime-text"></i> @SharedLocalizer["Useful Links"]
+                                    <i class="fas fa-leaf purple-text"></i> @SharedLocalizer["Useful Links"]
                                 </a>
                             </li>
                             <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" class="nav-item">
                                 <a class="nav-link" id="electronic-service-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible)" href="#electronic-service-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=electronicservice" aria-controls="electronic-service">
-                                    <i class="fab fa-connectdevelop lime-text"></i> @SharedLocalizer["Electronic Services"]
+                                    <i class="fab fa-connectdevelop purple-text"></i> @SharedLocalizer["Electronic Services"]
                                 </a>
                             </li>
                             <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" class="nav-item">
                                 <a class="nav-link" id="electronic-resource-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" href="#electronic-resource-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=electronicresource" aria-controls="electronic-resource">
-                                    <i class="fas fa-database lime-text"></i> @SharedLocalizer["Electronic Resources"]
+                                    <i class="fas fa-database purple-text"></i> @SharedLocalizer["Electronic Resources"]
                                 </a>
                             </li>
                         </ul>

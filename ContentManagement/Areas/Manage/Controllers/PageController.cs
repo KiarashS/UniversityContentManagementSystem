@@ -94,7 +94,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 ModelState.AddModelError("", "لطفاً یک شناسه یکتا(انگلیسی) وارد نمائید.");
                 return View(page);
             }
-            else if (page.Image != null && !page.Image.IsImageFile())
+            else if (page.EnableImage && page.Image != null && !page.Image.IsImageFile())
             {
                 ModelState.AddModelError("", "لطفاً یک تصویر معتبر انتخاب نمائید.");
                 return View(page);
@@ -105,7 +105,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
             page.RawText = page.Text.CleanAllTagsExceptContent();
 
-            if (page.Image != null)
+            if (page.EnableImage && page.Image != null)
             {
                 var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(page.Image.OpenReadStream()))
@@ -179,6 +179,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 Text = page.Text,
                 Slug = page.Slug,
                 Imagename = page.Imagename,
+                EnableImage = !string.IsNullOrEmpty(page.Imagename),
                 IsActive = page.IsActive,
                 PortalId = page.PortalId,
                 Language = page.Language
@@ -206,9 +207,10 @@ namespace ContentManagement.Areas.Manage.Controllers
                 return View(page);
             }
 
+            var webRoot = _env.WebRootPath;
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
             var currentImagename = await _pageService.GetPageImagenameAsync(page.Id);
-            if (page.Image != null)
+            if (page.EnableImage && page.Image != null)
             {
                 if (!page.Image.IsImageFile())
                 {
@@ -216,7 +218,6 @@ namespace ContentManagement.Areas.Manage.Controllers
                     return View(page);
                 }
 
-                var webRoot = _env.WebRootPath;
                 using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(page.Image.OpenReadStream()))
                 {
                     if (image.Width > Infrastructure.Constants.PageImageWidthSize && image.Height <= Infrastructure.Constants.PageImageHeightSize)
@@ -258,6 +259,11 @@ namespace ContentManagement.Areas.Manage.Controllers
                         page.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
                     }
+                    else if (string.Equals(currentImagename, page.Imagename, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        page.Imagename = $"{System.IO.Path.GetFileNameWithoutExtension(file)}{DateTime.Now.Ticks}{System.IO.Path.GetExtension(file)}";
+                        file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, page.Imagename);
+                    }
 
                     page.Text = _htmlSanitizer.Sanitize(page.Text);
                     page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
@@ -274,6 +280,23 @@ namespace ContentManagement.Areas.Manage.Controllers
                         }
                     }
                 }
+            }
+            else if (!page.EnableImage) // Remove Image
+            {
+                if (!string.IsNullOrEmpty(currentImagename))
+                {
+                    var previousFile = System.IO.Path.Combine(webRoot, Infrastructure.Constants.PagesRootPath, currentImagename);
+                    if (System.IO.File.Exists(previousFile))
+                    {
+                        System.IO.File.Delete(previousFile);
+                    }
+                }
+
+                page.Imagename = null;
+                page.Text = _htmlSanitizer.Sanitize(page.Text);
+                page.Text = page.Text.NofollowExternalLinks(baseOfCurrentDomain);
+                page.RawText = page.Text.CleanAllTagsExceptContent();
+                await _pageService.AddOrUpdatePageAsync(page).ConfigureAwait(false);
             }
             else
             {
