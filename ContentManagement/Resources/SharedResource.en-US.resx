@@ -250,4 +250,7 @@
   <data name="Web Mail" xml:space="preserve">
     <value>Web Mail</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
 </root>

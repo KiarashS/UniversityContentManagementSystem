@@ -5,7 +5,13 @@
     if ($headerNavbar.length > 0)
     {
         $headerNavbar.metisMenu();
-        stickybits('#header-navbar-container');
+        stickybits('#menu-hamberger-container');
+
+        $(document).on('click', '#menu-hamburger-expand', function (e) {
+            e.stopPropagation();
+            $('#header-navbar-container').slideToggle();
+            return false;
+        });
     }
 
     var $essentialLinks = $("#essential-links");
@@ -227,6 +233,15 @@
                 e.preventDefault();
                 return false;
             }
+        });
+    }
+
+    var $quickLinksSidebar = $("#quickLinksSidebarContent");
+    if ($quickLinksSidebar.length > 0) {
+        $(document).on('click', '#quickLinksSidebarSwitch a, #quick-links-expand', function (e) {
+            $('#quickLinksSidebarContent')
+                .sidebar({ transition: 'overlay', mobileTransition: 'overlay', silent: true, returnScroll: true })
+                .sidebar('toggle');
         });
     }
 });

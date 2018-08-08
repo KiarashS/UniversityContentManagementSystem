@@ -14,8 +14,8 @@ namespace ContentManagement.Infrastructure
         public static readonly string FilesManagerRootPath = "contentfiles";
         public static readonly string ImagesManagerRootPath = "contentimages";
 
-        public static readonly int SlideWidthSize = 1170;
-        public static readonly int SlideHeightSize = 350;
+        public static readonly int SlideWidthSize = 1890;
+        public static readonly int SlideHeightSize = 550;
 
         public static readonly int PageImageWidthSize = 820;
         public static readonly int PageImageHeightSize = 300;

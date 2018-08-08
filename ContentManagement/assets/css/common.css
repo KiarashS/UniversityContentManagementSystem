@@ -2285,7 +2285,10 @@ table.dataTable {
     }
 
 .topbar-nav {
-    background: #212529;
+    background-color: #395995 !important;
+    background: -webkit-linear-gradient(#102e6a, #395995) !important;
+    background: -moz-linear-gradient(#102e6a, #395995) !important;
+    background: linear-gradient(#102e6a, #395995) !important;
     font-size: 0.9rem;
 }
 
@@ -2293,7 +2296,10 @@ table.dataTable {
         padding: 0;
         margin: 0;
         list-style: none;
-        background: #212529;
+        background-color: #395995 !important;
+        background: -webkit-linear-gradient(#102e6a, #395995) !important;
+        background: -moz-linear-gradient(#102e6a, #395995) !important;
+        background: linear-gradient(#102e6a, #395995) !important;
     }
 
     .topbar-nav .metismenu {
@@ -2322,7 +2328,7 @@ table.dataTable {
             .topbar-nav .metismenu a:active {
                 color: #fff; /*#f8f9fa*/
                 text-decoration: none;
-                background: #9933CC; /*#0b7285*/
+                background-color: #4b71b9 !important;
             }
 
 @media (min-width: 992px) {
@@ -2612,18 +2618,22 @@ hr.hr14 {
     z-index: 1000 !important;
 }
 
-@media (max-width: 767.98px) {
+/*@media (max-width: 992px) {
     #header-navbar-container {
         position: static !important;
     }
-}
+}*/
 
 .color-bg1 {
-    background-color: #4b2e83 !important;
+    /*background-color: #4b2e83 !important;*/
+    background-color: #395995 !important;
+    background: -webkit-linear-gradient(#102e6a, #395995) !important;
+    background: -moz-linear-gradient(#102e6a, #395995) !important;
+    background: linear-gradient(#102e6a, #395995) !important;
 }
 
 .color-bg2 {
-    background-color: rgba(75, 46, 131, 0.85) !important;
+    background-color: #395995 !important;
 }
 
 .color-text1 {
@@ -2631,18 +2641,18 @@ hr.hr14 {
 }
 
 .color-text2 {
-    color: #4b2e83 !important;
+    color: #395995 !important;
 }
 
 .typeahead__field .typeahead__hint:active, .typeahead__field .typeahead__hint:focus, .typeahead__field [contenteditable]:active, .typeahead__field [contenteditable]:focus, .typeahead__field input:active, .typeahead__field input:focus, .typeahead__field textarea:active, .typeahead__field textarea:focus {
-    border-color: #f434ff;
-    box-shadow: 0 0 0 0.2rem rgba(244, 52, 255, 0.74);
+    border-color: #4285f4;
+    box-shadow: 0 0 0 0.2rem rgba(66, 133, 244, 0.75);
     outline: 0;
 }
 
 .typeahead__container button:active, .typeahead__container button:focus {
-    border-color: #f434ff;
-    box-shadow: 0 0 0 0.2rem rgba(244, 52, 255, 0.74);
+    border-color: #4285f4;
+    box-shadow: 0 0 0 0.2rem rgba(66, 133, 244, 0.75);
     outline: 0;
 }
 
@@ -2676,9 +2686,77 @@ hr.hr14 {
     background: linear-gradient(to right, #E100FF, #7F00FF) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767.98px) {
     .modal-xl {
         width: 90% !important;
         max-width: 1200px !important;
     }
 }
+
+#menu-hamburger-content {
+    /*background-color: #212529;*/
+    background-color: transparent !important;
+    color: rgb(198, 193, 193);
+    padding: 0.5rem;
+    /*margin-bottom: 0.8rem;*/
+}
+
+@media (max-width: 992px) {
+    #menu-hamburger {
+        display: block !important;
+    }
+
+    /*#menu-hamburger-content {
+        margin-bottom: 0;
+    }*/
+
+    #header-navbar-container {
+        display: none;
+        /*margin-top: -0.8rem;*/
+    }
+
+    #header-navbar-container  nav {
+        border-top: 1px solid rgb(198, 193, 193);
+    }
+
+    #quickLinksSidebarSwitch {
+        display: none;
+    }
+}
+
+@media (min-width: 992.1px) {
+    #header-navbar-container {
+        display: block !important;
+    }
+}
+
+.site-gradient1 {
+    background-color: #395995 !important;
+    background: -webkit-linear-gradient(#102e6a, #395995) !important;
+    background: -moz-linear-gradient(#102e6a, #395995) !important;
+    background: linear-gradient(#102e6a, #395995) !important;
+}
+
+#quickLinksSidebarContent {
+    color: #b1bfda;
+}
+
+    #quickLinksSidebarContent h6 {
+        color: #788eb7;
+    }
+
+#quick-links-list li a {
+    display: block;
+    padding: 0.35rem 0.8rem;
+    color: #b1bfda;
+    font-size: 0.85rem;
+    -moz-transition: all ease-in 0.2s;
+    -o-transition: all ease-in 0.2s;
+    -webkit-transition: all ease-in 0.2s;
+    transition: all ease-in 0.2s;
+}
+
+    #quick-links-list li a:hover {
+        color: #fff;
+        background-color: #102e6a;
+    }

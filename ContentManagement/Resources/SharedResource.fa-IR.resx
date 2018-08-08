@@ -250,4 +250,7 @@
   <data name="Web Mail" xml:space="preserve">
     <value>پست الکترونیکی</value>
   </data>
+  <data name="Menu" xml:space="preserve">
+    <value>فهرست</value>
+  </data>
 </root>

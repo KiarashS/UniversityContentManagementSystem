@@ -1,7 +1,7 @@
 ﻿@model IList<ContentManagement.ViewModels.LinkViewModel>
 
 <container asp-if="Model.Any()">
-    <div id="quickLinksModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" style="display: none;" aria-hidden="true">
+    @*<div id="quickLinksModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,10 +31,24 @@
                 </div>
             </div>
         </div>
+    </div>*@
+
+    <div class="ui sidebar site-gradient1 white-text" condition-class-right="@RequestService.IsRtl()" condition-class-left="@RequestService.IsLtr()" id="quickLinksSidebarContent">
+        <div class="text-center mt-1">
+            <a href="/"><img src="~/statics/logo.png" alt="@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)" style="width: 4rem;" /></a>
+        </div>
+        <hr class="hr14" />
+        <h6 class="px-1 mb-3"><i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]</h6>
+        <ul class="list-group list-group-flush" id="quick-links-list">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item" style="padding: 0 !important; background-color: transparent !important;"><a href="@item.Url" class="nounderline" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)"><i condition-style-color="@item.IconColor" class="@(!string.IsNullOrEmpty(item.Icon) ? item.Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right")"></i>&nbsp;@item.Text</a></li>
+            }
+        </ul>
     </div>
 
-    <div condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 8.5rem; padding: 2px 5px; background-color: #58359c; z-index: 1000;">
-        <a style="color: #fff; text-decoration: none;" target="_blank" href="#" data-toggle="modal" data-target="#quickLinksModal" title="@SharedLocalizer["Quick Links"]" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+    <div id="quickLinksSidebarSwitch" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 12.5rem; padding: 2px 5px; background-color: #598ae4; z-index: 1000;">
+        <a style="color: #fff; text-decoration: none;" href="#" title="@SharedLocalizer["Quick Links"]">
             <i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]
         </a>
     </div>

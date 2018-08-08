@@ -321,7 +321,10 @@ footer {
     }
 
     footer.fdb-bg-dark {
-        background: #4b2e83;
+        background-color: #395995 !important;
+        background: -webkit-linear-gradient(#102e6a, #395995) !important;
+        background: -moz-linear-gradient(#102e6a, #395995) !important;
+        background: linear-gradient(#102e6a, #395995) !important;
         color: #f2f2f2;
     }
 

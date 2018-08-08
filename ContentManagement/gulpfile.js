@@ -20,6 +20,7 @@ var filesPath = {
         "node_modules/metismenu/dist/metisMenu.min.css",
         "node_modules/lightslider/dist/css/lightslider.min.css",
         "assets/css/lib/bootstrap-tabs-x-bs4.css",
+        "node_modules/semantic-ui-sidebar/sidebar.min.css",
         "assets/css/common.css"
     ],
     rtlCss: [
@@ -90,6 +91,7 @@ var filesPath = {
         "node_modules/jquery-typeahead/dist/jquery.typeahead.min.js",
         "node_modules/qrcode-generator/qrcode.js",
         "node_modules/qrcode-generator/qrcode_UTF8.js",
+        "node_modules/semantic-ui-sidebar/sidebar.min.js",
         "node_modules/stickybits/dist/stickybits.min.js",
         "assets/js/common.js",
     ],
