@@ -268,6 +268,7 @@ namespace ContentManagement.Controllers
             var portalKey = _requestService.PortalKey();
             var language = _requestService.CurrentLanguage().Language;
             var contentTitle = await _contentService.GetTitle(portalKey, language, id).ConfigureAwait(false);
+            var rawTitle = contentTitle;
 
             if (string.IsNullOrEmpty(contentTitle))
             {
@@ -302,7 +303,7 @@ namespace ContentManagement.Controllers
             });
             this.AddBreadCrumb(new BreadCrumb
             {
-                Title = title,
+                Title = rawTitle,
                 Order = 2,
                 GlyphIcon = "far fa-newspaper"
             });
