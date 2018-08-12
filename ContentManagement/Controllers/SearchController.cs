@@ -62,6 +62,7 @@ namespace ContentManagement.Controllers
             vm.PageSize = _siteSettings.Value.PagesSize.SearchSize;
             //vm.Start = (vm.Page - 1) * vm.PageSize;
             vm.Start = (vm.PageSize * vm.Page) - vm.PageSize;
+            q = System.Net.WebUtility.HtmlEncode(q);
 
             this.AddBreadCrumb(new BreadCrumb
             {
@@ -106,6 +107,7 @@ namespace ContentManagement.Controllers
             var size = _siteSettings.Value.PagesSize.SearchAutoCompleteSize;
             var vm = new SearchAutoCompleteResult();
             IList<SearchAutoCompleteViewModel> results;
+            q = System.Net.WebUtility.HtmlEncode(q);
 
             var jsonSerializerSettings = new JsonSerializerSettings();
             jsonSerializerSettings.NullValueHandling = NullValueHandling.Include;

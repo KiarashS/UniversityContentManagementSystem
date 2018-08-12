@@ -2760,3 +2760,16 @@ hr.hr14 {
         color: #fff;
         background-color: #102e6a;
     }
+
+.lh-2 {
+    line-height: 2 !important;
+}
+
+/* fix lg-gallery rtl bug */
+.lg-outer {
+    direction: ltr !important;
+}
+
+/*.lSSlideWrapper {
+    border: 2px solid #395995;
+}*/

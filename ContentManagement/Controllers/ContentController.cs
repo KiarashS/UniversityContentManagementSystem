@@ -288,6 +288,8 @@ namespace ContentManagement.Controllers
                 return RedirectToAction("index", "error", new { id = 404 });
             }
 
+            contentDetails.HasGallery = await _contentService.HasGallery(id).ConfigureAwait(false);
+
             _seoService.Title = contentDetails.Title;
             _seoService.MetaDescription = contentDetails.GetSummary;
 

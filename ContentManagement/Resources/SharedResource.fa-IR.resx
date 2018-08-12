@@ -253,4 +253,7 @@
   <data name="Menu" xml:space="preserve">
     <value>فهرست</value>
   </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>گالری</value>
+  </data>
 </root>

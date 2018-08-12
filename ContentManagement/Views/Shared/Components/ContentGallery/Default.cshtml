@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ContentManagement.ViewModels.ContentGalleryViewModel>
+
+<div id="content-gallery-container" style="display: none;" class="row justify-content-center my-5">
+    <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
+
+        @foreach (var item in Model)
+        {
+            if (!string.IsNullOrEmpty(item.Caption))
+            {
+                var lines = item.Caption.Split(System.Environment.NewLine);
+                var title = lines.FirstOrDefault();
+                var body = string.Join("<br />", lines.Skip(1));
+                <div id="gallerycaption@(item.Id)" style="display: none;"><h4 asp-if="!string.IsNullOrEmpty(title)" style="font-weight: 900;">@title</h4><p asp-if="!string.IsNullOrEmpty(body)">@Html.Raw(body)</p></div>
+            }
+        }
+
+        <div>
+
+            <ul id="content-gallery-items">
+
+                @foreach (var item in Model)
+                {
+                    if (string.IsNullOrEmpty(item.Caption))
+                    {
+                        <li data-thumb="/@(ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath)/@(item.Imagename)?width=100&height=50&rmode=stretch" data-src="/@(ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath)/@(item.Imagename)">
+                            <img src="/@(ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath)/@(item.Imagename)?width=750&height=400&rmode=stretch" class="img-fluid" asp-append-version="true" />
+                        </li>
+                    }
+                    else
+                    {
+                        <li data-thumb="/@(ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath)/@(item.Imagename)?width=100&height=50&rmode=stretch" data-src="/@(ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath)/@(item.Imagename)" data-sub-html="#gallerycaption@(item.Id)">
+                            <img src="/@(ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath)/@(item.Imagename)?width=750&height=400&rmode=stretch" class="img-fluid" asp-append-version="true" />
+                        </li>
+                    }
+                }
+
+            </ul>
+
+        </div>
+
+    </div>
+</div>

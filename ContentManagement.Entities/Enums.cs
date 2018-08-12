@@ -1,5 +1,6 @@
 ﻿
 using ContentManagement.Common.WebToolkit.Attributes;
+using System.ComponentModel;
 
 namespace ContentManagement.Entities
 {
@@ -141,5 +142,15 @@ namespace ContentManagement.Entities
         [ContentTypeTextFa("آموزش مجازی")]
         [ContentTypeTextEn("Virtual Learning")]
         VirtualLearning = 17  // آموزش مجازی
+    }
+
+    public enum ContentGalleryPosition
+    {
+        [ContentGalleryPossitionTitleInAdminAttribute("غیر فعال")]
+        None = 0, // Disable
+        [ContentGalleryPossitionTitleInAdminAttribute("در بالای متن مطلب")]
+        TopOfContent = 1,
+        [ContentGalleryPossitionTitleInAdminAttribute("در پایین متن مطلب")]
+        BottomOfContent = 2
     }
 }

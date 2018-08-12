@@ -21,6 +21,8 @@ var filesPath = {
         "node_modules/lightslider/dist/css/lightslider.min.css",
         "assets/css/lib/bootstrap-tabs-x-bs4.css",
         "node_modules/semantic-ui-sidebar/sidebar.min.css",
+        "node_modules/lightgallery/dist/css/lightgallery.min.css",
+        "node_modules/lightgallery/dist/css/lg-transitions.min.css",
         "assets/css/common.css"
     ],
     rtlCss: [
@@ -93,6 +95,7 @@ var filesPath = {
         "node_modules/qrcode-generator/qrcode_UTF8.js",
         "node_modules/semantic-ui-sidebar/sidebar.min.js",
         "node_modules/stickybits/dist/stickybits.min.js",
+        "node_modules/lightgallery/dist/js/lightgallery-all.min.js",
         "assets/js/common.js",
     ],
     rtlJs: [],
@@ -129,13 +132,15 @@ var filesPath = {
     img: [
         "node_modules/lightslider/dist/img/controls.png",
         "assets/img/**",
+        "node_modules/lightgallery/dist/img/**"
     ],
     imagesOutput: "wwwroot/images/",
     imgOutput: "wwwroot/img/",
     fonts: [
         "node_modules/vazir-font/dist/Vazir*.*",
         "node_modules/shabnam-font/dist/Shabnam*.*",
-        "assets/fonts/**"
+        "assets/fonts/**",
+        "node_modules/lightgallery/dist/fonts/**"
     ],
     fontsFarsi: [
         "node_modules/vazir-font/dist/font-face.css",

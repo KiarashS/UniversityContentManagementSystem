@@ -1,0 +1,177 @@
+﻿@using System.Collections.Generic;
+@{
+    ViewData["Title"] = "مدیریت گالری";
+    Layout = "~/Areas/Manage/Views/_Layout.cshtml";
+    var contentId = ViewContext.HttpContext.Request.Query["cid"];
+}
+
+<div class="m-3">
+    <a class="btn btn-primary" role="button" href="/manage/contentgallery/add/?cid=@contentId">ایجاد گالری جدید</a>
+</div>
+
+@if (TempData["IsOk"] != null && (bool)TempData["IsOk"] == true)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <div>عملیات با موفقیت انجام شد.</div>
+    </div>
+}
+
+<div class="alert alert-info" role="alert">
+    توجه داشته باشید که سایز تصویر گالری می بایست @ContentManagement.Infrastructure.Constants.ContentGalleryWidthSize در @ContentManagement.Infrastructure.Constants.ContentGalleryHeightSize پیکسل باشد.
+</div>
+
+<div class="card">
+    <div class="card-header">
+        گالری
+    </div>
+    <div class="card-body">
+
+        <div class="row mb-4">
+            <div class="col-2">
+                <label for="galleryposition">موقعیت قرارگیری گالری:</label>
+                <select id="galleryposition" name="galleryposition" class="form-control" asp-items="@(IList<SelectListItem>)ViewBag.GalleryPositions"></select>
+            </div>
+        </div>
+        
+        <table class="table table-bordered table-sm table-hover" id="contentGalleriesTable" style="width: 100%;">
+            <thead class="thead-default">
+                <tr>
+                    <th>تصویر</th>
+                    <th>اولویت</th>
+                    <th>توضیحات</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var table;
+        $(document).ready(function () {
+            table = $('#contentGalleriesTable').DataTable({
+                language: {
+                    "url": "/statics/Datatable.Persian.json"
+                },
+                ordering: false,
+                paging: false,
+                searching: false,
+                processing: true,
+                serverSide: true,
+                stateSave: true,
+                stateDuration: 0,
+                searchDelay: null,
+                ajax: {
+                    url: '/manage/contentgallery/list/?cid=@contentId',
+                },
+                columnDefs: [
+                    {
+                        "width": "10%",
+                        "targets": 0,
+                        "data": null,
+                        "className": "text-center align-middle",
+                        "render": function (data, type, row, meta) {
+                            var contentGalleryPath = $('#js-global-info').data('contentGalleryPath');
+                            return '<a title="مشاهده تصویر" target="_blank" href="' + contentGalleryPath + data.imagename + '"><img src="' + contentGalleryPath + data.imagename + '?width=200&height=90&rmode=stretch" /></a>';
+                        }
+                    },
+                    {
+                        "width": "15%",
+                        "targets": 1,
+                        "className": "align-middle",
+                        "data": "priority",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "70%",
+                        "targets": 2,
+                        "className": "align-middle",
+                        "data": "caption",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "5%",
+                        "targets": 3,
+                        "className": "text-center align-middle",
+                        "data": "id",
+                        "render": function (data, type, row, meta) {
+                            return '<a href="/manage/contentgallery/update/' + data + '/?cid=@contentId" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-contentgallery" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                        }
+                    }]
+            });
+
+            $('#contentGalleriesTable tbody').on('click', 'a[data-role="delete-contentgallery"]', function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+
+                swal({
+                    title: 'آیا از انجام این کار اطمینان دارید؟',
+                    text: "این عملیات غیرقابل بازگشت می باشد!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'بله!',
+                    cancelButtonText: 'خیر',
+                    focusCancel: true,
+                    focusConfirm: false
+                }).then((result) => {
+                    if (result.value) {
+                        axios.post('/manage/contentgallery/delete/' + data.id + '/?cid=@contentId')
+                            .then(function (response) {
+                                row.remove().draw();
+                                swal({
+                                    title: 'انجام شد!',
+                                    text: response.data,
+                                    type: 'success',
+                                    confirmButtonText: 'بستن',
+                                })
+                            })
+                            .catch(function (error) {
+                                swal({
+                                    title: 'خطا!',
+                                    text: 'عملیات با خطا مواجه گشت.',
+                                    type: 'error',
+                                    confirmButtonText: 'بستن',
+                                })
+                            });
+                    }
+                })
+            });
+
+            $('#galleryposition').on('change', function () {
+                var position = $(this).val();
+                axios.post('/manage/contentgallery/updateposition/?cid=@(contentId)&position=' + position)
+                    .then(function (response) {
+                        swal({
+                            title: 'انجام شد!',
+                            text: response.data,
+                            type: 'success',
+                            confirmButtonText: 'بستن',
+                        })
+                    })
+                    .catch(function (error) {
+                        swal({
+                            title: 'خطا!',
+                            text: 'عملیات با خطا مواجه گشت.',
+                            type: 'error',
+                            confirmButtonText: 'بستن',
+                        })
+                    });
+            });
+        });
+    </script>
+}

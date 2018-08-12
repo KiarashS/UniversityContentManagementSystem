@@ -30,5 +30,8 @@ namespace ContentManagement.Services.Contracts
         Task<IList<SearchAutoCompleteViewModel>> GetSearchAutoCompleteAsync(string portalKey, Language language, string searchQuery, int size = 15);
         Task<IList<ContentsViewModel>> GetSearchResultsAsync(string portalKey, Language language, string searchQuery, int start = 0, int size = 15);
         Task<long> GetSearchResultsCountAsync(string portalKey, Language language, string searchQuery);
+        Task<ContentGalleryPosition> GetGalleryPosition(long contentId);
+        Task UpdateGalleryPosition(long contentId, ContentGalleryPosition newPosition);
+        Task<bool> HasGallery(long contentId);
     }
 }

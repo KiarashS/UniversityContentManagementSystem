@@ -83,7 +83,7 @@
                 },
                 columnDefs: [
                     {
-                        "width": "4%",
+                        "width": "3%",
                         "targets": 0,
                         "data": "imagename",
                         "className": "text-center align-middle",
@@ -126,7 +126,7 @@
                         }
                     },
                     {
-                        "width": "12%",
+                        "width": "11%",
                         "targets": 4,
                         "className": "text-center align-middle",
                         "data": "isFavorite",
@@ -138,7 +138,7 @@
                         }
                     },
                     {
-                        "width": "11%",
+                        "width": "9%",
                         "targets": 5,
                         "className": "text-center align-middle",
                         "data": "priority",
@@ -159,12 +159,12 @@
                         }
                     },
                     {
-                        "width": "4%",
+                        "width": "8%",
                         "targets": 7,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {
-                            return '<a href="/manage/content/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-content" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                            return '<a href="/manage/content/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="/manage/contentgallery/?cid=' + data + '" target="_blank" data-role="content-gallery" title="گالری" data-id="' + data + '"><i class="far fa-images fa-lg"></i></a>&nbsp;|&nbsp;<a href="#" data-role="delete-content" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
                         }
                     }]
             });

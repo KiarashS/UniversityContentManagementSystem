@@ -20,6 +20,8 @@ namespace ContentManagement.ViewModels
         public DateTimeOffset PublishDate { get; set; }
         public int ViewCount { get; set; }
         public bool IsFavorite { get; set; }
+        public ContentGalleryPosition GalleryPosition { get; set; }
+        public bool HasGallery { get; set; }
 
 
         public bool HasImage

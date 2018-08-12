@@ -17,5 +17,6 @@ namespace ContentManagement.Services.Contracts
         Task DeleteLinkAsync(long id);
         Task<IList<ViewModels.LinkViewModel>> GetLinksAsync(string portalKey, Language language, LinkType linkType, int maxSize = 6);
         Task<IList<ViewModels.LinkVisibilityViewModel>> CheckLinksVisibility(string portalKey, Language language);
+        Task<bool> HasLink(string portalKey, Language language, LinkType linkType);
     }
 }

@@ -25,6 +25,7 @@
             loop: true,
             keyPress: true,
             speed: 350,
+            enableDrag: false,
             responsive: [
                 {
                     breakpoint: 800,
@@ -209,7 +210,7 @@
             qr.addData(url);
             qr.make();
 
-            $(document).on('click', '#qrcode-button', function () {
+            $(document).on('click', '#qrcode-button', function (e) {
                 swal({
                     type: null,
                     html: qr.createImgTag(),
@@ -219,6 +220,16 @@
                     //focusConfirm: true,
                     //confirmButtonText: '<i class="fa fa-thumbs-up"></i>'
                 });
+
+                e.preventDefault();
+                return false;
+            });
+
+            $(document).on('click', '#print-button', function (e) {
+                window.print();
+
+                e.preventDefault();
+                return false;
             });
         }
     }
@@ -240,8 +251,45 @@
     if ($quickLinksSidebar.length > 0) {
         $(document).on('click', '#quickLinksSidebarSwitch a, #quick-links-expand', function (e) {
             $('#quickLinksSidebarContent')
-                .sidebar({ transition: 'overlay', mobileTransition: 'overlay', silent: true, returnScroll: true })
+                .sidebar({
+                    transition: 'overlay', mobileTransition: 'overlay', silent: true,
+                    onHidden: function () {
+                        $('.pusher').css('overflow', 'visible');
+                    },
+                    onVisible: function () {
+                        $('.pusher').css('overflow', 'hidden');
+                    }
+                })
                 .sidebar('toggle');
+
+            e.preventDefault();
+            return false;
         });
+    }
+
+    var $contentGalleryItems = $("#content-gallery-items");
+    if ($contentGalleryItems.length > 0) {
+
+        $("#content-gallery-container").show();
+
+        var pagerPosition = isRtl ? 'right' : 'left';
+        $contentGalleryItems.lightSlider({
+            gallery: true,
+            item: 1,
+            auto: true,
+            loop: true,
+            thumbItem: 8,
+            slideMargin: 0,
+            enableDrag: false,
+            rtl: isRtl,
+            currentPagerPosition: pagerPosition,
+            onSliderLoad: function (el) {
+                el.lightGallery({
+                    selector: '#content-gallery-items .lslide',
+                    share: false,
+                    mode: 'lg-slide-circular',
+                });
+            }
+        });  
     }
 });

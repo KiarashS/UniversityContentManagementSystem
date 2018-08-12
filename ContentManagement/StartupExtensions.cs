@@ -51,6 +51,7 @@ namespace ContentManagement
             services.AddScoped<ILinkService, LinkService>();
             services.AddScoped<IImageLinkService, ImageLinkService>();
             services.AddScoped<IContentService, ContentService>();
+            services.AddScoped<IContentGalleryService, ContentGalleryService>();
             services.AddScoped<IUrlUtilityService, UrlUtilityService>();
         }
 

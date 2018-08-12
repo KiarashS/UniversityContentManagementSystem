@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<ContentManagement.Entities.Navbar>
+@{ 
+    var hasQuickLink = ViewBag.NavbarHasQuickLinks != null && (bool)ViewBag.NavbarHasQuickLinks;
+}
 
-<container asp-if="Model.Any()">
+<container asp-if="Model.Any() || hasQuickLink">
     <div id="menu-hamberger-container" class="z-index-1000 color-bg1 mb-3">
         <div class="container-fluid z-index-1000" style="display: none;" id="menu-hamburger">
             <div class="row">
                 <div class="col">
                     <div id="menu-hamburger-content" class="clearfix">
-                        <a id="menu-hamburger-expand" class="nounderline float-left" style="color: rgb(198, 193, 193);" href="#">
+                        <a id="menu-hamburger-expand" asp-if="Model.Any()" class="nounderline float-left" style="color: rgb(198, 193, 193);" href="#" onclick="return false;">
                             <i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Menu"]
                         </a>
-                        <a id="quick-links-expand" class="nounderline float-right" style="color: rgb(198, 193, 193);" href="#">
+                        <a id="quick-links-expand" asp-if="hasQuickLink" class="nounderline float-right" style="color: rgb(198, 193, 193);" href="#" onclick="return false;">
                             @SharedLocalizer["Quick Links"]&nbsp;<i class="fas fa-bars"></i>
                         </a>
                     </div>
@@ -17,7 +20,7 @@
             </div>
         </div>
 
-        <div class="container-fluid z-index-1000" id="header-navbar-container">
+        <div class="container-fluid z-index-1000" asp-if="Model.Any()" id="header-navbar-container">
             @*<div class="container">*@
             <div class="row align-items-center">
                 <div class="col">
@@ -30,5 +33,11 @@
             </div>
             @*</div>*@
         </div>
+    </div>
+
+    <div id="quickLinksSidebarSwitch" asp-if="hasQuickLink" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 12.5rem; padding: 2px 5px; background-color: #598ae4; z-index: 1000;">
+        <a style="color: #fff; text-decoration: none;" href="#" title="@SharedLocalizer["Quick Links"]" onclick="return false;">
+            <i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]
+        </a>
     </div>
 </container>

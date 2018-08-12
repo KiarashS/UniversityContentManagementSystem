@@ -19,6 +19,7 @@ namespace ContentManagement.ViewModels
         public DateTimeOffset PublishDate { get; set; }
         public string Link { get; set; }
         public bool IsFavorite { get; set; }
+        public bool HasGallery { get; set; }
 
 
         public bool IsNew

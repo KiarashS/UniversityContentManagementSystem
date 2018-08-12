@@ -3,6 +3,10 @@
 @using DNTCommon.Web.Core
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
 
+<!--
+    By: Kiarash Soleimanzadeh
+    https://www.kiarash.pro
+-->
 <!DOCTYPE html>
 <html lang="@RequestService.CurrentLanguage().Language.ToString().ToLowerInvariant()">
 <head>
@@ -38,58 +42,63 @@
     </noscript>
 </head>
 <body>
+    @await Component.InvokeAsync(nameof(QuickLinks))
 
-    @await Component.InvokeAsync(nameof(HeaderLinks))
+    <div class="pusher">
+        @await Component.InvokeAsync(nameof(HeaderLinks))
 
-    @await Component.InvokeAsync(nameof(HeaderLogo))
+        @await Component.InvokeAsync(nameof(HeaderLogo))
 
-    @await Component.InvokeAsync(nameof(HeaderNavbar))
+        @await Component.InvokeAsync(nameof(HeaderNavbar))
 
-    @RenderBody()
 
-    @await Component.InvokeAsync(nameof(Footer))
+        @RenderBody()
 
-    <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 10.5rem; padding: 2px 5px; background-color: coral; z-index: 1000;">
-        <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" title="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
-            <i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت
-        </a>
-    </div>
+        @await Component.InvokeAsync(nameof(Footer))
 
-    <span class="d-none" id="js-global-info"
-          data-slides-path="/@ContentManagement.Infrastructure.Constants.SlidesRootPath/"
-          data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"
-          data-content-image-path="/@ContentManagement.Infrastructure.Constants.ContentsRootPath/"
-          data-image-link-path="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/"
-          data-fetch-contents-path="/content/fetchcontents/"
-          data-contents-path="/content/"
-          data-search-path="/search/"
-          data-search-autocomplete-path="/search/searchautocomplete/"
-          data-search-autocomplete-noresult="@SharedLocalizer["Search AutoComplete NoResult"]"
-          data-search-autocomplete-moreresult="@SharedLocalizer["View More Results"]"
-          data-error-occurred="@SharedLocalizer["Sorry An Error Occurred"]"></span>
+        <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 10.5rem; padding: 2px 5px; background-color: coral; z-index: 1000;">
+            <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" title="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+                <i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت
+            </a>
+        </div>
 
-    <script>
+        <span class="d-none" id="js-global-info"
+              data-slides-path="/@ContentManagement.Infrastructure.Constants.SlidesRootPath/"
+              data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"
+              data-content-image-path="/@ContentManagement.Infrastructure.Constants.ContentsRootPath/"
+              data-image-link-path="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/"
+              data-content-gallery-path="/@ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath/"
+              data-fetch-contents-path="/content/fetchcontents/"
+              data-contents-path="/content/"
+              data-search-path="/search/"
+              data-search-autocomplete-path="/search/searchautocomplete/"
+              data-search-autocomplete-noresult="@SharedLocalizer["Search AutoComplete NoResult"]"
+              data-search-autocomplete-moreresult="@SharedLocalizer["View More Results"]"
+              data-error-occurred="@SharedLocalizer["Sorry An Error Occurred"]"></span>
+
+        <script>
         var currentLanguage = '@RequestService.CurrentLanguage().Language',
             currentDirection = '@RequestService.CurrentLanguage().Direction',
             currentSubDomain = '@RequestService.CurrentSubDomain()',
             isRtl = @RequestService.IsRtl().ToString().ToLowerInvariant(),
             isLtr = @RequestService.IsLtr().ToString().ToLowerInvariant(),
             isSubPortal = @RequestService.IsSubPortal().ToString().ToLowerInvariant();
-    </script>
+        </script>
 
-    <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
-    <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-    <script src="https://unpkg.com/tippy.js/dist/tippy.all.min.js"></script>
-    <script src="~/js/common.min.js" asp-append-version="true"></script>
-    @*<script asp-if="RequestService.IsRtl()" src="~/js/rtl.min.js" asp-append-version="true"></script>*@
-    @*<script asp-if="RequestService.IsRtl()" src="~/js/portal.rtl.min.js" asp-append-version="true"></script>*@
-    @*<script asp-if="RequestService.IsLtr()" src="~/js/ltr.min.js" asp-append-version="true"></script>*@
-    @*<script asp-if="RequestService.IsLtr()" src="~/js/portal.ltr.min.js" asp-append-version="true"></script>*@
-    @RenderSection("scripts", required: false)
+        <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
+        <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script>
+        <script src="https://unpkg.com/tippy.js/dist/tippy.all.min.js"></script>
+        <script src="~/js/common.min.js" asp-append-version="true"></script>
+        @*<script asp-if="RequestService.IsRtl()" src="~/js/rtl.min.js" asp-append-version="true"></script>*@
+        @*<script asp-if="RequestService.IsRtl()" src="~/js/portal.rtl.min.js" asp-append-version="true"></script>*@
+        @*<script asp-if="RequestService.IsLtr()" src="~/js/ltr.min.js" asp-append-version="true"></script>*@
+        @*<script asp-if="RequestService.IsLtr()" src="~/js/portal.ltr.min.js" asp-append-version="true"></script>*@
+        @RenderSection("scripts", required: false)
 
-    <cache expires-sliding="@TimeSpan.FromHours(6)">
-        <google-analytics tracking-id="@SiteSettings.Value.GoogleAnalyticsTrackingId" />
-    </cache>
+        <cache expires-sliding="@TimeSpan.FromHours(6)">
+            <google-analytics tracking-id="@SiteSettings.Value.GoogleAnalyticsTrackingId" />
+        </cache>
+    </div>
 </body>
 </html>
 

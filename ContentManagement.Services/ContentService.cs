@@ -190,7 +190,7 @@ namespace ContentManagement.Services
                                         .Where(x => x.IsActive && x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
                                         .OrderByDescending(x => x.Priority)
                                         .ThenByDescending(x => x.PublishDate).AsQueryable()
-                                        .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.IsFavorite, x.Portal.PortalKey, PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
+                                        .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.IsFavorite, x.Portal.PortalKey, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
                                         .Cacheable()
                                         .ToListAsync();
 
@@ -205,7 +205,8 @@ namespace ContentManagement.Services
                     ContentType = item.ContentType,
                     IsFavorite = item.IsFavorite,
                     Title = item.Title,
-                    PublishDate = item.PublishDate
+                    PublishDate = item.PublishDate,
+                    HasGallery = item.HasGallery
                 });
             }
 
@@ -219,11 +220,11 @@ namespace ContentManagement.Services
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = contentType}).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = contentType}).ToList();
         }
 
         public async Task<long> ContentsCountAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News)
@@ -251,11 +252,11 @@ namespace ContentManagement.Services
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.ContentType })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
         }
 
         public async Task<long> FavoritesCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
@@ -371,11 +372,11 @@ namespace ContentManagement.Services
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.ContentType })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType, HasGallery = x.HasGallery }).ToList();
         }
 
         public async Task<long> OtherContentsCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
@@ -438,7 +439,8 @@ namespace ContentManagement.Services
                 Language = language,
                 PublishDate = content.PublishDate,
                 IsFavorite = content.IsFavorite,
-                ViewCount = content.ViewCount
+                ViewCount = content.ViewCount,
+                GalleryPosition = content.GalleryPosition
             };
         }
 
@@ -482,11 +484,11 @@ namespace ContentManagement.Services
                                     .OrderByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(size)
-                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate })
+                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, ContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, ContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, HasGallery = x.HasGallery }).ToList();
         }
 
         public async Task<long> GetSearchResultsCountAsync(string portalKey, Language language, string searchQuery)
@@ -498,6 +500,26 @@ namespace ContentManagement.Services
                                     .ConfigureAwait(false);
 
             return count;
+        }
+
+        public async Task<ContentGalleryPosition> GetGalleryPosition(long contentId)
+        {
+            var position = await _content.Where(x => x.Id == contentId).Select(x => x.GalleryPosition).Cacheable().SingleOrDefaultAsync().ConfigureAwait(false);
+            return position;
+        }
+
+        public async Task UpdateGalleryPosition(long contentId, ContentGalleryPosition newPosition)
+        {
+            var content = await FindContentByIdAsync(contentId).ConfigureAwait(false);
+            content.GalleryPosition = newPosition;
+
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<bool> HasGallery(long contentId)
+        {
+            var hasGallery = await _content.AnyAsync(x => x.Id == contentId && x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0).ConfigureAwait(false);
+            return hasGallery;
         }
     }
 }

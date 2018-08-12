@@ -105,6 +105,7 @@
     <Folder Include="wwwroot\contentimg\" />
     <Folder Include="wwwroot\is-cache\" />
     <Folder Include="wwwroot\linkimages\" />
+    <Folder Include="wwwroot\contentgalleries\" />
     <Folder Include="wwwroot\pagesimage\" />
     <Folder Include="wwwroot\slides\" />
   </ItemGroup>
@@ -149,6 +150,15 @@
     <Content Update="Areas\Manage\Views\ImageLink\Update.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Manage\Views\ContentGallery\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentGallery\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentGallery\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\Slide\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -183,6 +193,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\ImageLinks\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\ContentGallery\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\_ContentsList.cshtml">

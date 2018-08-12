@@ -193,5 +193,11 @@ namespace ContentManagement.Services
 
             return vm;
         }
+
+        public async Task<bool> HasLink(string portalKey, Language language, LinkType linkType)
+        {
+            var hasLink = await _link.AnyAsync(x => x.Portal.PortalKey == portalKey && x.Language == language && x.LinkType == linkType).ConfigureAwait(false);
+            return hasLink;
+        }
     }
 }

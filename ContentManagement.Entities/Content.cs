@@ -20,6 +20,8 @@ namespace ContentManagement.Entities
         public bool IsActive { get; set; } = true;
         public bool IsFavorite { get; set; } = false;
         public int? Priority { get; set; }
+        public ContentGalleryPosition GalleryPosition { get; set; } = ContentGalleryPosition.None;
         public virtual Portal Portal { get; set; }
+        public virtual ICollection<ContentGallery> ContentGalleries { get; set; }
     }
 }

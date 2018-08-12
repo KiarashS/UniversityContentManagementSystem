@@ -24,7 +24,8 @@ namespace ContentManagement.Common.WebToolkit
 
         public static string SeoFriendlyTitle(this string title)
         {
-            string str = title.RemoveDiacritics().ToLowerInvariant();
+            //string str = title.RemoveDiacritics().ToLowerInvariant();
+            string str = title.ToLowerInvariant();
             str = str.Replace("\"", " ");
             str = Regex.Replace(str, @"(@|&|'|\(|\)|<|>|#|\?|!|\$|%|\^|&|\*|\-|_|=|\+|\{|\}|\[|\]|`|~|:|;|,|\.|\\|\/)", " ");
             str = Regex.Replace(str, @"\s+", " ").Trim();

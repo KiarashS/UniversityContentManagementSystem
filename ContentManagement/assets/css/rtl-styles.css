@@ -421,6 +421,10 @@ footer {
         top: 0;
         width: 100%;
     }
+
+    /*#content-gallery-container {
+        display: none;
+    }*/
 }
 
 .typeahead__container {

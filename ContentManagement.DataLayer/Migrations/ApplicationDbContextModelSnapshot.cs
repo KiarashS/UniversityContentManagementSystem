@@ -46,6 +46,8 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<int>("ContentType");
 
+                    b.Property<int>("GalleryPosition");
+
                     b.Property<string>("Imagename");
 
                     b.Property<bool>("IsActive");
@@ -76,6 +78,28 @@ namespace ContentManagement.DataLayer.Migrations
                     b.HasIndex("PortalId");
 
                     b.ToTable("Content");
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ContentGallery", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Caption");
+
+                    b.Property<long>("ContentId");
+
+                    b.Property<string>("Imagename")
+                        .IsRequired();
+
+                    b.Property<int?>("Priority");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ContentGallery");
                 });
 
             modelBuilder.Entity("ContentManagement.Entities.ImageLink", b =>
@@ -371,6 +395,14 @@ namespace ContentManagement.DataLayer.Migrations
                     b.HasOne("ContentManagement.Entities.Portal", "Portal")
                         .WithMany("Contents")
                         .HasForeignKey("PortalId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ContentGallery", b =>
+                {
+                    b.HasOne("ContentManagement.Entities.Content", "Content")
+                        .WithMany("ContentGalleries")
+                        .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
