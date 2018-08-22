@@ -22,21 +22,21 @@
                 <div class="card-body">
 
                     <form id="contents-form" class="form-inline unselectable">
-                        <div class="form-group mb-2 mr-sm-2">
-                            <label style="font-size: 0.9rem !important;" asp-for="@Model.ContentType">@SharedLocalizer["Content Type"]:&nbsp;</label>
-                            <select class="form-control form-control-sm custom-select custom-select-sm " name="t" asp-items="@Model.ContentTypeItems" asp-for="@Model.ContentType">
+                        <div class="form-group mb-2 mr-2">
+                            <label style="font-size: 0.9rem !important;" for="cct">@SharedLocalizer["Content Type"]:&nbsp;</label>
+                            <select class="form-control form-control-sm custom-select custom-select-sm " name="t" id="cct" asp-items="@Model.ContentTypeItems" asp-for="@Model.ContentType">
                                 <option value="">@SharedLocalizer["Content Type"]</option>
                             </select>
                         </div>
 
-                        <div class="mb-2 mr-sm-2 custom-control custom-checkbox">
+                        <div class="mb-2 mr-2 custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" asp-for="@Model.OtherContents">
                             <label style="font-size: 0.9rem !important;" class="custom-control-label" asp-for="@Model.OtherContents">
                                 @SharedLocalizer["Other Contents"]
                             </label>
                         </div>
 
-                        <div class="mb-2 mr-sm-2 custom-control custom-checkbox">
+                        <div class="mb-2 mr-2 custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" asp-for="@Model.Favorite">
                             <label style="font-size: 0.9rem !important;" class="custom-control-label" asp-for="@Model.Favorite">
                                 @SharedLocalizer["Favorite Contents"]

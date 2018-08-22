@@ -35,6 +35,9 @@ namespace ContentManagement
     {
         public static void AddInternalServices(this IServiceCollection services)
         {
+            var extraAllowedTags = new HashSet<string> { "iframe", "style" };
+            extraAllowedTags.UnionWith(HtmlSanitizer.DefaultAllowedTags);
+
             services.AddScoped<IUnitOfWork, ApplicationDbContext>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
@@ -43,7 +46,9 @@ namespace ContentManagement
             services.AddScoped<IDbInitializerService, DbInitializerService>();
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<SeoService>();
-            services.AddSingleton<IHtmlSanitizer>(s => new HtmlSanitizer());
+            services.AddSingleton<IHtmlSanitizer>(s => 
+                new HtmlSanitizer(allowedTags: extraAllowedTags)
+            );
             services.AddScoped<IPortalService, PortalService>();
             services.AddScoped<INavbarService, NavbarService>();
             services.AddScoped<ISlideService, SlideService>();

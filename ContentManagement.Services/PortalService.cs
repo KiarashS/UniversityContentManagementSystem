@@ -33,8 +33,10 @@ namespace ContentManagement.Services
                 {
                     PortalKey = portal.PortalKey?.Trim(),
                     TitleFa = portal.TitleFa?.Trim(),
+                    HtmlTitleFa = portal.HtmlTitleFa?.Trim(),
                     DescriptionFa = portal.DescriptionFa?.Trim(),
                     TitleEn = portal.TitleEn?.Trim(),
+                    HtmlTitleEn = portal.HtmlTitleEn?.Trim(),
                     DescriptionEn = portal.DescriptionEn?.Trim(),
                     ShowInMainPortal = portal.ShowInMainPortal
                 };
@@ -52,8 +54,10 @@ namespace ContentManagement.Services
                 currentPortal.ShowInMainPortal = portal.ShowInMainPortal;
             }
             currentPortal.TitleFa = portal.TitleFa?.Trim();
+            currentPortal.HtmlTitleFa = portal.HtmlTitleFa?.Trim();
             currentPortal.DescriptionFa = portal.DescriptionFa?.Trim();
             currentPortal.TitleEn = portal.TitleEn?.Trim();
+            currentPortal.HtmlTitleEn = portal.HtmlTitleEn?.Trim();
             currentPortal.DescriptionEn = portal.DescriptionEn?.Trim();
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
@@ -136,7 +140,7 @@ namespace ContentManagement.Services
         {
             var info = await _portal
                                 .Where(x => x.PortalKey == portalKey)
-                                .Select(x => new { Title = language == Language.EN ? x.TitleEn : x.TitleFa, Description = language == Language.EN ? x.DescriptionEn : x.DescriptionFa })
+                                .Select(x => new { Title = language == Language.EN ? x.HtmlTitleEn : x.HtmlTitleFa, Description = language == Language.EN ? x.DescriptionEn : x.DescriptionFa })
                                 .Cacheable()
                                 .SingleOrDefaultAsync();
 

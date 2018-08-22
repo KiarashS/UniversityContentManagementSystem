@@ -20,20 +20,23 @@
     @*<style>@Html.Raw(System.IO.File.ReadAllText("wwwroot/css/abovethefold.css"))</style>*@
     <link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/fonts/farsifonts.min.css" />
     <link asp-if="RequestService.IsLtr()" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext" />
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.5.1/css/OverlayScrollbars.min.css" />*@
     <link rel="stylesheet" href="~/css/common.min.css" asp-append-version="true" />
     <link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/css/rtl.min.css" asp-append-version="true" />
     @*<link asp-if="RequestService.IsRtl()" rel="stylesheet" href="~/css/portal.rtl.min.css" asp-append-version="true" />*@
     <link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/ltr.min.css" asp-append-version="true" />
+
     @*<link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/portal.ltr.min.css" asp-append-version="true" />*@
-    <container asp-if="@(!ViewContext.HttpContext.IsLocal())">
+    @*<container asp-if="@(!ViewContext.HttpContext.IsLocal())">
         <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
         <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
-    </container>
+    </container>*@
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
 
     <seo-link-canonical base="@($"//{Context.Request.Host.Value}/")" value="@WebUtility.UrlDecode(Context.Request.GetDisplayUrl())" />
     <seo-title></seo-title>
     <seo-meta-description />
+    <seo-meta-keywords />
     <seo-content-language />
     <seo-meta-robots-index value="ContentManagement.Services.RobotsIndex.IndexFollow" />
 
@@ -56,7 +59,7 @@
 
         @await Component.InvokeAsync(nameof(Footer))
 
-        <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 10.5rem; padding: 2px 5px; background-color: coral; z-index: 1000;">
+        <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 10.5rem; padding: 2px 5px; background-color: coral; z-index: 999;">
             <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" title="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
                 <i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت
             </a>
@@ -89,6 +92,7 @@
         <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script>
         <script src="https://unpkg.com/tippy.js/dist/tippy.all.min.js"></script>
         <script src="~/js/common.min.js" asp-append-version="true"></script>
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.5.1/js/jquery.overlayScrollbars.min.js"></script>*@
         @*<script asp-if="RequestService.IsRtl()" src="~/js/rtl.min.js" asp-append-version="true"></script>*@
         @*<script asp-if="RequestService.IsRtl()" src="~/js/portal.rtl.min.js" asp-append-version="true"></script>*@
         @*<script asp-if="RequestService.IsLtr()" src="~/js/ltr.min.js" asp-append-version="true"></script>*@

@@ -178,6 +178,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 Title = page.Title,
                 Text = page.Text,
                 Slug = page.Slug,
+                Keywords = page.Keywords,
                 Imagename = page.Imagename,
                 EnableImage = !string.IsNullOrEmpty(page.Imagename),
                 IsActive = page.IsActive,

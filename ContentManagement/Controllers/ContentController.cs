@@ -19,6 +19,16 @@ using DNTBreadCrumb.Core;
 using ContentManagement.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Processing.Transforms;
+using System.IO;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Bmp;
+using SixLabors.ImageSharp.Formats.Gif;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace ContentManagement.Controllers
 {
@@ -293,6 +303,7 @@ namespace ContentManagement.Controllers
 
             _seoService.Title = contentDetails.Title;
             _seoService.MetaDescription = contentDetails.GetSummary;
+            _seoService.MetaKeywords = contentDetails.Keywords;
 
             this.AddBreadCrumb(new BreadCrumb
             {
@@ -318,6 +329,58 @@ namespace ContentManagement.Controllers
             new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
 
             return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
+        }
+
+        public virtual IActionResult GetGalleryImage(string name, int? w, int? h)
+        {
+            var imageName = System.IO.Path.GetFileName(name);
+            var imagePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, Infrastructure.Constants.ContentGalleriesRootPath, imageName);
+            new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
+
+            if (!w.HasValue && !h.HasValue)
+            {
+                return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
+            }
+            else
+            {
+                w = w ?? 100;
+                h = h ?? 50;
+                var outputStream = new MemoryStream();
+
+                using (Image<Rgba32> image = SixLabors.ImageSharp.Image.Load(imagePath))
+                {
+                    image.Mutate(x => x
+                        .Resize(new ResizeOptions
+                        {
+                            Size = new SixLabors.Primitives.Size(w.Value, h.Value),
+                            Mode = ResizeMode.Stretch
+                        }));
+
+                    image.Save(outputStream, GetImageFormat(System.IO.Path.GetExtension(imageName).ToLowerInvariant()));
+                }
+
+                return new FileContentResult(outputStream.ToArray(), contentType ?? "application/octet-stream");
+            }
+        }
+
+        private IImageEncoder GetImageFormat(string extension)
+        {
+            if (extension == ".bmp")
+            {
+                return new BmpEncoder();
+            }
+            else if (extension == ".gif")
+            {
+                return new GifEncoder();
+            }
+            else if (extension == ".jpg" || extension == ".jpeg")
+            {
+                return new JpegEncoder();
+            }
+            else
+            {
+                return new PngEncoder();
+            }
         }
     }
 }

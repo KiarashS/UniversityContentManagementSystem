@@ -1,0 +1,88 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.LogoViewModel
+
+<style>
+    .custom-file-input ~ .custom-file-label::after {
+        content: "انتخاب فایل";
+    }
+</style>
+
+<div class="container">
+
+    <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        <div class="form-group row mb-4 mt-3">
+            <label asp-for="HeaderLogo" class="col-sm-2 form-control-label">لوگوی هدر</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="HeaderLogo" lang="fa" accept="image/png">
+                <label class="custom-file-label" asp-for="HeaderLogo" style="margin-left: 15px; margin-right: 15px;">لوگوی هدر</label>
+                <span class="text-danger" asp-validation-for="HeaderLogo"></span>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 5rem !important;">
+            <label class="col-sm-2 form-control-label">&nbsp;</label>
+            <div class="col-sm-10 custom-file">
+                <a href="~/statics/headerlogo.png" target="_blank" title="مشاهده تصویر فعلی"><img src="~/statics/headerlogo.png" style="max-width: 100px; max-height: 100px;" /></a>
+            </div>
+        </div>
+        <hr class="hr13" />
+        <div class="form-group row mb-4">
+            <label asp-for="Logo" class="col-sm-2 form-control-label">لوگو</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="Logo" lang="fa" accept="image/png">
+                <label class="custom-file-label" asp-for="Logo" style="margin-left: 15px; margin-right: 15px;">لوگو</label>
+                <span class="text-danger" asp-validation-for="Logo"></span>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 5rem !important;">
+            <label class="col-sm-2 form-control-label">&nbsp;</label>
+            <div class="col-sm-10 custom-file">
+                <a href="~/statics/logo.png" target="_blank" title="مشاهده تصویر فعلی"><img src="~/statics/logo.png" style="max-width: 100px; max-height: 100px;" /></a>
+            </div>
+        </div>
+        <hr class="hr13" />
+        @*<div class="form-group row mb-4">
+            <label asp-for="FooterLogo" class="col-sm-2 form-control-label">لوگوی فوتر</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="FooterLogo" lang="fa" accept="image/png">
+                <label class="custom-file-label" asp-for="FooterLogo" style="margin-left: 15px; margin-right: 15px;">لوگوی فوتر</label>
+                <span class="text-danger" asp-validation-for="FooterLogo"></span>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 5rem !important;">
+            <label class="col-sm-2 form-control-label">&nbsp;</label>
+            <div class="col-sm-10 custom-file">
+                <a href="~/statics/footerlogo.png" target="_blank" title="مشاهده تصویر فعلی"><img src="~/statics/footerlogo.png" style="max-width: 100px; max-height: 100px;" /></a>
+            </div>
+        </div>
+        <hr class="hr13" />*@
+        <div class="form-group row mb-4">
+            <label asp-for="Favicon" class="col-sm-2 form-control-label">فاوآیکن</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="Favicon" lang="fa" accept="image/png">
+                <label class="custom-file-label" asp-for="Favicon" style="margin-left: 15px; margin-right: 15px;">فاوآیکن</label>
+                <span class="text-danger" asp-validation-for="Favicon"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-5">
+            <label class="col-sm-2 form-control-label">&nbsp;</label>
+            <div class="col-sm-10 custom-file">
+                <a href="~/favicon.png" target="_blank" title="مشاهده آیکن فعلی"><img src="~/favicon.png" style="max-width: 30px; max-height: 30px;" /></a>
+            </div>
+        </div>
+        <hr class="hr13" />
+        <div class="form-group row">
+            @*<div class="col-sm-2">
+                &nbsp;
+            </div>*@
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+
+}

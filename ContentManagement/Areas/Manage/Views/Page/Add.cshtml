@@ -14,6 +14,18 @@
         content: "انتخاب فایل";
     }
 
+    .k-rtl .k-breadcrumbs-wrap {
+        right: auto;
+        left: 0;
+        padding-right: 0;
+        padding-left: 5px;
+    }
+
+    .k-breadcrumbs > .k-input {
+        direction: ltr;
+        text-align: left;
+    }
+
     .k-editor-dialog.k-viewhtml-dialog .k-editor-textarea.k-input,
     #k-editor-image-url,
     #k-editor-file-url,
@@ -87,6 +99,10 @@
         شناسه یکتا حتماً می بایست انگلیسی باشد.
     </div>
 
+    <div class="alert alert-warning" role="alert">
+        کلمات کلیدی برای موتورهای جستجو می بایست هوشمندانه انتخاب شوند و با کاما انگلیسی از هم جدا شوند. (,)
+    </div>
+
     <div class="alert alert-info" role="alert">
         توجه داشته باشید که در صورت نیاز، سایز تصویر صفحه می بایست حداکثر @ContentManagement.Infrastructure.Constants.PageImageWidthSize در @ContentManagement.Infrastructure.Constants.PageImageHeightSize پیکسل باشد.
     </div>
@@ -130,6 +146,13 @@
                 <input type="file" class="custom-file-input" asp-for="Image" lang="fa" disabled>
                 <label class="custom-file-label" asp-for="Image" style="margin-left: 15px; margin-right: 15px;">تصویر</label>
                 <span class="text-danger" asp-validation-for="Image"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Keywords" class="col-sm-2 form-control-label">کلمات کلیدی</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Keywords" placeholder="کلمات کلیدی">
+                <span class="text-danger" asp-validation-for="Keywords"></span>
             </div>
         </div>
         <div class="form-group row">
@@ -349,6 +372,14 @@
                         @*fileUrl: "@Url.Action("GetFile", "FilesManager")?path={0}"*@
                         fileUrl: editorFileManagerPath + "{0}"
                     }
+                }
+            });
+
+            // fix encoded slash in image url
+            $(document).on("click", ".k-imagebrowser>ul.k-tiles>li.k-tile", function (e) {
+                var input = $("#k-editor-image-url")[0];
+                if (input && /%2F/.test(input.value)) {
+                    input.value = input.value.replace(/%2F/g, "/");
                 }
             });
         });

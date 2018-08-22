@@ -31,49 +31,82 @@
                 </nav>
             </div>*@
 
-            <div asp-if="Model.Any()" class="col-12 col-md-12 col-md-4 col-lg-10 text-sm-left">
+            <div asp-if="Model.Any()" class="col-12 col-md-12 col-md-12 col-lg-12 text-sm-left">
                 @for (int i = 0; i < Model.Count; i += 4)
                 {
-                    <div class="row" style="font-size: 0.9rem !important;">
-                        <div class="col-6 col-sm-6 col-md-3"><a class="nav-link" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)">@Model.ElementAt(i).Text</a></div>
-                        <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 1"><a class="nav-link" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)">@Model.ElementAt(i + 1).Text</a></div>
-                        <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 2"><a class="nav-link" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i).IsBlankUrlTarget)">@Model.ElementAt(i + 2).Text</a></div>
-                        <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 3"><a class="nav-link" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)">@Model.ElementAt(i + 3).Text</a></div>
-                    </div>
+                <div class="row" style="font-size: 0.9rem !important;">
+                    <div class="col-6 col-sm-6 col-md-3"><a class="nav-link" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)">@Model.ElementAt(i).Text</a></div>
+                    <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 1"><a class="nav-link" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)">@Model.ElementAt(i + 1).Text</a></div>
+                    <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 2"><a class="nav-link" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i).IsBlankUrlTarget)">@Model.ElementAt(i + 2).Text</a></div>
+                    <div class="col-6 col-sm-6 col-md-3" asp-if="@Model.Count > i + 3"><a class="nav-link" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)">@Model.ElementAt(i + 3).Text</a></div>
+                </div>
                 }
             </div>
 
-            <div class="col-12 col-lg-2 ml-auto text-lg-left mt-4 mt-lg-0">
+            @*<div class="col-12 col-lg-2 ml-auto text-lg-left mt-4 mt-lg-0">
                 <div style="padding-left: 0.75rem; padding-right: 0.75rem;">
-                        @*<h3><strong>ما را دنبال کنید</strong></h3>*@
-                    <div class="text-center"><a href="/"><img src="~/statics/logo.png" alt="@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)" style="width: 4rem;" /></a><br /><span style="font-size: 0.8rem;">@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)</span></div>
+                        <h3><strong>ما را دنبال کنید</strong></h3>
+                    <div class="text-center"><a href="/"><img src="~/statics/footerlogo.png" alt="@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)" style="width: 4rem;" /></a><br /><span style="font-size: 0.8rem;">@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)</span></div>
                     <hr class="hr-dark" />
                     <p class="text-h3">
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Instagram))" href="@SiteSettings.Value.SocialNetworks.Instagram" target="_blank"><i class="social instagram" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Instagram))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Telegram))" href="@SiteSettings.Value.SocialNetworks.Telegram" target="_blank"><i class="social telegram" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Telegram))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Facebook))" href="@SiteSettings.Value.SocialNetworks.Facebook" target="_blank"><i class="social facebook" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Facebook))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Twitter))" href="@SiteSettings.Value.SocialNetworks.Twitter" target="_blank"><i class="social twitter" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Twitter))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.GooglePlus))" href="@SiteSettings.Value.SocialNetworks.GooglePlus" target="_blank"><i class="social googleplus" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.GooglePlus))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.YouTube))" href="@SiteSettings.Value.SocialNetworks.YouTube" target="_blank"><i class="social youtube" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.YouTube))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Aparat))" href="@SiteSettings.Value.SocialNetworks.Aparat" target="_blank"><i class="social aparat" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Aparat))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Soroush))" href="@SiteSettings.Value.SocialNetworks.Soroush" target="_blank"><i class="social soroush" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Soroush))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bale))" href="@SiteSettings.Value.SocialNetworks.Bale" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bale))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Gap))" href="@SiteSettings.Value.SocialNetworks.Gap" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Gap))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Igap))" href="@SiteSettings.Value.SocialNetworks.Igap" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Igap))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bisphone))" href="@SiteSettings.Value.SocialNetworks.Bisphone" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bisphone))">&nbsp;&nbsp;</span>
-                        <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Eitaa))" href="@SiteSettings.Value.SocialNetworks.Eitaa" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Eitaa))">&nbsp;&nbsp;</span>
                     </p>
                 </div>
-            </div>
+            </div>*@
         </div>
 
-        <div class="row mt-3">
-            <div class="col text-center" style="font-size: 0.9rem;">
+        @*<div class="row mt-3">
+            <div class="col text-center" style="font-size: 0.9rem;">*@
+                @*<div class="col-12 col-lg-2 ml-auto text-lg-left mt-4 mt-lg-0">
+            <div style="padding-left: 0.75rem; padding-right: 0.75rem;">*@
+                @*<h3><strong>ما را دنبال کنید</strong></h3>*@
+                @*<div class="text-center"><a href="/"><img src="~/statics/footerlogo.png" alt="@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)" style="width: 4rem;" /></a><br /><span style="font-size: 0.8rem;">@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)</span></div>
+            <hr class="hr-dark" />*@
+                @*<p class="text-h3">
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Instagram))" href="@SiteSettings.Value.SocialNetworks.Instagram" target="_blank"><i class="social instagram" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Instagram))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Telegram))" href="@SiteSettings.Value.SocialNetworks.Telegram" target="_blank"><i class="social telegram" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Telegram))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Facebook))" href="@SiteSettings.Value.SocialNetworks.Facebook" target="_blank"><i class="social facebook" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Facebook))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Twitter))" href="@SiteSettings.Value.SocialNetworks.Twitter" target="_blank"><i class="social twitter" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Twitter))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.GooglePlus))" href="@SiteSettings.Value.SocialNetworks.GooglePlus" target="_blank"><i class="social googleplus" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.GooglePlus))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.YouTube))" href="@SiteSettings.Value.SocialNetworks.YouTube" target="_blank"><i class="social youtube" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.YouTube))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Aparat))" href="@SiteSettings.Value.SocialNetworks.Aparat" target="_blank"><i class="social aparat" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Aparat))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Soroush))" href="@SiteSettings.Value.SocialNetworks.Soroush" target="_blank"><i class="social soroush" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Soroush))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bale))" href="@SiteSettings.Value.SocialNetworks.Bale" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bale))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Gap))" href="@SiteSettings.Value.SocialNetworks.Gap" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Gap))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Igap))" href="@SiteSettings.Value.SocialNetworks.Igap" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Igap))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bisphone))" href="@SiteSettings.Value.SocialNetworks.Bisphone" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bisphone))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Eitaa))" href="@SiteSettings.Value.SocialNetworks.Eitaa" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Eitaa))">&nbsp;&nbsp;</span>
+                </p>*@
+                @*</div>
+            </div>*@
+            @*</div>
+        </div>*@
+
+        <div class="row mt-5 justify-content-center align-self-center">
+            <div class="col-12 col-md-6 pl-4 text-center text-md-left" style="font-size: 0.75rem;">
+                @SharedLocalizer["Follow us on social networks"]&nbsp;&nbsp;
+                <div class="d-block d-md-inline-block" style="position: relative; top: 0.3rem;">
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Instagram))" href="@SiteSettings.Value.SocialNetworks.Instagram" target="_blank"><i class="fab fa-instagram" style="font-size: 1.4rem !important;" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Instagram))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Telegram))" href="@SiteSettings.Value.SocialNetworks.Telegram" target="_blank"><i class="fab fa-telegram" style="font-size: 1.4rem !important;" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Telegram))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Facebook))" href="@SiteSettings.Value.SocialNetworks.Facebook" target="_blank"><i class="fab fa-facebook" style="font-size: 1.4rem !important;" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Facebook))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Twitter))" href="@SiteSettings.Value.SocialNetworks.Twitter" target="_blank"><i class="fab fa-twitter" style="font-size: 1.4rem !important;" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Twitter))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.GooglePlus))" href="@SiteSettings.Value.SocialNetworks.GooglePlus" target="_blank"><i class="fab fa-google-plus" style="font-size: 1.4rem !important;" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.GooglePlus))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.YouTube))" href="@SiteSettings.Value.SocialNetworks.YouTube" target="_blank"><i class="fab fa-youtube" style="font-size: 1.4rem !important;" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.YouTube))">&nbsp;&nbsp;</span>
+                    @*<a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Aparat))" href="@SiteSettings.Value.SocialNetworks.Aparat" target="_blank"><i class="social aparat" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Aparat))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Soroush))" href="@SiteSettings.Value.SocialNetworks.Soroush" target="_blank"><i class="social soroush" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Soroush))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bale))" href="@SiteSettings.Value.SocialNetworks.Bale" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bale))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Gap))" href="@SiteSettings.Value.SocialNetworks.Gap" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Gap))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Igap))" href="@SiteSettings.Value.SocialNetworks.Igap" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Igap))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bisphone))" href="@SiteSettings.Value.SocialNetworks.Bisphone" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Bisphone))">&nbsp;&nbsp;</span>
+                    <a asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Eitaa))" href="@SiteSettings.Value.SocialNetworks.Eitaa" target="_blank"><i class="social bale" aria-hidden="true"></i></a><span asp-if="@(!string.IsNullOrEmpty(SiteSettings.Value.SocialNetworks.Eitaa))">&nbsp;&nbsp;</span>*@
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 pr-4 pt-2 text-center text-md-right" style="font-size: 0.7rem; color: #b7c4d0;">
                 @SharedLocalizer["Copyright", RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.CopyrightFa : SiteSettings.Value.MainPortal.CopyrightEn]
                 @*<div class="mt-2" style="font-size: 0.75rem;">
-                    By: <a href="https://www.kiarash.pro" target="_blank" title="Kiarash Soleimanzadeh" data-tippy>Kiarash Soleimanzadeh</a>
-                </div>*@
+                By: <a href="https://www.kiarash.pro" target="_blank" title="Kiarash Soleimanzadeh" data-tippy>Kiarash Soleimanzadeh</a>
+            </div>*@
             </div>
         </div>
-    @*</div>*@
+        @*</div>*@
 </footer>

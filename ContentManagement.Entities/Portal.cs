@@ -18,10 +18,12 @@ namespace ContentManagement.Entities
         public int     Id                            { get; set; }
         public string  PortalKey                     { get; set; } // Sub-Domain is considered as portal key, Portal with Null portal key is main portal.
         public string  TitleFa                       { get; set; }
+        public string  HtmlTitleFa                   { get; set; } // HTML title tag
         public string  DescriptionFa                 { get; set; }
         public string  LogoFilenameFa                { get; set; }
         public string  BulletinFa                    { get; set; }
         public string  TitleEn                       { get; set; }
+        public string  HtmlTitleEn                   { get; set; } // HTML title tag
         public string  DescriptionEn                 { get; set; }
         public string  LogoFilenameEn                { get; set; }
         public string  BulletinEn                    { get; set; }

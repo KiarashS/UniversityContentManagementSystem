@@ -35,6 +35,7 @@ namespace ContentManagement.Services
                     Text = page.Text,
                     RawText = page.RawText,
                     Slug = page.Slug.GenerateSlug(),
+                    Keywords = page.Keywords?.Trim(),
                     IsActive = page.IsActive,
                     Imagename = page.Imagename,
                     Language = page.Language,
@@ -51,6 +52,7 @@ namespace ContentManagement.Services
             currentPage.Text = page.Text;
             currentPage.RawText = page.RawText;
             currentPage.Slug = page.Slug.GenerateSlug();
+            currentPage.Keywords = page.Keywords?.Trim();
             currentPage.IsActive = page.IsActive;
             currentPage.Imagename = page.Imagename;
             currentPage.Language = page.Language;
@@ -96,6 +98,7 @@ namespace ContentManagement.Services
                 Slug = page.Slug,
                 Title = page.Title,
                 Text = page.Text,
+                Keywords = page.Keywords,
                 RawText = page.RawText,
                 Imagename = page.Imagename,
                 Language = page.Language,

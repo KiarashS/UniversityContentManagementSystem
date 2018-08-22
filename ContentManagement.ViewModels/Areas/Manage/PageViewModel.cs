@@ -30,6 +30,8 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public IFormFile Image { get; set; }
         public string Imagename { get; set; }
         public bool EnableImage { get; set; }
+        [Required(ErrorMessage = "کلمات کلیدی را وارد نمایید.")]
+        public string Keywords { get; set; }
         public int ViewCount { get; set; }
         public bool IsActive { get; set; } = true;
         public string PortalKey { get; set; }

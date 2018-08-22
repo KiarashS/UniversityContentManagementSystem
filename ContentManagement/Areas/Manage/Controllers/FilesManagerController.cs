@@ -84,12 +84,12 @@ namespace ContentManagement.Areas.Manage.Controllers
         public IEnumerable<KendoFileViewModel> GetFilesList(string path)
         {
             path = GetSafeDirPath(path);
-            if (!System.IO.Directory.Exists(path))
-            {
-                path = "";
-                path = GetSafeDirPath(path);
-            }
-
+            //if (!System.IO.Directory.Exists(path))
+            //{
+            //    path = "";
+            //    path = GetSafeDirPath(path);
+            //}
+            
             var imagesList = new DirectoryInfo(path)
                                 .GetFiles()
                                 .Select(fileInfo => new KendoFileViewModel
@@ -182,11 +182,11 @@ namespace ContentManagement.Areas.Manage.Controllers
             path = GetSafeFileAndDirPath(path);
             //return PhysicalFile(path, "image/png");
 
-            if (!System.IO.Directory.Exists(path))
-            {
-                path = System.IO.Path.GetFileName(path);
-                path = GetSafeFileAndDirPath(path);
-            }
+            //if (!System.IO.Directory.Exists(path))
+            //{
+            //    path = System.IO.Path.GetFileName(path);
+            //    path = GetSafeFileAndDirPath(path);
+            //}
 
             var outputStream = new MemoryStream();
 

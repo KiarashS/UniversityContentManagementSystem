@@ -256,4 +256,10 @@
   <data name="Gallery" xml:space="preserve">
     <value>گالری</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="Follow us on social networks" xml:space="preserve">
+    <value>ما را در شبکه های اجتماعی دنبال کنید:</value>
+  </data>
 </root>

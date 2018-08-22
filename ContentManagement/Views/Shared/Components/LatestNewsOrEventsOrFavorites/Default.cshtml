@@ -13,12 +13,12 @@
                                 <ul id="newsandfavorite-tabs-above" class="nav nav-tabs" role="tablist">
                                     <li asp-if="Model.IsExistNews" class="nav-item">
                                         <a class="nav-link" id="news-tab-tabs-above" condition-class-active="Model.IsExistNews" href="#news-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchnews/?t=news" aria-controls="news">
-                                            <i class="far fa-newspaper purple-text"></i> @SharedLocalizer["News"]
+                                            <i class="far fa-newspaper blue-grey-text"></i> @SharedLocalizer["News"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistEvent" class="nav-item">
                                         <a class="nav-link" id="event-tab-tabs-above" condition-class-active="Model.IsExistFavorite && !Model.IsExistNews" href="#event-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchnews/?t=upcomingevent" aria-controls="event">
-                                            <i class="far fa-calendar-alt purple-text"></i> @SharedLocalizer["Upcoming Events"]
+                                            <i class="far fa-calendar-alt blue-grey-text"></i> @SharedLocalizer["Upcoming Events"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistFavorite" class="nav-item">
@@ -49,7 +49,7 @@
                 <div class="@(Model.JustAnnouncement ? "col-12" : "col-12 col-sm-12 col-md-4")">
                     <div class="card h-100">
                         <div class="card-header">
-                            <i class="fas fa-bullhorn purple-text"></i> @SharedLocalizer["Announcements"]
+                            <i class="fas fa-bullhorn blue-grey-text"></i> @SharedLocalizer["Announcements"]
                         </div>
                         <div class="card-body" style="height: 400px !important; overflow: auto;">
                             @await Component.InvokeAsync(nameof(LatestAnnouncements))

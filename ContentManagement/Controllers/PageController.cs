@@ -59,6 +59,7 @@ namespace ContentManagement.Controllers
 
             _seoService.Title = page.Title;
             _seoService.MetaDescription = page.GetSummary;
+            _seoService.MetaKeywords = page.Keywords;
 
             this.AddBreadCrumb(new BreadCrumb
             {

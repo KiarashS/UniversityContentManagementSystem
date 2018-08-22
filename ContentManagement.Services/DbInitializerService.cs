@@ -98,8 +98,10 @@ namespace ContentManagement.Services
                             PortalKey = null,
                             ShowInMainPortal = false,
                             TitleFa = siteSettings.MainPortal.BaseTitleFa,
+                            HtmlTitleFa = siteSettings.MainPortal.BaseTitleFa,
                             DescriptionFa = siteSettings.MainPortal.BaseDescriptionFa,
                             TitleEn = siteSettings.MainPortal.BaseTitleEn,
+                            HtmlTitleEn = siteSettings.MainPortal.BaseTitleEn,
                             DescriptionEn = siteSettings.MainPortal.BaseDescriptionEn
                         };
 

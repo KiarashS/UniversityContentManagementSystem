@@ -67,7 +67,12 @@
                         "targets": 0,
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.text + '</a>';
+                            if (data.url) {
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.text + '</a>';
+                            }
+                            else {
+                                return '<span>' + data.text + '</span>';
+                            }
                         }
                     },
                     {

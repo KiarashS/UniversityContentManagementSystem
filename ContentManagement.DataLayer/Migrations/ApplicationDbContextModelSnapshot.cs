@@ -54,6 +54,9 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<bool>("IsFavorite");
 
+                    b.Property<string>("Keywords")
+                        .IsRequired();
+
                     b.Property<int>("Language");
 
                     b.Property<int>("PortalId");
@@ -212,6 +215,9 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<bool>("IsActive");
 
+                    b.Property<string>("Keywords")
+                        .IsRequired();
+
                     b.Property<int>("Language");
 
                     b.Property<int>("PortalId");
@@ -260,6 +266,12 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<string>("DescriptionFa")
                         .IsRequired()
                         .HasMaxLength(500);
+
+                    b.Property<string>("HtmlTitleEn")
+                        .IsRequired();
+
+                    b.Property<string>("HtmlTitleFa")
+                        .IsRequired();
 
                     b.Property<string>("LogoFilenameEn");
 

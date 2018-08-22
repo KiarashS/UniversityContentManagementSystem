@@ -70,8 +70,8 @@ namespace ContentManagement.Areas.Manage.Controllers
 
             await _portalService.AddOrUpdatePortalAsync(portal).ConfigureAwait(false);
 
-            ViewBag.IsOk = true;
-            return View(new PortalViewModel());
+            TempData["IsOk"] = true;
+            return RedirectToAction("index", "portal", "manage");
         }
 
         public async virtual Task<IActionResult> Update(int id)
@@ -88,8 +88,10 @@ namespace ContentManagement.Areas.Manage.Controllers
                 Id = portal.Id,
                 PortalKey = portal.PortalKey,
                 TitleFa = portal.TitleFa,
+                HtmlTitleFa = portal.HtmlTitleFa,
                 DescriptionFa = portal.DescriptionFa,
                 TitleEn = portal.TitleEn,
+                HtmlTitleEn = portal.HtmlTitleEn,
                 DescriptionEn = portal.DescriptionEn,
                 ShowInMainPortal = portal.ShowInMainPortal
             };
@@ -116,8 +118,8 @@ namespace ContentManagement.Areas.Manage.Controllers
 
             await _portalService.AddOrUpdatePortalAsync(portal).ConfigureAwait(false);
 
-            ViewBag.IsOk = true;
-            return View(new PortalViewModel());
+            TempData["IsOk"] = true;
+            return RedirectToAction("index", "portal", "manage");
         }
 
         [HttpPost]

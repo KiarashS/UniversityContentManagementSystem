@@ -1,4 +1,5 @@
 ﻿using ContentManagement.Common.ReflectionToolkit;
+using ContentManagement.Common.WebToolkit;
 using ContentManagement.Common.WebToolkit.Attributes;
 using ContentManagement.Entities;
 using DNTPersianUtils.Core;
@@ -55,6 +56,19 @@ namespace ContentManagement.ViewModels
                 {
                     return ContentType.GetAttributeOfType<ContentTypeTextFaAttribute>().Description;
                 }
+            }
+        }
+
+        public string GetTitle
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Title))
+                {
+                    return Title.TruncateAtWord(55);
+                }
+
+                return string.Empty;
             }
         }
     }

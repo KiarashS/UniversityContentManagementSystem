@@ -33,18 +33,44 @@
         </div>
     </div>*@
 
-    <div class="ui sidebar site-gradient1 white-text" condition-class-right="@RequestService.IsRtl()" condition-class-left="@RequestService.IsLtr()" id="quickLinksSidebarContent">
-        <div class="text-center mt-1">
+    <div class="ui sidebar top site-gradient1 white-text" id="quickLinksSidebarContent" style="border-bottom: 2px solid #91e3fb;">
+        @*<div class="text-center mt-1">
             <a href="/"><img src="~/statics/logo.png" alt="@(RequestService.CurrentLanguage().Language == Language.FA ? SiteSettings.Value.MainPortal.BaseTitleFa : SiteSettings.Value.MainPortal.BaseTitleEn)" style="width: 4rem;" /></a>
         </div>
         <hr class="hr14" />
-        <h6 class="px-1 mb-3"><i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]</h6>
-        <ul class="list-group list-group-flush" id="quick-links-list">
+        <h6 class="px-1 mb-3"><i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]</h6>*@
+        @*<ul class="list-group list-group-flush" id="quick-links-list">
             @foreach (var item in Model)
             {
                 <li class="list-group-item" style="padding: 0 !important; background-color: transparent !important;"><a href="@item.Url" class="nounderline" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)"><i condition-style-color="@item.IconColor" class="@(!string.IsNullOrEmpty(item.Icon) ? item.Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right")"></i>&nbsp;@item.Text</a></li>
             }
-        </ul>
+        </ul>*@
+
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <div class="col float-right">
+                    <button id="close-quick-links" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true" class="text-white" title="@SharedLocalizer["Close"]">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">
+
+                    @for (int i = 0; i < Model.Count; i += 4)
+                    {
+                        <div class="row" style="font-size: 0.9rem !important;">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3"><a class="nav-link bordered-quick-link" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i).Url, Model.ElementAt(i).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i).IconColor" condition-class-blue-light-text="@string.IsNullOrEmpty(Model.ElementAt(i).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i).Icon) ? Model.ElementAt(i).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i).Text</a></div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3" asp-if="@Model.Count > i + 1"><a class="nav-link bordered-quick-link" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 1).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 1).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 1).Url, Model.ElementAt(i + 1).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 1).IconColor" condition-class-blue-light-text="@string.IsNullOrEmpty(Model.ElementAt(i + 1).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 1).Icon) ? Model.ElementAt(i + 1).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 1).Text</a></div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3" asp-if="@Model.Count > i + 2"><a class="nav-link bordered-quick-link" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 2).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 2).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 2).Url, Model.ElementAt(i + 2).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 2).IconColor" condition-class-blue-light-text="@string.IsNullOrEmpty(Model.ElementAt(i + 2).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 2).Icon) ? Model.ElementAt(i + 2).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 2).Text</a></div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3" asp-if="@Model.Count > i + 3"><a class="nav-link bordered-quick-link" style="padding: 0.3rem 0.8rem !important;" href="@Model.ElementAt(i + 3).Url" condition-class-external="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(Model.ElementAt(i + 3).Url)" target="@UrlUtilityService.Target(Model.ElementAt(i + 3).Url, Model.ElementAt(i + 3).IsBlankUrlTarget)"><i condition-style-color="@Model.ElementAt(i + 3).IconColor" condition-class-blue-light-text="@string.IsNullOrEmpty(Model.ElementAt(i + 3).IconColor)" class="@(!string.IsNullOrEmpty(Model.ElementAt(i + 3).Icon) ? Model.ElementAt(i + 3).Icon : RequestService.IsRtl() ? "fas fa-caret-left" : "fas fa-caret-right") fa-lg"></i>&nbsp;@Model.ElementAt(i + 3).Text</a></div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </container>

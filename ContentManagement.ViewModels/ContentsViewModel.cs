@@ -67,11 +67,11 @@ namespace ContentManagement.ViewModels
             {
                 if (!string.IsNullOrEmpty(Title) && ContentType == ContentType.Announcement)
                 {
-                    return Title.TruncateAtWord(27);
+                    return Title.TruncateAtWord(50);
                 }
                 else if (!string.IsNullOrEmpty(Title))
                 {
-                    return Title.TruncateAtWord(50);
+                    return Title.TruncateAtWord(64);
                 }
 
                 return string.Empty;
@@ -84,11 +84,11 @@ namespace ContentManagement.ViewModels
             {
                 if (!string.IsNullOrEmpty(Summary))
                 {
-                    return Summary.TruncateAtWord(64);
+                    return Summary.TruncateAtWord(94);
                 }
                 else if (!string.IsNullOrEmpty(RawText))
                 {
-                    return RawText.TruncateAtWord(64);
+                    return RawText.TruncateAtWord(94);
                 }
 
                 return string.Empty;

@@ -4,7 +4,7 @@
 @using ContentManagement.Common.WebToolkit.Attributes;
 
 @{
-    var title = Model.ContentType != 0 ? $"ایجاد {Model.ContentType.GetAttributeOfType<ContentTypeTitleInAdminAttribute>().Description} جدید" : "ایجاد مطلب جدید";
+    var title = Model.ContentType != 0 ? $"ویرایش {Model.ContentType.GetAttributeOfType<ContentTypeTitleInAdminAttribute>().Description}" : "ویرایش مطلب";
     ViewData["Title"] = title;
 }
 
@@ -16,6 +16,18 @@
 <style>
     .custom-file-input ~ .custom-file-label::after {
         content: "انتخاب فایل";
+    }
+
+    .k-rtl .k-breadcrumbs-wrap {
+        right: auto;
+        left: 0;
+        padding-right: 0;
+        padding-left: 5px;
+    }
+
+    .k-breadcrumbs > .k-input {
+        direction: ltr;
+        text-align: left;
     }
 
     .k-editor-dialog.k-viewhtml-dialog .k-editor-textarea.k-input,
@@ -87,6 +99,10 @@
 <h3>@title</h3>
 
 <div class="container">
+    <div class="alert alert-warning" role="alert">
+        کلمات کلیدی برای موتورهای جستجو می بایست هوشمندانه انتخاب شوند و با کاما انگلیسی از هم جدا شوند. (,)
+    </div>
+
     <div class="alert alert-info" role="alert">
         توجه داشته باشید که در صورت نیاز، سایز تصویر مطلب می بایست حداکثر @ContentManagement.Infrastructure.Constants.ContentImageWidthSize در @ContentManagement.Infrastructure.Constants.ContentImageHeightSize پیکسل باشد.
     </div>
@@ -155,6 +171,13 @@
                 </div>
             </div>
         </container>
+        <div class="form-group row">
+            <label asp-for="Keywords" class="col-sm-2 form-control-label">کلمات کلیدی</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Keywords" placeholder="کلمات کلیدی">
+                <span class="text-danger" asp-validation-for="Keywords"></span>
+            </div>
+        </div>
         <div class="form-group row">
             <label asp-for="Summary" class="col-sm-2 form-control-label">خلاصه مطلب(اختیاری)</label>
             <div class="col-sm-10">
@@ -379,6 +402,14 @@
                         @*fileUrl: "@Url.Action("GetFile", "FilesManager")?path={0}"*@
                         fileUrl: editorFileManagerPath + "{0}"
                     }
+                }
+            });
+
+            // fix encoded slash in image url
+            $(document).on("click", ".k-imagebrowser>ul.k-tiles>li.k-tile", function (e) {
+                var input = $("#k-editor-image-url")[0];
+                if (input && /%2F/.test(input.value)) {
+                    input.value = input.value.replace(/%2F/g, "/");
                 }
             });
         });

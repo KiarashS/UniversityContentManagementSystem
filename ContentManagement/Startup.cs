@@ -47,7 +47,11 @@ namespace ContentManagement
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseKestrel(opt => { opt.AddServerHeader = false; opt.Limits.MaxRequestBodySize = 1073741824; /*1GB*/ })
+                .UseKestrel(opt => {
+                    opt.AddServerHeader = false;
+                    opt.Limits.MaxRequestBodySize = 1073741824; /*1GB*/
+                    opt.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
+                })
                 .CaptureStartupErrors(true)
                 .UseSetting("detailedErrors", "true")
                 .UseDefaultServiceProvider((context, options) =>
@@ -159,6 +163,7 @@ namespace ContentManagement
             services.AddRazorViewRenderer();
             //services.AddDNTCaptcha();
             services.AddMvcActionsDiscoveryService();
+            //services.AddCustomDataProtection(siteSettings);
             services.AddProtectionProviderService();
             ContentManagement.Common.GuardToolkit.RijndaelProviderServiceExtensions.AddRijndaelProviderService(services);
             services.AddCloudscribePagination();

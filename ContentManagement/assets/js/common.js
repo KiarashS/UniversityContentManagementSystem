@@ -1,4 +1,29 @@
-﻿$(document).ready(function () {
+﻿function setCookie(name, value, days, path) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=" + (path || "/");
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
+
+$(document).ready(function () {
     tippy('[data-tippy]');
 
     var $headerNavbar = $("#header-navbar");
@@ -92,7 +117,7 @@
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         document.body.style.cursor = 'wait';
 
-        if (type && type.toLowerCase() != 'all')
+        if (type && type.toLowerCase() !== 'all')
         {
             axios.post(fetchContentsPath + '&t=' + type.toLowerCase()/*, { headers: { 'X-Requested-With': 'XMLHttpRequest' } }*/)
                 .then(function (response) {
@@ -115,12 +140,12 @@
 
     var $contentDetail = $("#content-detail");
     if ($contentDetail.length > 0) {
-        $contentDetail.find('img').addClass('img-fluid img-thumbnail m-1'); //responsive images
+        $contentDetail.find('img').addClass('img-fluid img-thumbnail m-4px'); //responsive images
     }
 
     var $pageDetail = $("#page-detail");
     if ($pageDetail.length > 0) {
-        $pageDetail.find('img').addClass('img-fluid img-thumbnail m-1'); //responsive images
+        $pageDetail.find('img').addClass('img-fluid img-thumbnail m-4px'); //responsive images
     }
 
     var $contentsForm = $("#contents-form");
@@ -202,7 +227,7 @@
     var $qrcodeButton = $("#qrcode-button");
     if ($qrcodeButton.length > 0) {
         var url = $qrcodeButton.data('url');
-        if (url && url != "#")
+        if (url && url !== "#")
         {
             var typeNumber = 0;
             var errorCorrectionLevel = 'M';
@@ -252,7 +277,7 @@
         $(document).on('click', '#quickLinksSidebarSwitch a, #quick-links-expand', function (e) {
             $('#quickLinksSidebarContent')
                 .sidebar({
-                    transition: 'overlay', mobileTransition: 'overlay', silent: true,
+                    transition: 'overlay	', mobileTransition: 'overlay', silent: true,
                     onHidden: function () {
                         $('.pusher').css('overflow', 'visible');
                     },
@@ -265,11 +290,20 @@
             e.preventDefault();
             return false;
         });
+
+        $(document).on('click', '#close-quick-links', function (e) {
+            $('#quickLinksSidebarContent')
+                .sidebar('hide');
+
+            e.preventDefault();
+            return false;
+        });
     }
 
     var $contentGalleryItems = $("#content-gallery-items");
     if ($contentGalleryItems.length > 0) {
 
+        $("#content-gallery-progress").hide();
         $("#content-gallery-container").show();
 
         var pagerPosition = isRtl ? 'right' : 'left';
@@ -281,15 +315,68 @@
             thumbItem: 8,
             slideMargin: 0,
             enableDrag: false,
+            pause: 3500,
             rtl: isRtl,
             currentPagerPosition: pagerPosition,
             onSliderLoad: function (el) {
                 el.lightGallery({
                     selector: '#content-gallery-items .lslide',
                     share: false,
-                    mode: 'lg-slide-circular',
+                    mode: 'lg-slide-circular'
                 });
             }
         });  
+    }
+
+    if (window.location.pathname.indexOf('/add/') < 0 && window.location.pathname.indexOf('/update/') < 0) {
+        $(document).on('change', '#PortalId', function () {
+            var paths = window.location.pathname.split("/");
+            setCookie('PortalIdDD', $(this).val(), 365, '/' + paths[1] + '/' + paths[2]);
+        });
+    }
+
+    if (window.location.pathname.indexOf('/add/') < 0 && window.location.pathname.indexOf('/update/') < 0) {
+        $(document).on('change', '#Language', function () {
+            var paths = window.location.pathname.split("/");
+            setCookie('LanguageDD', $(this).val(), 365, '/' + paths[1] + '/' + paths[2]);
+        });
+    }
+
+    if (window.location.pathname.indexOf('/add/') < 0 && window.location.pathname.indexOf('/update/') < 0) {
+        $(document).on('change', '#ContentType', function () {
+            var paths = window.location.pathname.split("/");
+            setCookie('ContentTypeDD', $(this).val(), 365, '/' + paths[1] + '/' + paths[2]);
+        });
+    }
+
+    if (window.location.pathname.indexOf('/add/') < 0 && window.location.pathname.indexOf('/update/') < 0) {
+        $(document).on('change', '#LinkType', function () {
+            var paths = window.location.pathname.split("/");
+            setCookie('LinkTypeDD', $(this).val(), 365, '/' + paths[1] + '/' + paths[2]);
+        });
+    }
+
+    var $portalIdDD = $("#PortalId");
+    if ($portalIdDD.length > 0 && window.location.pathname.indexOf('/update/') < 0) {
+        var valPortalIdDD = getCookie('PortalIdDD');
+        $portalIdDD.val(valPortalIdDD ? parseInt(valPortalIdDD) : 1).trigger('change');
+    }
+
+    var $languageDD = $("#Language");
+    if ($languageDD.length > 0 && window.location.pathname.indexOf('/update/') < 0) {
+        var valLanguageDD = getCookie('LanguageDD');
+        $languageDD.val(valLanguageDD ? parseInt(valLanguageDD) : 1).trigger('change');
+    }
+
+    var $contentTypeDD = $("#ContentType");
+    if ($contentTypeDD.length > 0 && window.location.pathname.indexOf('/update/') < 0) {
+        var valContentTypeDD = getCookie('ContentTypeDD');
+        $contentTypeDD.val(valContentTypeDD ? parseInt(valContentTypeDD) : 0).trigger('change');
+    }
+
+    var $linkTypeDD = $("#LinkType");
+    if ($linkTypeDD.length > 0 && window.location.pathname.indexOf('/update/') < 0) {
+        var valLinkTypeDD = getCookie('LinkTypeDD');
+        $linkTypeDD.val(valLinkTypeDD ? parseInt(valLinkTypeDD) : 0).trigger('change');
     }
 });

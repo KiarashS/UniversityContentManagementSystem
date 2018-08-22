@@ -6,7 +6,7 @@
             <div class="card hoverable mt-2 mb-3">
                 <div class="card-header text-white site-gradient1">
                     @*<span class="badge-promo-content"><i class="fas fa-syringe purple-text"></i>&nbsp;@SharedLocalizer["Essential Links"]</span>*@
-                    <i class="fas fa-syringe blue-text"></i>&nbsp;@SharedLocalizer["Essential Links"]
+                    <i class="fas fa-syringe light-green-text"></i>&nbsp;@SharedLocalizer["Essential Links"]
                 </div>
                 <div class="card-body">
 
@@ -15,7 +15,7 @@
                         {
                             <li class="lightslider-link-item" condition-class-mr-1="Model.First() != item">
                                 <a href="@(item.Url ?? "#")" class="nonunderline" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" title="@item.Text">
-                                    <i condition-style-color="@(string.IsNullOrEmpty(item.IconColor) ? "#436CFF" : item.IconColor)" class="@(string.IsNullOrEmpty(item.Icon) ? "fas fa-link" : item.Icon) p-1" style="font-size: 3rem !important;"></i>
+                                    <i condition-style-color="@(string.IsNullOrEmpty(item.IconColor) ? "#fff" : item.IconColor)" class="@(string.IsNullOrEmpty(item.Icon) ? "fas fa-link" : item.Icon) color-text-shadow1 p-1" style="font-size: 3rem !important;"></i>
                                     <div style="color: #4d4d4d; font-size: 0.9rem !important;">@item.Text</div>
                                 </a>
                             </li>

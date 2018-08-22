@@ -16,32 +16,32 @@
                                 <ul id="contents-tabs-above" class="nav nav-tabs" role="tablist">
                                     <li asp-if="Model.IsExistEducation" class="nav-item">
                                         <a class="nav-link" id="education-tab-tabs-above" condition-class-active="Model.IsExistEducation && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" href="#education-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=education" aria-controls="education">
-                                            <i class="fas fa-chalkboard-teacher purple-text"></i> @SharedLocalizer["Education"]
+                                            <i class="fas fa-chalkboard-teacher blue-grey-text"></i> @SharedLocalizer["Education"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistForm" class="nav-item">
                                         <a class="nav-link" id="form-tab-tabs-above" condition-class-active="Model.IsExistForm && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Form)" href="#form-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=form" aria-controls="form">
-                                            <i class="fas fa-paperclip purple-text"></i> @SharedLocalizer["Forms"]
+                                            <i class="fas fa-paperclip blue-grey-text"></i> @SharedLocalizer["Forms"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistEducationalCalendar" class="nav-item">
                                         <a class="nav-link" id="educationalcalendar-tab-tabs-above" condition-class-active="Model.IsExistEducationalCalendar && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.EducationalCalendar)" href="#educationalcalendar-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=educationalcalendar" aria-controls="educationalcalendar">
-                                            <i class="far fa-calendar purple-text"></i> @SharedLocalizer["Educational Calendar"]
+                                            <i class="far fa-calendar blue-grey-text"></i> @SharedLocalizer["Educational Calendar"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistStudentAndCultural" class="nav-item">
                                         <a class="nav-link" id="studentcultural-tab-tabs-above" condition-class-active="Model.IsExistStudentAndCultural && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.StudentAndCultural)" href="#studentcultural-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=studentandcultural" aria-controls="studentcultural">
-                                            <i class="fas fa-graduation-cap purple-text"></i> @SharedLocalizer["Student And Cultural"]
+                                            <i class="fas fa-graduation-cap blue-grey-text"></i> @SharedLocalizer["Student And Cultural"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistPoliticalAndIdeological" class="nav-item">
                                         <a class="nav-link" id="politicalideological-tab-tabs-above" condition-class-active="Model.IsExistPoliticalAndIdeological && Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.PoliticalAndIdeological)" href="#politicalideological-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?t=politicalandideological" aria-controls="politicalideological">
-                                            <i class="far fa-lightbulb purple-text"></i> @SharedLocalizer["Political And Ideological"]
+                                            <i class="far fa-lightbulb blue-grey-text"></i> @SharedLocalizer["Political And Ideological"]
                                         </a>
                                     </li>
                                     <li asp-if="Model.IsExistOtherContents" class="nav-item">
                                         <a class="nav-link" id="othercontents-tab-tabs-above" condition-class-active="Model.IsActiveOtherContents" href="#othercontents-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchcontents/?othercontents=true" aria-controls="othercontents">
-                                            <i class="fas fa-ellipsis-h purple-text"></i> @SharedLocalizer["Other Contents"]
+                                            <i class="fas fa-ellipsis-h blue-grey-text"></i> @SharedLocalizer["Other Contents"]
                                         </a>
                                     </li>
                                 </ul>

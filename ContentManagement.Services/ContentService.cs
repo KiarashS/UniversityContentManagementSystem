@@ -36,6 +36,7 @@ namespace ContentManagement.Services
                     Text = content.Text,
                     RawText = content.RawText,
                     Summary = content.Summary?.Trim(),
+                    Keywords = content.Keywords?.Trim(),
                     Imagename = content.Imagename,
                     IsActive = content.IsActive,
                     IsFavorite = content.IsFavorite,
@@ -55,6 +56,7 @@ namespace ContentManagement.Services
             currentContent.Text = content.Text;
             currentContent.RawText = content.RawText;
             currentContent.Summary = content.Summary?.Trim();
+            currentContent.Keywords = content.Keywords?.Trim();
             currentContent.Imagename = content.Imagename;
             currentContent.IsActive = content.IsActive;
             currentContent.IsFavorite = content.IsFavorite;
@@ -434,6 +436,7 @@ namespace ContentManagement.Services
                 Text = content.Text,
                 RawText = content.RawText,
                 Summary = content.Summary,
+                Keywords = content.Keywords,
                 ContentType = content.ContentType,
                 Imagename = content.Imagename,
                 Language = language,

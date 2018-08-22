@@ -4,6 +4,14 @@
     Layout = "~/Areas/Manage/Views/_Layout.cshtml";
 }
 
+@if (TempData["IsOk"] != null && (bool)TempData["IsOk"] == true)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <div>عملیات با موفقیت انجام شد.</div>
+    </div>
+}
+
 <div class="alert alert-info">
     نام پرتال حتماً می بایست انگلیسی باشد.
 </div>
@@ -148,7 +156,7 @@
                     position: 'top-end',
                     showConfirmButton: false
                 });
-                
+
                 e.clearSelection();
             });
         });

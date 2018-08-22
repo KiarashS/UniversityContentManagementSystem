@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="~/css/rtl.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/manage.min.css" asp-append-version="true" />
 
-    <container asp-if="@(!ViewContext.HttpContext.IsLocal())">
+    @*<container asp-if="@(!ViewContext.HttpContext.IsLocal())">
         <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
         <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
-    </container>
+    </container>*@
 
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
 
@@ -93,14 +93,14 @@
           data-image-link-path="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/"
           data-content-gallery-path="/@ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath/" ></span>
 
-    <container asp-if="@(!ViewContext.HttpContext.IsLocal())">
+    @*<container asp-if="@(!ViewContext.HttpContext.IsLocal())">
         <script>
         LogRocket.identify('@(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value)', {
             name: '@(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value)',
             email: '@(User.Claims.First(c => c.Type == ClaimTypes.Email).Value)'
         });
         </script>
-    </container>
+    </container>*@
 
     <script src="~/js/common.min.js" asp-append-version="true"></script>
     <script src="~/js/manage.min.js" asp-append-version="true"></script>

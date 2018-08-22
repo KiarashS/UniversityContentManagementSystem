@@ -191,6 +191,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 Text = content.Text,
                 RawText = content.RawText,
                 Summary = content.Summary,
+                Keywords = content.Keywords,
                 Imagename = content.Imagename,
                 EnableImage = !string.IsNullOrEmpty(content.Imagename),
                 IsActive = content.IsActive,

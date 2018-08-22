@@ -256,4 +256,10 @@
   <data name="Gallery" xml:space="preserve">
     <value>Gallery</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Follow us on social networks" xml:space="preserve">
+    <value>Follow us on social networks:</value>
+  </data>
 </root>

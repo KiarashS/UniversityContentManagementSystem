@@ -11,10 +11,10 @@
 
         <div id="logo-container" class="col-md-12 col-lg-4 col-xl-5 col-sm-12 col-12 mb-2 mb-md-0">
             <a href="/" class="nounderline white-text header-logo-container">
-                <img src="~/statics/logo.png" alt="@Model.PortalTitle" class="header-logo" />
+                <img src="~/statics/headerlogo.png" alt="@Model.PortalTitle" class="header-logo" />
             </a>
             <div class="d-inline-block">
-                <h1 class="white-text" style="font-size: 0.95rem !important;" condition-class-text-right="@RequestService.IsRtl()" condition-class-text-left="@RequestService.IsLtr()">@Model.PortalTitle</h1>
+                <h1 id="topheader-title" class="white-text shabnam" style="font-size: 0.95rem !important;" condition-class-text-right="@RequestService.IsRtl()" condition-class-text-left="@RequestService.IsLtr()">@Model.PortalTitle</h1>
             </div>
         </div>
 

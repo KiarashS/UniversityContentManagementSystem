@@ -1,6 +1,8 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -123,6 +125,16 @@ namespace ContentManagement.Common.WebToolkit
                 return rawHtml;
 
             return rawHtml.Substring(0, rawHtml.IndexOf(" ", length)) + "...";
+        }
+
+        public static string GetSafeFilename(this string filename)
+        {
+            return string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
+        }
+
+        public static string CleanFileName(this string fileName)
+        {
+            return Path.GetInvalidFileNameChars().Aggregate(fileName, (current, c) => current.Replace(c.ToString(), string.Empty));
         }
 
         //public static string Truncate(this string value, int maxLength)
