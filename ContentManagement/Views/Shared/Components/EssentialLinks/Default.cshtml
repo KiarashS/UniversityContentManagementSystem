@@ -13,9 +13,9 @@
                     <ul id="essential-links" style="min-width: 100% !important;">
                         @foreach (var item in Model)
                         {
-                            <li class="lightslider-link-item" condition-class-mr-1="Model.First() != item">
-                                <a href="@(item.Url ?? "#")" class="nonunderline" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" title="@item.Text">
-                                    <i condition-style-color="@(string.IsNullOrEmpty(item.IconColor) ? "#fff" : item.IconColor)" class="@(string.IsNullOrEmpty(item.Icon) ? "fas fa-link" : item.Icon) color-text-shadow1 p-1" style="font-size: 3rem !important;"></i>
+                            <li class="lightslider-link-item hvr-icon-shrink" condition-class-mr-1="Model.First() != item">
+                                <a href="@(item.Url ?? "#")" class="nonunderline" style="display:inline-block; width: 100%; height: 100%;" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" title="@item.Text">
+                                    <i condition-style-color="@(string.IsNullOrEmpty(item.IconColor) ? "#fff" : item.IconColor)" class="@(string.IsNullOrEmpty(item.Icon) ? "fas fa-link" : item.Icon) color-text-shadow1 p-1 hvr-icon" style="font-size: 3rem !important;"></i>
                                     <div style="color: #4d4d4d; font-size: 0.9rem !important;">@item.Text</div>
                                 </a>
                             </li>

@@ -277,7 +277,7 @@ namespace ContentManagement
 
                 routes.MapRoute(
                     name: "pageRoute",
-                    template: "Page/{slug}",
+                    template: "Page/{slug}/{action}",
                     defaults: new { controller = "Page", action = "Index" }
                 );
 

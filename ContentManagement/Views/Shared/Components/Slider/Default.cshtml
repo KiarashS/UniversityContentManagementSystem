@@ -26,8 +26,8 @@
                                 </a>
                             }
                             <div asp-if="!string.IsNullOrEmpty(item.Title) || !string.IsNullOrEmpty(item.SubTitle)" class="carousel-caption d-none d-md-block">
-                                <h5 asp-if="!string.IsNullOrEmpty(item.Title)">@item.Title</h5>
-                                <p asp-if="!string.IsNullOrEmpty(item.SubTitle)">@item.SubTitle</p>
+                                <h5 asp-if="!string.IsNullOrEmpty(item.Title)" style="font-size: 1.1rem; font-weight: 400;">@item.Title</h5>
+                                <p asp-if="!string.IsNullOrEmpty(item.SubTitle)" style="font-size: 0.9rem;">@item.SubTitle</p>
                                 <p asp-if="string.IsNullOrEmpty(item.SubTitle)">&nbsp;</p>
                             </div>
                         </div>

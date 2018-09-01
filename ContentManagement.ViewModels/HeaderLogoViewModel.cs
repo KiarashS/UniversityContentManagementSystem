@@ -8,5 +8,6 @@ namespace ContentManagement.ViewModels
     {
         public string PortalTitle { get; set; }
         public string TodayDate { get; set; }
+        public string TodayIslamicDate { get; set; }
     }
 }

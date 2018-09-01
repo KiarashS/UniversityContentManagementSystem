@@ -10,8 +10,8 @@
                 @*<a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)">
                     <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" class="img-fluid" alt="@item.Title" />
                 </a>*@
-                <figure class="hover1">
-                    <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" class="img-fluid" alt="@item.Title">
+                <figure class="hover1" title="@(!string.IsNullOrEmpty(item.Description) ? item.Description : item.Title)">
+                    <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" class="img-fluid" style="display: inline-block; width: 100%; height: 100%;" alt="@item.Title">
                     <figcaption>
                         <h4>@item.Title</h4>
                         <p>@item.Description</p>

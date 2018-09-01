@@ -8,9 +8,9 @@ namespace ContentManagement.Areas.Manage.ViewComponents
 {
     public class DashboardSideNavbar : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
+        public Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+            return Task.FromResult<IViewComponentResult>(View());
         }
     }
 }

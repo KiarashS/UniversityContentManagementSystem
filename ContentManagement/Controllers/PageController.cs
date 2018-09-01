@@ -8,7 +8,9 @@ using ContentManagement.Services.Contracts;
 using ContentManagement.Services.Seo;
 using ContentManagement.ViewModels.Settings;
 using DNTBreadCrumb.Core;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
@@ -21,8 +23,9 @@ namespace ContentManagement.Controllers
         private readonly IRequestService _requestService;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly SeoService _seoService;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public PageController(IPageService pageService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService)
+        public PageController(IPageService pageService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService, IHostingEnvironment hostingEnvironment)
         {
             _pageService = pageService;
             _pageService.CheckArgumentIsNull(nameof(pageService));
@@ -38,6 +41,9 @@ namespace ContentManagement.Controllers
 
             _seoService = seoService;
             _seoService.CheckArgumentIsNull(nameof(seoService));
+
+            _hostingEnvironment = hostingEnvironment;
+            _hostingEnvironment.CheckArgumentIsNull(nameof(hostingEnvironment));
         }
 
 
@@ -69,6 +75,15 @@ namespace ContentManagement.Controllers
             });
 
             return View(page);
+        }
+
+        public virtual IActionResult GetImage(string name)
+        {
+            var imageName = System.IO.Path.GetFileName(name);
+            var imagePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, Infrastructure.Constants.PagesRootPath, imageName);
+            new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
+
+            return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
         }
     }
 }

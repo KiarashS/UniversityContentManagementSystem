@@ -37,7 +37,7 @@ namespace ContentManagement.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("index", "home", "manage");
+                return RedirectToAction("index", "home");
             }
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -103,7 +103,7 @@ namespace ContentManagement.Controllers
                 return Redirect(url: returnUrl);
             }
 
-            return RedirectToAction("index", "home", "manage");
+            return RedirectToAction("index", "home");
         }
 
         private async Task<ClaimsPrincipal> createCookieClaimsAsync(User user)

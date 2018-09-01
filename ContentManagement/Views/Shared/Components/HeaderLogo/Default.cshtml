@@ -9,7 +9,7 @@
     @*<div class="container">*@
     <div class="row align-items-center pb-1 pt-1">
 
-        <div id="logo-container" class="col-md-12 col-lg-4 col-xl-5 col-sm-12 col-12 mb-2 mb-md-0">
+        <div id="logo-container" class="col-md-12 col-lg-4 col-xl-5 col-sm-12 col-12 mb-2 mb-md-0 text-center text-md-left">
             <a href="/" class="nounderline white-text header-logo-container">
                 <img src="~/statics/headerlogo.png" alt="@Model.PortalTitle" class="header-logo" />
             </a>
@@ -60,8 +60,9 @@
             </div>*@
 
         <div class="col-md-5 col-lg-4 col-xl-3 col-sm-12 col-12" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
-            <span style="font-size:0.75rem;" class="color-text1">@Model.TodayDate</span>&nbsp;
-            <a href="/" class="btn btn-light btn-circle nounderline" title="@SharedLocalizer["Home"]" data-tippy><i class="fas fa-home"></i></a>
+            <span asp-if="@RequestService.CurrentLanguage().Language == Language.EN" style="font-size:0.75rem;" class="color-text1">@Model.TodayDate</span>
+            <span asp-if="@RequestService.CurrentLanguage().Language == Language.FA" style="font-size:0.75rem;" class="color-text1" title="@Model.TodayIslamicDate" data-tippy-placement="right" data-tippy>@Model.TodayDate</span>
+            &nbsp;<a href="/" class="btn btn-light btn-circle nounderline" title="@SharedLocalizer["Home"]" data-tippy><i class="fas fa-home"></i></a>
             <a asp-if="!string.IsNullOrEmpty(webMailAddress)" href="@webMailAddress" target="_blank" class="btn btn-light btn-circle nounderline" title="@SharedLocalizer["Web Mail"]" data-tippy><i class="fas fa-envelope"></i></a>
             <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" class="btn btn-light btn-circle nounderline" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-size: 0.9rem;">FA</a>
             <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" class="btn btn-light btn-circle nounderline" href="/language/en/" title="Switch to English" data-tippy style="font-size: 0.9rem;">EN</a>

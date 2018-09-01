@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace ContentManagement.Common.PersianToolkit
 {
@@ -25,7 +26,7 @@ namespace ContentManagement.Common.PersianToolkit
                 return null;
             }
 
-            var fallbackBinder = new SimpleTypeModelBinder(context.Metadata.ModelType);
+            var fallbackBinder = new SimpleTypeModelBinder(context.Metadata.ModelType, (ILoggerFactory)context.Services.GetService(typeof(ILoggerFactory)));
             if (context.Metadata.ModelType == typeof(string))
             {
                 return new CustomStringModelBinder(fallbackBinder);

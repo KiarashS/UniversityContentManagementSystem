@@ -38,7 +38,7 @@
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.5.0" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.7.0" />
     <PackageReference Include="DNTCaptcha.Core" Version="1.5.0" />
-    <PackageReference Include="DNTPersianUtils.Core" Version="2.7.0" />
+    <PackageReference Include="DNTPersianUtils.Core" Version="2.9.0" />
     <PackageReference Include="CacheManager.Core" Version="1.1.2" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.1.2" />

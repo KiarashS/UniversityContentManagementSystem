@@ -83,9 +83,9 @@
         var currentLanguage = '@RequestService.CurrentLanguage().Language',
             currentDirection = '@RequestService.CurrentLanguage().Direction',
             currentSubDomain = '@RequestService.CurrentSubDomain()',
-            isRtl = @RequestService.IsRtl().ToString().ToLowerInvariant(),
-            isLtr = @RequestService.IsLtr().ToString().ToLowerInvariant(),
-            isSubPortal = @RequestService.IsSubPortal().ToString().ToLowerInvariant();
+            isRtl = '@RequestService.IsRtl().ToString().ToLowerInvariant()' === 'true',
+            isLtr = '@RequestService.IsLtr().ToString().ToLowerInvariant()' === 'true',
+            isSubPortal = '@RequestService.IsSubPortal().ToString().ToLowerInvariant()' === 'true';
         </script>
 
         <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->

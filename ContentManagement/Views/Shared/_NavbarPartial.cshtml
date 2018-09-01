@@ -8,7 +8,7 @@
     }
 
     @:<li>
-        <a condition-class-has-arrow="@item.Childrens.Count > 0" href="@(item.Childrens.Count == 0 ? (string.IsNullOrEmpty(item.Url) ? "#" : item.Url) : "#")" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" aria-expanded="false"><span asp-if="@(!string.IsNullOrEmpty(item.Icon))" class="@item.Icon"></span> @item.Text</a>
+        <a condition-class-has-arrow="@item.Childrens.Count > 0" href="@(item.Childrens.Count == 0 ? (string.IsNullOrEmpty(item.Url) ? "#" : item.Url) : "#")" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" aria-expanded="false"><span asp-if="@(!string.IsNullOrEmpty(item.Icon))" class="@item.Icon"></span> @item.Text&nbsp;&nbsp;</a>
          @if (item.Childrens.Count > 0)
          {
             <ul aria-expanded="false" class="collapse">
