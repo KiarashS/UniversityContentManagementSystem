@@ -35,8 +35,8 @@ namespace ContentManagement.Entities
         External           = 6,
         [LinkTypeTextInAdmin("لینک هدر(بخش بالایی)")]
         Header             = 7,
-        [LinkTypeTextInAdmin("لینک فوتر(بخش پایینی)")]
-        Footer             = 8
+        //[LinkTypeTextInAdmin("لینک فوتر(بخش پایینی)")]
+        //Footer             = 8
     }
 
     public enum ContentType
@@ -152,5 +152,15 @@ namespace ContentManagement.Entities
         TopOfContent = 1,
         [ContentGalleryPossitionTitleInAdminAttribute("در پایین متن مطلب")]
         BottomOfContent = 2
+    }
+
+    public enum ActionLevel : byte
+    {
+        [Description("پایین")]
+        Low = 1,
+        [Description("متوسط")]
+        Medium = 2,
+        [Description("بالا")]
+        High = 3
     }
 }

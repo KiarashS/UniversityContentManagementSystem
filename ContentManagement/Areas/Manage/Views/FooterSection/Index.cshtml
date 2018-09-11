@@ -1,12 +1,10 @@
-﻿@using System.Collections.Generic;
-@{
-    ViewData["Title"] = "مدیریت گالری";
+﻿@{
+    ViewData["Title"] = "مدیریت بخش بندی لینک های فوتر";
     Layout = "~/Areas/Manage/Views/_Layout.cshtml";
-    var contentId = ViewContext.HttpContext.Request.Query["cid"];
 }
 
 <div class="m-3">
-    <a class="btn btn-primary" role="button" href="/manage/contentgallery/add/?cid=@contentId">ایجاد گالری جدید</a>
+    <a class="btn btn-primary" role="button" href="/manage/footersection/add/">ایجاد بخش جدید</a>
 </div>
 
 @if (TempData["IsOk"] != null && (bool)TempData["IsOk"] == true)
@@ -18,28 +16,25 @@
 }
 
 <div class="alert alert-info" role="alert">
-    توجه داشته باشید که سایز تصویر گالری می بایست @ContentManagement.Infrastructure.Constants.ContentGalleryWidthSize در @ContentManagement.Infrastructure.Constants.ContentGalleryHeightSize پیکسل باشد.
+    توجه داشته باشید که به ازای هر پرتال و هر زبان، تنها @SiteSettings.Value.PagesSize.FooterSectionsSize بخش که دارای اولویت بالاتر و یا جدیدتر می باشند، نمایش داده می شود.
 </div>
 
 <div class="card">
     <div class="card-header">
-        گالری
+        مدیریت بخش بندی لینک های فوتر
     </div>
     <div class="card-body">
-
-        <div class="row mb-4">
-            <div class="col-2">
-                <label for="galleryposition">موقعیت قرارگیری گالری:</label>
-                <select id="galleryposition" name="galleryposition" class="form-control" asp-items="@(IList<SelectListItem>)ViewBag.GalleryPositions"></select>
+        <form>
+            <div class="form-row">
+                <div class="col-md-12">@await Component.InvokeAsync(nameof(PortalsAndLanguages))</div>
             </div>
-        </div>
-        
-        <table class="table table-bordered table-sm table-hover" id="contentGalleriesTable" style="width: 100%;">
+        </form>
+        <table class="table table-bordered table-sm table-hover" id="sectionsTable" style="width: 100%;">
             <thead class="thead-default">
                 <tr>
-                    <th>تصویر</th>
-                    <th>اولویت</th>
-                    <th>توضیحات</th>
+                    <th>عنوان</th>
+                    <th>فعال است؟</th>
+                    <th>اولویت قرارگیری</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -52,37 +47,58 @@
     <script>
         var table;
         $(document).ready(function () {
-            table = $('#contentGalleriesTable').DataTable({
+            table = $('#sectionsTable').DataTable({
                 language: {
                     "url": "/statics/Datatable.Persian.json"
                 },
                 ordering: false,
-                paging: false,
-                searching: false,
+                paging: true,
+                searching: true,
                 processing: true,
                 serverSide: true,
                 stateSave: true,
                 stateDuration: 0,
                 searchDelay: null,
                 ajax: {
-                    url: '/manage/contentgallery/list/?cid=@contentId',
-                    type: "POST"
+                    url: '/manage/footersection/list/',
+                    dataSrc: 'data',
+                    type: "POST",
+                    data: function (d) {
+                        d.portalId = $('#PortalId').val();
+                        d.language = $('#Language').val();
+                    }
                 },
                 columnDefs: [
                     {
-                        "width": "10%",
+                        "width": "50%",
                         "targets": 0,
                         "data": null,
                         "className": "text-center align-middle",
                         "render": function (data, type, row, meta) {
-                            var contentGalleryPath = $('#js-global-info').data('contentGalleryPath');
-                            return '<a title="مشاهده تصویر" target="_blank" href="' + contentGalleryPath + data.imagename + '"><img src="' + contentGalleryPath + data.imagename + '?width=200&height=90&rmode=stretch" /></a>';
+                            if (!data.url) {
+                                return '<span>' + data.title + '</span>';
+                            }
+                            else {
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a>';
+                            }
                         }
                     },
                     {
                         "width": "15%",
                         "targets": 1,
                         "className": "align-middle",
+                        "data": "isEnable",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>بله</span>';
+                            }
+                            return '<span>خیر</span>';
+                        }
+                    },
+                    {
+                        "width": "15%",
+                        "targets": 2,
+                        "className": "text-center align-middle",
                         "data": "priority",
                         "render": function (data, type, row, meta) {
                             if (data) {
@@ -92,29 +108,17 @@
                         }
                     },
                     {
-                        "width": "70%",
-                        "targets": 2,
-                        "className": "align-middle",
-                        "data": "caption",
-                        "render": function (data, type, row, meta) {
-                            if (data) {
-                                return '<span>' + data + '</span>';
-                            }
-                            return '';
-                        }
-                    },
-                    {
-                        "width": "5%",
+                        "width": "20%",
                         "targets": 3,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {
-                            return '<a href="/manage/contentgallery/update/' + data + '/?cid=@contentId" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-contentgallery" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                            return '<a href="/manage/footersection/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="/manage/footerlink/?sid=' + data + '" target="_blank" data-role="section-links" title="مدیریت لینک های بخش" data-id="' + data + '"><i class="fas fa-link fa-lg"></i></a>&nbsp;|&nbsp;<a href="#" data-role="delete-section" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
                         }
                     }]
             });
 
-            $('#contentGalleriesTable tbody').on('click', 'a[data-role="delete-contentgallery"]', function () {
+            $('#sectionsTable tbody').on('click', 'a[data-role="delete-section"]', function () {
                 var row = table.row($(this).parents('tr'));
                 var data = row.data();
 
@@ -131,7 +135,7 @@
                     focusConfirm: false
                 }).then((result) => {
                     if (result.value) {
-                        axios.post('/manage/contentgallery/delete/' + data.id + '/?cid=@contentId')
+                        axios.post('/manage/footersection/delete/' + data.id + '/')
                             .then(function (response) {
                                 row.remove().draw();
                                 swal({
@@ -139,7 +143,7 @@
                                     text: response.data,
                                     type: 'success',
                                     confirmButtonText: 'بستن',
-                                })
+                                });
                             })
                             .catch(function (error) {
                                 swal({
@@ -147,31 +151,14 @@
                                     text: 'عملیات با خطا مواجه گشت.',
                                     type: 'error',
                                     confirmButtonText: 'بستن',
-                                })
+                                });
                             });
                     }
                 })
             });
 
-            $('#galleryposition').on('change', function () {
-                var position = $(this).val();
-                axios.post('/manage/contentgallery/updateposition/?cid=@(contentId)&position=' + position)
-                    .then(function (response) {
-                        swal({
-                            title: 'انجام شد!',
-                            text: response.data,
-                            type: 'success',
-                            confirmButtonText: 'بستن',
-                        })
-                    })
-                    .catch(function (error) {
-                        swal({
-                            title: 'خطا!',
-                            text: 'عملیات با خطا مواجه گشت.',
-                            type: 'error',
-                            confirmButtonText: 'بستن',
-                        })
-                    });
+            $('#PortalId, #Language').on('change', function () {
+                table.ajax.reload(null, false); // user paging is not reset on reload
             });
         });
     </script>

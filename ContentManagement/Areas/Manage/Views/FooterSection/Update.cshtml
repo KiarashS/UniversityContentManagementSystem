@@ -1,0 +1,58 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.FooterSectionViewModel
+
+@{
+    ViewData["Title"] = "ویرایش بخش در فوتر";
+}
+
+<h3>ویرایش بخش در فوتر</h3>
+
+<div class="container">
+    <form method="post" autocomplete="off" class="needs-validation" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId, language = Model.Language })
+
+        <div class="form-group row">
+            <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان بخش">
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Url" class="col-sm-2 form-control-label">آدرس لینک(اختیاری)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Url" dir="ltr" placeholder="آدرس لینک">
+                <span class="text-danger" asp-validation-for="Url"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsEnable" class="col-sm-2 form-control-label">فعال باشد؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsEnable" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsEnable"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Priority" class="col-sm-2 form-control-label">اولویت</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" asp-for="Priority" placeholder="اولویت قرارگیری">
+                <span class="text-danger" asp-validation-for="Priority"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/footersection/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+    <script defer>
+        $(document).ready(function () {
+        });
+    </script>
+}

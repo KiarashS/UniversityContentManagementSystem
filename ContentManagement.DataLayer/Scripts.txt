@@ -1,0 +1,6 @@
+﻿--SQL Server Job to Delete ActivityLogs Where Older Than 93 Days Ago (Must be Run at Every Midnight)
+
+Use Portal;
+Go
+
+Delete From ActivityLog Where ActivityLog.ActionDate < DATEADD(day, -93, GETUTCDATE())

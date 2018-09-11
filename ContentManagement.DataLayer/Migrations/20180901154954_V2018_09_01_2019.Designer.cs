@@ -4,49 +4,22 @@ using ContentManagement.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180901154954_V2018_09_01_2019")]
+    partial class V2018_09_01_2019
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ContentManagement.Entities.ActivityLog", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ActionBy");
-
-                    b.Property<DateTimeOffset>("ActionDate");
-
-                    b.Property<byte>("ActionLevel");
-
-                    b.Property<string>("ActionType");
-
-                    b.Property<string>("Language");
-
-                    b.Property<string>("Message");
-
-                    b.Property<string>("Portal");
-
-                    b.Property<string>("SourceAddress");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ActivityLog");
-                });
 
             modelBuilder.Entity("ContentManagement.Entities.AppDataProtectionKey", b =>
                 {
@@ -142,6 +115,12 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<long>("FooterSectionId");
 
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("IconColor")
+                        .HasMaxLength(10);
+
                     b.Property<bool>("IsBlankUrlTarget");
 
                     b.Property<int?>("Priority");
@@ -175,8 +154,6 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired();
-
-                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 

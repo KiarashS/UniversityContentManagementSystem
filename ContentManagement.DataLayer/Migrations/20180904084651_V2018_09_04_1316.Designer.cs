@@ -4,14 +4,16 @@ using ContentManagement.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180904084651_V2018_09_04_1316")]
+    partial class V2018_09_04_1316
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,6 +143,12 @@ namespace ContentManagement.DataLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long>("FooterSectionId");
+
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("IconColor")
+                        .HasMaxLength(10);
 
                     b.Property<bool>("IsBlankUrlTarget");
 

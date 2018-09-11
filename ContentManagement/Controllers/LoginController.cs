@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using ContentManagement.Entities;
 using System;
+using ContentManagement.ViewModels.Areas.Manage;
+using ContentManagement.Services;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Linq;
 
 namespace ContentManagement.Controllers
 {
@@ -16,11 +20,15 @@ namespace ContentManagement.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly IRolesService _rolesService;
+        private readonly IActivityLogService _logs;
+        private readonly IRequestService _requestService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
 
         public LoginController(
             IUsersService usersService,
             IRolesService rolesService,
+            IActivityLogService logs,
+            IRequestService requestService,
             IOptionsSnapshot<SiteSettings> siteSettings)
         {
             _usersService = usersService;
@@ -29,12 +37,29 @@ namespace ContentManagement.Controllers
             _rolesService = rolesService;
             _rolesService.CheckArgumentIsNull(nameof(rolesService));
 
+            _logs = logs;
+            _logs.CheckArgumentIsNull(nameof(logs));
+
+            _requestService = requestService;
+            _requestService.CheckArgumentIsNull(nameof(requestService));
+
             _siteSettings = siteSettings;
             _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
         }
 
-        public virtual IActionResult Index(string returnUrl = null)
+        public async virtual Task<IActionResult> Index(string returnUrl = null)
         {
+            await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+            {
+                ActionBy = User.Identity.IsAuthenticated ? User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value : "--کاربر مهمان",
+                ActionType = "login",
+                Portal = _requestService.CurrentPortal(),
+                Language = _requestService.CurrentLanguage().Language.ToString(),
+                Message = $"ورود به صفحه لاگین",
+                SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                Url = Request.GetDisplayUrl()
+            });
+
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("index", "home");
@@ -52,19 +77,48 @@ namespace ContentManagement.Controllers
             if (loginUser == null)
             {
                 ModelState.AddModelError("", "لطفاً پست الکترونیک و کلمه عبور را وارد نمائید.");
+                await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+                {
+                    ActionBy = "--کاربر مهمان",
+                    ActionType = "login",
+                    Portal = _requestService.CurrentPortal(),
+                    Language = _requestService.CurrentLanguage().Language.ToString(),
+                    Message = $"وارد نکردن ایمیل و رمز عبور",
+                    SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Url = Request.GetDisplayUrl()
+                });
                 return View(loginUser);
             }
 
             if (string.IsNullOrEmpty(loginUser.Email))
             {
                 ModelState.AddModelError(loginUser.Email, "لطفاً پست الکترونیک را وارد نمائید.");
+                await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+                {
+                    ActionBy = "--کاربر مهمان",
+                    ActionType = "login",
+                    Portal = _requestService.CurrentPortal(),
+                    Language = _requestService.CurrentLanguage().Language.ToString(),
+                    Message = $"وارد نکردن ایمیل",
+                    SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Url = Request.GetDisplayUrl()
+                });
                 return View(loginUser);
             }
-
 
             if (string.IsNullOrEmpty(loginUser.Password))
             {
                 ModelState.AddModelError(loginUser.Password, "لطفاً کلمه عبور را وارد نمائید.");
+                await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+                {
+                    ActionBy = "--کاربر مهمان",
+                    ActionType = "login",
+                    Portal = _requestService.CurrentPortal(),
+                    Language = _requestService.CurrentLanguage().Language.ToString(),
+                    Message = $"وارد نکردن رمز عبور، ایمیل وارد شده: {loginUser.Email}",
+                    SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Url = Request.GetDisplayUrl()
+                });
                 return View(loginUser);
             }
 
@@ -73,12 +127,32 @@ namespace ContentManagement.Controllers
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 ModelState.AddModelError("", "چنین کاربری موجود نیست و یا غیرفعال می باشد.");
+                await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+                {
+                    ActionBy = "--کاربر مهمان",
+                    ActionType = "login",
+                    Portal = _requestService.CurrentPortal(),
+                    Language = _requestService.CurrentLanguage().Language.ToString(),
+                    Message = $"چنین کاربری موجود نیست و یا غیرفعال می باشد، ایمیل وارد شده: {loginUser.Email}",
+                    SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Url = Request.GetDisplayUrl()
+                });
                 return View(loginUser);
             }
 
             if(!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "پست الکترونیک و یا کلمه عبور اشتباه می باشند.");
+                await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+                {
+                    ActionBy = "--کاربر مهمان",
+                    ActionType = "login",
+                    Portal = _requestService.CurrentPortal(),
+                    Language = _requestService.CurrentLanguage().Language.ToString(),
+                    Message = $"پست الکترونیک و یا کلمه عبور اشتباه می باشند، ایمیل وارد شده: {loginUser.Email}",
+                    SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Url = Request.GetDisplayUrl()
+                });
                 return View(loginUser);
             }
 
@@ -98,7 +172,19 @@ namespace ContentManagement.Controllers
             await _usersService.UpdateUserLastActivityDateAsync(user.Id).ConfigureAwait(false);
             await _usersService.UpdateUserIpAsync(user.Id, userIpAddress.ToString());
 
-            if(Url.IsLocalUrl(returnUrl))
+            await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+            {
+                ActionBy = "--کاربر مهمان",
+                ActionType = "login",
+                Portal = _requestService.CurrentPortal(),
+                Language = _requestService.CurrentLanguage().Language.ToString(),
+                Message = $"ورود موفقیت آمیز. ایمیل: {loginUser.Email}",
+                SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                ActionLevel = ActionLevel.High,
+                Url = Request.GetDisplayUrl()
+            });
+
+            if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(url: returnUrl);
             }

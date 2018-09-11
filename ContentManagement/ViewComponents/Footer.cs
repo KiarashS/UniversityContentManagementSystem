@@ -10,14 +10,14 @@ namespace ContentManagement.ViewComponents
 {
     public class Footer : ViewComponent
     {
-        private readonly ILinkService _linkService;
+        private readonly IFooterSectionService _sections;
         private readonly IRequestService _requestService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
 
-        public Footer(ILinkService linkService, IRequestService requestService, IOptionsSnapshot<SiteSettings> siteSettings)
+        public Footer(IFooterSectionService sections, IRequestService requestService, IOptionsSnapshot<SiteSettings> siteSettings)
         {
-            _linkService = linkService;
-            _linkService.CheckArgumentIsNull(nameof(linkService));
+            _sections = sections;
+            _sections.CheckArgumentIsNull(nameof(sections));
 
             _requestService = requestService;
             _requestService.CheckArgumentIsNull(nameof(requestService));
@@ -28,8 +28,12 @@ namespace ContentManagement.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            //var footerLinksSize = _siteSettings.Value.PagesSize.FooterLinksSize;
+            //var vm = await _linkService.GetLinksAsync(_requestService.PortalKey(), _requestService.CurrentLanguage().Language, Entities.LinkType.Footer, footerLinksSize);
+
+            var footerSectionsSize = _siteSettings.Value.PagesSize.FooterSectionsSize;
             var footerLinksSize = _siteSettings.Value.PagesSize.FooterLinksSize;
-            var vm = await _linkService.GetLinksAsync(_requestService.PortalKey(), _requestService.CurrentLanguage().Language, Entities.LinkType.Footer, footerLinksSize);
+            var vm = await _sections.GetSectionAndLinksAsync(_requestService.PortalKey(), _requestService.CurrentLanguage().Language, footerSectionsSize, footerLinksSize);
 
             return View(vm);
         }

@@ -31,7 +31,7 @@
     "jquery": "^3.3.1",
     "jquery-ajax-unobtrusive": "^3.2.4",
     "jquery-typeahead": "^2.10.6",
-    "jquery-validation": "^1.17.0",
+    "jquery-validation": "^1.18.0",
     "jquery-validation-unobtrusive": "^3.2.10",
     "jquery.easing": "^1.4.1",
     "lightgallery": "^1.6.11",
@@ -44,8 +44,8 @@
     "semantic-ui-sidebar": "^2.3.1",
     "shabnam-font": "^3.0.0",
     "startbootstrap-sb-admin": "^4.0.0",
-    "stickybits": "^3.5.3",
-    "sweetalert2": "^7.26.12",
+    "stickybits": "^3.5.4",
+    "sweetalert2": "^7.26.28",
     "vazir-font": "^19.0.0"
   }
 }

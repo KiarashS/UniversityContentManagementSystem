@@ -7,6 +7,7 @@ namespace ContentManagement.ViewModels.Settings
     public class PagesSize
     {
         public int HeaderLinksSize { get; set; }
+        public int FooterSectionsSize { get; set; }
         public int FooterLinksSize { get; set; }
         public int SliderSize { get; set; }
         public int EssentialLinksSize { get; set; }

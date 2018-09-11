@@ -4,14 +4,16 @@ using ContentManagement.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180902080631_V2018_09_02_1236")]
+    partial class V2018_09_02_1236
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,6 +144,12 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<long>("FooterSectionId");
 
+                    b.Property<string>("Icon")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("IconColor")
+                        .HasMaxLength(10);
+
                     b.Property<bool>("IsBlankUrlTarget");
 
                     b.Property<int?>("Priority");
@@ -175,8 +183,6 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired();
-
-                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 
