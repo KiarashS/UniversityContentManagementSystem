@@ -1,6 +1,8 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
-@using System.Security.Claims
+﻿@using System.Security.Claims
 @using DNTCommon.Web.Core
+
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
+@inject Rin.Mvc.View.RinHelperService RinHelper
 
 <!DOCTYPE html>
 <html lang="@RequestService.CurrentLanguage().Language.ToString().ToLowerInvariant()">
@@ -16,11 +18,15 @@
     <link rel="stylesheet" href="~/css/manage.min.css" asp-append-version="true" />
 
     @*<container asp-if="@(!ViewContext.HttpContext.IsLocal())">
-        <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
-        <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
-    </container>*@
+            <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
+            <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
+        </container>*@
 
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
+
+    <environment include="Development">
+        @RinHelper.RenderInViewInspector()
+    </environment>
 
     <title>@ViewData["Title"]</title>
     <noscript>
@@ -91,16 +97,16 @@
           data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"
           data-content-image-path="/@ContentManagement.Infrastructure.Constants.ContentsRootPath/"
           data-image-link-path="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/"
-          data-content-gallery-path="/@ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath/" ></span>
+          data-content-gallery-path="/@ContentManagement.Infrastructure.Constants.ContentGalleriesRootPath/"></span>
 
     @*<container asp-if="@(!ViewContext.HttpContext.IsLocal())">
-        <script>
-        LogRocket.identify('@(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value)', {
-            name: '@(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value)',
-            email: '@(User.Claims.First(c => c.Type == ClaimTypes.Email).Value)'
-        });
-        </script>
-    </container>*@
+            <script>
+            LogRocket.identify('@(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value)', {
+                name: '@(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value)',
+                email: '@(User.Claims.First(c => c.Type == ClaimTypes.Email).Value)'
+            });
+            </script>
+        </container>*@
 
     <script src="~/js/common.min.js" asp-append-version="true"></script>
     <script src="~/js/manage.min.js" asp-append-version="true"></script>

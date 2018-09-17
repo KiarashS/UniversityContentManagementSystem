@@ -271,6 +271,11 @@
                     }
                 },
                 encoded: false,
+                pasteCleanup: {
+                    custom: function (html) {
+                        return html.replace(/(<([^>]+)>)/ig, "");
+                    }
+                },
                 resizable: {
                     content: true
                 },

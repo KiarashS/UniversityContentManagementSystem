@@ -30,6 +30,8 @@
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
     <PackageReference Include="OwaspHeaders.Core" Version="3.3.2" />
+    <PackageReference Include="Rin" Version="1.0.1" />
+    <PackageReference Include="Rin.Mvc" Version="1.0.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-dev001258" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-dev001258" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.0-dev000087" />

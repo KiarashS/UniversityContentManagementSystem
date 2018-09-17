@@ -2,27 +2,31 @@
 @model IList<ContentManagement.ViewModels.FooterSectionViewModel>
 
 @{
-    int colLgNumber, colMdNumber;
+    int colLgCount, colMdCount;
     if (Model.Count == 4)
     {
-        colLgNumber = 3;
-        colMdNumber = 6;
+        colLgCount = 3;
+        colMdCount = 6;
     }
     else if (Model.Count == 3)
     {
-        colLgNumber = 4;
-        colMdNumber = 6;
+        colLgCount = 4;
+        colMdCount = 6;
     }
     else if (Model.Count == 2)
     {
-        colLgNumber = 6;
-        colMdNumber = 6;
+        colLgCount = 6;
+        colMdCount = 6;
     }
     else
     {
-        colLgNumber = 12;
-        colMdNumber = 12;
+        colLgCount = 12;
+        colMdCount = 12;
     }
+
+
+    var lineColors = new Dictionary<int, string> { { 1, "#8b00af" }, { 2, "#d40062" }, { 3, "#ff0613" }, { 4, "#ffc300" } };
+    var colNumber = 1;
 }
 
 <footer class="fdb-block footer-large fdb-bg-dark mt-3">
@@ -31,7 +35,10 @@
             <div class="row" style="font-size: 0.9rem !important;">
                 @foreach (var sec in Model)
                 {
-                    <div class="col-12 col-sm-12 col-md-@colMdNumber col-lg-@colLgNumber">
+                    <div class="col-12 col-sm-12 col-md-@colMdCount col-lg-@colLgCount">
+                        <div class="row footer-line-color">
+                            <div class="col" style="height: 0.2em; background: @lineColors[colNumber++];"></div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 @if (string.IsNullOrEmpty(sec.Url))

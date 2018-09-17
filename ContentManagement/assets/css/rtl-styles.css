@@ -619,3 +619,7 @@ figure.hover1 {
         transition-delay: 0s;
     }
 
+.footer-line-color {
+    padding-left: 2rem;
+    padding-right: 1.75rem;
+}

@@ -1,7 +1,9 @@
 ﻿@using ContentManagement.ViewComponents
 @using Microsoft.AspNetCore.Http.Extensions
 @using DNTCommon.Web.Core
+
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
+@inject Rin.Mvc.View.RinHelperService RinHelper
 
 <!--
     By: Kiarash Soleimanzadeh
@@ -28,10 +30,14 @@
 
     @*<link asp-if="RequestService.IsLtr()" rel="stylesheet" href="~/css/portal.ltr.min.css" asp-append-version="true" />*@
     @*<container asp-if="@(!ViewContext.HttpContext.IsLocal())">
-        <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
-        <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
-    </container>*@
+            <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
+            <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
+        </container>*@
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
+
+    <environment include="Development">
+        @RinHelper.RenderInViewInspector()
+    </environment>
 
     <seo-link-canonical base="@($"//{Context.Request.Host.Value}/")" value="@WebUtility.UrlDecode(Context.Request.GetDisplayUrl())" />
     <seo-title></seo-title>

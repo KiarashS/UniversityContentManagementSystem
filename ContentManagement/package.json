@@ -44,8 +44,8 @@
     "semantic-ui-sidebar": "^2.3.1",
     "shabnam-font": "^3.0.0",
     "startbootstrap-sb-admin": "^4.0.0",
-    "stickybits": "^3.5.4",
-    "sweetalert2": "^7.26.28",
+    "stickybits": "^3.5.5",
+    "sweetalert2": "^7.26.29",
     "vazir-font": "^19.0.0"
   }
 }

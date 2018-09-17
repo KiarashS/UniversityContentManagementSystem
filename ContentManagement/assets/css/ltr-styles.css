@@ -528,3 +528,8 @@ figure.hover1 {
         -webkit-transition-delay: 0s;
         transition-delay: 0s;
     }
+
+.footer-line-color {
+    padding-right: 2rem;
+    padding-left: 1.75rem;
+}

@@ -46,6 +46,10 @@ namespace ContentManagement
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging(configure =>
+                {
+                    configure.UseRinLogger();
+                })
                 .UseStartup<Startup>()
                 .UseKestrel(opt => {
                     opt.AddServerHeader = false;
@@ -139,7 +143,10 @@ namespace ContentManagement
             })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization()
+            .AddRinMvcSupport()
             .SetCompatibilityVersion(CompatibilityVersion.Latest);
+
+            services.AddRin();
 
             services.AddWebMarkupMin(options =>
             {
@@ -192,8 +199,11 @@ namespace ContentManagement
 
             if (env.IsDevelopment())
             {
+                app.UseRin();
+                app.UseRinMvcSupport();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseRinDiagnosticsHandler();
                 //app.UseBrowserLink();
             }
             else
