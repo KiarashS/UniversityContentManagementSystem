@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "لاگ فعالیت ها";
+    Layout = "~/Areas/Manage/Views/_Layout.cshtml";
+}
+
+<div class="alert alert-info" role="alert">
+    لاگ هایی که زمان رخداد آن ها در 3 ماه گذشته نیست، به صورت اتوماتیک حذف می شوند. توجه داشته باشید که تنها لاگ های مربوط به 3 ماه گذشته در سیستم نگهداری می شوند.
+</div>
+
+<div class="card">
+    <div class="card-header">
+        لاگ فعالیت ها
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-sm table-hover" id="logsTable" style="width: 100%;">
+            <thead class="thead-default">
+                <tr>
+                    <th>آی پی کاربر</th>
+                    <th>نام کاربری</th>
+                    <th>نوع عملیات</th>
+                    <th>زمان</th>
+                    <th>پیام</th>
+                    <th>پرتال</th>
+                    <th>زبان</th>
+                    <th>اولویت</th>
+                    <th>آدرس</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var table;
+        $(document).ready(function () {
+            table = $('#logsTable').DataTable({
+                language: {
+                    "url": "/statics/Datatable.Persian.json"
+                },
+                ordering: false,
+                paging: true,
+                searching: true,
+                processing: true,
+                serverSide: true,
+                stateSave: true,
+                stateDuration: 0,
+                searchDelay: null,
+                ajax: {
+                    url: '/manage/log/list/',
+                    type: "POST"
+                },
+                columnDefs: [
+                    {
+                        "width": "10%",
+                        "targets": 0,
+                        "className": "text-center align-middle",
+                        "data": "sourceAddress",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 1,
+                        "className": "text-center align-middle",
+                        "data": "actionBy",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 2,
+                        "className": "text-center align-middle",
+                        "data": "actionType",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 3,
+                        "className": "text-center align-middle",
+                        "data": "actionDateText",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                    {
+                        "width": "20%",
+                        "targets": 4,
+                        "className": "text-center align-middle",
+                        "data": "message",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 5,
+                        "className": "text-center align-middle",
+                        "data": "portal",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            else {
+                                return '<span>*پرتال اصلی</span>';
+                            }
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 6,
+                        "className": "text-center align-middle",
+                        "data": "language",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + (data === 'FA' ? 'فارسی' : 'انگلیسی') + '</span>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 7,
+                        "className": "text-center align-middle",
+                        "data": "actionLevelText",
+                        "render": function (data, type, row, meta) {
+                            return '<span>' + data + '</span>';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 8,
+                        "className": "text-center align-middle",
+                        "data": "url",
+                        "render": function (data, type, row, meta) {
+                            return '<a href="' + data + '" target="_blank" dir="ltr">' + data + '</span>';
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}
