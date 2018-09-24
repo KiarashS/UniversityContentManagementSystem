@@ -14,23 +14,23 @@
                 <img src="~/statics/headerlogo.png" alt="@Model.PortalTitle" class="header-logo" />
             </a>
             <div class="d-inline-block">
-                <h1 id="topheader-title" class="white-text shabnam" style="font-size: 0.95rem !important;" condition-class-text-right="@RequestService.IsRtl()" condition-class-text-left="@RequestService.IsLtr()">@Model.PortalTitle</h1>
+                <a href="/" class="nounderline"><h1 id="topheader-title" class="white-text shabnam" style="font-size: 0.95rem !important;" condition-class-text-right="@RequestService.IsRtl()" condition-class-text-left="@RequestService.IsLtr()">@Model.PortalTitle</h1></a>
             </div>
         </div>
 
         <div class="col-md-7 col-lg-4 col-xl-4 col-sm-12 col-12 mb-2 mb-md-0" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
             @*<form>
-                    <div class="typeahead__container">
-                        <div class="typeahead__field">
-                            <div class="input-group">
-                                <span class="typeahead__query"><input type="search" name="q" autocomplete="off" class="form-control form-control-sm js-typeahead" placeholder="@SharedLocalizer["Search"]"></span>
-                                <div class="input-group-append">
-                                    <span class="typeahead__button"><a class="btn btn-primary btn-sm"><i class="fas fa-search text-white typeahead__search-icon"></i></a></span>
-                                </div>
+                <div class="typeahead__container">
+                    <div class="typeahead__field">
+                        <div class="input-group">
+                            <span class="typeahead__query"><input type="search" name="q" autocomplete="off" class="form-control form-control-sm js-typeahead" placeholder="@SharedLocalizer["Search"]"></span>
+                            <div class="input-group-append">
+                                <span class="typeahead__button"><a class="btn btn-primary btn-sm"><i class="fas fa-search text-white typeahead__search-icon"></i></a></span>
                             </div>
                         </div>
                     </div>
-                </form>*@
+                </div>
+            </form>*@
             <form id="search-form" action="/search/">
                 <div class="typeahead__container">
                     <div class="typeahead__field">
@@ -55,17 +55,17 @@
         </div>
 
         @*<div class="col-md-2 col-sm-6 col-6 text-sm-left" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
-                <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-family: Tahoma; font-size: 0.9rem; text-decoration: none;">فارسی <span class="flag-icon flag-icon-ir"></span></a>
-                <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" title="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
-            </div>*@
+            <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" href="/language/fa/" data-tippy-content="مشاهده پرتال فارسی" data-tippy style="font-family: Tahoma; font-size: 0.9rem; text-decoration: none;">فارسی <span class="flag-icon flag-icon-ir"></span></a>
+            <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" data-tippy-content="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
+        </div>*@
 
         <div class="col-md-5 col-lg-4 col-xl-3 col-sm-12 col-12" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
             <span asp-if="@RequestService.CurrentLanguage().Language == Language.EN" style="font-size:0.75rem;" class="color-text1">@Model.TodayDate</span>
-            <span asp-if="@RequestService.CurrentLanguage().Language == Language.FA" style="font-size:0.75rem;" class="color-text1" title="@Model.TodayIslamicDate" data-tippy-placement="right" data-tippy>@Model.TodayDate</span>
-            &nbsp;<a href="/" class="btn btn-light btn-circle nounderline" title="@SharedLocalizer["Home"]" data-tippy><i class="fas fa-home"></i></a>
-            <a asp-if="!string.IsNullOrEmpty(webMailAddress)" href="@webMailAddress" target="_blank" class="btn btn-light btn-circle nounderline" title="@SharedLocalizer["Web Mail"]" data-tippy><i class="fas fa-envelope"></i></a>
-            <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" class="btn btn-light btn-circle nounderline" href="/language/fa/" title="مشاهده پرتال فارسی" data-tippy style="font-size: 0.9rem;">FA</a>
-            <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" class="btn btn-light btn-circle nounderline" href="/language/en/" title="Switch to English" data-tippy style="font-size: 0.9rem;">EN</a>
+            <span asp-if="@RequestService.CurrentLanguage().Language == Language.FA" style="font-size:0.75rem;" class="color-text1" data-tippy-content="@Model.TodayIslamicDate" data-tippy-placement="right" data-tippy>@Model.TodayDate</span>
+            &nbsp;<a href="/" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Home"]" data-tippy><i class="fas fa-home"></i></a>
+            <a asp-if="!string.IsNullOrEmpty(webMailAddress)" href="@webMailAddress" target="_blank" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Web Mail"]" data-tippy><i class="fas fa-envelope"></i></a>
+            <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" class="btn btn-light btn-circle nounderline" href="/language/fa/" data-tippy-content="مشاهده پرتال فارسی" data-tippy style="font-size: 0.9rem;">FA</a>
+            <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" class="btn btn-light btn-circle nounderline" href="/language/en/" data-tippy-content="Switch to English" data-tippy style="font-size: 0.9rem;">EN</a>
         </div>
 
     </div>

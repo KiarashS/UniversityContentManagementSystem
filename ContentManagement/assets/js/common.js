@@ -34,7 +34,8 @@ function getParameterByName(name, url) {
 }
 
 $(document).ready(function () {
-    tippy('[data-tippy]');
+    //tippy('[data-tippy]');
+    tippy(document.querySelectorAll('[data-tippy]'));
 
     var $headerNavbar = $("#header-navbar");
     if ($headerNavbar.length > 0)

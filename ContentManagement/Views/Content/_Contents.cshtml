@@ -24,14 +24,14 @@
 
                 @foreach (var item in Model)
                 {
-                    <li class="media content-item" condition-class-my-2="Model.Count > 2 && (Model.First() != item || Model.Last() != item)" condition-class-mb-2="Model.Count == 2 && Model.First() == item">
-                        @*<img class="mr-3 img-fluid img-thumbnail hoverable" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=50" alt="@item.Title" title="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>*@
-                        <div class="media-body lh-2" style="font-size: 0.8rem !important;">
-                            <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline"><h1 class="mt-0 mb-1" style="font-size: 0.9rem !important;"><span class="hvr-pop">@item.Title</span><container asp-if="item.IsNew">&nbsp;&nbsp;<span class="badge badge-pill badge-danger" style="font-size: 0.7rem !important;">@SharedLocalizer["New"]</span></container><container asp-if="isOtherContents">&nbsp;&nbsp;<span class="badge badge-pill badge-warning" style="font-size: 0.7rem !important;">@item.TypeOfContent</span></container><container asp-if="item.HasGallery">&nbsp;<span class="badge badge-pill badge-info" style="font-size: 0.7rem !important;" title="@SharedLocalizer["Gallery"]">@SharedLocalizer["Gallery"]</span></container></h1></a>
-                            <div class="text-muted float-right" title="@SharedLocalizer["Publish Date"]" style="font-size: 0.7rem !important;">@item.GetPublishDate</div>
-                            @item.GetSummary
-                        </div>
-                    </li>
+                <li class="media content-item" condition-class-my-2="Model.Count > 2 && (Model.First() != item || Model.Last() != item)" condition-class-mb-2="Model.Count == 2 && Model.First() == item">
+                    @*<img class="mr-3 img-fluid img-thumbnail hoverable" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=50" alt="@item.Title" data-tippy-content="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>*@
+                    <div class="media-body lh-2" style="font-size: 0.8rem !important;">
+                        <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline"><h1 class="mt-0 mb-1" style="font-size: 0.9rem !important;"><span class="hvr-pop">@item.Title</span><container asp-if="item.IsNew">&nbsp;&nbsp;<span class="badge badge-pill badge-danger" style="font-size: 0.7rem !important;">@SharedLocalizer["New"]</span></container><container asp-if="isOtherContents">&nbsp;&nbsp;<span class="badge badge-pill badge-warning" style="font-size: 0.7rem !important;">@item.TypeOfContent</span></container><container asp-if="item.HasGallery">&nbsp;<span class="badge badge-pill badge-info" style="font-size: 0.7rem !important;" title="@SharedLocalizer["Gallery"]">@SharedLocalizer["Gallery"]</span></container></h1></a>
+                        <div class="text-muted float-right" title="@SharedLocalizer["Publish Date"]" style="font-size: 0.7rem !important;">@item.GetPublishDate</div>
+                        @item.GetSummary
+                    </div>
+                </li>
                 }
 
             </ul>

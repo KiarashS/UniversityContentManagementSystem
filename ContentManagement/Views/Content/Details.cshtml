@@ -20,7 +20,7 @@
                     <h1 class="content-title d-inline-block mb-0"><i class="far fa-newspaper"></i> <a class="nounderline" href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), Model.Id, Model.Title, Url, scheme: Context.Request.Scheme)">@Model.Title</a></h1><container asp-if="Model.IsFavorite">&nbsp;<span class="fas fa-star fa-lg yellow-text" title="@SharedLocalizer["Favorite Content"]"></span></container>
                 </div>
                 <div class="card-body">
-                    <div class="clearfix d-print-none"><div class="float-right"><a class="pr-2" id="qrcode-button" onclick="return false;" data-url="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), Model.Id, null, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true)" href="#" title="@SharedLocalizer["QR Code"]" data-tippy><i class="fas fa-qrcode"></i></a><a href="#" id="print-button" onclick="return false;" title="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a></div></div>
+                    <div class="clearfix d-print-none"><div class="float-right"><a class="pr-2" id="qrcode-button" onclick="return false;" data-url="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), Model.Id, null, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true)" href="#" data-tippy-content="@SharedLocalizer["QR Code"]" data-tippy><i class="fas fa-qrcode"></i></a><a href="#" id="print-button" onclick="return false;" data-tippy-content="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a></div></div>
                     @*<container asp-if="Model.HasSummary || Model.HasImage">
             <div class="row mb-3">
                 <container asp-if="Model.HasSummary">

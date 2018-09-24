@@ -33,7 +33,7 @@
             <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
             <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
         </container>*@
-    <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
 
     <environment include="Development">
         @RinHelper.RenderInViewInspector()
@@ -66,7 +66,7 @@
         @await Component.InvokeAsync(nameof(Footer))
 
         <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 10.5rem; padding: 2px 5px; background-color: coral; z-index: 999;">
-            <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" title="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+            <a style="color: #fff; text-decoration: none;" target="_blank" href="/manage/" data-tippy-content="ورود به پنل مدیریت" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
                 <i class="fas fa-tachometer-alt"></i>&nbsp;پنل مدیریت
             </a>
         </div>
