@@ -27,6 +27,11 @@
                                     <i class="fas fa-database blue-grey-text"></i> @SharedLocalizer["Electronic Resources"]
                                 </a>
                             </li>
+                            <li asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible)" class="nav-item">
+                                <a class="nav-link" id="hospitals-tab-tabs-above" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible)" href="#hospitals-tabs-above" role="tab" data-toggle="tab" data-url="/link/fetchlinks?tab=hospital" aria-controls="hospitals">
+                                    <i class="far fa-hospital blue-grey-text"></i> @SharedLocalizer["Hospitals"]
+                                </a>
+                            </li>
                         </ul>
 
                         <div id="linksTabContent-tabs-above" class="tab-content">
@@ -38,6 +43,9 @@
                             </div>
                             <div asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" class="tab-pane fade" condition-class-show="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" id="electronic-resource-tabs-above" role="tabpanel" aria-labelledby="electronic-resource-tabs-above">
                                 <partial asp-if="linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible)" model="Model" name="../../../Link/_Links.cshtml" />
+                            </div>
+                            <div asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible)" class="tab-pane fade" condition-class-show="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible)" condition-class-active="linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible)" id="hospitals-tabs-above" role="tabpanel" aria-labelledby="hospitals-tabs-above">
+                                <partial asp-if="linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible)" model="Model" name="../../../Link/_Links.cshtml" />
                             </div>
                         </div>
 

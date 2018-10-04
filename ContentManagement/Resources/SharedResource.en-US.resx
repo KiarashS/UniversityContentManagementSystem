@@ -262,4 +262,13 @@
   <data name="Follow us on social networks" xml:space="preserve">
     <value>Follow us on social networks:</value>
   </data>
+  <data name="Click To ZoomIn" xml:space="preserve">
+    <value>Click on the image to zoom in</value>
+  </data>
+  <data name="Hospitals" xml:space="preserve">
+    <value>Hospitals</value>
+  </data>
+  <data name="View Times" xml:space="preserve">
+    <value>View times</value>
+  </data>
 </root>

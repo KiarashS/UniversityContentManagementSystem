@@ -10,6 +10,7 @@ using ContentManagement.Services.Seo;
 using Microsoft.AspNetCore.Authorization;
 using DNTBreadCrumb.Core;
 using System.IO;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace ContentManagement.Controllers
 {
@@ -73,6 +74,15 @@ namespace ContentManagement.Controllers
             id = Path.GetFileName(id); // security cleaning
             var file = Path.Combine(env.ContentRootPath, ".well-known", "acme-challenge", id);
             return PhysicalFile(file, "text/plain");
+        }
+
+        public virtual IActionResult GetSlideImage(string name)
+        {
+            var imageName = System.IO.Path.GetFileName(name);
+            var imagePath = System.IO.Path.Combine(_environment.WebRootPath, Infrastructure.Constants.SlidesRootPath, imageName);
+            new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
+
+            return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
         }
     }
 }

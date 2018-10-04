@@ -8,6 +8,7 @@ namespace ContentManagement.ViewModels.Settings
         public AdminUserSeed AdminUserSeed { get; set; }
         public Logging Logging { get; set; }
         public string GoogleAnalyticsTrackingId { get; set; }
+        public string BingSiteAuthId { get; set; }
         public string DomainName { get; set; }
         public string WebMailAddress { get; set; }
         public string BaseColor { get; set; }

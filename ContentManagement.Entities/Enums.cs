@@ -35,6 +35,8 @@ namespace ContentManagement.Entities
         External           = 6,
         [LinkTypeTextInAdmin("لینک هدر(بخش بالایی)")]
         Header             = 7,
+        [LinkTypeTextInAdmin("بیمارستان ها")]
+        Hospital           = 8,
         //[LinkTypeTextInAdmin("لینک فوتر(بخش پایینی)")]
         //Footer             = 8
     }

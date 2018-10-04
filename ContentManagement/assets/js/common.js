@@ -1,4 +1,6 @@
-﻿function setCookie(name, value, days, path) {
+﻿var $jsGlobalInfo = $('#js-global-info');
+
+function setCookie(name, value, days, path) {
     var expires = "";
     if (days) {
         var date = new Date();
@@ -175,7 +177,7 @@ $(document).ready(function () {
     var $searchInput = $("#search-input");
     if ($searchInput.length > 0) {
 
-        var $jsGlobalInfo = $('#js-global-info');
+        //var $jsGlobalInfo = $('#js-global-info');
 
         $searchInput.typeahead({
             minLength: 3,
@@ -316,6 +318,7 @@ $(document).ready(function () {
 
         $("#content-gallery-progress").hide();
         $("#content-gallery-container").show();
+        var contentLightGallery;
 
         var pagerPosition = isRtl ? 'right' : 'left';
         $contentGalleryItems.lightSlider({
@@ -336,7 +339,16 @@ $(document).ready(function () {
                     mode: 'lg-slide-circular'
                 });
             }
-        });  
+        });
+
+        tippy('#content-gallery-container .lSSlideWrapper', {
+            content: $jsGlobalInfo.data('clickZoomin')
+        });
+
+        var tippyGallery = document.querySelector('#content-gallery-container .lSSlideWrapper');
+        $(document).on('onBeforeOpen.lg', function (event) {
+            tippyGallery._tippy.hide();
+        });
     }
 
     if (window.location.pathname.indexOf('/add/') < 0 && window.location.pathname.indexOf('/update/') < 0) {

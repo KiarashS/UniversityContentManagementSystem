@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using ContentManagement.Common.GuardToolkit;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace ContentManagement.Controllers
 {
@@ -17,9 +19,13 @@ namespace ContentManagement.Controllers
     {
         private readonly IPortalService _portalService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
+        private readonly IHostingEnvironment _environment;
 
-        public SitemapController(IPortalService portalService, IOptionsSnapshot<SiteSettings> siteSettings)
+        public SitemapController(IHostingEnvironment environment, IPortalService portalService, IOptionsSnapshot<SiteSettings> siteSettings)
         {
+            _environment = environment;
+            _environment.CheckArgumentIsNull(nameof(environment));
+
             _portalService = portalService;
             _portalService.CheckArgumentIsNull(nameof(portalService));
 
@@ -68,5 +74,13 @@ namespace ContentManagement.Controllers
             sb.AppendLine($"Sitemap: {siteMapFullUrl}");
             return sb.ToString();
         }
+
+        //[Route("/BingSiteAuth.xml")] // Autodiscovery of /BingSiteAuth.xml
+        //[NoTrailingSlash]
+        //public IActionResult BingSiteAuth()
+        //{
+        //    var file = Path.Combine(_environment.WebRootPath, "BingSiteAuth.xml");
+        //    return PhysicalFile(file, "application/xml");
+        //}
     }
 }

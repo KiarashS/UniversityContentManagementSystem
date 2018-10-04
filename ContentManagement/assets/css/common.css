@@ -2971,3 +2971,15 @@ a:hover svg.fa-telegram {
 .system-font-stack {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+.footer-link-hover:hover {
+    color: #fff !important;
+}
+
+#content-detail {
+    line-height: 1.8em;
+}
+
+.carousel-caption {
+    text-shadow: 0 0 5px #0000ff;
+}

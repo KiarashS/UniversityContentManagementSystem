@@ -174,7 +174,7 @@ namespace ContentManagement.Services
             // fill not existence enums with false IsVisible
             foreach (LinkType item in Enum.GetValues(typeof(LinkType)))
             {
-                if (links.Any(l => l. LinkType == item && l.IsVisible))
+                if (links.Any(l => l.LinkType == item && l.IsVisible))
                 {
                     vm.Add(new ViewModels.LinkVisibilityViewModel {
                         LinkType = item,

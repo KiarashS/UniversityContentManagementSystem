@@ -64,7 +64,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             {
                 var baseOfCurrentDomain = _siteSettings.Value.DomainName;
                 var pageHost = $"{item.PortalKey ?? "www"}.{baseOfCurrentDomain}";
-                item.PageLink = Url.RouteUrl("pageRoute", new { slug = item.Slug }, Request.Scheme, pageHost);
+                item.PageLink = Url.RouteUrl("pageRoute", new { slug = item.Slug, action = "" }, Request.Scheme, pageHost);
             }
 
             var response = DataTablesResponse.Create(request, (int)pagesCount, (int)pagesPagedCount, pages);

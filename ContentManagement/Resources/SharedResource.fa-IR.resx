@@ -262,4 +262,13 @@
   <data name="Follow us on social networks" xml:space="preserve">
     <value>ما را در شبکه های اجتماعی دنبال کنید:</value>
   </data>
+  <data name="Click To ZoomIn" xml:space="preserve">
+    <value>جهت بزرگنمایی روی تصویر کلیک نمائید</value>
+  </data>
+  <data name="Hospitals" xml:space="preserve">
+    <value>بیمارستان ها</value>
+  </data>
+  <data name="View Times" xml:space="preserve">
+    <value>دفعات نمایش</value>
+  </data>
 </root>

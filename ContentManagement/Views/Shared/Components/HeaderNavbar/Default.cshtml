@@ -35,9 +35,9 @@
         </div>
     </div>
 
-    <div id="quickLinksSidebarSwitch" asp-if="hasQuickLink" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 12.5rem; padding: 2px 5px; background-color: #598ae4; z-index: 999;">
-        <a style="color: #fff; text-decoration: none;" href="#" title="@SharedLocalizer["Quick Links"]" onclick="return false;">
-            <i class="fas fa-bars"></i>&nbsp;@SharedLocalizer["Quick Links"]
+    <div id="quickLinksSidebarSwitch" asp-if="hasQuickLink" data-tippy-content="@SharedLocalizer["Quick Links"]" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+        <a style="color: #fff; text-decoration: none; font-size: 1.5rem;" href="#" onclick="return false;">
+            <i class="fas fa-bars"></i>
         </a>
     </div>
 </container>

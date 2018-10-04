@@ -33,21 +33,23 @@ namespace ContentManagement.ViewComponents
             var currentLanguage = _requestService.CurrentLanguage().Language;
             //var linksSize = _siteSettings.Value.PagesSize.ExternalLinksSize;
             var selectedLinkType = LinkType.Useful; // default value
-            var linkVisibiilty = await _linkService.CheckLinksVisibility(_requestService.PortalKey(), currentLanguage); // x => (x.LinkType == LinkType.Useful || x.LinkType == LinkType.ElectronicService || x.LinkType == LinkType.ElectronicResource))
+            var linkVisibility = await _linkService.CheckLinksVisibility(_requestService.PortalKey(), currentLanguage); // x => (x.LinkType == LinkType.Useful || x.LinkType == LinkType.ElectronicService || x.LinkType == LinkType.ElectronicResource))
 
-            if (linkVisibiilty.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibiilty.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible))
+            if (linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && x.IsVisible))
             {
                 selectedLinkType = LinkType.ElectronicService;
             }
-            else if (linkVisibiilty.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibiilty.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibiilty.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible))
+            else if (linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && x.IsVisible))
             {
                 selectedLinkType = LinkType.ElectronicResource;
             }
-
+            else if (linkVisibility.Any(x => x.LinkType == LinkType.Useful && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicService && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.ElectronicResource && !x.IsVisible) && linkVisibility.Any(x => x.LinkType == LinkType.Hospital && x.IsVisible))
+            {
+                selectedLinkType = LinkType.Hospital;
+            }
+            
             var vm = await _linkService.GetLinksAsync(_requestService.PortalKey(), currentLanguage, selectedLinkType, int.MaxValue);
-
-            ViewBag.LinkVisibility = linkVisibiilty;
-
+            ViewBag.LinkVisibility = linkVisibility;
 
             return View(vm);
         }

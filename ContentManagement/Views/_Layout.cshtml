@@ -17,6 +17,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <cache expires-sliding="@TimeSpan.FromHours(6)">
+        <meta name="msvalidate.01" content="@SiteSettings.Value.BingSiteAuthId" />
+    </cache>
     @*<meta name="application-name" content="CMS" />
         <meta name="msapplication-config" content="/browserconfig.xml" />*@
     @*<style>@Html.Raw(System.IO.File.ReadAllText("wwwroot/css/abovethefold.css"))</style>*@
@@ -83,7 +86,8 @@
               data-search-autocomplete-path="/search/searchautocomplete/"
               data-search-autocomplete-noresult="@SharedLocalizer["Search AutoComplete NoResult"]"
               data-search-autocomplete-moreresult="@SharedLocalizer["View More Results"]"
-              data-error-occurred="@SharedLocalizer["Sorry An Error Occurred"]"></span>
+              data-error-occurred="@SharedLocalizer["Sorry An Error Occurred"]"
+              data-click-zoomin="@SharedLocalizer["Click To ZoomIn"]"></span>
 
         <script>
         var currentLanguage = '@RequestService.CurrentLanguage().Language',
