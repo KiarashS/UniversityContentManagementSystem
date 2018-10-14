@@ -57,6 +57,14 @@ namespace ContentManagement.Controllers
 
         public async virtual Task<IActionResult> Index(string returnUrl = null)
         {
+            if (!HttpContext.IsLocal() && _requestService.CurrentPortal() != null)
+            {
+                var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+                var targetDomain = $"www.{baseOfCurrentDomain}";
+                var loginUrl = Url.RouteUrl("default", new { controller = "login", action = "index", returnUrl }, Request.Scheme, targetDomain);
+                return Redirect(loginUrl);
+            }
+
             await _logs.CreateActivityLogAsync(new ActivityLogViewModel
             {
                 ActionBy = User.Identity.IsAuthenticated ? User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value : "--کاربر مهمان",
