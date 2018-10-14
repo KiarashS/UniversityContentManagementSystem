@@ -167,7 +167,7 @@ $(document).ready(function () {
             e.preventDefault();
 
             var contentsPath = $('#js-global-info').data('contentsPath');
-            var contentsFormType = $contentsForm.find('#ContentType').val();
+            var contentsFormType = $contentsForm.find('#cct').val();
             var otherContentsForm = $contentsForm.find('#OtherContents').is(':checked');
             var favoriteForm = $contentsForm.find('#Favorite').is(':checked');
             window.location = contentsPath + '?t=' + contentsFormType + '&othercontents=' + otherContentsForm + '&favorite=' + favoriteForm;
