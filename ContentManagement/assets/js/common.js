@@ -382,8 +382,14 @@ $(document).ready(function () {
     var $portalIdDD = $("#PortalId");
     if ($portalIdDD.length > 0 && window.location.pathname.indexOf('/update/') < 0) {
         var valPortalIdDD = getCookie('PortalIdDD');
-        $portalIdDD.val(valPortalIdDD ? parseInt(valPortalIdDD) : 1).trigger('change');
+        $portalIdDD.val(valPortalIdDD ? parseInt(valPortalIdDD) : $("#PortalId option:first").val()).trigger('change');
     }
+
+    if ($("#PortalId option").length === 1)
+    {
+        $portalIdDD.val($("#PortalId option:first").val());
+    }
+
 
     var $languageDD = $("#Language");
     if ($languageDD.length > 0 && window.location.pathname.indexOf('/update/') < 0) {

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class FooterLinkController : Controller
     {
         private readonly IFooterLinkService _linkService;

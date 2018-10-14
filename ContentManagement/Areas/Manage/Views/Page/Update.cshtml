@@ -252,9 +252,12 @@
                 },
                 encoded: false,
                 pasteCleanup: {
-                    custom: function (html) {
-                        return html.replace(/(<([^>]+)>)/ig, "");
-                    }
+                    all: true,
+                    css: true,
+                    keepNewLines: true,
+                    //custom: function (html) {
+                    //    return html.replace(/(<([^>]+)>)/ig, "");
+                    //}
                 },
                 resizable: {
                     content: true
@@ -389,6 +392,9 @@
                     }
                 }
             });
+
+            var editor = $("[data-role=editor]").data("kendoEditor");
+            $(editor.body).off("paste");
 
             // fix encoded slash in image url
             $(document).on("click", ".k-imagebrowser>ul.k-tiles>li.k-tile", function (e) {

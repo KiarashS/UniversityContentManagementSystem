@@ -1,22 +1,29 @@
-﻿<ul class="navbar-nav navbar-sidenav" id="side-navbar">
+﻿@using Microsoft.AspNetCore.Authorization
+@using ContentManagement.Services
+@inject IAuthorizationService AuthorizationService
+
+<ul class="navbar-nav navbar-sidenav" id="side-navbar">
     <li class="nav-item" title="داشبورد" data-tippy-placement="left">
         <a class="nav-link" href="/manage/">
             <i class="fas fa-tachometer-alt"></i>
             <span class="nav-link-text">داشبورد</span>
         </a>
     </li>
-    <li class="nav-item" title="مدیریت لوگوها" data-tippy-placement="left">
-        <a class="nav-link" href="/manage/setting/logo/">
-            <i class="far fa-gem"></i>
-            <span class="nav-link-text">مدیریت لوگوها</span>
-        </a>
-    </li>
-    <li class="nav-item" title="پرتال ها" data-tippy-placement="left">
-        <a class="nav-link" href="/manage/portal/">
-            <i class="fa fa-fw fa-columns"></i>
-            <span class="nav-link-text">پرتال ها</span>
-        </a>
-    </li>
+    @if ((await AuthorizationService.AuthorizeAsync(User, CustomRoles.Admin)).Succeeded)
+    {
+        <li class="nav-item" title="مدیریت لوگوها" data-tippy-placement="left">
+            <a class="nav-link" href="/manage/setting/logo/">
+                <i class="far fa-gem"></i>
+                <span class="nav-link-text">مدیریت لوگوها</span>
+            </a>
+        </li>
+        <li class="nav-item" title="پرتال ها" data-tippy-placement="left">
+            <a class="nav-link" href="/manage/portal/">
+                <i class="fa fa-fw fa-columns"></i>
+                <span class="nav-link-text">پرتال ها</span>
+            </a>
+        </li>
+    }
     <li class="nav-item" title="منوها" data-tippy-placement="left">
         <a class="nav-link" href="/manage/navbar/">
             <i class="fas fa-bars"></i>
@@ -89,12 +96,15 @@
             <span class="nav-link-text">لینک های فوتر(بخش پایینی)</span>
         </a>
     </li>
-    <li class="nav-item" title="لاگ فعالیت ها" data-tippy-placement="left">
-        <a class="nav-link" href="/manage/log/">
-            <i class="fas fa-history"></i>
-            <span class="nav-link-text">لاگ فعالیت ها</span>
-        </a>
-    </li>
+    @if ((await AuthorizationService.AuthorizeAsync(User, CustomRoles.Admin)).Succeeded)
+    {
+        <li class="nav-item" title="لاگ فعالیت ها" data-tippy-placement="left">
+            <a class="nav-link" href="/manage/log/">
+                <i class="fas fa-history"></i>
+                <span class="nav-link-text">لاگ فعالیت ها</span>
+            </a>
+        </li>
+    }
     @*<li class="nav-item" title="Tables" data-tippy-placement="left">
             <a class="nav-link" href="tables.html">
                 <i class="fa fa-fw fa-table"></i>

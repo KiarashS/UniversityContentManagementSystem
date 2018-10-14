@@ -13,6 +13,9 @@ using ContentManagement.ViewModels.Areas.Manage;
 using ContentManagement.Services;
 using Microsoft.AspNetCore.Http.Extensions;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using DNTCommon.Web.Core;
 
 namespace ContentManagement.Controllers
 {
@@ -20,6 +23,7 @@ namespace ContentManagement.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly IRolesService _rolesService;
+        private readonly IPortalService _portalService;
         private readonly IActivityLogService _logs;
         private readonly IRequestService _requestService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
@@ -27,6 +31,7 @@ namespace ContentManagement.Controllers
         public LoginController(
             IUsersService usersService,
             IRolesService rolesService,
+            IPortalService portalService,
             IActivityLogService logs,
             IRequestService requestService,
             IOptionsSnapshot<SiteSettings> siteSettings)
@@ -36,6 +41,9 @@ namespace ContentManagement.Controllers
 
             _rolesService = rolesService;
             _rolesService.CheckArgumentIsNull(nameof(rolesService));
+
+            _portalService = portalService;
+            _portalService.CheckArgumentIsNull(nameof(portalService));
 
             _logs = logs;
             _logs.CheckArgumentIsNull(nameof(logs));
@@ -66,7 +74,7 @@ namespace ContentManagement.Controllers
             }
 
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            return View(await GetPortalsList());
         }
 
         [ValidateAntiForgeryToken]
@@ -87,7 +95,7 @@ namespace ContentManagement.Controllers
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     Url = Request.GetDisplayUrl()
                 });
-                return View(loginUser);
+                return View(await GetPortalsList());
             }
 
             if (string.IsNullOrEmpty(loginUser.Email))
@@ -103,7 +111,7 @@ namespace ContentManagement.Controllers
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     Url = Request.GetDisplayUrl()
                 });
-                return View(loginUser);
+                return View(await GetPortalsList(loginUser));
             }
 
             if (string.IsNullOrEmpty(loginUser.Password))
@@ -119,7 +127,7 @@ namespace ContentManagement.Controllers
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     Url = Request.GetDisplayUrl()
                 });
-                return View(loginUser);
+                return View(await GetPortalsList(loginUser));
             }
 
             var user = await _usersService.FindUserByEmailAsync(loginUser.Email, loginUser.Password).ConfigureAwait(false);
@@ -137,7 +145,7 @@ namespace ContentManagement.Controllers
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     Url = Request.GetDisplayUrl()
                 });
-                return View(loginUser);
+                return View(await GetPortalsList(loginUser));
             }
 
             if(!ModelState.IsValid)
@@ -153,11 +161,28 @@ namespace ContentManagement.Controllers
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     Url = Request.GetDisplayUrl()
                 });
-                return View(loginUser);
+                return View(await GetPortalsList(loginUser));
+            }
+
+            var roles = await _rolesService.FindUserRolesAsync(user.Id).ConfigureAwait(false);
+            if (!loginUser.PortalId.HasValue && !roles.Any(x => x.Name.ToLowerInvariant() == "admin"))
+            {
+                ModelState.AddModelError("", "لطفاً پرتال مورد نظر خود را انتخاب نمائید.");
+                await _logs.CreateActivityLogAsync(new ActivityLogViewModel
+                {
+                    ActionBy = "--کاربر مهمان(تایید شده)",
+                    ActionType = "login",
+                    Portal = _requestService.CurrentPortal(),
+                    Language = _requestService.CurrentLanguage().Language.ToString(),
+                    Message = $"عدم انتخاب پرتال. ایمیل: {loginUser.Email}",
+                    SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    Url = Request.GetDisplayUrl()
+                });
+                return View(await GetPortalsList(loginUser));
             }
 
             var loginCookieExpirationDays = _siteSettings.Value.LoginCookieExpirationDays;
-            var cookieClaims = await createCookieClaimsAsync(user).ConfigureAwait(false);
+            var cookieClaims = await createCookieClaimsAsync(user, loginUser.PortalId).ConfigureAwait(false);
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 cookieClaims,
@@ -174,7 +199,7 @@ namespace ContentManagement.Controllers
 
             await _logs.CreateActivityLogAsync(new ActivityLogViewModel
             {
-                ActionBy = "--کاربر مهمان",
+                ActionBy = "--کاربر مهمان(تایید شده)",
                 ActionType = "login",
                 Portal = _requestService.CurrentPortal(),
                 Language = _requestService.CurrentLanguage().Language.ToString(),
@@ -190,9 +215,21 @@ namespace ContentManagement.Controllers
             }
 
             return RedirectToAction("index", "home");
+            //var targetPortalKey = cookieClaims.Claims.FirstOrDefault(c => c.Type == "PortalKey");
+            //var targetSubDomain = targetPortalKey?.Value ?? "www";
+            //var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+            //var targetDomain = $"{targetSubDomain}.{baseOfCurrentDomain}";
+            //var targetUrl = Url.RouteUrl("default", new { controller = "home", action = "index" }, Request.Scheme, targetDomain);
+
+            //if (HttpContext.IsLocal())
+            //{
+            //    return RedirectToAction("index", "home");
+            //}
+
+            //return Redirect(targetUrl);
         }
 
-        private async Task<ClaimsPrincipal> createCookieClaimsAsync(User user)
+        private async Task<ClaimsPrincipal> createCookieClaimsAsync(User user, int? portalId)
         {
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
@@ -213,6 +250,14 @@ namespace ContentManagement.Controllers
                 identity.AddClaim(new Claim(ClaimTypes.Role, role.Name));
             }
 
+            // add sub-portal info
+            if (portalId.HasValue && !roles.Any(x => x.Name.ToLowerInvariant() == "admin"))
+            {
+                var portal = await _portalService.FindPortalByIdAsync(portalId.Value);
+                identity.AddClaim(new Claim("PortalKey", portal.PortalKey));
+                identity.AddClaim(new Claim("PortalId", portalId.Value.ToString()));
+            }
+
             return new ClaimsPrincipal(identity);
         }
 
@@ -220,6 +265,24 @@ namespace ContentManagement.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("index", "home");
+        }
+
+        private async Task<LoginModel> GetPortalsList(LoginModel loginUser = null)
+        {
+            LoginModel vm = loginUser ?? new LoginModel();
+            var portals = await _portalService.GetAllPortalsAsync();
+            portals = portals.Where(x => x.PortalKey != null).ToList();
+
+            for (int i = 0; i < portals.Count; i++)
+            {
+                vm.Portals.Add(new SelectListItem
+                {
+                    Text = portals[i].TitleFa,
+                    Value = portals[i].Id.ToString()
+                });
+            }
+
+            return vm;
         }
 
         //[HttpGet("[action]"), HttpPost("[action]")]
@@ -238,7 +301,14 @@ namespace ContentManagement.Controllers
 
     public class LoginModel
     {
+        public LoginModel()
+        {
+            Portals = new List<SelectListItem>() { new SelectListItem { Text = "--", Value = "", Selected = true } };
+        }
+
+        public int? PortalId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public IList<SelectListItem> Portals { set; get; }
     }
 }

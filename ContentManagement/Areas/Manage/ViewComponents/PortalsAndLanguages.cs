@@ -10,6 +10,10 @@ using System.Linq;
 using ContentManagement.Common.ReflectionToolkit;
 using ContentManagement.Common.WebToolkit.Attributes;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ContentManagement.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace ContentManagement.Areas.Manage.ViewComponents
 {
@@ -31,8 +35,34 @@ namespace ContentManagement.Areas.Manage.ViewComponents
         {
             portalId = portalId ?? _siteSettings.Value.MainPortal.MainPortalId;
             var vm = new PortalsAndLanguagesViewModel();
-            
             var portals = await _portalService.GetAllPortalsAsync();
+            var newPortals = new List<PortalViewModel>();
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+
+            if (!roles.Any(x=> x.Value.ToLowerInvariant() == "admin"))
+            {
+                var portalKey = claims.SingleOrDefault(x => x.Type.ToLowerInvariant() == "portalkey").Value;
+                foreach (var item in portals)
+                {
+                    if (portalKey.Equals(item.PortalKey, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        newPortals.Add(item);
+                        //vm.PortalId = item.Id;
+                    }
+                }
+            }
+
+            if (newPortals.Any())
+            {
+                portals = newPortals;
+            }
+            //else
+            //{
+            //    vm.Portals.Add(new SelectListItem { Text = "همه پرتال ها", Selected = true });
+            //}
+
             for (int i = 0; i < portals.Count; i++)
             {
                 var text = portals[i].TitleFa;
@@ -58,6 +88,17 @@ namespace ContentManagement.Areas.Manage.ViewComponents
                     vm.Portals.Add(new SelectListItem { Text = text, Value = portals[i].Id.ToString(), Selected = string.IsNullOrEmpty(portals[i].PortalKey) });
                 }
             }
+
+            //if (newPortals.Any())
+            //{
+            //    var newPortalItems= new List<SelectListItem>();
+            //    foreach (var item in vm.Portals)
+            //    {
+            //        newPortalItems.Add(new SelectListItem { Text = item.Text, Value = item.Value, Selected = true });
+            //    }
+
+            //    vm.Portals = newPortalItems;
+            //}
 
             var languagesValues = Enum.GetValues(typeof(ContentManagement.Entities.Language)).Cast<ContentManagement.Entities.Language>();
             foreach (var item in languagesValues)

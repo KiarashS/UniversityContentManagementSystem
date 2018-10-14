@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class PageController : Controller
     {
         private readonly IPageService _pageService;

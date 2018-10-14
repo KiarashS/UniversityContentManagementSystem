@@ -17,7 +17,7 @@ using Newtonsoft.Json.Serialization;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class NavbarController : Controller
     {
         private readonly INavbarService _navbarService;

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class ChangePasswordController : Controller
     {
         private readonly IUsersService _usersService;

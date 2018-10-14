@@ -20,6 +20,7 @@ namespace ContentManagement.ViewModels
         public string Link { get; set; }
         public bool IsFavorite { get; set; }
         public bool HasGallery { get; set; }
+        public int? Priority { get; set; }
 
 
         public bool IsNew
@@ -92,6 +93,14 @@ namespace ContentManagement.ViewModels
                 }
 
                 return string.Empty;
+            }
+        }
+
+        public bool IsPinned
+        {
+            get
+            {
+                return Priority.HasValue;
             }
         }
     }

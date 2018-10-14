@@ -84,7 +84,7 @@ namespace ContentManagement
                 options.SlidingExpiration = false;
                 options.LoginPath = "/login/";
                 options.LogoutPath = "/login/logout/";
-                //options.AccessDeniedPath = new PathString("/error/index/403/");
+                options.AccessDeniedPath = new PathString("/error/index/403/");
                 options.Cookie.Name = ".user.portal.cookie";
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;

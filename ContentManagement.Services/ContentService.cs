@@ -101,7 +101,7 @@ namespace ContentManagement.Services
                     }
 
                     return new List<ContentManagement.ViewModels.Areas.Manage.ContentViewModel> {
-                        new ViewModels.Areas.Manage.ContentViewModel{
+                        new ViewModels.Areas.Manage.ContentViewModel {
                             Id = content.Id,
                             PortalKey = content.PortalKey,
                             ContentType = content.ContentType,
@@ -222,11 +222,11 @@ namespace ContentManagement.Services
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = contentType}).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = contentType}).ToList();
         }
 
         public async Task<long> ContentsCountAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News)
@@ -254,11 +254,11 @@ namespace ContentManagement.Services
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType }).ToList();
         }
 
         public async Task<long> FavoritesCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
@@ -374,11 +374,11 @@ namespace ContentManagement.Services
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, ContentType = x.ContentType, HasGallery = x.HasGallery }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, HasGallery = x.HasGallery }).ToList();
         }
 
         public async Task<long> OtherContentsCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
@@ -487,11 +487,11 @@ namespace ContentManagement.Services
                                     .OrderByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(size)
-                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, ContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Language = language, HasGallery = x.HasGallery }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, ContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, HasGallery = x.HasGallery }).ToList();
         }
 
         public async Task<long> GetSearchResultsCountAsync(string portalKey, Language language, string searchQuery)

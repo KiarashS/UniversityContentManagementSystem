@@ -1,0 +1,17 @@
+﻿{
+  "name": "Ajaums Application",
+  "short_name": "Ajaums",
+  "description": "دانشگاه علوم پزشکی ارتش | Aja University of Medical Science",
+  "icons": [
+    {
+      "src": "/img/icon192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/icon512x512.png",
+      "sizes": "512x512"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "/"
+}

@@ -22,7 +22,7 @@ using ContentManagement.Common.WebToolkit.Attributes;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class LinkController : Controller
     {
         private readonly ILinkService _linkService;

@@ -4,6 +4,15 @@
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
 @inject Rin.Mvc.View.RinHelperService RinHelper
 
+@{ 
+    IEnumerable<Claim> claims = User.Claims;
+    var targetPortalKey = claims.FirstOrDefault(c => c.Type == "PortalKey");
+    var targetSubDomain = targetPortalKey?.Value ?? "www";
+    var baseOfCurrentDomain = SiteSettings.Value.DomainName;
+    var targetDomain = $"{targetSubDomain}.{baseOfCurrentDomain}";
+    var displayPortalUrl = Url.RouteUrl("default", new { controller = "home", action = "index" }, ViewContext.HttpContext.Request.Scheme, targetDomain);
+}
+
 <!DOCTYPE html>
 <html lang="@RequestService.CurrentLanguage().Language.ToString().ToLowerInvariant()">
 <head>
@@ -52,7 +61,7 @@
                     </div>
                 </li>
                 <li class="nav-item" style="margin-left: 15px;">
-                    <a class="btn btn-danger" href="/" target="_blank" role="button">نمایش پرتال</a>
+                    <a class="btn btn-danger" href="@displayPortalUrl" target="_blank" role="button">نمایش پرتال</a>
                 </li>
                 <li class="nav-item">
                     <div class="dropdown open">

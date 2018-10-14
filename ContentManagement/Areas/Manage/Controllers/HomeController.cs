@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class HomeController : Controller
     {
         private readonly IPageService _pageService;

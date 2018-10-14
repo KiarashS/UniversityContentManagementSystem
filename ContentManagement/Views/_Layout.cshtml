@@ -74,6 +74,12 @@
             </a>
         </div>
 
+        <div asp-if="@User.Identity.IsAuthenticated" condition-style-left="@(RequestService.IsRtl() ? "0" : "")" condition-style-right="@(RequestService.IsLtr() ? "0" : "")" style="position: fixed; top: 12.5rem; padding: 2px 5px; background-color: coral; z-index: 999;">
+            <a style="color: #fff; text-decoration: none;" href="/login/logout/" data-tippy-content="خروج از سیستم" data-tippy-placement="@(RequestService.IsRtl() ? "right" : "left")" data-tippy>
+                <i class="fas fa-sign-out-alt"></i>&nbsp;خروج
+            </a>
+        </div>
+
         <span class="d-none" id="js-global-info"
               data-slides-path="/@ContentManagement.Infrastructure.Constants.SlidesRootPath/"
               data-page-image-path="/@ContentManagement.Infrastructure.Constants.PagesRootPath/"

@@ -146,6 +146,8 @@ namespace ContentManagement
             .AddRinMvcSupport()
             .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
+            //services.AddProgressiveWebApp();
+
             services.AddRin();
 
             services.AddWebMarkupMin(options =>

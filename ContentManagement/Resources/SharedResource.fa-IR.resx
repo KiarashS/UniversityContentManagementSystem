@@ -271,4 +271,7 @@
   <data name="View Times" xml:space="preserve">
     <value>دفعات نمایش</value>
   </data>
+  <data name="Pinned" xml:space="preserve">
+    <value>سنجاق شده</value>
+  </data>
 </root>

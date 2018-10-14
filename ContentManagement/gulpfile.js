@@ -77,7 +77,7 @@ var filesPath = {
         //"node_modules/moment-jalaali/build/moment-jalaali.js",
         "node_modules/jquery-validation/dist/jquery.validate.min.js",
         "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js",
-        "node_modules/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js",
+        "node_modules/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js",
         "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         "node_modules/jquery.easing/jquery.easing.min.js",
         "node_modules/sweetalert2/dist/sweetalert2.all.min.js",

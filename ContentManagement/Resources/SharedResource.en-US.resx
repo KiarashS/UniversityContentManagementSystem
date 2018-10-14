@@ -271,4 +271,7 @@
   <data name="View Times" xml:space="preserve">
     <value>View times</value>
   </data>
+  <data name="Pinned" xml:space="preserve">
+    <value>Pinned</value>
+  </data>
 </root>

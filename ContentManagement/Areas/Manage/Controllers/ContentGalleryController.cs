@@ -28,7 +28,7 @@ using ContentManagement.Common.WebToolkit;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class ContentGalleryController : Controller
     {
         private readonly IContentGalleryService _contentGalleryService;

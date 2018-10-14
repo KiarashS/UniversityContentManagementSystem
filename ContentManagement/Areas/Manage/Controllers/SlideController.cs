@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Roles = CustomRoles.User)]
     public partial class SlideController : Controller
     {
         private readonly ISlideService _slideService;

@@ -19,7 +19,7 @@ using SixLabors.ImageSharp.Processing.Transforms;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public class FilesManagerController : Controller
     {
         //مسیر پوشه فایل‌ها

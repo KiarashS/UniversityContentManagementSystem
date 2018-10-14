@@ -28,7 +28,7 @@ using System.Net;
 namespace ContentManagement.Areas.Manage.Controllers
 {
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public partial class ContentController : Controller
     {
         private readonly IContentService _contentService;
