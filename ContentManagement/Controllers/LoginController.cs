@@ -97,7 +97,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = _requestService.CurrentPortal(),
+                    Portal = loginUser?.PortalId.ToString(),
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"وارد نکردن ایمیل و رمز عبور",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -113,7 +113,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = _requestService.CurrentPortal(),
+                    Portal = loginUser?.PortalId.ToString(),
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"وارد نکردن ایمیل",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -129,7 +129,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = _requestService.CurrentPortal(),
+                    Portal = loginUser?.PortalId.ToString(),
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"وارد نکردن رمز عبور، ایمیل وارد شده: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -147,7 +147,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = _requestService.CurrentPortal(),
+                    Portal = loginUser?.PortalId.ToString(),
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"چنین کاربری موجود نیست و یا غیرفعال می باشد، ایمیل وارد شده: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -163,7 +163,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = _requestService.CurrentPortal(),
+                    Portal = loginUser?.PortalId.ToString(),
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"پست الکترونیک و یا کلمه عبور اشتباه می باشند، ایمیل وارد شده: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -180,7 +180,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان(تایید شده)",
                     ActionType = "login",
-                    Portal = _requestService.CurrentPortal(),
+                    Portal = loginUser?.PortalId.ToString(),
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"عدم انتخاب پرتال. ایمیل: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -209,7 +209,7 @@ namespace ContentManagement.Controllers
             {
                 ActionBy = "--کاربر مهمان(تایید شده)",
                 ActionType = "login",
-                Portal = _requestService.CurrentPortal(),
+                Portal = loginUser?.PortalId.ToString(),
                 Language = _requestService.CurrentLanguage().Language.ToString(),
                 Message = $"ورود موفقیت آمیز. ایمیل: {loginUser.Email}",
                 SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),

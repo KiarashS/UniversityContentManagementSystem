@@ -33,6 +33,7 @@
             <thead class="thead-default">
                 <tr>
                     <th>نام پرتال</th>
+                    <th>کد پرتال</th>
                     <th>عنوان فارسی پرتال</th>
                     <th>توضیحات فارسی پرتال</th>
                     <th>نمایش اخبار در پرتال اصلی؟</th>
@@ -75,15 +76,20 @@
                 },
                 {
                     "targets": 1,
-                    "data": "titleFa",
+                    "width": "5%",
+                    "data": "id",
                 },
                 {
                     "targets": 2,
+                    "data": "titleFa",
+                },
+                {
+                    "targets": 3,
                     "data": "descriptionFa"
                 },
                 {
                     "width": "8%",
-                    "targets": 3,
+                    "targets": 4,
                     "data": "showInMainPortal",
                     "render": function (data, type, row, meta) {
                         if (data) {
@@ -94,7 +100,7 @@
                 },
                 {
                     "width": "4%",
-                    "targets": 4,
+                    "targets": 5,
                     "data": "id",
                     "render": function (data, type, row, meta) {
                         if (data == mainPortalId) {

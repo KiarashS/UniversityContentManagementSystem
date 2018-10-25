@@ -6,18 +6,44 @@
 
             @foreach (var item in Model)
             {
-            <div class="col-sm-12 col-md-6 col-lg-3 text-center">
+            <div class="col-sm-12 col-md-6 col-lg-3">
                 @*<a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)">
                     <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" class="img-fluid" alt="@item.Title" />
                 </a>*@
-                <figure class="hover1" title="@(!string.IsNullOrEmpty(item.Description) ? item.Description : item.Title)">
+
+                @*<div class="box3">
                     <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" class="img-fluid" style="display: inline-block; width: 100%; height: 100%;" alt="@item.Title">
-                    <figcaption>
-                        <h4>@item.Title</h4>
-                        <p>@item.Description</p>
-                        <a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)"></a>
-                    </figcaption>
-                </figure>
+                    <div class="box-content">
+                        <h3 class="title">@item.Title</h3>
+                        <span class="post">Title2</span>
+                        <p class="description">
+                            @item.Description
+                        </p>
+                        <ul class="icon">
+                            <li><a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)"><i class="fas fa-link"></i> @SharedLocalizer["View"]</a></li>
+                        </ul>
+                    </div>
+                </div>*@
+
+                @*<div class="box21">
+                    <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" class="img-fluid" style="display: inline-block; width: 100%; height: 100%;" alt="@item.Title">
+                    <div class="box-content">
+                        <h4 class="title">@item.Title</h4>
+                        <p class="description">@item.Description</p>
+                        <a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)" class="read-more"><i class="fas fa-link"></i> @SharedLocalizer["View"]</a>
+                    </div>
+                </div>*@
+
+                <div class="box">
+                    <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename"  class="img-fluid" style="display: inline-block; width: 100%; height: 100%;" alt="@item.Title">
+                    <div class="box-content">
+                        <h3 class="title">@item.Title</h3>
+                        <span class="post">@Html.Raw(item.Description.Replace(System.Environment.NewLine, "<br />"))</span>
+                        <ul class="icon">
+                            <li><a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)"><i class="fas fa-link"></i>&nbsp;@SharedLocalizer["View"]</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             }
 

@@ -218,6 +218,9 @@
     <Content Update="Views\Shared\Components\Footer\Default1.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\ImageLinks\Default1.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\Components\ImageLinks\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
