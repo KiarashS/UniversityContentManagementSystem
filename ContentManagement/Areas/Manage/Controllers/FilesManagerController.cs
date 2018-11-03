@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ContentManagement.Services;
 using ContentManagement.ViewModels.Areas.Manage;
@@ -61,6 +62,16 @@ namespace ContentManagement.Areas.Manage.Controllers
             var pathToDelete = Path.Combine(path, name);
 
             var attr = System.IO.File.GetAttributes(pathToDelete);
+
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+            if (roles.Any(x => x.Value.ToLowerInvariant() == "admin") && name.Equals("SubPortals", StringComparison.InvariantCultureIgnoreCase) && (attr & FileAttributes.Directory) == FileAttributes.Directory && (path.EndsWith(Infrastructure.Constants.FilesManagerRootPath) || path.EndsWith(Infrastructure.Constants.ImagesManagerRootPath)))
+            {
+                // پوشه SubPortals را نمی توان حذف کرد
+                return Json(new object[0]);
+            }
+
             if ((attr & FileAttributes.Directory) == FileAttributes.Directory)
             {
                 Directory.Delete(pathToDelete, recursive: true);
@@ -83,13 +94,14 @@ namespace ContentManagement.Areas.Manage.Controllers
         [HttpGet]
         public IEnumerable<KendoFileViewModel> GetFilesList(string path)
         {
-            path = GetSafeDirPath(path);
             //if (!System.IO.Directory.Exists(path))
             //{
             //    path = "";
             //    path = GetSafeDirPath(path);
             //}
-            
+
+            path = GetSafeDirPath(path);
+
             var imagesList = new DirectoryInfo(path)
                                 .GetFiles()
                                 .Select(fileInfo => new KendoFileViewModel
@@ -136,12 +148,12 @@ namespace ContentManagement.Areas.Manage.Controllers
             // path = مسیر زیر پوشه‌ی وارد شده
             if (string.IsNullOrWhiteSpace(path))
             {
-                return Path.Combine(HostingEnvironment.WebRootPath, FilesFolder);
+                return Path.Combine(HostingEnvironment.WebRootPath, GetFilesFolder());
             }
 
             //تمیز سازی امنیتی
             path = Path.GetDirectoryName(path);
-            path = Path.Combine(HostingEnvironment.WebRootPath, FilesFolder, path);
+            path = Path.Combine(HostingEnvironment.WebRootPath, GetFilesFolder(), path);
             return path;
         }
 
@@ -157,14 +169,34 @@ namespace ContentManagement.Areas.Manage.Controllers
                 dir = Path.GetDirectoryName(path);
             }
 
-            path = Path.Combine(HostingEnvironment.WebRootPath, FilesFolder, dir, name);
+            path = Path.Combine(HostingEnvironment.WebRootPath, GetFilesFolder(), dir, name);
             return path;
+        }
+
+        protected string GetFilesFolder()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+
+            if (!roles.Any(x => x.Value.ToLowerInvariant() == "admin"))
+            {
+                var portalId = claims.SingleOrDefault(x => x.Type.ToLowerInvariant() == "portalid").Value;
+                //var subPortalPath = Path.Combine("SubPortals", portalId);
+
+                if (!string.IsNullOrEmpty(portalId))
+                {
+                    return Path.Combine(FilesFolder, "SubPortals", portalId);
+                }
+            }
+
+            return FilesFolder;
         }
     }
 
 
     [Area("Manage")]
-    [Authorize(Policy = CustomRoles.Admin)]
+    [Authorize(Policy = CustomRoles.User)]
     public class ImagesManagerController : FilesManagerController
     {
         public ImagesManagerController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)

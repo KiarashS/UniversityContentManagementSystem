@@ -6,6 +6,7 @@ namespace ContentManagement.Services
     using ContentManagement.Services.Contracts;
     using ContentManagement.ViewModels;
     using ContentManagement.ViewModels.Areas.Manage;
+    using DNTCommon.Web.Core;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -523,6 +524,53 @@ namespace ContentManagement.Services
         {
             var hasGallery = await _content.AnyAsync(x => x.Id == contentId && x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0).ConfigureAwait(false);
             return hasGallery;
+        }
+
+        public async Task<IList<RssViewModel>> GetRssResult(string portalKey, ContentType? contentType, int size = 20)
+        {
+            var items = new List<RssViewModel>();
+            var query = _content.Where(x => x.Portal.PortalKey == portalKey).AsQueryable();
+
+            if (contentType.HasValue)
+            {
+                query = query.Where(x => x.ContentType == contentType.Value);
+            }
+
+            var contents = await query
+                .OrderByDescending(x => x.PublishDate)
+                .Take(size)
+                .Select(x => new { x.Id, x.Title, x.Text, x.ContentType, x.PublishDate, x.Language })
+                .Cacheable()
+                .ToListAsync()
+                .ConfigureAwait(false);
+
+            foreach (var item in contents)
+            {
+                items.Add(new RssViewModel
+                {
+                    Id = item.Id,
+                    Title = item.Title,
+                    Categories = new List<string> { item.ContentType.ToString() },
+                    Content = item.Text,
+                    PublishDate = item.PublishDate,
+                    Language = item.Language
+                });
+            }
+
+            //foreach (var item in contents)
+            //{
+            //    items.Add(new FeedItem {
+            //        Title = item.Title,
+            //        AuthorName = $"{item.TitleFa} | {item.TitleEn}",
+            //        Categories = new List<string> { item.ContentType.ToString() },
+            //        Content = item.Text,
+            //        Url = Url.Action(nameof(Article), typeof(FeedResultController).ControllerName(), new { id = 1 }, this.HttpContext.Request.Scheme),
+            //        PublishDate = item.PublishDate,
+            //        LastUpdatedTime = item.PublishDate
+            //    });
+            //}
+
+            return items;
         }
     }
 }

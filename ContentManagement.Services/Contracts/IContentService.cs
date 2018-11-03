@@ -1,6 +1,7 @@
 ﻿using ContentManagement.Entities;
 using ContentManagement.ViewModels;
 using ContentManagement.ViewModels.Areas.Manage;
+using DNTCommon.Web.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,5 +34,6 @@ namespace ContentManagement.Services.Contracts
         Task<ContentGalleryPosition> GetGalleryPosition(long contentId);
         Task UpdateGalleryPosition(long contentId, ContentGalleryPosition newPosition);
         Task<bool> HasGallery(long contentId);
+        Task<IList<RssViewModel>> GetRssResult(string portalKey, ContentType? contentType, int size = 20);
     }
 }

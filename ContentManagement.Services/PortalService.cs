@@ -25,7 +25,7 @@ namespace ContentManagement.Services
             _portal = _uow.Set<Portal>();
         }
 
-        public async Task AddOrUpdatePortalAsync(PortalViewModel portal)
+        public async Task<int> AddOrUpdatePortalAsync(PortalViewModel portal)
         {
             if (portal.Id == 0) // Add
             {
@@ -43,7 +43,8 @@ namespace ContentManagement.Services
 
                 _portal.Add(newPortal);
                 await _uow.SaveChangesAsync().ConfigureAwait(false);
-                return;
+
+                return newPortal.Id;
             }
             
             var currentPortal = await FindPortalByIdAsync(portal.Id).ConfigureAwait(false);
@@ -61,11 +62,14 @@ namespace ContentManagement.Services
             currentPortal.DescriptionEn = portal.DescriptionEn?.Trim();
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
+
+            return portal.Id;
         }
 
         public async Task<Portal> FindPortalByKeyAsync(string portalKey)
         {
-            var portal = await _portal.FirstOrDefaultAsync(p => p.PortalKey == portalKey.Trim()).ConfigureAwait(false);
+            portalKey = string.IsNullOrEmpty(portalKey) ? null : portalKey.Trim();
+            var portal = await _portal.FirstOrDefaultAsync(p => p.PortalKey == portalKey).ConfigureAwait(false);
             return portal;
         }
 

@@ -1,4 +1,8 @@
-﻿<h3>داشبورد</h3>
+﻿@using Microsoft.AspNetCore.Authorization
+@using ContentManagement.Services
+@inject IAuthorizationService AuthorizationService
+
+<h3>داشبورد</h3>
 <hr />
 <div class="row">
     <div class="col">
@@ -8,6 +12,8 @@
     </div>
 </div>
 <div class="row">
+    @if ((await AuthorizationService.AuthorizeAsync(User, CustomRoles.Admin)).Succeeded)
+    {
     <div class="col-xl-3 col-sm-6 mb-3">
         <div class="card text-white bg-primary o-hidden h-100">
             <div class="card-body">
@@ -24,6 +30,7 @@
             </a>
         </div>
     </div>
+    }
     <div class="col-xl-3 col-sm-6 mb-3">
         <div class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
@@ -88,7 +95,7 @@
                     <div class="col-md-auto"><a href="/manage/content/add/?t=education" class="hvr-buzz nounderline"><img src="~/statics/Education.png" alt="درج خبر آموزشی جدید" width="125" /><span class="d-block text-center">درج خبر آموزشی</span></a></div>
                     <div class="col-md-auto"><a href="/manage/content/add/" class="hvr-buzz nounderline"><img src="~/statics/Content.png" alt="درج مطلب جدید" width="125" /><span class="d-block text-center">درج مطلب</span></a></div>
                     <div class="col-md-auto"><a href="/manage/content/" class="hvr-buzz nounderline"><img src="~/statics/ContentAdmin.png" alt="مدیریت مطالب" width="125" /><span class="d-block text-center">مدیریت مطالب</span></a></div>
-                    <div class="col-md-auto"><a href="/manage/portal/add/" class="hvr-buzz nounderline"><img src="~/statics/Portal.png" alt="ایجاد پرتال جدید" width="125" /><span class="d-block text-center">ایجاد پرتال</span></a></div>
+                    @if ((await AuthorizationService.AuthorizeAsync(User, CustomRoles.Admin)).Succeeded){ <div class="col-md-auto"><a href="/manage/portal/add/" class="hvr-buzz nounderline"><img src="~/statics/Portal.png" alt="ایجاد پرتال جدید" width="125" /><span class="d-block text-center">ایجاد پرتال</span></a></div>}
                     <div class="col-md-auto"><a href="/manage/navbar/add/" class="hvr-buzz nounderline"><img src="~/statics/Menu.png" alt="ایجاد منوی جدید" width="125" /><span class="d-block text-center">ایجاد منوی</span></a></div>
                     <div class="col-md-auto"><a href="/manage/slide/add/" class="hvr-buzz nounderline"><img src="~/statics/Slide.png" alt="ایجاد اسلاید جدید" width="125" /><span class="d-block text-center">ایجاد اسلاید</span></a></div>
                     <div class="col-md-auto"><a href="/manage/page/add/" class="hvr-buzz nounderline"><img src="~/statics/Page.png" alt="ایجاد صفحه جدید" width="125" /><span class="d-block text-center">ایجاد صفحه</span></a></div>

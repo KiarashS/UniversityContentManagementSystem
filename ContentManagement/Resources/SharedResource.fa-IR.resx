@@ -274,4 +274,7 @@
   <data name="Pinned" xml:space="preserve">
     <value>سنجاق شده</value>
   </data>
+  <data name="Feed" xml:space="preserve">
+    <value>فید</value>
+  </data>
 </root>

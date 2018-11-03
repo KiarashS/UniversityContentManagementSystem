@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using DataTables.AspNet.AspNetCore;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -22,13 +24,18 @@ namespace ContentManagement.Areas.Manage.Controllers
     {
         private readonly IPortalService _portalService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
-        public PortalController(IPortalService portalService, IOptionsSnapshot<SiteSettings> siteSettings)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public PortalController(IPortalService portalService, IOptionsSnapshot<SiteSettings> siteSettings, IHostingEnvironment hostingEnvironment)
         {
             _portalService = portalService;
             _portalService.CheckArgumentIsNull(nameof(portalService));
 
             _siteSettings = siteSettings;
             _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
+
+            _hostingEnvironment = hostingEnvironment;
+            _hostingEnvironment.CheckArgumentIsNull(nameof(hostingEnvironment));
         }
 
         public virtual IActionResult Index()
@@ -68,7 +75,12 @@ namespace ContentManagement.Areas.Manage.Controllers
                 return View(portal);
             }
 
-            await _portalService.AddOrUpdatePortalAsync(portal).ConfigureAwait(false);
+            var portalId = await _portalService.AddOrUpdatePortalAsync(portal).ConfigureAwait(false);
+
+            var fileManagerpath = Path.Combine(_hostingEnvironment.WebRootPath, ContentManagement.Infrastructure.Constants.FilesManagerRootPath, "SubPortals", portalId.ToString());
+            var imageManagerpath = Path.Combine(_hostingEnvironment.WebRootPath, ContentManagement.Infrastructure.Constants.ImagesManagerRootPath, "SubPortals", portalId.ToString());
+            System.IO.Directory.CreateDirectory(fileManagerpath);
+            System.IO.Directory.CreateDirectory(imageManagerpath);
 
             TempData["IsOk"] = true;
             return RedirectToAction("index", "portal", "manage");

@@ -37,6 +37,7 @@ namespace ContentManagement.ViewModels.Settings
         public int SearchSize { get; set; }
         public int SearchAutoCompleteSize { get; set; }
         public int ImageLinkSize { get; set; }
+        public int RssSize { get; set; }
         //public int UsefulLinksSize { get; set; }
         //public int ElectronicServiceLinksSize { get; set; }
         //public int ElectronicResourceLinksSize { get; set; }

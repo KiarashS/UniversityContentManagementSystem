@@ -274,4 +274,7 @@
   <data name="Pinned" xml:space="preserve">
     <value>Pinned</value>
   </data>
+  <data name="Feed" xml:space="preserve">
+    <value>Feed</value>
+  </data>
 </root>

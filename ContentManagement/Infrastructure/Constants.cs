@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ContentManagement.Infrastructure
@@ -32,5 +34,47 @@ namespace ContentManagement.Infrastructure
 
         public static readonly int EditorImageThumbWidthSize = 80;
         public static readonly int EditorImageThumbHeightSize = 80;
+
+
+        public static string GetFilesFolder(ClaimsPrincipal user)
+        {
+            var identity = (ClaimsIdentity)user.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+
+            if (!roles.Any(x => x.Value.ToLowerInvariant() == "admin"))
+            {
+                var portalId = claims.SingleOrDefault(x => x.Type.ToLowerInvariant() == "portalid").Value;
+                //var subPortalPath = Path.Combine("SubPortals", portalId);
+
+                if (!string.IsNullOrEmpty(portalId))
+                {
+                    return $"{FilesManagerRootPath}/SubPortals/{portalId}";
+                }
+            }
+
+            return FilesManagerRootPath;
+        }
+
+        public static string GetImagesFolder(ClaimsPrincipal user)
+        {
+            var identity = (ClaimsIdentity)user.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+
+            if (!roles.Any(x => x.Value.ToLowerInvariant() == "admin"))
+            {
+                var portalId = claims.SingleOrDefault(x => x.Type.ToLowerInvariant() == "portalid").Value;
+                //var subPortalPath = Path.Combine("SubPortals", portalId);
+
+                if (!string.IsNullOrEmpty(portalId))
+                {
+                    return $"{ImagesManagerRootPath}/SubPortals/{portalId}";
+                }
+            }
+
+            return ImagesManagerRootPath;
+        }
+
     }
 }

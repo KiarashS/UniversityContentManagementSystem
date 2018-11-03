@@ -101,9 +101,8 @@
     <Folder Include="Errors\" />
     <Folder Include="logs\" />
     <Folder Include="Resources\Controllers\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\contentfiles\" />
-    <Folder Include="wwwroot\contentimages\" />
+    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\contentimg\" />
     <Folder Include="wwwroot\is-cache\" />
     <Folder Include="wwwroot\linkimages\" />

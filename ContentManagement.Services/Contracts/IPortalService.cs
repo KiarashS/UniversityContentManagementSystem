@@ -11,7 +11,7 @@ namespace ContentManagement.Services.Contracts
     public interface IPortalService
     {
         Task<bool> ValidatePortalKeyAsync(string portalKey);
-        Task AddOrUpdatePortalAsync(PortalViewModel portal);
+        Task<int> AddOrUpdatePortalAsync(PortalViewModel portal);
         Task<Portal> FindPortalByKeyAsync(string portalKey);
         Task<Portal> FindPortalByIdAsync(int portalId);
         Task<IList<PortalViewModel>> GetAllPortalsAsync();
