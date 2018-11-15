@@ -141,6 +141,12 @@ namespace ContentManagement.Services
             return link;
         }
 
+        public async Task<long> LinksCountAsync(string portalKey)
+        {
+            var link = await _link.LongCountAsync(x => x.Portal.PortalKey == portalKey).ConfigureAwait(false);
+            return link;
+        }
+
         public async Task<long> LinksPagedCountAsync(int portalId, LinkType? linkType, Language language = Language.FA, string searchTerm = null)
         {
             var query = _link.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();

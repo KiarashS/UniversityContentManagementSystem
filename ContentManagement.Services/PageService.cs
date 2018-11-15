@@ -140,6 +140,12 @@ namespace ContentManagement.Services
             return count;
         }
 
+        public async Task<long> PagesCountAsync(string portalKey)
+        {
+            var count = await _page.LongCountAsync(x => x.Portal.PortalKey == portalKey).ConfigureAwait(false);
+            return count;
+        }
+
         public async Task<long> PagesPagedCountAsync(int portalId, Language language = Language.FA, string searchTerm = null)
         {
             var query = _page.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();

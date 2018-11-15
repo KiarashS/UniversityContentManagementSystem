@@ -13,6 +13,7 @@ namespace ContentManagement.Services.Contracts
         Task<Link> FindLinkByIdAsync(long linkId);
         Task<IList<LinkViewModel>> GetPagedLinksAsync(int portalId, LinkType? linkType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
         Task<long> LinksCountAsync();
+        Task<long> LinksCountAsync(string portalKey);
         Task<long> LinksPagedCountAsync(int portalId, LinkType? linkType, Language language = Language.FA, string searchTerm = null);
         Task DeleteLinkAsync(long id);
         Task<IList<ViewModels.LinkViewModel>> GetLinksAsync(string portalKey, Language language, LinkType linkType, int maxSize = 6);

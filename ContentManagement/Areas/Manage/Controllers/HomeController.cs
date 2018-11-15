@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ContentManagement.Common.GuardToolkit;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -35,10 +38,25 @@ namespace ContentManagement.Areas.Manage.Controllers
         {
             ViewBag.Title = "مدیریت پرتال";
 
-            ViewBag.PortalsCount = await _portalService.PortalsCountAsync();
-            ViewBag.ContentsCount = await _contentService.ContentsCountAsync();
-            ViewBag.PagesCount = await _pageService.PagesCountAsync();
-            ViewBag.LinksCount = await _linkService.LinksCountAsync();
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
+
+            if (roles.Any(x => x.Value.ToLowerInvariant() == "admin"))
+            {
+                ViewBag.PortalsCount = await _portalService.PortalsCountAsync();
+                ViewBag.ContentsCount = await _contentService.ContentsCountAsync();
+                ViewBag.PagesCount = await _pageService.PagesCountAsync();
+                ViewBag.LinksCount = await _linkService.LinksCountAsync();
+            }
+            else
+            {
+                var targetPortalKey = claims.FirstOrDefault(c => c.Type == "PortalKey");
+
+                ViewBag.ContentsCount = await _contentService.ContentsCountAsync(targetPortalKey?.Value);
+                ViewBag.PagesCount = await _pageService.PagesCountAsync(targetPortalKey?.Value);
+                ViewBag.LinksCount = await _linkService.LinksCountAsync(targetPortalKey?.Value);
+            }
 
             return View();
         }

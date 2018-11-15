@@ -37,10 +37,14 @@
             <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
             <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
         </container>*@
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" integrity="sha384-kW+oWsYx3YpxvjtZjFXqazFpA7UP/MbiY4jvs+RWZo2+N94PFZ36T6TFkc9O3qoB" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
 
     <environment include="Development">
         @RinHelper.RenderInViewInspector()
+    </environment>
+
+    <environment include="Development">
+        <mini-profiler position="RenderPosition.BottomLeft" />
     </environment>
 
     <seo-link-canonical base="@($"//{Context.Request.Host.Value}/")" value="@WebUtility.UrlDecode(Context.Request.GetDisplayUrl())" />

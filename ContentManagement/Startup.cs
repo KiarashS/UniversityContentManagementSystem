@@ -190,6 +190,12 @@ namespace ContentManagement
                 options.IncludeSubDomains = true;
                 options.Preload = true;
             });
+
+            services.AddMiniProfiler(options =>
+            {
+                options.ResultsAuthorize = request => request.HttpContext.IsLocal() || request.HttpContext.User.Identity.IsAuthenticated;
+                options.ResultsListAuthorize = request => request.HttpContext.IsLocal() || request.HttpContext.User.Identity.IsAuthenticated;
+            }).AddEntityFramework();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -203,6 +209,7 @@ namespace ContentManagement
             {
                 app.UseRin();
                 app.UseRinMvcSupport();
+                app.UseMiniProfiler();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseRinDiagnosticsHandler();

@@ -2240,7 +2240,7 @@ table.dataTable {
 }
 
 .header-logo {
-    width: 4.5rem;
+    width: 6rem;
     padding: 0.2rem;
 }
 
@@ -3116,4 +3116,8 @@ a:hover svg.fa-telegram {
     .box .title {
         font-size: 20px;
     }
+}
+
+#__rinInViewInspectorRootGenerated__, .mp-results {
+    direction: ltr !important;
 }

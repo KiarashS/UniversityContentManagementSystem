@@ -1,8 +1,12 @@
 ﻿@using ContentManagement.ViewComponents
 @model ContentManagement.ViewModels.HeaderLogoViewModel
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment
 
 @{ 
     var webMailAddress = SiteSettings.Value.WebMailAddress;
+    var currentSubDomain = RequestService.CurrentSubDomain();
+    var subLogoPath = $"{hostingEnvironment.WebRootPath}/statics/{currentSubDomain ?? "www"}.png";
+    var subLogoImage = $"/statics/{currentSubDomain ?? "www"}.png";
 }
 
 <div id="header-logo" class="container-fluid color-bg1 shadow-bottom">
@@ -11,7 +15,14 @@
 
         <div id="logo-container" class="col-md-12 col-lg-4 col-xl-5 col-sm-12 col-12 mb-2 mb-md-0 text-center text-md-left">
             <a href="/" class="nounderline white-text header-logo-container">
-                <img src="~/statics/headerlogo.png" alt="@Model.PortalTitle" class="header-logo" />
+                @if (!string.IsNullOrEmpty(currentSubDomain) && System.IO.File.Exists(subLogoPath))
+                {
+                    <img src="@subLogoImage" alt="@Model.PortalTitle" class="header-logo" />
+                }
+                else
+                {
+                    <img src="~/statics/headerlogo.png" alt="@Model.PortalTitle" class="header-logo" />
+                }
             </a>
             <div class="d-inline-block">
                 <a href="/" class="nounderline"><h1 id="topheader-title" class="white-text shabnam" style="font-size: 0.95rem !important;" condition-class-text-right="@RequestService.IsRtl()" condition-class-text-left="@RequestService.IsLtr()">@Model.PortalTitle</h1></a>

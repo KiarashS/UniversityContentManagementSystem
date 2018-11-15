@@ -13,6 +13,7 @@ namespace ContentManagement.Services.Contracts
         Task<Content> FindContentByIdAsync(long contentId);
         Task<IList<ContentManagement.ViewModels.Areas.Manage.ContentViewModel>> GetPagedContentsAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null, int start = 0, int length = 10);
         Task<long> ContentsCountAsync();
+        Task<long> ContentsCountAsync(string portalKey);
         Task<long> ContentsPagedCountAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null);
         Task DeleteContentAsync(long id);
         Task<string> GetContentImagenameAsync(long id);

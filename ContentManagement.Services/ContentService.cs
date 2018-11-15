@@ -152,6 +152,12 @@ namespace ContentManagement.Services
             return content;
         }
 
+        public async Task<long> ContentsCountAsync(string portalKey)
+        {
+            var content = await _content.LongCountAsync(x => x.Portal.PortalKey == portalKey).ConfigureAwait(false);
+            return content;
+        }
+
         public async Task<long> ContentsPagedCountAsync(int portalId, ContentType? contentType, Language language = Language.FA, string searchTerm = null)
         {
             if (!string.IsNullOrEmpty(searchTerm) && searchTerm.StartsWith("@id", StringComparison.InvariantCultureIgnoreCase))

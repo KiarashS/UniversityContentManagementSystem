@@ -2,9 +2,9 @@
 @using System.Net
 @using ContentManagement.Services.Seo
 @using ContentManagement.Entities
-@using ContentManagement
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Localization
+@using StackExchange.Profiling
 
 @inherits ContentManagement.Infrastructure.CustomViewBase<TModel>
 
@@ -20,3 +20,4 @@
 @addTagHelper *, TagHelperPack
 @addTagHelper *, DNTBreadCrumb.Core
 @addTagHelper "*, cloudscribe.Web.Pagination"
+@addTagHelper *, MiniProfiler.AspNetCore.Mvc
