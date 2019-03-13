@@ -284,6 +284,18 @@ namespace ContentManagement
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "shortlinkContentRoute",
+                    template: "c/{id}",
+                    defaults: new { controller = "C", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "shortlinkPageRoute",
+                    template: "p/{slug}",
+                    defaults: new { controller = "P", action = "Index" }
+                );
+
+                routes.MapRoute(
                     name: "areaRoute",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
