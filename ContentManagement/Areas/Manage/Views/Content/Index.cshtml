@@ -48,6 +48,7 @@
                     <th>مطلب برگزیده است؟</th>
                     <th>اولویت قرارگیری</th>
                     <th>تعداد مشاهده</th>
+                    <th>اشتراک گذاری</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -106,7 +107,7 @@
                         }
                     },
                     {
-                        "width": "10%",
+                        "width": "9%",
                         "targets": 2,
                         "className": "align-middle",
                         "data": 'contentLink',
@@ -139,7 +140,7 @@
                         }
                     },
                     {
-                        "width": "9%",
+                        "width": "7%",
                         "targets": 5,
                         "className": "text-center align-middle",
                         "data": "priority",
@@ -151,7 +152,7 @@
                         }
                     },
                     {
-                        "width": "8%",
+                        "width": "5%",
                         "targets": 6,
                         "className": "text-center align-middle",
                         "data": "viewCount",
@@ -162,6 +163,18 @@
                     {
                         "width": "8%",
                         "targets": 7,
+                        "className": "text-center align-middle",
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            return '<a class="pr-1" href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=' + persianJs(data.contentLink).decodeURL() + '&title=' + data.title + '","popUpWindow","height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes\'); return false;" title="اشتراک گذاری در فیسبوک"><i class="fab fa-facebook"></i></a>' +
+                                   '<a class="pr-1" href="#" onclick="window.open("http://twitter.com/share?text=' + data.title + '&url=' + persianJs(data.contentLink.replace("content/details", "c")).decodeURL() + '&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش","popUpWindow","height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes"); return false;" title="اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>' +
+                                   '<a class="pr-1" href="#" onclick="window.open("https://www.linkedin.com/shareArticle?mini=true&url=' + persianJs(data.contentLink).decodeURL() + '&title=' + data.title + '&source=ajaums.ac.ir","popUpWindow","height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes"); return false;" title="اشتراک گذاری لینکداین"><i class="fab fa-linkedin-in"></i></a>' +
+                                   '<a class="pr-1" href="https://telegram.me/share/url?url=' + persianJs(data.contentLink).decodeURL() + '" target="_blank" title="اشتراک گذاری در تلگرام"><i class="fab fa-telegram"></i></a>';
+                        }
+                    },
+                    {
+                        "width": "8%",
+                        "targets": 8,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {

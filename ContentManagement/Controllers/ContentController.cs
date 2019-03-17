@@ -153,6 +153,7 @@ namespace ContentManagement.Controllers
                 ViewData["IsFavorite"] = true;
                 size = _siteSettings.Value.PagesSize.FavoritesTabSize;
                 vm = await _contentService.GetFavoritesAsync(currentPortalKey, null, currentLanguage, 0, size).ConfigureAwait(false);
+                t = ContentType.UpcomingEvent;
             }
             else if ( t == ContentType.UpcomingEvent)
             {
@@ -160,6 +161,7 @@ namespace ContentManagement.Controllers
                 ViewData["IsFavorite"] = false;
                 size = _siteSettings.Value.PagesSize.UpcomingEventsTabSize;
                 vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.UpcomingEvent, 0, size).ConfigureAwait(false);
+                t = ContentType.UpcomingEvent;
             }
             else
             {
@@ -169,7 +171,7 @@ namespace ContentManagement.Controllers
                 vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.News, 0, size).ConfigureAwait(false);
             }
 
-            return PartialView("_News", vm);
+            return PartialView(t == ContentType.News ? "_News" : "_OtherContents", vm);
         }
 
         //[ResponseCache(Duration = 3600)]
