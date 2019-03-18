@@ -116,7 +116,7 @@
                         }
                     },
                     {
-                        "width": "10%",
+                        "width": "8%",
                         "targets": 3,
                         "className": "text-center align-middle",
                         "data": "isActive",
@@ -128,7 +128,7 @@
                         }
                     },
                     {
-                        "width": "11%",
+                        "width": "8%",
                         "targets": 4,
                         "className": "text-center align-middle",
                         "data": "isFavorite",
@@ -161,19 +161,23 @@
                         }
                     },
                     {
-                        "width": "8%",
+                        "width": "10%",
                         "targets": 7,
                         "className": "text-center align-middle",
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            return '<a class="pr-1" href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=' + persianJs(data.contentLink).decodeURL() + '&title=' + data.title + '","popUpWindow","height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes\'); return false;" title="اشتراک گذاری در فیسبوک"><i class="fab fa-facebook"></i></a>' +
-                                   '<a class="pr-1" href="#" onclick="window.open("http://twitter.com/share?text=' + data.title + '&url=' + persianJs(data.contentLink.replace("content/details", "c")).decodeURL() + '&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش","popUpWindow","height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes"); return false;" title="اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>' +
-                                   '<a class="pr-1" href="#" onclick="window.open("https://www.linkedin.com/shareArticle?mini=true&url=' + persianJs(data.contentLink).decodeURL() + '&title=' + data.title + '&source=ajaums.ac.ir","popUpWindow","height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes"); return false;" title="اشتراک گذاری لینکداین"><i class="fab fa-linkedin-in"></i></a>' +
-                                   '<a class="pr-1" href="https://telegram.me/share/url?url=' + persianJs(data.contentLink).decodeURL() + '" target="_blank" title="اشتراک گذاری در تلگرام"><i class="fab fa-telegram"></i></a>';
+                            var shortUrl = data.contentLink.replace('content/details', 'c').slice(0, -1);
+                            var url = shortUrl.substring(0, shortUrl.lastIndexOf('/')) + '/';
+                            var links = '<a class="pr-1 facebook-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری در فیسبوک"><i class="fab fa-facebook"></i></a>' +
+                                '<a class="pr-1 twitter-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>' +
+                                '<a class="pr-1 linkedin-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری لینکداین"><i class="fab fa-linkedin-in"></i></a>' +
+                                '<a class="pr-1 telegram-sharing" href="https://telegram.me/share/url?url=' + url + '" target="_blank" title="اشتراک گذاری در تلگرام"><i class="fab fa-telegram"></i></a>';
+
+                            return links;
                         }
                     },
                     {
-                        "width": "8%",
+                        "width": "10%",
                         "targets": 8,
                         "className": "text-center align-middle",
                         "data": "id",
@@ -238,6 +242,27 @@
                 });
 
                 e.clearSelection();
+            });
+
+            $(document).on('click', '.facebook-sharing', function () {
+                var url = $(this).data('url');
+                var title = $(this).data('title');
+                window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&title=' + title, "popUpWindow", "height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes");
+                return false;
+            });
+
+            $(document).on('click', '.twitter-sharing', function () {
+                var url = $(this).data('url');
+                var title = $(this).data('title');
+                window.open('http://twitter.com/share?text=' + title + '&url=' + url + '&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش', "popUpWindow", "height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes");
+                return false;
+            });
+
+            $(document).on('click', '.linkedin-sharing', function () {
+                var url = $(this).data('url');
+                var title = $(this).data('title');
+                window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + url + '&title=' + title + '&source=ajaums.ac.ir', "popUpWindow", "height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes");
+                return false;
             });
         });
     </script>

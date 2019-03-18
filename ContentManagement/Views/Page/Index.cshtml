@@ -1,5 +1,10 @@
 ﻿@model ContentManagement.ViewModels.PageViewModel
 
+@{
+    var url = UrlUtilityService.GeneratePageUrl(RequestService.PortalKey(), Model.Slug, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true);
+    var shortUrl = url.Replace("/page/", "/p/");
+}
+
 <div class="container-fluid">
     <div class="row mt-2">
         <div class="col-12">
@@ -20,7 +25,16 @@
                     <h1 class="content-title mb-0"><i class="far fa-file-alt"></i> <a class="nounderline" href="@UrlUtilityService.GeneratePageUrl(RequestService.PortalKey(), Model.Slug, Url, scheme: Context.Request.Scheme)">@Model.Title</a></h1>
                 </div>
                 <div class="card-body">
-                    <div class="clearfix d-print-none"><div class="float-right"><a class="pr-2" id="qrcode-button" onclick="return false;" data-url="@UrlUtilityService.GeneratePageUrl(RequestService.PortalKey(), Model.Slug, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true)" href="#" data-tippy-content="@SharedLocalizer["QR Code"]" data-tippy><i class="fas fa-qrcode"></i></a><a href="#" id="print-button" onclick="return false;" data-tippy-content="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a></div></div>
+                    <div class="clearfix d-print-none">
+                        <div class="float-right">
+                            <a class="pr-1" id="qrcode-button" onclick="return false;" data-url="@UrlUtilityService.GeneratePageUrl(RequestService.PortalKey(), Model.Slug, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true)" href="#" data-tippy-content="@SharedLocalizer["QR Code"]" data-tippy><i class="fas fa-qrcode"></i></a>
+                            <a class="pr-1" href="#" id="print-button" onclick="return false;" data-tippy-content="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a>
+                            <a class="pr-1" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=@shortUrl&title=@Model.Title','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Facebook"]" data-tippy><i class="fab fa-facebook"></i></a>
+                            <a class="pr-1" href="#" onclick="window.open('http://twitter.com/share?text=@Model.Title&url=@shortUrl&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Twitter"]" data-tippy><i class="fab fa-twitter"></i></a>
+                            <a class="pr-1" href="#" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=@shortUrl&title=@Model.Title&source=ajaums.ac.ir','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in LinkedIn"]" data-tippy><i class="fab fa-linkedin-in"></i></a>
+                            <a class="pr-1" href="https://telegram.me/share/url?url=@shortUrl" target="_blank" data-tippy-content="@SharedLocalizer["Share in Telegram"]" data-tippy><i class="fab fa-telegram"></i></a>
+                        </div>
+                    </div>
                     <container asp-if="Model.HasImage">
                         <div class="row mb-3">
                             <div class="col-12 text-center">
