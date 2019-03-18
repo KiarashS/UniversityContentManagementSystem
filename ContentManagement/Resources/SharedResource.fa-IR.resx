@@ -309,4 +309,7 @@
   <data name="Share in Twitter" xml:space="preserve">
     <value>اشتراک گذاری در توییتر</value>
   </data>
+  <data name="Most Viewed Contents" xml:space="preserve">
+    <value>مطالب پر بازدید</value>
+  </data>
 </root>

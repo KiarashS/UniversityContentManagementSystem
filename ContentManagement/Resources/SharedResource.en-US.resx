@@ -309,4 +309,7 @@
   <data name="Share in Twitter" xml:space="preserve">
     <value>Share in Twitter</value>
   </data>
+  <data name="Most Viewed Contents" xml:space="preserve">
+    <value>Most viewed contents</value>
+  </data>
 </root>

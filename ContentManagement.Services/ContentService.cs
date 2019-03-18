@@ -578,5 +578,24 @@ namespace ContentManagement.Services
 
             return items;
         }
+
+        public async Task<bool> IsExistContent(string portalKey, Language language = Language.FA)
+        {
+            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive).Cacheable().AnyAsync().ConfigureAwait(false);
+            return isExist;
+        }
+
+        public async Task<IList<ContentsViewModel>> GetMostViewedContentsAsync(string portalKey, Language language = Language.FA, int size = 10)
+        {
+            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+                        .OrderByDescending(x => x.ViewCount)
+                        .ThenByDescending(x => x.PublishDate)
+                        .Take(size)
+                        .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                        .Cacheable()
+                        .ToListAsync();
+
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType }).ToList();
+        }
     }
 }
