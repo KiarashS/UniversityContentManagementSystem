@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="~/favicon.png" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <cache expires-sliding="@TimeSpan.FromHours(6)">
@@ -51,11 +51,11 @@
     <seo-title></seo-title>
     <seo-meta-description />
     <seo-meta-keywords />
-    <seo-content-language />
+    @*<seo-content-language />*@
     <seo-meta-robots-index value="ContentManagement.Services.RobotsIndex.IndexFollow" />
 
     <noscript>
-        <meta http-equiv="refresh" content="0;url=/statics/NoScript.html" />
+        <meta http-equiv="refresh" content="0; url=/statics/NoScript.html" />
     </noscript>
 </head>
 <body>
@@ -111,7 +111,8 @@
 
         <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
         <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-        <script src="https://unpkg.com/tippy.js/dist/tippy.all.min.js"></script>
+        <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/tippy.js@4"></script>
         <script src="~/js/common.min.js" asp-append-version="true"></script>
         @*<script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.5.1/js/jquery.overlayScrollbars.min.js"></script>*@
         @*<script asp-if="RequestService.IsRtl()" src="~/js/rtl.min.js" asp-append-version="true"></script>*@

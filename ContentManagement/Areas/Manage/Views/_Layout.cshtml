@@ -18,7 +18,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="~/favicon.png" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="~/fonts/farsifonts.min.css" asp-append-version="true" />
@@ -39,7 +39,7 @@
 
     <title>@ViewData["Title"]</title>
     <noscript>
-        <meta http-equiv="refresh" content="0;url=/statics/NoScript.html" />
+        <meta http-equiv="refresh" content="0; url=/statics/NoScript.html" />
     </noscript>
 </head>
 <body id="page-top" class="sticky-footer bg-dark">
@@ -121,7 +121,8 @@
     <script src="~/js/manage.min.js" asp-append-version="true"></script>
     <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
     <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script>
-    <script src="https://unpkg.com/tippy.js/dist/tippy.all.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@4"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
