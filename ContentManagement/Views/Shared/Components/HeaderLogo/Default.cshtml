@@ -70,9 +70,9 @@
             <a asp-if="@RequestService.CurrentLanguage().Language != Language.EN" href="/language/en/" data-tippy-content="Switch to English" data-tippy style="text-decoration: none; font-size: 0.9rem;">English <span class="flag-icon flag-icon-gb"></span></a>
         </div>*@
 
-        <div class="col-md-5 col-lg-4 col-xl-3 col-sm-12 col-12" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
-            <span asp-if="@RequestService.CurrentLanguage().Language == Language.EN" style="font-size:0.75rem;" class="color-text1">@Model.TodayDate</span>
-            <span asp-if="@RequestService.CurrentLanguage().Language == Language.FA" style="font-size:0.75rem;" class="color-text1" data-tippy-content="@Model.TodayIslamicDate" data-tippy-placement="right" data-tippy>@Model.TodayDate</span>
+        <div id="todaydate-container" class="col-md-5 col-lg-4 col-xl-3 col-sm-12 col-12" condition-class-text-left="@RequestService.IsRtl()" condition-class-text-right="@RequestService.IsLtr()">
+            <span asp-if="@RequestService.CurrentLanguage().Language == Language.EN" style="font-size:0.75rem;" class="color-text1 top-todaydate">@Model.TodayDate</span>
+            <span asp-if="@RequestService.CurrentLanguage().Language == Language.FA" style="font-size:0.75rem;" class="color-text1 top-todaydate" data-tippy-content="@Model.TodayIslamicDate" data-tippy-placement="right" data-tippy>@Model.TodayDate</span>
             &nbsp;<a href="/" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Home"]" data-tippy><i class="fas fa-home"></i></a>
             <a asp-if="!string.IsNullOrEmpty(webMailAddress)" href="@webMailAddress" target="_blank" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Web Mail"]" data-tippy><i class="fas fa-envelope"></i></a>
             <a href="/feed/rss/" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Feed"]" data-tippy><i class="fas fa-rss"></i></a>

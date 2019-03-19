@@ -3121,3 +3121,15 @@ a:hover svg.fa-telegram {
 #__rinInViewInspectorRootGenerated__, .mp-results {
     direction: ltr !important;
 }
+
+@media (max-width: 767.98px) {
+    #todaydate-container {
+        text-align: center !important;
+        margin-top: 0.2rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .top-todaydate{
+        display:block !important;
+    }
+}

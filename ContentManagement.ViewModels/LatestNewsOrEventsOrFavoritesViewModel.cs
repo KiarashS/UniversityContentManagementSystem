@@ -14,21 +14,24 @@ namespace ContentManagement.ViewModels
         {
             NewsOrEventsOrFavoritesViewModel = new List<ContentsViewModel>();
             AnnouncementsViewModel = new List<ContentsViewModel>();
+            MostViewedContentsViewModel = new List<ContentsViewModel>();
         }
 
         public IList<ContentsViewModel> NewsOrEventsOrFavoritesViewModel { get; set; }
         public IList<ContentsViewModel> AnnouncementsViewModel { get; set; }
+        public IList<ContentsViewModel> MostViewedContentsViewModel { get; set; }
         public bool IsExistAnnouncement { get; set; }
         public bool IsExistFavorite { get; set; }
         public bool IsExistNews { get; set; }
         public bool IsExistEvent { get; set; }
+        public bool IsExistContent { get; set; }
 
 
         public bool JustNewsAndEventAndFavorite
         {
             get
             {
-                return (IsExistNews || IsExistEvent || IsExistFavorite) && !IsExistAnnouncement;
+                return (IsExistNews || IsExistEvent || IsExistFavorite || IsExistContent) && !IsExistAnnouncement;
             }
         }
 
@@ -36,7 +39,7 @@ namespace ContentManagement.ViewModels
         {
             get
             {
-                return (IsExistNews || IsExistEvent || IsExistFavorite) && IsExistAnnouncement;
+                return (IsExistNews || IsExistEvent || IsExistFavorite || IsExistContent) && IsExistAnnouncement;
             }
         }
 
@@ -44,7 +47,7 @@ namespace ContentManagement.ViewModels
         {
             get
             {
-                return !IsExistNews && !IsExistEvent && !IsExistFavorite && IsExistAnnouncement;
+                return !IsExistNews && !IsExistEvent && !IsExistFavorite && !IsExistContent && IsExistAnnouncement;
             }
         }
 
@@ -52,7 +55,7 @@ namespace ContentManagement.ViewModels
         {
             get
             {
-                return IsExistNews || IsExistEvent || IsExistFavorite || IsExistAnnouncement;
+                return IsExistNews || IsExistEvent || IsExistFavorite || IsExistAnnouncement || IsExistContent;
             }
         }
 
@@ -60,7 +63,7 @@ namespace ContentManagement.ViewModels
         {
             get
             {
-                return IsExistNews || IsExistEvent || IsExistFavorite;
+                return IsExistNews || IsExistEvent || IsExistFavorite || IsExistContent;
             }
         }
     }

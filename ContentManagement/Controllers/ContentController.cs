@@ -140,7 +140,7 @@ namespace ContentManagement.Controllers
         //[ResponseCache(Duration = 3600)]
         [HttpPost]
         [AjaxOnly]
-        public async virtual Task<IActionResult> FetchNews(ContentType t = ContentType.News, bool favorite = false)
+        public async virtual Task<IActionResult> FetchNews(ContentType t = ContentType.News, bool favorite = false, bool mostViewedContents = false)
         {
             var currentLanguage = _requestService.CurrentLanguage().Language;
             var currentPortalKey = _requestService.PortalKey();
@@ -153,6 +153,15 @@ namespace ContentManagement.Controllers
                 ViewData["IsFavorite"] = true;
                 size = _siteSettings.Value.PagesSize.FavoritesTabSize;
                 vm = await _contentService.GetFavoritesAsync(currentPortalKey, null, currentLanguage, 0, size).ConfigureAwait(false);
+                t = ContentType.UpcomingEvent;
+            }
+            else if (mostViewedContents)
+            {
+                ViewData["IsFavorite"] = true; // for show contents type
+                ViewData["IsMostViewed"] = true;
+                size = _siteSettings.Value.PagesSize.MostViewedContentsSize;
+                vm = await _contentService.GetMostViewedContentsAsync(currentPortalKey, currentLanguage, size).ConfigureAwait(false);
+                t = ContentType.UpcomingEvent; // for select best partial view
             }
             else if ( t == ContentType.UpcomingEvent)
             {
@@ -160,6 +169,7 @@ namespace ContentManagement.Controllers
                 ViewData["IsFavorite"] = false;
                 size = _siteSettings.Value.PagesSize.UpcomingEventsTabSize;
                 vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.UpcomingEvent, 0, size).ConfigureAwait(false);
+                t = ContentType.UpcomingEvent;
             }
             else
             {
@@ -169,7 +179,7 @@ namespace ContentManagement.Controllers
                 vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.News, 0, size).ConfigureAwait(false);
             }
 
-            return PartialView("_News", vm);
+            return PartialView(t == ContentType.News ? "_News" : "_OtherContents", vm);
         }
 
         //[ResponseCache(Duration = 3600)]

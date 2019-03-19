@@ -70,6 +70,13 @@ namespace ContentManagement.ViewComponents
                 ViewData["IsFavorite"] = false;
             }
 
+            vm.IsExistContent = await _contentService.IsExistContent(_requestService.PortalKey(), currentLanguage);
+            if (vm.IsExistContent && !vm.IsExistFavorite && !vm.IsExistNews && !vm.IsExistEvent)
+            {
+                ViewData["IsFavorite"] = true; // for show contents type
+                ViewData["IsMostViewed"] = true;
+                vm.MostViewedContentsViewModel = await _contentService.GetMostViewedContentsAsync(_requestService.PortalKey(), currentLanguage, _siteSettings.Value.PagesSize.MostViewedContentsSize);
+            }
 
             return View(vm);
         }

@@ -36,5 +36,7 @@ namespace ContentManagement.Services.Contracts
         Task UpdateGalleryPosition(long contentId, ContentGalleryPosition newPosition);
         Task<bool> HasGallery(long contentId);
         Task<IList<RssViewModel>> GetRssResult(string portalKey, ContentType? contentType, int size = 20);
+        Task<bool> IsExistContent(string portalKey, Language language = Language.FA);
+        Task<IList<ContentsViewModel>> GetMostViewedContentsAsync(string portalKey, Language language = Language.FA, int size = 10);
     }
 }

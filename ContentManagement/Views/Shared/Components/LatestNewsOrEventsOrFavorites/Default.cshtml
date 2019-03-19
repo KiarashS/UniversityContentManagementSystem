@@ -26,6 +26,11 @@
                                             <i class="fas fa-star yellow-text"></i> @SharedLocalizer["Favorite Contents"]
                                         </a>
                                     </li>
+                                    <li asp-if="Model.IsExistContent" class="nav-item">
+                                        <a class="nav-link" id="mostviewedcontents-tab-tabs-above" condition-class-active="Model.IsExistContent && !Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" href="#mostviewedcontents-tabs-above" role="tab" data-toggle="tab" data-url="/content/fetchnews/?mostviewedcontents=true" aria-controls="mostviewedcontents">
+                                            <i class="fas fa-eye blue-grey-text"></i> @SharedLocalizer["Most Viewed Contents"]
+                                        </a>
+                                    </li>
                                 </ul>
 
                                 <div id="newsTabContent-tabs-above" class="tab-content">
@@ -33,10 +38,13 @@
                                         <partial asp-if="Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
                                     </div>
                                     <div asp-if="Model.IsExistEvent" class="tab-pane fade" condition-class-show="Model.IsExistEvent && !Model.IsExistNews" condition-class-active="Model.IsExistEvent && !Model.IsExistNews" id="event-tabs-above" role="tabpanel" aria-labelledby="event-tab-tabs-above">
-                                        <partial asp-if="Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
+                                        <partial asp-if="Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_OtherContents.cshtml" />
                                     </div>
                                     <div asp-if="Model.IsExistFavorite" class="tab-pane fade" condition-class-show="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" condition-class-active="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" id="favorite-tabs-above" role="tabpanel" aria-labelledby="favorite-tabs-above">
-                                        <partial asp-if="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
+                                        <partial asp-if="Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_OtherContents.cshtml" />
+                                    </div>
+                                    <div asp-if="Model.IsExistContent" class="tab-pane fade" condition-class-show="Model.IsExistContent && !Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" condition-class-active="Model.IsExistContent && !Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" id="mostviewedcontents-tabs-above" role="tabpanel" aria-labelledby="mostviewedcontents-tabs-above">
+                                        <partial asp-if="Model.IsExistContent && !Model.IsExistFavorite && !Model.IsExistEvent && !Model.IsExistNews" model="Model.MostViewedContentsViewModel" view-data="@ViewData" name="../../../Content/_OtherContents.cshtml" />
                                     </div>
                                 </div>
 

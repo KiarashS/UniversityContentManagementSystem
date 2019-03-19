@@ -35,6 +35,7 @@
                     <th>شناسه یکتا</th>
                     <th>صفحه فعال است؟</th>
                     <th>تعداد مشاهده</th>
+                    <th>اشتراک گذاری</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -122,8 +123,23 @@
                         }
                     },
                     {
-                        "width": "4%",
+                        "width": "10%",
                         "targets": 5,
+                        "className": "text-center align-middle",
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            var url = data.pageLink.replace('/page/', '/p/');
+                            var links = '<a class="pr-1 facebook-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری در فیسبوک"><i class="fab fa-facebook"></i></a>' +
+                                '<a class="pr-1 twitter-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>' +
+                                '<a class="pr-1 linkedin-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری لینکداین"><i class="fab fa-linkedin-in"></i></a>' +
+                                '<a class="pr-1 telegram-sharing" href="https://telegram.me/share/url?url=' + url + '" target="_blank" title="اشتراک گذاری در تلگرام"><i class="fab fa-telegram"></i></a>';
+
+                            return links;
+                        }
+                    },
+                    {
+                        "width": "4%",
+                        "targets": 6,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {
@@ -187,6 +203,27 @@
                 });
 
                 e.clearSelection();
+            });
+
+            $(document).on('click', '.facebook-sharing', function () {
+                var url = $(this).data('url');
+                var title = $(this).data('title');
+                window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&title=' + title, "popUpWindow", "height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes");
+                return false;
+            });
+
+            $(document).on('click', '.twitter-sharing', function () {
+                var url = $(this).data('url');
+                var title = $(this).data('title');
+                window.open('http://twitter.com/share?text=' + title + '&url=' + url + '&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش', "popUpWindow", "height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes");
+                return false;
+            });
+
+            $(document).on('click', '.linkedin-sharing', function () {
+                var url = $(this).data('url');
+                var title = $(this).data('title');
+                window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + url + '&title=' + title + '&source=ajaums.ac.ir', "popUpWindow", "height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes");
+                return false;
             });
         });
     </script>
