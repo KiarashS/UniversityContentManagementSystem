@@ -51,10 +51,10 @@ namespace ContentManagement
                     configure.UseRinLogger();
                 })
                 .UseStartup<Startup>()
-                .UseKestrel(opt => {
-                    opt.AddServerHeader = false;
-                    opt.Limits.MaxRequestBodySize = 1073741824; /*1GB*/
-                    opt.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
+                .ConfigureKestrel((context, options) => {
+                    options.AddServerHeader = false;
+                    options.Limits.MaxRequestBodySize = 1073741824; /*1GB*/
+                    options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
                 })
                 .CaptureStartupErrors(true)
                 .UseSetting("detailedErrors", "true")
@@ -102,8 +102,8 @@ namespace ContentManagement
             //        builder => builder
             //            .AllowAnyOrigin()
             //            .AllowAnyMethod()
-            //            .AllowAnyHeader()
-            //            .AllowCredentials());
+            //            .AllowAnyHeader();
+            //            //.AllowCredentials()); // remove this in ASP.NET Core 2.2
             //});
 
             services.AddResponseCaching();
