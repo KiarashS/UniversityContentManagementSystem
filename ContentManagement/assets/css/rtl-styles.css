@@ -422,6 +422,14 @@ footer {
         width: 100%;
     }
 
+    @page {
+        size: A4; /* DIN A4 standard, Europe */
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        margin-left: 1px;
+        margin-right: 1px;
+    }
+
     /*#content-gallery-container {
         display: none;
     }*/

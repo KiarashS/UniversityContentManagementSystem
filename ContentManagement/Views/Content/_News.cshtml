@@ -27,7 +27,7 @@
                 <div class="col text-center mb-3">
                     <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline">
                         <img class="mr-3 img-fluid img-thumbnail hoverable mb-1" style="min-width: 200px; min-height: 120px;" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=200&height=120&rmode=pad&bgcolor=white" alt="@item.Title" asp-append-version="true" data-tippy-content="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>
-                        <h1 class="mt-0 mb-1" style="font-size: 0.75rem !important;"><span class="">@item.Title.Substring(0, 44)...</span> <i asp-if="item.IsPinned" title="@SharedLocalizer["Pinned"]" class="fas fa-thumbtack fa-sm grey-text"></i></h1>
+                        <h1 class="mt-0 mb-1" style="font-size: 0.75rem !important;"><span class="">@(item.Title.Length <= 44 ? item.Title : item.Title.Substring(0, 44))...</span> <i asp-if="item.IsPinned" title="@SharedLocalizer["Pinned"]" class="fas fa-thumbtack fa-sm grey-text"></i></h1>
                     </a>
                 </div>
 
