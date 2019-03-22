@@ -36,6 +36,7 @@
     "jquery.easing": "^1.4.1",
     "lightgallery": "^1.6.12",
     "lightslider": "^1.1.6",
+    "md.bootstrappersiandatetimepicker": "^3.3.7",
     "metismenu": "^3.0.0",
     "persianjs": "^0.4.0",
     "popper.js": "^1.14.7",

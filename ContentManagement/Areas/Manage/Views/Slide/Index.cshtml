@@ -42,6 +42,7 @@
                     <th>عنوان</th>
                     <th>نمایش در صفحه جدید؟</th>
                     <th>اولویت</th>
+                    <th>تاریخ انتشار</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -133,8 +134,20 @@
                         }
                     },
                     {
-                        "width": "4%",
+                        "width": "15%",
                         "targets": 4,
+                        "className": "text-center align-middle",
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>تاریخ انتشار: ' + data.publishDateText + '</span></br><span>تاریخ انقضا: ' + data.expireDateText + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "4%",
+                        "targets": 5,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {

@@ -44,6 +44,7 @@ var filesPath = {
         "assets/css/transform/rtl/fixedHeader.bootstrap4-rtl.css",
         "assets/css/transform/rtl/responsive.bootstrap4-rtl.css",
         "node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
+        "node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.style.css"
     ],
     systemRtlCss: [
         //"assets/css/transform/rtl/mdb.min-rtl.css",
@@ -114,6 +115,7 @@ var filesPath = {
         "node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js",
         "node_modules/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.min.js",
         "assets/js/lib/jscolor.js",
+        "node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.js"
     ],
     moveJs: [
         //"assets/js/kendoui/kendo.all.min.js",

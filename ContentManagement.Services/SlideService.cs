@@ -8,6 +8,7 @@ namespace ContentManagement.Services
     using ContentManagement.ViewModels.Areas.Manage;
     using EFSecondLevelCache.Core;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -38,7 +39,9 @@ namespace ContentManagement.Services
                     Priority = slide.Priority,
                     Filename = slide.Filename,
                     Language = slide.Language,
-                    PortalId = slide.PortalId
+                    PortalId = slide.PortalId,
+                    PublishDate = slide.PublishDate.ToUniversalTime(),
+                    ExpireDate = slide.ExpireDate?.ToUniversalTime()
                 };
 
                 _slide.Add(newSlide);
@@ -56,6 +59,8 @@ namespace ContentManagement.Services
             currentSlide.Filename = slide.Filename;
             currentSlide.Language = slide.Language;
             currentSlide.PortalId = slide.PortalId;
+            currentSlide.PublishDate = slide.PublishDate.ToUniversalTime();
+            currentSlide.ExpireDate = slide.ExpireDate?.ToUniversalTime();
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
@@ -91,10 +96,10 @@ namespace ContentManagement.Services
                                     .Skip(start)
                                     .Take(length)
                                     .Cacheable()
-                                    .Select(x => new { x.Id, x.Title, x.SubTitle, x.Url, x.Filename, x.PublishDate, x.IsBlankUrlTarget, x.Priority })
+                                    .Select(x => new { x.Id, x.Title, x.SubTitle, x.Url, x.Filename, x.PublishDate, x.ExpireDate, x.IsBlankUrlTarget, x.Priority })
                                     .ToListAsync();
 
-            return slides.Select(x => new SlideViewModel { Id = x.Id, Title = x.Title, SubTitle = x.SubTitle, Filename = x.Filename, PublishDate = x.PublishDate, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority }).ToList();
+            return slides.Select(x => new SlideViewModel { Id = x.Id, Title = x.Title, SubTitle = x.SubTitle, Filename = x.Filename, PublishDate = x.PublishDate, ExpireDate = x.ExpireDate, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority }).ToList();
         }
 
         public async Task<string> GetSlideFilenameAsync(long id)
@@ -106,14 +111,15 @@ namespace ContentManagement.Services
         public async Task<IList<SliderViewModel>> GetPortalSlidesAsync(string portalKey, Language language, int size)
         {
             var sliderViewModel = new List<SliderViewModel>();
+            var nowDate = DateTimeOffset.UtcNow;
             var slides = await _slide
-                                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language)
+                                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.PublishDate <= nowDate && (x.ExpireDate== null || x.ExpireDate >= nowDate))
                                 .OrderByDescending(x => x.Priority)
                                 .ThenByDescending(x => x.Id)
                                 .Select(x => new { x.Title, x.SubTitle, x.Url, x.PublishDate, x.Priority, x.IsBlankUrlTarget, x.Filename })
                                 .Cacheable()
                                 .ToListAsync();
-
+            
             foreach (var item in slides)
             {
                 sliderViewModel.Add(new SliderViewModel {

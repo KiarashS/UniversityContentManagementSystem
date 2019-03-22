@@ -6,6 +6,7 @@ using ContentManagement.ViewModels.Settings;
 using DataTables.AspNet.AspNetCore;
 using DataTables.AspNet.Core;
 using DNTCommon.Web.Core;
+using DNTPersianUtils.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,12 @@ namespace ContentManagement.Areas.Manage.Controllers
             var slidesCount = await _slideService.SlideCountAsync();
             var slidesPagedCount = await _slideService.SlidePagedCountAsync(portalId, language, request.Search.Value);
 
+            foreach (var item in slides)
+            {
+                item.PublishDateText = item.PublishDate.ToShortPersianDateTimeString();
+                item.ExpireDateText = item.ExpireDate != null ? item.ExpireDate?.ToShortPersianDateTimeString() : "بدون تاریخ انقضا";
+            }
+
             var response = DataTablesResponse.Create(request, (int)slidesCount, (int)slidesPagedCount, slides);
             return new DataTablesJsonResult(response, true);
         }
@@ -95,6 +102,26 @@ namespace ContentManagement.Areas.Manage.Controllers
                     file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
                 }
 
+                var publishDate = slide.PublishDateText.ToGregorianDateTimeOffset()?.ToUniversalTime();
+                var nowDate = DateTimeOffset.UtcNow;
+                if (!string.IsNullOrEmpty(slide.PublishDateText))
+                {
+                    if (publishDate != null && publishDate < nowDate)
+                    {
+                        slide.PublishDate = nowDate;
+                    }
+                    else
+                    {
+                        slide.PublishDate = publishDate ?? nowDate;
+                    }
+                }
+                else
+                {
+                    slide.PublishDate = nowDate;
+                }
+
+                slide.ExpireDate = slide.ExpireDateText.ToGregorianDateTimeOffset()?.ToUniversalTime();
+
                 await _slideService.AddOrUpdateSlideAsync(slide).ConfigureAwait(false);
                 image.Save(file); // Automatic encoder selected based on extension.
             }
@@ -122,20 +149,56 @@ namespace ContentManagement.Areas.Manage.Controllers
                 IsBlankUrlTarget = slide.IsBlankUrlTarget,
                 Priority = slide.Priority,
                 PortalId = slide.PortalId,
-                Language = slide.Language
+                Language = slide.Language,
+                PublishDate = slide.PublishDate.ToIranTimeZoneDateTimeOffset(),
+                ExpireDate = slide.ExpireDate?.ToIranTimeZoneDateTimeOffset(),
+                PublishDateText = slide.PublishDate.ToIranTimeZoneDateTimeOffset().ToShortPersianDateTimeString(),
+                ExpireDateText = slide.ExpireDate!= null ? slide.ExpireDate?.ToIranTimeZoneDateTimeOffset().ToShortPersianDateTimeString() : string.Empty
             };
+
+            ViewBag.CurrentPublishDate = slide.PublishDate.ToIranTimeZoneDateTimeOffset();
 
             return View(slideViewModel);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public virtual async Task<IActionResult> Update(SlideViewModel slide)
+        public virtual async Task<IActionResult> Update(SlideViewModel slide, string currentPublishDateText)
         {
             if (!ModelState.IsValid)
             {
                 return View(slide);
             }
+
+            var publishDate = slide.PublishDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
+            var currentPublishDate = DateTimeOffset.Parse(currentPublishDateText).ToUniversalTime();
+            var nowDate = DateTimeOffset.UtcNow;
+            if (string.IsNullOrEmpty(slide.PublishDateText) || publishDate == null || publishDate == currentPublishDate)
+            {
+                slide.PublishDate = currentPublishDate;
+            }
+            else if (!string.IsNullOrEmpty(slide.PublishDateText))
+            {
+                if (publishDate != null && publishDate <= currentPublishDate)
+                {
+                    slide.PublishDate = currentPublishDate;
+                }
+                else if (publishDate != null && publishDate > currentPublishDate)
+                {
+                    slide.PublishDate = (DateTimeOffset)publishDate;
+                }
+                else
+                {
+                    slide.PublishDate = nowDate;
+                }
+            }
+            else
+            {
+                slide.PublishDate = nowDate;
+            }
+
+            slide.ExpireDate = slide.ExpireDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
+            ViewBag.CurrentPublishDate = currentPublishDate.ToIranTimeZoneDateTimeOffset();
 
             var currentFilename = await _slideService.GetSlideFilenameAsync(slide.Id);
             if (slide.Image != null)

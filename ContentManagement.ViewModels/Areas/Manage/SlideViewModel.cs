@@ -27,5 +27,8 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public string Filename { get; set; }
         public bool IsBlankUrlTarget { get; set; }
         public int? Priority { get; set; }
+        public DateTimeOffset? ExpireDate { get; set; }
+        public string PublishDateText { get; set; }
+        public string ExpireDateText { get; set; }
     }
 }
