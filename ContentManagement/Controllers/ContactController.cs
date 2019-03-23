@@ -100,13 +100,22 @@ namespace ContentManagement.Controllers
                 Username = smtp.Username
             };
 
+            var blindCarbonCopies = new List<MailAddress>();
+            foreach (var item in bccEmails)
+            {
+                blindCarbonCopies.Add(new MailAddress { ToAddress = item });
+            }
+
             await _webMailService.SendEmailAsync(
                    smtpConfig: smtpConfig,
                    emails: new List<MailAddress>
                    {
                         new MailAddress { ToName = portalName, ToAddress = portalAdminEmail },
-                        new MailAddress { ToName = portalName, ToAddress = bccEmails[0] },
-                        new MailAddress { ToName = portalName, ToAddress = bccEmails[1] }
+                   },
+                   blindCarpbonCopies: blindCarbonCopies,
+                   replyTos: new List<MailAddress>
+                   {
+                        new MailAddress { ToName = msg.Name, ToAddress = msg.Email },
                    },
                    subject: $"تماس با ما | دانشگاه علوم پزشکی آجا | Ajaums",
                    viewNameOrPath: "~/Views/EmailTemplates/_Contact.cshtml",
@@ -121,7 +130,6 @@ namespace ContentManagement.Controllers
                        PortalLanguage = _requestService.CurrentLanguage().Language == Entities.Language.FA ? "فارسی" : "انگلیسی",
                        SubmitDateTime = DateTimeOffset.UtcNow.ToIranTimeZoneDateTimeOffset().ToLongPersianDateTimeString()
                    }
-                   //headers: new MailHeaders { InReplyTo = msg.Email }
                );
 
             ViewBag.IsSuccess = true;
