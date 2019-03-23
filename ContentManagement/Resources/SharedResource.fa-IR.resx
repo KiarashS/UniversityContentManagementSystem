@@ -312,4 +312,16 @@
   <data name="Most Viewed Contents" xml:space="preserve">
     <value>مطالب پر بازدید</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>پیام</value>
+  </data>
+  <data name="Contact Us" xml:space="preserve">
+    <value>تماس با ما</value>
+  </data>
 </root>

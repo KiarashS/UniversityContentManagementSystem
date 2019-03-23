@@ -102,7 +102,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                     file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.SlidesRootPath, slide.Filename);
                 }
 
-                var publishDate = slide.PublishDateText.ToGregorianDateTimeOffset()?.ToUniversalTime();
+                var publishDate = slide.PublishDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
                 var nowDate = DateTimeOffset.UtcNow;
                 if (!string.IsNullOrEmpty(slide.PublishDateText))
                 {
@@ -120,7 +120,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                     slide.PublishDate = nowDate;
                 }
 
-                slide.ExpireDate = slide.ExpireDateText.ToGregorianDateTimeOffset()?.ToUniversalTime();
+                slide.ExpireDate = slide.ExpireDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
 
                 await _slideService.AddOrUpdateSlideAsync(slide).ConfigureAwait(false);
                 image.Save(file); // Automatic encoder selected based on extension.

@@ -1,0 +1,22 @@
+﻿@model ContentManagement.ViewModels.ContactEmailViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تماس با ما</title>
+</head>
+<body style="font-family: Tahoma, serif;">
+    <div dir="rtl" style="text-align:right;">
+        <p>نام: @Model.Name</p>
+        <div><span>ایمیل: @Model.Email</span> (<a href="mailto:@Model.Email">جهت ارسال پاسخ به این ایمیل اینجا را کلیک نمائید</a>)</div>
+        <p>آدرس آی پی فرستنده: @Model.SenderIpAddress</p>
+        <p>پرتال: @Model.Portal</p>
+        <p>زبان پرتال: @Model.PortalLanguage</p>
+        <p>زمان ارسال: @Model.SubmitDateTime</p>
+    </div>
+    <hr />
+    <br />
+    <br />
+    <p dir="@Model.Direction" style="text-align: @(Model.Direction == "rtl" ? "right" : "left");">@Html.Raw(Model.Message.Replace(System.Environment.NewLine, "<br />"))</p>
+</body>
+</html>

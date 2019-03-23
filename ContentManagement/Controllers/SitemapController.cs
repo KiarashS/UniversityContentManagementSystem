@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using ContentManagement.Services;
 
 namespace ContentManagement.Controllers
 {
@@ -20,8 +21,9 @@ namespace ContentManagement.Controllers
         private readonly IPortalService _portalService;
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
         private readonly IHostingEnvironment _environment;
+        private readonly IRequestService _requestService;
 
-        public SitemapController(IHostingEnvironment environment, IPortalService portalService, IOptionsSnapshot<SiteSettings> siteSettings)
+        public SitemapController(IHostingEnvironment environment, IPortalService portalService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService)
         {
             _environment = environment;
             _environment.CheckArgumentIsNull(nameof(environment));
@@ -31,6 +33,9 @@ namespace ContentManagement.Controllers
 
             _siteSettings = siteSettings;
             _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
+
+            _requestService = requestService;
+            _requestService.CheckArgumentIsNull(nameof(requestService));
         }
 
 
@@ -54,6 +59,16 @@ namespace ContentManagement.Controllers
                     Priority = 1.0M
                 });
             }
+
+            // Add contact page
+            var contactPagePortalKey = string.IsNullOrEmpty(_requestService.PortalKey()) ? "www" : _requestService.PortalKey();
+            var contactPageHost = $"{contactPagePortalKey}.{baseOfCurrentDomain}";
+            items.Add(new SitemapItem
+            {
+                Url = Url.Action("Index", typeof(ContactController).ControllerName(), null, this.HttpContext.Request.Scheme, $"www.{baseOfCurrentDomain}"),
+                LastUpdatedTime = DateTime.Now, //DateTimeOffset.UtcNow,
+                Priority = 1.0M
+            });
 
             return new SitemapResult(items);
         }

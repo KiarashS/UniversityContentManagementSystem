@@ -20,5 +20,6 @@ namespace ContentManagement.Services.Contracts
         Task<string> GetPortalTitleAsync(string portalKey, Language language);
         Task<SeoViewModel> GetPortalSeoInfo(string portalKey, Language language);
         Task<IList<PortalKeyViewModel>> GetPortalsKeyAsync();
+        Task<string> GetAdminEmailAsync(string portalKey);
     }
 }

@@ -38,7 +38,8 @@ namespace ContentManagement.Services
                     TitleEn = portal.TitleEn?.Trim(),
                     HtmlTitleEn = portal.HtmlTitleEn?.Trim(),
                     DescriptionEn = portal.DescriptionEn?.Trim(),
-                    ShowInMainPortal = portal.ShowInMainPortal
+                    ShowInMainPortal = portal.ShowInMainPortal,
+                    AdminEmail = portal.AdminEmail
                 };
 
                 _portal.Add(newPortal);
@@ -60,6 +61,7 @@ namespace ContentManagement.Services
             currentPortal.TitleEn = portal.TitleEn?.Trim();
             currentPortal.HtmlTitleEn = portal.HtmlTitleEn?.Trim();
             currentPortal.DescriptionEn = portal.DescriptionEn?.Trim();
+            currentPortal.AdminEmail = portal.AdminEmail?.Trim();
 
             await _uow.SaveChangesAsync().ConfigureAwait(false);
 
@@ -87,7 +89,7 @@ namespace ContentManagement.Services
 
         public async Task<IList<PortalViewModel>> GetAllPortalsAsync()
         {
-            var portals = await _portal.Cacheable().Select(p => new { p.Id, p.PortalKey, p.TitleFa, p.DescriptionFa, p.ShowInMainPortal }).ToListAsync().ConfigureAwait(false);
+            var portals = await _portal.Cacheable().Select(p => new { p.Id, p.PortalKey, p.TitleFa, p.DescriptionFa, p.ShowInMainPortal, p.AdminEmail }).ToListAsync().ConfigureAwait(false);
             var portalsViewModel = new List<PortalViewModel>();
 
             foreach (var item in portals)
@@ -98,7 +100,8 @@ namespace ContentManagement.Services
                     PortalKey = item.PortalKey,
                     TitleFa = item.TitleFa,
                     DescriptionFa = item.DescriptionFa,
-                    ShowInMainPortal = item.ShowInMainPortal
+                    ShowInMainPortal = item.ShowInMainPortal,
+                    AdminEmail = item.AdminEmail
                 });
             }
 
@@ -162,6 +165,12 @@ namespace ContentManagement.Services
                                         .ToListAsync().ConfigureAwait(false);
 
             return portalsKey.Select(x => new PortalKeyViewModel { Id = x.Id, PortalKey = x.PortalKey }).ToList();
+        }
+
+        public async Task<string> GetAdminEmailAsync(string portalKey)
+        {
+            var adminEmail = await _portal.Where(x => x.PortalKey == portalKey).Select(x => x.AdminEmail).Cacheable().FirstOrDefaultAsync();
+            return adminEmail;
         }
     }
 }
