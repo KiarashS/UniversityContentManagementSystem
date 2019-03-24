@@ -1,0 +1,92 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.UserViewModel
+
+@{
+    ViewData["Title"] = "ایجاد کاربر جدید";
+}
+
+<h3>ایجاد کاربر جدید</h3>
+
+<div class="container">
+    <form id="userform" method="post" autocomplete="off" class="needs-validation" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages))
+        <input type="hidden" value="@Model.PortalId" id="currentPortalId" name="currentPortalId" />
+
+        <div class="form-group row">
+            <label asp-for="DisplayName" class="col-sm-2 form-control-label">نام(فارسی)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="DisplayName" autocomplete="off" placeholder="نام و نام خانوادگی">
+                <span class="text-danger" asp-validation-for="DisplayName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Email" class="col-sm-2 form-control-label">ایمیل</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Email" autocomplete="off" dir="ltr" placeholder="ایمیل">
+                <input type="hidden" value="@Model.Email" id="InitialEmail" name="InitialEmail" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Username" class="col-sm-2 form-control-label">نام کاربری</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Username" dir="ltr" autocomplete="off" placeholder="نام کاربری">
+                <input type="hidden" value="@Model.Username" id="InitialUsername" name="InitialUsername" />
+                <span class="text-danger" asp-validation-for="Username"></span>
+            </div>
+        </div>
+        @*<div class="form-group row">
+            <label asp-for="Password" class="col-sm-2 form-control-label">کلمه عبور</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" asp-for="Password" autocomplete="off" placeholder="کلمه عبور">
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+        </div>*@
+        <div class="form-group row">
+            <label asp-for="IsActive" class="col-sm-2 form-control-label">کاربر فعال باشد؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsActive" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsActive"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsAdmin" class="col-sm-2 form-control-label"> کاربر ادمین باشد؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsAdmin" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsAdmin"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/users/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script defer>
+        $(document).ready(function () {
+            $('#PortalId').prepend($('<option></option>').val('').html('--'));
+            $('#PortalId').rules('add', {
+                required: false   // overwrite an existing rule
+            });
+
+            $('#PortalId option').filter(function () {
+                return ($(this).val() == $('#currentPortalId').val());
+            }).prop('selected', true);
+
+            $('#LanguageDiv').remove();
+
+            $(document).on('submit', '#userform', function () {
+                if (!$('#IsAdmin').prop('checked') && $('#PortalId option:selected').val() == '') {
+                    alert('لطفاً پرتال را برای کاربر انتخاب نمائید.');
+                    return false;
+                }
+            });
+        });
+    </script>
+}

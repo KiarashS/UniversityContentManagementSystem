@@ -31,12 +31,12 @@
                             <h4 class="card-title">ورود به سیستم</h4>
                             <form method="POST" autocomplete="off" asp-controller="login" asp-action="index" asp-route-returnurl="@ViewData["ReturnUrl"]">
 
-                                <div class="form-group">
+                                @*<div class="form-group">
                                     <label asp-for="PortalId">پرتال</label>
 
                                     <select asp-for="PortalId" asp-items="@Model.Portals" class="form-control">
                                     </select>
-                                </div>
+                                </div>*@
 
                                 <div class="form-group">
                                     <label for="email">پست الکترونیک</label>

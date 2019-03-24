@@ -139,6 +139,7 @@ namespace ContentManagement.Controllers
             }
 
             var user = await _usersService.FindUserByEmailAsync(loginUser.Email, loginUser.Password).ConfigureAwait(false);
+            var userPortalId = await _usersService.GetPortalIdAsync(loginUser.Email).ConfigureAwait(false);
             if (user == null || !user.IsActive)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -147,7 +148,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = loginUser?.PortalId.ToString(),
+                    Portal = userPortalId.HasValue ? userPortalId.ToString() : string.Empty,
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"چنین کاربری موجود نیست و یا غیرفعال می باشد، ایمیل وارد شده: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -163,7 +164,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = loginUser?.PortalId.ToString(),
+                    Portal = userPortalId.HasValue ? userPortalId.ToString() : string.Empty,
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"پست الکترونیک و یا کلمه عبور اشتباه می باشند، ایمیل وارد شده: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -173,14 +174,14 @@ namespace ContentManagement.Controllers
             }
 
             var roles = await _rolesService.FindUserRolesAsync(user.Id).ConfigureAwait(false);
-            if (!loginUser.PortalId.HasValue && !roles.Any(x => x.Name.ToLowerInvariant() == "admin"))
+            if (!userPortalId.HasValue && !roles.Any(x => x.Name.ToLowerInvariant() == "admin"))
             {
                 ModelState.AddModelError("", "لطفاً پرتال مورد نظر خود را انتخاب نمائید.");
                 await _logs.CreateActivityLogAsync(new ActivityLogViewModel
                 {
                     ActionBy = "--کاربر مهمان(تایید شده)",
                     ActionType = "login",
-                    Portal = loginUser?.PortalId.ToString(),
+                    Portal = userPortalId.HasValue ? userPortalId.ToString() : string.Empty,
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"عدم انتخاب پرتال. ایمیل: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -190,7 +191,7 @@ namespace ContentManagement.Controllers
             }
 
             var loginCookieExpirationDays = _siteSettings.Value.LoginCookieExpirationDays;
-            var cookieClaims = await createCookieClaimsAsync(user, loginUser.PortalId).ConfigureAwait(false);
+            var cookieClaims = await createCookieClaimsAsync(user, userPortalId).ConfigureAwait(false);
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 cookieClaims,
@@ -209,7 +210,7 @@ namespace ContentManagement.Controllers
             {
                 ActionBy = "--کاربر مهمان(تایید شده)",
                 ActionType = "login",
-                Portal = loginUser?.PortalId.ToString(),
+                Portal = userPortalId.HasValue ? userPortalId.ToString() : string.Empty,
                 Language = _requestService.CurrentLanguage().Language.ToString(),
                 Message = $"ورود موفقیت آمیز. ایمیل: {loginUser.Email}",
                 SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -259,10 +260,10 @@ namespace ContentManagement.Controllers
             }
 
             // add sub-portal info
-            if (portalId.HasValue && !roles.Any(x => x.Name.ToLowerInvariant() == "admin"))
+            if (portalId.HasValue)// && !roles.Any(x => x.Name.ToLowerInvariant() == "admin"))
             {
                 var portal = await _portalService.FindPortalByIdAsync(portalId.Value);
-                identity.AddClaim(new Claim("PortalKey", portal.PortalKey));
+                identity.AddClaim(new Claim("PortalKey", portal.PortalKey ?? ""));
                 identity.AddClaim(new Claim("PortalId", portalId.Value.ToString()));
             }
 

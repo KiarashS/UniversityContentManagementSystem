@@ -41,15 +41,32 @@ namespace ContentManagement.Areas.Manage.ViewComponents
             IEnumerable<Claim> claims = identity.Claims;
             var roles = claims.Where(x => x.Type == ClaimTypes.Role).ToList();
 
-            if (!roles.Any(x=> x.Value.ToLowerInvariant() == "admin"))
+            //if (!roles.Any(x=> x.Value.ToLowerInvariant() == "admin"))
+            var portalKeyClaim = claims.SingleOrDefault(x => x.Type.ToLowerInvariant() == "portalkey");
+            if (portalKeyClaim != null)
             {
-                var portalKey = claims.SingleOrDefault(x => x.Type.ToLowerInvariant() == "portalkey").Value;
-                foreach (var item in portals)
+                var portalKey = portalKeyClaim.Value;
+                if (portalKey != null)
                 {
-                    if (portalKey.Equals(item.PortalKey, StringComparison.InvariantCultureIgnoreCase))
+                    foreach (var item in portals)
+                    {
+                        if (item.PortalKey == null)
+                        {
+                            item.PortalKey = string.Empty;
+                        }
+
+                        if (portalKey.Equals(item.PortalKey, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            newPortals.Add(item);
+                            //vm.PortalId = item.Id;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var item in portals)
                     {
                         newPortals.Add(item);
-                        //vm.PortalId = item.Id;
                     }
                 }
             }

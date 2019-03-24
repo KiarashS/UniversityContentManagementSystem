@@ -156,6 +156,15 @@
     <Content Update="Areas\Manage\Views\Content\Update.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Manage\Views\Users\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Users\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\Users\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\Page\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

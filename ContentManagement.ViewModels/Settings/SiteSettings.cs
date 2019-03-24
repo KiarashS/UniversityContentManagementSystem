@@ -13,6 +13,7 @@ namespace ContentManagement.ViewModels.Settings
         public string WebMailAddress { get; set; }
         public string BaseColor { get; set; }
         public string[] SubDomainsBanList { get; set; }
+        public long AdminId { get; set; }
         public string[] SuperAdminsEmail { get; set; }
         public PagesSize PagesSize { get; set; }
         public MainPortal MainPortal { get; set; }

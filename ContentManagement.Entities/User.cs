@@ -19,6 +19,8 @@ namespace ContentManagement.Entities
         public bool            IsActive                        { get; set; }
         public DateTimeOffset? LastLogIn                       { get; set; }
         public string          LastIp                          { get; set; }
+        public int?            PortalId                        { get; set; }
+        public Portal          Portal                          { get; set; }
         public virtual         ICollection<UserRole> UserRoles { get; set; }
 
         /// <summary>

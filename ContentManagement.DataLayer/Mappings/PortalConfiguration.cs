@@ -16,6 +16,8 @@ namespace ContentManagement.DataLayer.Mappings
             builder.Property(x => x.TitleEn).HasMaxLength(200).IsRequired();
             builder.Property(x => x.HtmlTitleEn).IsRequired();
             builder.Property(x => x.DescriptionEn).HasMaxLength(500).IsRequired();
+
+            builder.HasMany(x => x.Users).WithOne(x => x.Portal).HasForeignKey(x => x.PortalId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

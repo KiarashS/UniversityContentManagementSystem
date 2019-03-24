@@ -36,5 +36,6 @@ namespace ContentManagement.Entities
         public virtual ICollection<ImageLink> ImageLinks { get; set; }
         public virtual ICollection<Content> Contents { get; set; }
         public virtual ICollection<FooterSection> FooterSections { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
