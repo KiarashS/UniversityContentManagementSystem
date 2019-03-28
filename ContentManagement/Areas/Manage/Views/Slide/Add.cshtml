@@ -17,6 +17,10 @@
         توجه داشته باشید که سایز تصویر اسلاید می بایست @ContentManagement.Infrastructure.Constants.SlideWidthSize در @ContentManagement.Infrastructure.Constants.SlideHeightSize پیکسل باشد.
     </div>
 
+    <div class="alert alert-info" role="alert">
+        در صورت انتخاب نکردن تاریخ انتشار اسلاید هم اکنون منتشر شده و در صورت انتخاب نکردن تاریخ انقضا اسلاید به صورت دائمی فعال می باشد.
+    </div>
+
     <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 

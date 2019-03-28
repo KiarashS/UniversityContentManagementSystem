@@ -1,0 +1,96 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.VoteViewModel
+
+@{
+    ViewData["Title"] = "ایجاد نظرسنجی جدید";
+}
+
+<h3>ایجاد نظرسنجی جدید</h3>
+
+<div class="container">
+    @*<div class="alert alert-info" role="alert">
+        در بخش گزینه ها هر گزینه را در یک خط جدید وارد نمائید. پس از هر گزینه دکمه اینتر را بزنید.
+    </div>*@
+
+    <div class="alert alert-info" role="alert">
+        در صورت انتخاب نکردن تاریخ انقضا نظرسنجی به صورت دائمی فعال می باشد.
+    </div>
+
+    <form method="post" autocomplete="off" class="needs-validation" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages))
+
+        <div class="form-group row">
+            <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان نظرسنجی">
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Description" class="col-sm-2 form-control-label">توضیحات (اختیاری)</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" asp-for="Description" placeholder="توضیحات (اختیاری)" rows="6"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsActive" class="col-sm-2 form-control-label">نظرسنجی فعال باشد؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsActive" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsActive"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsMultiChoice" class="col-sm-2 form-control-label">قابلیت انتخاب چند گزینه فراهم باشد</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsMultiChoice" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsMultiChoice"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="IsVisibleResults" class="col-sm-2 form-control-label">نتایج توسط کاربران قابل رویت باشد</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="IsVisibleResults" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="IsVisibleResults"></span>
+            </div>
+        </div>
+        @*<div class="form-group row">
+            <label asp-for="Items" class="col-sm-2 form-control-label">گزینه ها</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" asp-for="Items" placeholder="گزینه ها" rows="8" required></textarea>
+                <span class="text-danger" asp-validation-for="Items"></span>
+            </div>
+        </div>*@
+        <div class="form-group row">
+            <label asp-for="ExpireDateText" class="col-sm-2 form-control-label">تاریخ انقضا:(اختیاری)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" dir="ltr" id="ExpireDateText" name="ExpireDateText" placeholder="تاریخ انقضا">
+                <div id="edateselector" class="col-5"></div>
+                <input type="hidden" id="hiddenExpireDateText" name="hiddenExpireDateText" />
+                <span class="text-danger" asp-validation-for="ExpireDateText"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/vote/">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script defer>
+        $(document).ready(function () {
+            $('#edateselector').MdPersianDateTimePicker({ inLine: true, textFormat: "yyyy/M/d H:m", dateFormat: "yyyy/M/d H:m", enableTimePicker: true, targetTextSelector: "#ExpireDateText", targetDateSelector: "#hiddenExpireDateText", englishNumber: true });
+
+            @if(Model.ExpireDate != null)
+            {
+                var expireDate = Model.ExpireDate;
+                @:$('#edateselector').MdPersianDateTimePicker('setDate', new Date(@expireDate?.Year, @(expireDate?.Month - 1), @expireDate?.Day, @expireDate?.Hour, @expireDate?.Minute, 0));
+            }
+        });
+    </script>
+}

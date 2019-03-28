@@ -132,11 +132,6 @@ namespace ContentManagement.Services
             return users.Select(x => new UserViewModel { Id = x.Id, Username = x.Username, Email = x.Email, PortalId = x.PortalId, LastIp = x.LastIp, LastLogIn = x.LastLogIn, IsActive = x.IsActive, IsAdmin = x.UserRoles.Count == 2, DisplayName = x.DisplayName }).ToList();
         }
 
-        public Task<IList<UserViewModel>> GetPagedUsersAsync(int portalId, string searchTerm = null, int start = 0, int length = 20)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<string> GetSerialNumberAsync(long userId)
         {
             var user = await FindUserAsync(userId).ConfigureAwait(false);

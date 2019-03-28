@@ -13,6 +13,10 @@ namespace ContentManagement.Entities
             Slides = new HashSet<Slide>();
             Links = new HashSet<Link>();
             Contents = new HashSet<Content>();
+            ImageLinks = new HashSet<ImageLink>();
+            FooterSections = new HashSet<FooterSection>();
+            Users = new HashSet<User>();
+            Votes = new HashSet<Vote>();
         }
 
         public int     Id                            { get; set; }
@@ -37,5 +41,6 @@ namespace ContentManagement.Entities
         public virtual ICollection<Content> Contents { get; set; }
         public virtual ICollection<FooterSection> FooterSections { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

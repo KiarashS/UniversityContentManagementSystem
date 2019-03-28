@@ -61,6 +61,9 @@ namespace ContentManagement
             services.AddScoped<IActivityLogService, ActivityLogService>();
             services.AddScoped<IFooterSectionService, FooterSectionService>();
             services.AddScoped<IFooterLinkService, FooterLinkService>();
+            services.AddScoped<IVoteService, VoteService>();
+            services.AddScoped<IVoteItemService, VoteItemService>();
+            services.AddScoped<IVoteResultService, VoteResultService>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)

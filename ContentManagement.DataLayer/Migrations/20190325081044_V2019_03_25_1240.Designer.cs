@@ -4,14 +4,16 @@ using ContentManagement.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContentManagement.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190325081044_V2019_03_25_1240")]
+    partial class V2019_03_25_1240
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -531,8 +533,6 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<string>("ItemTitle")
                         .IsRequired();
 
-                    b.Property<int?>("Priority");
-
                     b.Property<long>("VoteId");
 
                     b.HasKey("Id");
@@ -544,15 +544,11 @@ namespace ContentManagement.DataLayer.Migrations
 
             modelBuilder.Entity("ContentManagement.Entities.VoteResult", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<long>("VoteId");
 
                     b.Property<long>("VoteItemId");
 
-                    b.HasKey("Id");
+                    b.HasKey("VoteId", "VoteItemId");
 
                     b.HasIndex("VoteId");
 

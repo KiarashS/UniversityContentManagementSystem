@@ -15,6 +15,7 @@ namespace ContentManagement.Services
         bool IsExternal(string url);
         string GenerateUrl(string portalKey, long id, string title, IUrlHelper url, string scheme, string routeName = "default", string area = null, string controller = "content", string action = "details", bool forceAbsoluteUrl = false);
         string GeneratePageUrl(string portalKey, string slug, IUrlHelper url, string scheme, string routeName = "pageRoute", string area = null, string controller = "page", string action = "index", bool forceAbsoluteUrl = false);
+        string GenerateVoteUrl(string portalKey, long id, IUrlHelper url, string scheme, string routeName = "voteRoute", string area = null, string controller = "vote", string action = "index", bool forceAbsoluteUrl = false);
     }
 
     public class UrlUtilityService : IUrlUtilityService
@@ -122,6 +123,29 @@ namespace ContentManagement.Services
                 var pageHost = $"{portalKey ?? "www"}.{baseOfCurrentDomain}";
 
                 return url.RouteUrl(routeName, new { controller, action, area, slug = WebUtility.UrlDecode(slug) }, scheme, pageHost);
+            }
+        }
+
+        public string GenerateVoteUrl(string portalKey, long id, IUrlHelper url, string scheme, string routeName = "voteRoute", string area = null, string controller = "vote", string action = "index", bool forceAbsoluteUrl = false)
+        {
+            var baseOfCurrentDomain = _siteSettings.Value.DomainName;
+
+            if (string.Equals(portalKey, _requestService.PortalKey()) && !forceAbsoluteUrl)
+            {
+                return url.RouteUrl(routeName, new { controller, action, area, id});
+            }
+            else if (_httpContextAccessor.HttpContext.IsLocal())
+            {
+                baseOfCurrentDomain = _httpContextAccessor.HttpContext.Request.Host.Port.HasValue ? "localhost:" + _httpContextAccessor.HttpContext.Request.Host.Port.Value.ToString() : "localhost";
+                var pageHost = $"{portalKey ?? "www"}.{baseOfCurrentDomain}";
+
+                return url.RouteUrl(routeName, new { controller, action, area, id }, scheme, pageHost);
+            }
+            else
+            {
+                var pageHost = $"{portalKey ?? "www"}.{baseOfCurrentDomain}";
+
+                return url.RouteUrl(routeName, new { controller, action, area, id }, scheme, pageHost);
             }
         }
     }

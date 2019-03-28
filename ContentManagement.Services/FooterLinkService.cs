@@ -42,6 +42,7 @@ namespace ContentManagement.Services
                 await _uow.SaveChangesAsync().ConfigureAwait(false);
                 return;
             }
+
             var currentLink = await FindLinkByIdAsync(sectionId, link.Id).ConfigureAwait(false);
 
             currentLink.Text = link.Text?.Trim();

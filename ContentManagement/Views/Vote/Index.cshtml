@@ -1,0 +1,60 @@
+﻿@using DNTPersianUtils.Core
+@model ContentManagement.ViewModels.VoteViewModel
+
+@{
+    var shortUrl = UrlUtilityService.GenerateVoteUrl(RequestService.PortalKey(), Model.Id, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true);
+    var relativeUrl = UrlUtilityService.GenerateVoteUrl(RequestService.PortalKey(), Model.Id, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: false);
+}
+
+<div id="section-to-print">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="content-title d-inline-block mb-0"><i class="far fa-comments"></i> <a class="nounderline" href="@UrlUtilityService.GenerateVoteUrl(RequestService.PortalKey(), Model.Id, Url, scheme: Context.Request.Scheme)">@(RequestService.CurrentLanguage().Language == ContentManagement.Entities.Language.FA ? Model.Title.ToPersianNumbers() : Model.Title)</a></h1>
+                    </div>
+                    <div class="card-body" style="overflow-x: auto;">
+                        <div class="clearfix d-print-none">
+                            <div class="float-right">
+                                <a class="pr-1" id="qrcode-button" onclick="return false;" data-url="@shortUrl" href="#" data-tippy-content="@SharedLocalizer["QR Code"]" data-tippy><i class="fas fa-qrcode"></i></a>
+                                <a class="pr-1" href="#" id="print-button" onclick="return false;" data-tippy-content="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a>
+                                <a class="pr-1" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=@shortUrl&title=@Model.Title','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Facebook"]" data-tippy><i class="fab fa-facebook"></i></a>
+                                <a class="pr-1" href="#" onclick="window.open('http://twitter.com/share?text=@Model.Title&url=@shortUrl&hashtags=نظرسنجی,ajaums,دانشگاه_علوم_پزشکی_ارتش','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Twitter"]" data-tippy><i class="fab fa-twitter"></i></a>
+                                <a class="pr-1" href="#" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=@shortUrl&title=@Model.Title&source=ajaums.ac.ir','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in LinkedIn"]" data-tippy><i class="fab fa-linkedin-in"></i></a>
+                                <a class="pr-1" href="https://telegram.me/share/url?url=@shortUrl" target="_blank" data-tippy-content="@SharedLocalizer["Share in Telegram"]" data-tippy><i class="fab fa-telegram"></i></a>
+                            </div>
+                        </div>
+
+                        @await Html.PartialAsync("_Items", Model)
+
+                        <container asp-if="Model.HasDescription">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="pt-4 w-100">
+                                        <p class="mb-0">
+                                            @Html.Raw(Model.Description.Replace(System.Environment.NewLine, "<br />"))
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </container>
+                    </div>
+                    <div class="card-footer" style="font-size: 0.9rem !important;">
+                        <span class="mr-2"><i class="far fa-clock fa-lg light-green-text"></i> @SharedLocalizer["Publish At"]: @Model.GetPublishDate <container asp-if="Model.IsNew"><span class="badge badge-pill badge-danger">@SharedLocalizer["New"]</span></container></span>
+                        <span class="mr-2"><i class="fas fa-eye fa-lg light-blue-text"></i> @SharedLocalizer["Number Of Votes"]: @Model.GetTotalVoteCount</span>
+                        <container asp-if="@(User.Identity.IsAuthenticated || Model.IsVisibleResults)"><span class="mr-2"><i class="fas fa-chart-pie fa-lg amber-text"></i> <a href="@relativeUrl#results">@SharedLocalizer["Results"]</a></span></container>
+                        <div class="mr-2 mt-2"><i class="far fa-calendar-alt fa-lg pink-text"></i> @SharedLocalizer["Expire Date"]: @(Model.ExpireDate != null ? Model.GetExpireDate : SharedLocalizer["Have Not"].Value)</div>
+                        <div class="mr-2 mt-3"><button id="vote-submit-btn" type="button" class="btn btn-success">@SharedLocalizer["Submit Vote"]</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <container asp-if="@(User.Identity.IsAuthenticated || Model.IsVisibleResults)">
+        @await Html.PartialAsync("_Results", Model)
+    </container>
+</div>
+
+<div id="swal-container" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")"></div>

@@ -307,6 +307,18 @@ namespace ContentManagement
                 );
 
                 routes.MapRoute(
+                    name: "voteRoute",
+                    template: "Vote/{id}",
+                    defaults: new { controller = "Vote", action = "Index" }
+                );
+
+                routes.MapRoute(
+                    name: "applyVoteRoute",
+                    template: "ApplyVote",
+                    defaults: new { controller = "Vote", action = "ApplyVote" }
+                );
+
+                routes.MapRoute(
                     name: "pageRoute",
                     template: "Page/{slug}/{action}",
                     defaults: new { controller = "Page", action = "Index" }

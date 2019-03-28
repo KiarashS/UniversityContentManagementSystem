@@ -25,6 +25,21 @@ function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
 }
 
+function serializeFormToObject(formSelector) {
+    var paramObjData = {};
+    $.each($(formSelector).serializeArray(), function (_, kv) {
+        if (paramObjData.hasOwnProperty(kv.name)) {
+            paramObjData[kv.name] = $.makeArray(paramObjData[kv.name]);
+            paramObjData[kv.name].push(kv.value);
+        }
+        else {
+            paramObjData[kv.name] = kv.value;
+        }
+    });
+
+    return paramObjData;
+}
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -407,5 +422,71 @@ $(document).ready(function () {
     if ($linkTypeDD.length > 0 && window.location.pathname.indexOf('/update/') < 0 && !getParameterByName('t')) {
         var valLinkTypeDD = getCookie('LinkTypeDD');
         $linkTypeDD.val(valLinkTypeDD ? parseInt(valLinkTypeDD) : 0).trigger('change');
+    }
+
+    var $voteSubmitForm = $('#vote-submit-form');
+    if ($voteSubmitForm.length > 0) {
+        $(document).on('click', '#vote-submit-btn', function (e) {
+            if ($('[name="voteItem"]:checked').length === 0) {
+                swal({
+                    type: 'info',
+                    text: $jsGlobalInfo.data('voteRequiredMsg'),
+                    target: document.getElementById('swal-container'),
+                    showCloseButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: $jsGlobalInfo.data('ok') 
+                });
+
+                e.preventDefault();
+                return false;
+            }
+
+            var $voteId = $('#vid');
+            var voteCookieName = 'vote-' + $voteId.val();
+            if (getCookie(voteCookieName)) {
+                swal({
+                    type: 'info',
+                    text: $jsGlobalInfo.data('votePreSubmitedMsg'),
+                    target: document.getElementById('swal-container'),
+                    showCloseButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: $jsGlobalInfo.data('ok') 
+                });
+
+                e.preventDefault();
+                return false;
+            }
+
+            //var formDataObj = serializeFormToObject('#vote-submit-form');
+            var voteFormData = new FormData();
+            var voteFormValues = $voteSubmitForm.serialize().split('&');
+            for (var i in voteFormValues) {
+                var itemValue = voteFormValues[i].split('=');
+                voteFormData.append(itemValue[0], itemValue[1]);
+            }
+            axios.post($voteSubmitForm.attr('action'), voteFormData)
+                .then(function (response) {
+                    setCookie(voteCookieName, $voteId.val(), 90);
+
+                    swal({
+                        type: 'success',
+                        text: $jsGlobalInfo.data('voteSuccessMsg'),
+                        target: document.getElementById('swal-container'),
+                        showCloseButton: true,
+                        showConfirmButton: true,
+                        confirmButtonText: $jsGlobalInfo.data('ok') 
+                    });
+                })
+                .catch(function (error) {
+                    swal({
+                        type: 'error',
+                        text: $jsGlobalInfo.data('errorOccurred'),
+                        target: document.getElementById('swal-container'),
+                        showCloseButton: true,
+                        showConfirmButton: true,
+                        confirmButtonText: $jsGlobalInfo.data('ok') 
+                    });
+                });
+        });
     }
 });

@@ -1,0 +1,17 @@
+﻿@using DNTPersianUtils.Core
+@model ContentManagement.ViewModels.VoteViewModel
+
+<form id="vote-submit-form" action="/applyvote/" method="post" novalidate="novalidate">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="vid" name="vid" value="@Model.Id" />
+    <ul class="list-unstyled">
+        @foreach (var item in Model.VoteItems)
+        {
+            <li class="mb-1">
+                <input name="voteItem" type="@Model.GetItemInputType" value="@item.Id" />
+                <span dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">@(RequestService.CurrentLanguage().Language == ContentManagement.Entities.Language.FA ? item.ItemTitle.ToPersianNumbers() : item.ItemTitle)</span>
+            </li>
+        }
+    </ul>
+</form>

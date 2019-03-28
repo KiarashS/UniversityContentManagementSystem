@@ -250,7 +250,7 @@
     <value>There is no Information to Display.</value>
   </data>
   <data name="Sorry An Error Occurred" xml:space="preserve">
-    <value>Sorry, An Error Occurred !</value>
+    <value>Sorry, An Error Occurred!</value>
   </data>
   <data name="Search AutoComplete NoResult" xml:space="preserve">
     <value>No result for ##query**.</value>
@@ -323,5 +323,44 @@
   </data>
   <data name="Contact Us" xml:space="preserve">
     <value>Contact Us</value>
+  </data>
+  <data name="Have Not" xml:space="preserve">
+    <value>Have not</value>
+  </data>
+  <data name="Number Of Votes" xml:space="preserve">
+    <value>Number of Votes</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="Expire Date" xml:space="preserve">
+    <value>Expire Date</value>
+  </data>
+  <data name="Submit Vote" xml:space="preserve">
+    <value>Submit Vote</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>With</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>Votes</value>
+  </data>
+  <data name="Please Select An Item" xml:space="preserve">
+    <value>Please Select an Item.</value>
+  </data>
+  <data name="Your Vote Has Been Successfully Sent" xml:space="preserve">
+    <value>Your vote has been successfully sent.</value>
+  </data>
+  <data name="You Have Already Participated In This Vote" xml:space="preserve">
+    <value>You have already participated in this vote.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
   </data>
 </root>

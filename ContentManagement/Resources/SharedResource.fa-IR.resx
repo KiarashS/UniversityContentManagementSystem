@@ -244,7 +244,7 @@
     <value>اطلاعاتی جهت نمایش وجود ندارد.</value>
   </data>
   <data name="Sorry An Error Occurred" xml:space="preserve">
-    <value>متاسفانه خطایی رخ داده است !</value>
+    <value>متاسفانه خطایی رخ داده است!</value>
   </data>
   <data name="Search AutoComplete NoResult" xml:space="preserve">
     <value>نتیجه ای برای ##query** یافت نشد.</value>
@@ -323,5 +323,44 @@
   </data>
   <data name="Contact Us" xml:space="preserve">
     <value>تماس با ما</value>
+  </data>
+  <data name="Have Not" xml:space="preserve">
+    <value>ندارد</value>
+  </data>
+  <data name="Number Of Votes" xml:space="preserve">
+    <value>تعداد رای</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>نتایج</value>
+  </data>
+  <data name="Expire Date" xml:space="preserve">
+    <value>تاریخ انقضاء</value>
+  </data>
+  <data name="Submit Vote" xml:space="preserve">
+    <value>ارسال رای</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>با</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>رای</value>
+  </data>
+  <data name="Please Select An Item" xml:space="preserve">
+    <value>لطفاً یک گزینه را انتخاب نمایید.</value>
+  </data>
+  <data name="Your Vote Has Been Successfully Sent" xml:space="preserve">
+    <value>رای شما با موفقیت ارسال شد.</value>
+  </data>
+  <data name="You Have Already Participated In This Vote" xml:space="preserve">
+    <value>شما قبلا در این نظرسنجی شرکت کرده اید.</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>باشه</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>خیر</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>بله</value>
   </data>
 </root>
