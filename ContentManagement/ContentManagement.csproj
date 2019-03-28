@@ -15,7 +15,7 @@
     <PackageReference Include="Boilerplate.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
-    <PackageReference Include="BundlerMinifier.Core" Version="2.8.391" />
+    <PackageReference Include="BundlerMinifier.Core" Version="2.9.406" />
     <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.7" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
