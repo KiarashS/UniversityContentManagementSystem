@@ -150,6 +150,11 @@ namespace ContentManagement.Services
                                 .Select(x => new { Title = language == Language.EN ? x.HtmlTitleEn : x.HtmlTitleFa, Description = language == Language.EN ? x.DescriptionEn : x.DescriptionFa })
                                 .Cacheable()
                                 .SingleOrDefaultAsync();
+            
+            if (info == null)
+            {
+                return null;
+            }
 
             return new SeoViewModel {
                 Title = info.Title,
