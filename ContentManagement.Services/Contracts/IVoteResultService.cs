@@ -10,6 +10,6 @@ namespace ContentManagement.Services.Contracts
     public interface IVoteResultService
     {
         Task<long> VoteResultsCountAsync(long voteId);
-        Task<IList<ViewModels.VoteResultViewModel>> GetVoteResultsAsync(long voteId);
+        //Task<IList<ViewModels.VoteResultViewModel>> GetVoteResultsAsync(long voteId);
     }
 }

@@ -28,6 +28,9 @@
 
                         @await Html.PartialAsync("_Items", Model)
 
+                        <input type="hidden" id="IsActiveVote" value="@(Model.IsActive ? "true" : "false")" />
+                        <input type="hidden" id="IsExpiredVote" value="@(Model.IsExpired ? "true" : "false")" />
+
                         <container asp-if="Model.HasDescription">
                             <div class="row">
                                 <div class="col-12">

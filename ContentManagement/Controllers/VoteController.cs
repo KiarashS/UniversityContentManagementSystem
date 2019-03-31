@@ -74,7 +74,7 @@ namespace ContentManagement.Controllers
             }
 
             vote.VoteItems = await _voteItemService.GetVoteItemsAsync(id);
-            vote.VoteResults = await _voteResultService.GetVoteResultsAsync(id);
+            vote.VoteResults = await _voteItemService.GetVoteResultsAsync(id);
             vote.TotalVoteCount = vote.VoteResults.Sum(x => x.VoteCount);
             if (vote.VoteItems.Count == 0)
             {
@@ -102,7 +102,7 @@ namespace ContentManagement.Controllers
 
             await _voteService.AddVoteResults(vid, voteItem).ConfigureAwait(false);
 
-            return Json(new { ok = "ok" });
+            return Json(new { IsOk = "true" });
         }
     }
 }

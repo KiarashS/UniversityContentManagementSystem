@@ -10,7 +10,7 @@
     <form id="userform" method="post" autocomplete="off" class="needs-validation" novalidate>
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
-        @await Component.InvokeAsync(nameof(PortalsAndLanguages))
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId })
         <input type="hidden" value="@Model.PortalId" id="currentPortalId" name="currentPortalId" />
 
         <div class="form-group row">

@@ -41,6 +41,19 @@ namespace ContentManagement.ViewModels
             }
         }
 
+        public bool IsExpired
+        {
+            get
+            {
+                if (ExpireDate == null)
+                {
+                    return false;
+                }
+
+                return ExpireDate < DateTimeOffset.UtcNow;
+            }
+        }
+
         public string GetPublishDate
         {
             get

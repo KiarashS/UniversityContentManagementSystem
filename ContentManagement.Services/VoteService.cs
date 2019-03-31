@@ -130,6 +130,11 @@ namespace ContentManagement.Services
         {
             var vote = await _votes.Where(x => x.Id == voteId && x.Portal.PortalKey == portalKey && x.Language == language).Cacheable().SingleOrDefaultAsync().ConfigureAwait(false);
 
+            if (vote == null)
+            {
+                return null;
+            }
+
             return new ViewModels.VoteViewModel
             {
                 Id = vote.Id,

@@ -457,6 +457,34 @@ $(document).ready(function () {
                 return false;
             }
 
+            if ($('#IsActiveVote').val() === 'false') {
+                swal({
+                    type: 'info',
+                    text: $jsGlobalInfo.data('voteDisabledMsg'),
+                    target: document.getElementById('swal-container'),
+                    showCloseButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: $jsGlobalInfo.data('ok')
+                });
+
+                e.preventDefault();
+                return false;
+            }
+
+            if ($('#IsExpiredVote').val() === 'true') {
+                swal({
+                    type: 'info',
+                    text: $jsGlobalInfo.data('voteExpiredMsg'),
+                    target: document.getElementById('swal-container'),
+                    showCloseButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: $jsGlobalInfo.data('ok')
+                });
+
+                e.preventDefault();
+                return false;
+            }
+
             //var formDataObj = serializeFormToObject('#vote-submit-form');
             var voteFormData = new FormData();
             var voteFormValues = $voteSubmitForm.serialize().split('&');
@@ -466,7 +494,7 @@ $(document).ready(function () {
             }
             axios.post($voteSubmitForm.attr('action'), voteFormData)
                 .then(function (response) {
-                    setCookie(voteCookieName, $voteId.val(), 90);
+                    setCookie(voteCookieName, $voteId.val(), 186);
 
                     swal({
                         type: 'success',

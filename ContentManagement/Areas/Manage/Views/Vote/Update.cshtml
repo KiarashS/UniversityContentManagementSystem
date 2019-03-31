@@ -18,7 +18,7 @@
     <form method="post" autocomplete="off" class="needs-validation" novalidate>
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
-        @await Component.InvokeAsync(nameof(PortalsAndLanguages))
+        @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId, language = Model.Language })
 
         <div class="form-group row">
             <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>

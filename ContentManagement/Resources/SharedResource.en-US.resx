@@ -345,8 +345,8 @@
   <data name="Votes" xml:space="preserve">
     <value>Votes</value>
   </data>
-  <data name="Please Select An Item" xml:space="preserve">
-    <value>Please Select an Item.</value>
+  <data name="Please Select At Lease One Item" xml:space="preserve">
+    <value>Please select at least one item.</value>
   </data>
   <data name="Your Vote Has Been Successfully Sent" xml:space="preserve">
     <value>Your vote has been successfully sent.</value>
@@ -362,5 +362,11 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="Vote Has Expired" xml:space="preserve">
+    <value>Vote Has Expired.</value>
+  </data>
+  <data name="Vote Is Disabled" xml:space="preserve">
+    <value>Vote Is Disabled.</value>
   </data>
 </root>

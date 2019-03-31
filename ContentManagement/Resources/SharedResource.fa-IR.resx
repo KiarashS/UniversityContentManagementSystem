@@ -345,8 +345,8 @@
   <data name="Votes" xml:space="preserve">
     <value>رای</value>
   </data>
-  <data name="Please Select An Item" xml:space="preserve">
-    <value>لطفاً یک گزینه را انتخاب نمایید.</value>
+  <data name="Please Select At Lease One Item" xml:space="preserve">
+    <value>لطفاً حداقل یک گزینه را انتخاب نمایید.</value>
   </data>
   <data name="Your Vote Has Been Successfully Sent" xml:space="preserve">
     <value>رای شما با موفقیت ارسال شد.</value>
@@ -362,5 +362,11 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>
+  </data>
+  <data name="Vote Has Expired" xml:space="preserve">
+    <value>زمان شرکت در نظرسنجی به پایان رسیده است.</value>
+  </data>
+  <data name="Vote Is Disabled" xml:space="preserve">
+    <value>نظرسنجی غیرفعال است.</value>
   </data>
 </root>

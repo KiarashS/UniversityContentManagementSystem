@@ -27,30 +27,30 @@ namespace ContentManagement.Services
             _voteResults = _uow.Set<VoteResult>();
         }
 
-        public async Task<IList<VoteResultViewModel>> GetVoteResultsAsync(long voteId)
-        {
-            var results = await _voteResults
-                .Where(x => x.VoteId == voteId)
-                .GroupBy(x => x.VoteItemId)
-                .Select(x => new { VoteItemId = x.Key, VoteCount = x.Count() })
-                .Cacheable()
-                .ToListAsync()
-                .ConfigureAwait(false);
+        //public async Task<IList<VoteResultViewModel>> GetVoteResultsAsync(long voteId)
+        //{
+        //    var results = await _voteResults
+        //        .Where(x => x.VoteItem.VoteId == voteId)
+        //        .GroupBy(x => x.VoteItemId)
+        //        .Select(x => new { VoteItemId = x.Key, VoteCount = x.Count() })
+        //        .Cacheable()
+        //        .ToListAsync()
+        //        .ConfigureAwait(false);
 
-            results = results.OrderByDescending(x => x.VoteCount).ThenBy(x => x.VoteItemId).ToList();
+        //    results = results.OrderByDescending(x => x.VoteCount).ThenBy(x => x.VoteItemId).ToList();
 
-            var voteResultViewModel = new List<VoteResultViewModel>();
-            foreach (var item in results)
-            {
-                voteResultViewModel.Add(new VoteResultViewModel
-                {
-                    VoteItemId = item.VoteItemId,
-                    VoteCount = item.VoteCount
-                });
-            }
+        //    var voteResultViewModel = new List<VoteResultViewModel>();
+        //    foreach (var item in results)
+        //    {
+        //        voteResultViewModel.Add(new VoteResultViewModel
+        //        {
+        //            VoteItemId = item.VoteItemId,
+        //            VoteCount = item.VoteCount
+        //        });
+        //    }
 
-            return voteResultViewModel;
-        }
+        //    return voteResultViewModel;
+        //}
 
         public async Task<long> VoteResultsCountAsync(long voteId)
         {

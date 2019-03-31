@@ -41,6 +41,30 @@ namespace ContentManagement.Services
             return votes.Select(x => new ViewModels.Areas.Manage.VoteItemViewModel { Id = x.Id, ItemTitle = x.ItemTitle, Priority = x.Priority }).ToList();
         }
 
+        public async Task<IList<VoteResultViewModel>> GetVoteResultsAsync(long voteId)
+        {
+            var results = await _voteItems
+                .Where(x => x.VoteId == voteId)
+                .Select(x => new { VoteItemId = x.Id, VoteCount = x.VoteItemResults.Count })
+                //.Cacheable()
+                .ToListAsync()
+                .ConfigureAwait(false);
+
+            results = results.OrderByDescending(x => x.VoteCount).ThenBy(x => x.VoteItemId).ToList();
+
+            var voteResultViewModel = new List<VoteResultViewModel>();
+            foreach (var item in results)
+            {
+                voteResultViewModel.Add(new VoteResultViewModel
+                {
+                    VoteItemId = item.VoteItemId,
+                    VoteCount = item.VoteCount
+                });
+            }
+
+            return voteResultViewModel;
+        }
+
         public async Task AddOrUpdateItemAsync(long voteId, ViewModels.Areas.Manage.VoteItemViewModel voteItem)
         {
             if (voteItem.Id == 0) // Add

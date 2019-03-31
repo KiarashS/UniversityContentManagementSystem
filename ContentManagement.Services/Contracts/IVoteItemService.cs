@@ -15,5 +15,6 @@ namespace ContentManagement.Services.Contracts
         Task DeleteItemsAsync(long voteId);
         Task<VoteItem> FindItemByIdAsync(long voteId, long voteItemId);
         Task<IList<ViewModels.VoteItemViewModel>> GetVoteItemsAsync(long voteId);
+        Task<IList<ViewModels.VoteResultViewModel>> GetVoteResultsAsync(long voteId);
     }
 }
