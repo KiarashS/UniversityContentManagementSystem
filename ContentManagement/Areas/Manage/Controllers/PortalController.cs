@@ -105,7 +105,8 @@ namespace ContentManagement.Areas.Manage.Controllers
                 TitleEn = portal.TitleEn,
                 HtmlTitleEn = portal.HtmlTitleEn,
                 DescriptionEn = portal.DescriptionEn,
-                ShowInMainPortal = portal.ShowInMainPortal
+                ShowInMainPortal = portal.ShowInMainPortal,
+                AdminEmail = portal.AdminEmail
             };
 
             return View(portalViewModel);

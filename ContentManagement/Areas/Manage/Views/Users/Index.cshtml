@@ -42,6 +42,7 @@
 
 @section scripts{
     <script>
+        var adminId = @SiteSettings.Value.AdminId;
         var table;
         $(document).ready(function () {
 
@@ -142,7 +143,12 @@
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {
-                            return '<a href="/manage/users/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-user" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                            if (data == adminId) {
+                                return '<a href="/manage/users/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>';
+                            }
+                            else {
+                                return '<a href="/manage/users/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-user" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                            }
                         }
                     }]
             });

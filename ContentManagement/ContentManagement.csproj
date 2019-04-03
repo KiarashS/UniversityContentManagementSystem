@@ -9,6 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
+    <AssemblyVersion>2019.4.3.15</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Ben.BlockingDetector" Version="0.0.3" />
@@ -19,7 +20,7 @@
     <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.7" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
-    <PackageReference Include="HtmlSanitizer" Version="4.0.207" />
+    <PackageReference Include="HtmlSanitizer" Version="4.0.210" />
     <PackageReference Include="Humanizer.Core" Version="2.6.2" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
     <!--<PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />-->
@@ -50,6 +51,27 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <PlatformTarget>anycpu</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <ShouldCreateLogs>False</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>YearStamp.MonthStamp.DayStamp.Increment</AssemblyVersionSettings>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>True</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>False</UpdatePackageVersion>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
   <!--<Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
     <Exec Command="dotnet bundle" />

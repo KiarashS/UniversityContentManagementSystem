@@ -1,13 +1,14 @@
 ﻿@model ContentManagement.ViewModels.Areas.Manage.UserViewModel
 
 @{
-    ViewData["Title"] = "ایجاد کاربر جدید";
+    ViewData["Title"] = "ویرایش کاربر";
 }
 
-<h3>ایجاد کاربر جدید</h3>
+<h3>ویرایش کاربر</h3>
 
 <div class="container">
     <form id="userform" method="post" autocomplete="off" class="needs-validation" novalidate>
+        @Html.AntiForgeryToken()
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
         @await Component.InvokeAsync(nameof(PortalsAndLanguages), new { portalId = Model.PortalId })
