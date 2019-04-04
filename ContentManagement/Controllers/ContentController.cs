@@ -179,7 +179,7 @@ namespace ContentManagement.Controllers
                 vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.News, 0, size).ConfigureAwait(false);
             }
 
-            return PartialView(t == ContentType.News ? "_News" : "_OtherContents", vm);
+            return PartialView(t == ContentType.News ? "_OtherContents" : "_OtherContents", vm);
         }
 
         //[ResponseCache(Duration = 3600)]
