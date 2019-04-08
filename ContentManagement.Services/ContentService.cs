@@ -1,4 +1,4 @@
-namespace ContentManagement.Services
+﻿namespace ContentManagement.Services
 {
     using ContentManagement.Common.GuardToolkit;
     using ContentManagement.DataLayer.Context;
@@ -37,7 +37,7 @@ namespace ContentManagement.Services
                     Text = content.Text,
                     RawText = content.RawText,
                     Summary = content.Summary?.Trim(),
-                    Keywords = content.Keywords?.Trim(),
+                    Keywords = content.Keywords?.Trim().Replace("،", ","),
                     Imagename = content.Imagename,
                     IsActive = content.IsActive,
                     IsFavorite = content.IsFavorite,
@@ -57,7 +57,7 @@ namespace ContentManagement.Services
             currentContent.Text = content.Text;
             currentContent.RawText = content.RawText;
             currentContent.Summary = content.Summary?.Trim();
-            currentContent.Keywords = content.Keywords?.Trim();
+            currentContent.Keywords = content.Keywords?.Trim().Replace("،", ",");
             currentContent.Imagename = content.Imagename;
             currentContent.IsActive = content.IsActive;
             currentContent.IsFavorite = content.IsFavorite;

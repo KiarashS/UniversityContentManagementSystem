@@ -1,4 +1,4 @@
-namespace ContentManagement.Services
+﻿namespace ContentManagement.Services
 {
     using ContentManagement.Common.GuardToolkit;
     using ContentManagement.Common.WebToolkit;
@@ -35,7 +35,7 @@ namespace ContentManagement.Services
                     Text = page.Text,
                     RawText = page.RawText,
                     Slug = page.Slug.GenerateSlug(),
-                    Keywords = page.Keywords?.Trim(),
+                    Keywords = page.Keywords?.Trim().Replace("،", ","),
                     IsActive = page.IsActive,
                     Imagename = page.Imagename,
                     Language = page.Language,
@@ -52,7 +52,7 @@ namespace ContentManagement.Services
             currentPage.Text = page.Text;
             currentPage.RawText = page.RawText;
             currentPage.Slug = page.Slug.GenerateSlug();
-            currentPage.Keywords = page.Keywords?.Trim();
+            currentPage.Keywords = page.Keywords?.Trim().Replace("،", ",");
             currentPage.IsActive = page.IsActive;
             currentPage.Imagename = page.Imagename;
             currentPage.Language = page.Language;

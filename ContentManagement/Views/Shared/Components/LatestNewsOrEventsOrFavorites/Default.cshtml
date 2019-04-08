@@ -35,7 +35,7 @@
 
                                 <div id="newsTabContent-tabs-above" class="tab-content">
                                     <div asp-if="Model.IsExistNews" class="tab-pane fade" condition-class-show="Model.IsExistNews" condition-class-active="Model.IsExistNews" id="news-tabs-above" role="tabpanel" aria-labelledby="news-tab-tabs-above">
-                                        <partial asp-if="Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_OtherContents.cshtml" />
+                                        <partial asp-if="Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_News.cshtml" />
                                     </div>
                                     <div asp-if="Model.IsExistEvent" class="tab-pane fade" condition-class-show="Model.IsExistEvent && !Model.IsExistNews" condition-class-active="Model.IsExistEvent && !Model.IsExistNews" id="event-tabs-above" role="tabpanel" aria-labelledby="event-tab-tabs-above">
                                         <partial asp-if="Model.IsExistEvent && !Model.IsExistNews" model="Model.NewsOrEventsOrFavoritesViewModel" view-data="@ViewData" name="../../../Content/_OtherContents.cshtml" />
