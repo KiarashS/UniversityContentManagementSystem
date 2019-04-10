@@ -139,6 +139,9 @@
     <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Areas\Manage\Views\Users\ResetPassword.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\VoteItem\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

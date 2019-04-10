@@ -26,5 +26,6 @@ namespace ContentManagement.Services.Contracts
         Task<bool> IsAdminAsync(long id);
         Task<User> FindUserIncludeRolesAsync(long userId);
         Task<int?> GetPortalIdAsync(string email);
+        Task ResetPasswordAsync(long id, string newPassword);
     }
 }

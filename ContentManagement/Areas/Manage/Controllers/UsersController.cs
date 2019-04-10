@@ -125,14 +125,18 @@ namespace ContentManagement.Areas.Manage.Controllers
 
         public virtual IActionResult ResetPassword(long id)
         {
-            return View();
+            return View(new ResetPasswordViewModel());
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async virtual Task<IActionResult> ResetPassword(long id, ResetPasswordViewModel vm)
         {
-            return View(new ResetPasswordViewModel());
+            var newPassword = _securityService.GetSha256Hash(vm.Password);
+            await _userService.ResetPasswordAsync(id, newPassword).ConfigureAwait(false);
+
+            TempData["IsOk"] = true;
+            return RedirectToAction("index", "users", "manage");
         }
 
         [HttpPost]

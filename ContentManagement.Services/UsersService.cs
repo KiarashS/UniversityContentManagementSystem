@@ -229,5 +229,12 @@ namespace ContentManagement.Services
             var portalId = await _users.Where(x => x.Email == email).Select(x => x.PortalId).SingleAsync();
             return portalId;
         }
+
+        public async Task ResetPasswordAsync(long id, string newPassword)
+        {
+            var currentUser = await FindUserIncludeRolesAsync(id).ConfigureAwait(false);
+            currentUser.Password = newPassword;
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+        }
     }
 }

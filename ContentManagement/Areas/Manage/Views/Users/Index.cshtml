@@ -138,7 +138,7 @@
                         }
                     },
                     {
-                        "width": "5%",
+                        "width": "8%",
                         "targets": 6,
                         "className": "text-center align-middle",
                         "data": "id",
@@ -147,7 +147,7 @@
                                 return '<a href="/manage/users/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>';
                             }
                             else {
-                                return '<a href="/manage/users/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-user" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                                return '<a href="/manage/users/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp<a href="/manage/users/resetpassword/' + data + '/" title="تغییر رمز عبور"><i class="fas fa-key fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-user" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
                             }
                         }
                     }]
