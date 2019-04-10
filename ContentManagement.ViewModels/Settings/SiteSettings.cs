@@ -15,6 +15,7 @@ namespace ContentManagement.ViewModels.Settings
         public string[] SubDomainsBanList { get; set; }
         public long AdminId { get; set; }
         public string[] SuperAdminsEmail { get; set; }
+        public string PtsdEmail { get; set; }
         public PagesSize PagesSize { get; set; }
         public MainPortal MainPortal { get; set; }
         public Localization Localization { get; set; }

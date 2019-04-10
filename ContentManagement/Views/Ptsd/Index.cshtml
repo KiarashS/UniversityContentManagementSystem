@@ -1,58 +1,128 @@
-﻿@model ContentManagement.ViewModels.ContactViewModel
+﻿@model ContentManagement.ViewModels.PtsdViewModel
 
 <div class="container-fluid bg-white shadow-sm">
     <div class="row">
-        <div class="col my-5 mx-3">
-            <h5><i class="far fa-envelope"></i> @SharedLocalizer["Contact Us"]</h5>
+        <div class="container">
+            <div dir="ltr" class="row" style="text-align: left;">
+                <div class="col my-5 mx-3">
+                    <h5><i class="fas fa-users"></i> PTSD International Workshop Registration</h5>
 
-            <hr class="hr14" />
+                    <hr class="hr14" />
 
-            @if (ViewBag.IsSuccess != null && (bool)ViewBag.IsSuccess)
-            {
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    @ViewBag.AlertMessage
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" title="@SharedLocalizer["Close"]">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            }
+                    @if (ViewBag.IsSuccess != null && (bool)ViewBag.IsSuccess)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @ViewBag.AlertMessage
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" title="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
 
-            <form method="post">
-                @Html.AntiForgeryToken()
+                    <form method="post">
+                        @Html.AntiForgeryToken()
 
-                @if (ViewData.ModelState.Any(keyValuePair => keyValuePair.Value.Errors.Any()))
-                {
-                    <div class="alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert">×</a>
-                        <div asp-validation-summary="All"></div>
-                    </div>
-                }
+                        @if (ViewData.ModelState.Any(keyValuePair => keyValuePair.Value.Errors.Any()))
+                        {
+                            <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert">×</a>
+                                <div asp-validation-summary="All"></div>
+                            </div>
+                        }
 
-                <div class="form-group row">
-                    <label for="Name" class="col-sm-2 col-form-label">@SharedLocalizer["Name"]</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" asp-for="Name" placeholder="@SharedLocalizer["Name"]" required>
-                    </div>
+                        <div class="form-group row">
+                            <label for="Firstname" class="col-sm-2 col-form-label">First Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Firstname" placeholder="First Name">
+                                <span class="text-danger" asp-validation-for="Firstname"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Surname" class="col-sm-2 col-form-label">Surname</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Surname" placeholder="Surname">
+                                <span class="text-danger" asp-validation-for="Surname"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Affiliation" class="col-sm-2 col-form-label">Affiliation</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Affiliation" placeholder="Affiliation">
+                                <span class="text-danger" asp-validation-for="Affiliation"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="MilitaryRank" class="col-sm-2 col-form-label">Military Rank</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="MilitaryRank" placeholder="Military Rank">
+                                <span class="text-danger" asp-validation-for="MilitaryRank"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Major" class="col-sm-2 col-form-label">Major</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Major" placeholder="Major">
+                                <span class="text-danger" asp-validation-for="Major"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="AcademicDegree" class="col-sm-2 col-form-label">Academic Degree</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="AcademicDegree" placeholder="Academic Degree">
+                                <span class="text-danger" asp-validation-for="AcademicDegree"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Email" placeholder="Email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number">
+                                <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="MobileNumber" class="col-sm-2 col-form-label">Mobile Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="MobileNumber" placeholder="Mobile Number">
+                                <span class="text-danger" asp-validation-for="MobileNumber"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Fax" class="col-sm-2 col-form-label">Fax</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Fax" placeholder="Fax">
+                                <span class="text-danger" asp-validation-for="Fax"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Address" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="Address" placeholder="Address">
+                                <span class="text-danger" asp-validation-for="Address"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="PostalCode" class="col-sm-2 col-form-label">Postal Code</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" asp-for="PostalCode" placeholder="Postal Code">
+                                <span class="text-danger" asp-validation-for="PostalCode"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group row">
-                    <label for="Email" class="col-sm-2 col-form-label">@SharedLocalizer["Email"]</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" dir="ltr" asp-for="Email" placeholder="@SharedLocalizer["Email"]" required>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Message" class="col-sm-2 col-form-label">@SharedLocalizer["Message"]</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" asp-for="Message" rows="6" placeholder="@SharedLocalizer["Message"] ..." required></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="Message" class="col-sm-2 col-form-label">&nbsp;</label>
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary btn-sm">@SharedLocalizer["Submit"]</button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

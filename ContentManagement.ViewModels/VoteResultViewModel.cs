@@ -16,7 +16,13 @@ namespace ContentManagement.ViewModels
 
         public double GetVotePercentage(long totalVoteCount)
         {
-            return ((double)VoteCount/totalVoteCount) * 100;
+            var result = ((double)VoteCount/totalVoteCount) * 100;
+            if (double.IsNaN(result))
+            {
+                return 0;
+            }
+
+            return result;
         }
 
         public double GetRoundedVotePercentage(double votePercentage)

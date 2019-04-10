@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.4.7.17</AssemblyVersion>
+    <AssemblyVersion>2019.4.9.23</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Ben.BlockingDetector" Version="0.0.3" />

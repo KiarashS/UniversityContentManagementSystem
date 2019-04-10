@@ -1,0 +1,30 @@
+﻿@using DNTPersianUtils.Core
+@model ContentManagement.ViewModels.PtsdViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PTSD</title>
+</head>
+<body style="font-family: Tahoma, serif;">
+    <div dir="ltr" style="text-align:left;">
+        <p>First Name: @Model.Firstname</p>
+        <p>Surname: @Model.Surname</p>
+        <p>Affiliation: @(Model.Affiliation ?? "")</p>
+        <p>Military Rank: @(Model.MilitaryRank ?? "")</p>
+        <p>Major: @Model.Major</p>
+        <p>Academic Degree: @Model.AcademicDegree</p>
+        <div><span>Email: @Model.Email</span> (<a href="mailto:@Model.Email">جهت ارسال پاسخ به این درخواست اینجا را کلیک نمائید</a>)</div>
+        <p>Phone Number: @Model.PhoneNumber</p>
+        <p>Mobile Number: @Model.MobileNumber</p>
+        <p>Fax: @Model.Fax</p>
+        <p>Address: @Model.Address</p>
+        <p>Posta Code: @Model.PostalCode</p>
+        <br />
+        <br />
+        <p>IP Address: @Model.SenderIpAddress</p>
+        <p>Submit Time: @Model.SubmitDateTime.ToIranTimeZoneDateTimeOffset().ToLongPersianDateTimeString() (@Model.SubmitDateTime)</p>
+    </div>
+    <hr />
+</body>
+</html>

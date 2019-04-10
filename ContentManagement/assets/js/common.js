@@ -57,8 +57,8 @@ $(document).ready(function () {
     var $headerNavbar = $("#header-navbar");
     if ($headerNavbar.length > 0)
     {
-        //$headerNavbar.css('visibility', 'visible').metisMenu();
-        $headerNavbar.metisMenu();
+        $headerNavbar.css('visibility', 'visible').metisMenu();
+        //$headerNavbar.metisMenu();
         stickybits('#menu-hamberger-container');
 
         $(document).on('click', '#menu-hamburger-expand', function (e) {

@@ -123,6 +123,18 @@ namespace ContentManagement.Areas.Manage.Controllers
             return Content("کاربر با موفقیت حذف شد.", "text/html", System.Text.Encoding.UTF8);
         }
 
+        public virtual IActionResult ResetPassword(long id)
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async virtual Task<IActionResult> ResetPassword(long id, ResetPasswordViewModel vm)
+        {
+            return View(new ResetPasswordViewModel());
+        }
+
         [HttpPost]
         public virtual async Task<IActionResult> CheckUsername(string username, string initialUsername)
         {
