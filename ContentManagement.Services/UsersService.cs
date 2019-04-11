@@ -234,6 +234,7 @@ namespace ContentManagement.Services
         {
             var currentUser = await FindUserIncludeRolesAsync(id).ConfigureAwait(false);
             currentUser.Password = newPassword;
+            currentUser.SerialNumber = Guid.NewGuid().ToString("N");
             await _uow.SaveChangesAsync().ConfigureAwait(false);
         }
     }
