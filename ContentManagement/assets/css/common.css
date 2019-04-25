@@ -3133,3 +3133,17 @@ a:hover svg.fa-telegram {
         display:block !important;
     }
 }
+
+#newsTabContent-tabs-above,
+#linksTabContent-tabs-above {
+    height: 100% !important;
+}
+
+.just-screen-reader {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}

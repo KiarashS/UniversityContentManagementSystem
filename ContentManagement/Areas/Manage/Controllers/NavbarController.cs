@@ -57,11 +57,11 @@ namespace ContentManagement.Areas.Manage.Controllers
             {
                 if (currentNavbarParentId != null)
                 {
-                    result.results.Add(new { Id = item.Id, Text = item.Text, Selected = (currentNavbarParentId == item.Id) });
+                    result.results.Add(new { Id = item.Id, Text = item.Text + " [" + (string.IsNullOrEmpty(item.Url) ? "#" : item.Url) + "]", Selected = (currentNavbarParentId == item.Id) });
                 }
                 else
                 {
-                    result.results.Add(new { Id = item.Id, Text = item.Text });
+                    result.results.Add(new { Id = item.Id, Text = item.Text + " [" + (string.IsNullOrEmpty(item.Url) ? "#" : item.Url) + "]" });
                 }
             }
 
@@ -103,7 +103,7 @@ namespace ContentManagement.Areas.Manage.Controllers
 
                 if (navbarParent != null)
                 {
-                    ViewBag.ParentText = navbarParent.Text;
+                    ViewBag.ParentText = navbarParent.Text + " [" + (string.IsNullOrEmpty(navbarParent.Url) ? "#" : navbarParent.Url) + "]";
                 }
             }
 

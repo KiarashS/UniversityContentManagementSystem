@@ -9,16 +9,43 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.4.11.25</AssemblyVersion>
+    <AssemblyVersion>2019.4.25.45</AssemblyVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wkhtmltox\v0.12.4\64 bit\libwkhtmltox.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wkhtmltox\v0.12.4\64 bit\libwkhtmltox.dylib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wkhtmltox\v0.12.4\64 bit\libwkhtmltox.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Ben.BlockingDetector" Version="0.0.3" />
     <PackageReference Include="Boilerplate.AspNetCore" Version="3.0.0" />
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
     <PackageReference Include="BundlerMinifier.Core" Version="2.9.406" />
-    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.7" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.9" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
     <PackageReference Include="HtmlSanitizer" Version="4.0.210" />
     <PackageReference Include="Humanizer.Core" Version="2.6.2" />
@@ -47,7 +74,7 @@
     <PackageReference Include="CacheManager.Core" Version="1.2.0" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.2.0" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
-    <PackageReference Include="EFSecondLevelCache.Core" Version="1.7.1" />
+    <PackageReference Include="EFSecondLevelCache.Core" Version="1.7.2" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <PlatformTarget>anycpu</PlatformTarget>

@@ -38,5 +38,7 @@ namespace ContentManagement.Services.Contracts
         Task<IList<RssViewModel>> GetRssResult(string portalKey, ContentType? contentType, int size = 20);
         Task<bool> IsExistContent(string portalKey, Language language = Language.FA);
         Task<IList<ContentsViewModel>> GetMostViewedContentsAsync(string portalKey, Language language = Language.FA, int size = 10);
+        Task<PdfViewModel> GetDataForPdfAsyc(long id, string portalKey, Language language = Language.FA);
+        Task<bool> IsArchiveAsync(long id, string portalKey, Language language = Language.FA);
     }
 }

@@ -43,6 +43,7 @@
                     IsFavorite = content.IsFavorite,
                     ContentType = content.ContentType,
                     Priority = content.Priority,
+                    //ArchiveDate = content.ArchiveDate,
                     Language = content.Language,
                     PortalId = content.PortalId
                 };
@@ -63,6 +64,7 @@
             currentContent.IsFavorite = content.IsFavorite;
             currentContent.ContentType = content.ContentType;
             currentContent.Priority = content.Priority;
+            //currentContent.ArchiveDate = content.ArchiveDate;
             currentContent.Language = content.Language;
             currentContent.PortalId = content.PortalId;
 
@@ -224,6 +226,7 @@
 
         public async Task<IList<ContentsViewModel>> GetContentsAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News, int start = 0, int length = 10)
         {
+            //var nowDate = DateTimeOffset.UtcNow;
             var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive)
                                     .OrderByDescending(x => x.Priority)
                                     .ThenByDescending(x => x.PublishDate)
@@ -238,6 +241,7 @@
 
         public async Task<long> ContentsCountAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News)
         {
+            //var nowDate = DateTimeOffset.UtcNow;
             var count = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive)
                                     .Cacheable()
                                     .LongCountAsync()
@@ -248,9 +252,9 @@
 
         public async Task<IList<ContentsViewModel>> GetFavoritesAsync(string portalKey, ContentType? contentType, Language language = Language.FA, int start = 0, int length = 10)
         {
+            //var nowDate = DateTimeOffset.UtcNow;
             var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive).AsQueryable();
                                     
-
             if (contentType.HasValue)
             {
                 query = query.Where(x => x.ContentType == contentType.Value);
@@ -270,6 +274,7 @@
 
         public async Task<long> FavoritesCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
         {
+            //var nowDate = DateTimeOffset.UtcNow;
             var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive).AsQueryable();
 
             if (contentType.HasValue)
@@ -312,6 +317,7 @@
         public async Task<IList<ViewModels.ContentVisibilityViewModel>> CheckContentsVisibility(string portalKey, Language language)
         {
             var vm = new List<ViewModels.ContentVisibilityViewModel>();
+            //var nowDate = DateTimeOffset.UtcNow;
             var contents = await _content
                 .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
                 .GroupBy(x => x.ContentType)
@@ -596,6 +602,29 @@
                         .ToListAsync();
 
             return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType }).ToList();
+        }
+
+        public async Task<PdfViewModel> GetDataForPdfAsyc(long id, string portalKey, Language language = Language.FA)
+        {
+            var content = await _content.Where(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language).Select(x => new { x.Title, x.Text }).Cacheable().SingleOrDefaultAsync().ConfigureAwait(false);
+
+            if (content == null)
+            {
+                return null;
+            }
+
+            return new PdfViewModel
+            {
+                Title = content.Title,
+                Text = content.Text
+            };
+        }
+
+        public async Task<bool> IsArchiveAsync(long id, string portalKey, Language language = Language.FA)
+        {
+            var nowDate = DateTimeOffset.UtcNow;
+            var isArchive = await _content.AnyAsync(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && (x.ArchiveDate != null && x.ArchiveDate <= nowDate));
+            return isArchive;
         }
     }
 }

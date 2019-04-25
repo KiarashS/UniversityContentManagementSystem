@@ -40,6 +40,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         [Required(ErrorMessage = "نوع متن را انتخاب نمایید.")]
         public ContentType ContentType { get; set; }
         public DateTimeOffset PublishDate { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset? ArchiveDate { get; set; }
         [UploadFileExtensions(".png,.jpg,.jpeg,.gif", ErrorMessage = "لطفاً یک تصویر با پسوندهای .png,.jpg,.jpeg,.gif آپلود نمائید.")]
         public IFormFile Image { get; set; }
         public string Imagename { get; set; }

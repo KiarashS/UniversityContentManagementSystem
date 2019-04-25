@@ -6,7 +6,7 @@
     var webMailAddress = SiteSettings.Value.WebMailAddress;
     var currentSubDomain = RequestService.CurrentSubDomain();
     var subLogoPath = $"{hostingEnvironment.WebRootPath}/statics/{currentSubDomain ?? "www"}.png";
-    var subLogoImage = $"/statics/{currentSubDomain ?? "www"}.png";
+    var subLogoImage = $"/statics/{currentSubDomain ?? "www"}.png?width=90&height=88";
 }
 
 <div id="header-logo" class="container-fluid color-bg1 shadow-bottom">
@@ -21,7 +21,7 @@
                 }
                 else
                 {
-                    <img src="~/statics/headerlogo.png" alt="@Model.PortalTitle" class="header-logo" />
+                    <img src="~/statics/headerlogo.png?width=90&height=88" alt="@Model.PortalTitle" class="header-logo" />
                 }
             </a>
             <div class="d-inline-block">
@@ -48,7 +48,7 @@
 
                         <span class="typeahead__query">
                             <input id="search-input"
-                                   class="js-typeahead"
+                                   class="js-typeahead form-control"
                                    placeholder="@SharedLocalizer["Search"]"
                                    name="q"
                                    type="search"
@@ -74,6 +74,7 @@
             <span asp-if="@RequestService.CurrentLanguage().Language == Language.EN" style="font-size:0.75rem;" class="color-text1 top-todaydate">@Model.TodayDate</span>
             <span asp-if="@RequestService.CurrentLanguage().Language == Language.FA" style="font-size:0.75rem;" class="color-text1 top-todaydate" data-tippy-content="@Model.TodayIslamicDate" data-tippy-placement="right" data-tippy>@Model.TodayDate</span>
             &nbsp;<a href="/" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Home"]" data-tippy><i class="fas fa-home"></i></a>
+            <a asp-if="@RequestService.IsSubPortal()" href="//www.@SiteSettings.Value.DomainName/" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Main Portal"]" data-tippy><i class="far fa-arrow-alt-circle-left"></i></a>
             <a asp-if="!string.IsNullOrEmpty(webMailAddress)" href="@webMailAddress" target="_blank" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Web Mail"]" data-tippy><i class="fas fa-envelope"></i></a>
             <a href="/feed/rss/" class="btn btn-light btn-circle nounderline" data-tippy-content="@SharedLocalizer["Feed"]" data-tippy><i class="fas fa-rss"></i></a>
             <a asp-if="@RequestService.CurrentLanguage().Language != Language.FA" class="btn btn-light btn-circle nounderline" href="/language/fa/" data-tippy-content="مشاهده پرتال فارسی" data-tippy style="font-size: 0.9rem;">FA</a>

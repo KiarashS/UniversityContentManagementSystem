@@ -28,6 +28,8 @@ using SixLabors.ImageSharp.Web.DependencyInjection;
 using ContentManagement.Infrastructure;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.Linq;
 
 namespace ContentManagement
 {
@@ -84,7 +86,7 @@ namespace ContentManagement
             // services.AddCustomIdentityServices();
 
             services.AddHttpContextAccessor();
-            services.AddInternalServices();
+            services.AddInternalServices(Environment);
 
             var siteSettings = services.GetSiteSettings();
             services.AddRequiredEfInternalServices(siteSettings); // It's added to access services from the dbcontext, remove it if you are using the normal `AddDbContext` and normal constructor dependency injection.
@@ -196,6 +198,24 @@ namespace ContentManagement
                 options.ResultsAuthorize = request => request.HttpContext.IsLocal() || request.HttpContext.User.Identity.IsAuthenticated;
                 options.ResultsListAuthorize = request => request.HttpContext.IsLocal() || request.HttpContext.User.Identity.IsAuthenticated;
             }).AddEntityFramework();
+
+            services.Configure<GzipCompressionProviderOptions>(options => {
+                options.Level = System.IO.Compression.CompressionLevel.Optimal;
+            });
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+                {
+                    "image/svg+xml",
+                    "application/atom+xml",
+                    "image/jpeg",
+                    "image/png"
+                }); ;
+                options.Providers.Add<GzipCompressionProvider>();
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -237,6 +257,8 @@ namespace ContentManagement
             }
             
             app.UseEFSecondLevelCache();
+
+            app.UseResponseCompression();
 
             app.UseImageSharp();
 

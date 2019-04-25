@@ -17,6 +17,7 @@ namespace ContentManagement.Entities
         public string Keywords { get; set; }
         public string Imagename { get; set; }
         public DateTimeOffset PublishDate { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset? ArchiveDate { get; set; }
         public int ViewCount { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsFavorite { get; set; } = false;

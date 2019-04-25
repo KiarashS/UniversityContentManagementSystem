@@ -369,4 +369,10 @@
   <data name="Vote Is Disabled" xml:space="preserve">
     <value>Vote Is Disabled.</value>
   </data>
+  <data name="Download PDF" xml:space="preserve">
+    <value>Download PDF</value>
+  </data>
+  <data name="Main Portal" xml:space="preserve">
+    <value>Main Portal</value>
+  </data>
 </root>

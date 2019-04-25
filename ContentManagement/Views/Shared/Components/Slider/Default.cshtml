@@ -17,12 +17,17 @@
                         <div class="carousel-item" condition-class-active="Model.First() == item">
                             @if (string.IsNullOrEmpty(item.Url))
                             {
-                                <img class="d-block img-fluid w-100" src="/home/getslideimage/?name=@item.Filename" title="@item.Title" alt="@item.Title" />
+                                <span class="picture">
+                                    @*<img class="d-block w-100" src="/home/getslideimage/?name=@item.Filename" title="@item.Title" alt="@item.Title" />*@
+                                    <img class="d-block w-100" src="/slides/@item.Filename" title="@item.Title" alt="@item.Title" asp-append-version="true" />
+                                </span>
                             }
                             else
                             {
                                 <a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)">
-                                    <img class="d-block img-fluid w-100" src="/home/getslideimage/?name=@item.Filename" title="@item.Title" alt="@item.Title" />
+                                    <span class="picture">
+                                        <img class="d-block w-100" src="/slides/@item.Filename" title="@item.Title" alt="@item.Title" asp-append-version="true" />
+                                    </span>
                                 </a>
                             }
                             <div asp-if="!string.IsNullOrEmpty(item.Title) || !string.IsNullOrEmpty(item.SubTitle)" class="carousel-caption d-none d-md-block">

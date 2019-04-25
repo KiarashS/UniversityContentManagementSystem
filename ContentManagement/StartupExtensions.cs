@@ -28,15 +28,20 @@ using SixLabors.ImageSharp.Web.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using DinkToPdf.Contracts;
+using DinkToPdf;
+using System.IO;
 
 namespace ContentManagement
 {
     public static class StartupExtensions
     {
-        public static void AddInternalServices(this IServiceCollection services)
+        public static void AddInternalServices(this IServiceCollection services, IHostingEnvironment environment)
         {
-            var extraAllowedTags = new HashSet<string> { "iframe", "style" };
+            var extraAllowedTags = new HashSet<string> { "iframe", "style", "video", "source" };
+            var extraAllowedAttributes = new HashSet<string> { "controls" };
             extraAllowedTags.UnionWith(HtmlSanitizer.DefaultAllowedTags);
+            extraAllowedAttributes.UnionWith(HtmlSanitizer.DefaultAllowedAttributes);
 
             services.AddScoped<IUnitOfWork, ApplicationDbContext>();
             services.AddScoped<IUsersService, UsersService>();
@@ -47,7 +52,7 @@ namespace ContentManagement
             services.AddScoped<IRequestService, RequestService>();
             services.AddScoped<SeoService>();
             services.AddSingleton<IHtmlSanitizer>(s => 
-                new HtmlSanitizer(allowedTags: extraAllowedTags)
+                new HtmlSanitizer(allowedTags: extraAllowedTags, allowedAttributes: extraAllowedAttributes)
             );
             services.AddScoped<IPortalService, PortalService>();
             services.AddScoped<INavbarService, NavbarService>();
@@ -64,6 +69,12 @@ namespace ContentManagement
             services.AddScoped<IVoteService, VoteService>();
             services.AddScoped<IVoteItemService, VoteItemService>();
             services.AddScoped<IVoteResultService, VoteResultService>();
+
+            var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
+            var wkHtmlToPdfPath = Path.Combine(environment.ContentRootPath, $"wkhtmltox\\v0.12.4\\{architectureFolder}\\libwkhtmltox");
+            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(wkHtmlToPdfPath);
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)
@@ -136,7 +147,7 @@ namespace ContentManagement
             services.AddSingleton(typeof(ICacheManagerConfiguration),
                 new CacheManager.Core.ConfigurationBuilder()
                     .WithJsonSerializer()
-                    .WithMicrosoftMemoryCacheHandle()
+                    .WithMicrosoftMemoryCacheHandle(instanceName: "MemoryCache1")
                     .WithExpiration(ExpirationMode.Absolute, TimeSpan.FromMinutes(10))
                     .Build());
         }

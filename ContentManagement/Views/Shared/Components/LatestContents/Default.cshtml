@@ -46,7 +46,7 @@
                                     </li>
                                 </ul>
 
-                                <div id="contentsTabContent-tabs-above" class="tab-content">
+                                <div id="contentsTabContent-tabs-above" class="tab-content" style="height: auto !important;">
                                     <div asp-if="Model.IsExistEducation" class="tab-pane fade" condition-class-show="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" condition-class-active="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" id="education-tabs-above" role="tabpanel" aria-labelledby="education-tab-tabs-above">
                                         <partial asp-if="Model.ContentsViewModel.Count == Model.ContentsViewModel.Count(x => x.ContentType == ContentType.Education)" model="Model.ContentsViewModel" view-data="@ViewData" name="../../../Content/_Contents.cshtml" />
                                     </div>
