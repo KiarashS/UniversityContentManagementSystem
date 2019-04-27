@@ -87,7 +87,7 @@
                     <span class="mr-2"><i class="fas fa-tag fa-lg amber-text"></i> @SharedLocalizer["Content Type"]: @Model.TypeOfContent</span>
                     <span asp-if="Model.HasGallery" condition-class-mr-2="Model.HasGallery"><i class="fas fa-camera fa-lg cyan-text"></i> @SharedLocalizer["Gallery"]</span>
                     <span><i class="fas fa-barcode fa-lg pink-text"></i> @SharedLocalizer["Content Code"]: @Model.GetId</span>
-                    <div class="mr-2 mt-2 just-screen-reader"><a class="btn btn-secondary btn-sm" href="@Url.Action("Pdf", "Content", new { id = Model.Id })"><i class="far fa-file-pdf"></i> @SharedLocalizer["Download PDF"]</a></div>
+                    <div class="mr-2 mt-2 sr-only"><a class="btn btn-secondary btn-sm" href="@Url.Action("Pdf", "Content", new { id = Model.Id })"><i class="far fa-file-pdf"></i> @SharedLocalizer["Download PDF"]</a></div>
                 </div>
             </div>
         </div>

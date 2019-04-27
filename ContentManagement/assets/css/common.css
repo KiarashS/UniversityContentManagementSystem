@@ -3138,12 +3138,3 @@ a:hover svg.fa-telegram {
 #linksTabContent-tabs-above {
     height: 100% !important;
 }
-
-.just-screen-reader {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
