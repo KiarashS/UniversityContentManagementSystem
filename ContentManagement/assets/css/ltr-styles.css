@@ -564,3 +564,8 @@ figure.hover1 {
     -webkit-transform: rotate(135deg) translateY(-50%);
     transform: rotate(135deg) translateY(-50%);
 }
+
+.contents-li-border {
+    border-left: 4px solid orange;
+    padding-left: 4px;
+}

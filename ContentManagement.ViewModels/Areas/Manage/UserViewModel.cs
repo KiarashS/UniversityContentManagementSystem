@@ -31,6 +31,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public bool IsAdmin { get; set; }
         [Required(ErrorMessage = "لطفاً کلمه عبور را وارد نمایید.")]
         [MinLength(8, ErrorMessage = "طول کلمه عبور حداقل {1} کاراکتر می باشد.")]
+        [Remote("issafepassword", "users", "manage", HttpMethod = "post", ErrorMessage = "کلمه عبور وارد شده امن نمی باشد! کلمه عبور دیگری وارد نمائید.")]
         public string Password { get; set; }
 
 

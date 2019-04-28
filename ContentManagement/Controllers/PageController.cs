@@ -7,6 +7,8 @@ using ContentManagement.Services;
 using ContentManagement.Services.Contracts;
 using ContentManagement.Services.Seo;
 using ContentManagement.ViewModels.Settings;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using DNTBreadCrumb.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

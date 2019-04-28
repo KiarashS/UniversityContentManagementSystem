@@ -8,6 +8,11 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using Microsoft.Extensions.Options;
+using ContentManagement.ViewModels.Settings;
+using System;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -17,16 +22,29 @@ namespace ContentManagement.Areas.Manage.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly ISecurityService _securityService;
+        private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
+        private readonly ISet<string> _passwordsBanList;
 
         public ChangePasswordController(
             IUsersService usersService,
-            ISecurityService securityService)
+            ISecurityService securityService,
+            IOptionsSnapshot<SiteSettings> siteSettings)
         {
             _usersService = usersService;
             _usersService.CheckArgumentIsNull(nameof(usersService));
 
             _securityService = securityService;
             _securityService.CheckArgumentIsNull(nameof(securityService));
+
+            _siteSettings = siteSettings;
+            _siteSettings.CheckArgumentIsNull(nameof(siteSettings));
+
+            _passwordsBanList = new HashSet<string>(_siteSettings.Value.PasswordsBanList, StringComparer.OrdinalIgnoreCase);
+
+            if (!_passwordsBanList.Any())
+            {
+                throw new InvalidOperationException("Please fill the passwords ban list in the appsettings.json file.");
+            }
         }
 
         public virtual IActionResult Index()
@@ -97,11 +115,35 @@ namespace ContentManagement.Areas.Manage.Controllers
 
             return View();
         }
+
+        private static bool areAllCharsEuqal(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data)) return false;
+            data = data.ToLowerInvariant();
+            var firstElement = data.ElementAt(0);
+            var euqalCharsLen = data.ToCharArray().Count(x => x == firstElement);
+            if (euqalCharsLen == data.Length) return true;
+            return false;
+        }
+
+        [HttpPost]
+        public virtual IActionResult IsSafePassword(string newPassword)
+        {
+            if (string.IsNullOrWhiteSpace(newPassword)) return Json(false);
+            if (newPassword.Length < 8) return Json(false);
+            if (_passwordsBanList.Contains(newPassword.ToLowerInvariant())) return Json(false);
+            if (areAllCharsEuqal(newPassword)) return Json(false);
+
+            return Json(true);
+        }
     }
 
     public class ChangePasswordModel
     {
         public string OldPassword { get; set; }
+        [Required(ErrorMessage = "لطفاً کلمه عبور را وارد نمایید.")]
+        [MinLength(8, ErrorMessage = "طول کلمه عبور حداقل {1} کاراکتر می باشد.")]
+        [Remote("issafepassword", "changepassword", "manage", HttpMethod = "post", ErrorMessage = "کلمه عبور وارد شده امن نمی باشد! کلمه عبور دیگری وارد نمائید.")]
         public string NewPassword { get; set; }
         public string NewPasswordConfirm { get; set; }
     }

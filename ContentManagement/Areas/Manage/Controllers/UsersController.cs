@@ -18,6 +18,8 @@ using ContentManagement.Common.WebToolkit;
 using System.Threading.Tasks;
 using Ganss.XSS;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -29,6 +31,7 @@ namespace ContentManagement.Areas.Manage.Controllers
         private readonly IOptionsSnapshot<SiteSettings> _siteSettings;
         private readonly IHostingEnvironment _env;
         private readonly ISecurityService _securityService;
+        private readonly ISet<string> _passwordsBanList;
 
         public UsersController(IUsersService userService, IOptionsSnapshot<SiteSettings> siteSettings, IHostingEnvironment env, ISecurityService securityService)
         {
@@ -43,6 +46,13 @@ namespace ContentManagement.Areas.Manage.Controllers
 
             _securityService = securityService;
             _securityService.CheckArgumentIsNull(nameof(securityService));
+
+            _passwordsBanList = new HashSet<string>(_siteSettings.Value.PasswordsBanList, StringComparer.OrdinalIgnoreCase);
+
+            if (!_passwordsBanList.Any())
+            {
+                throw new InvalidOperationException("Please fill the passwords ban list in the appsettings.json file.");
+            }
         }
 
         public virtual IActionResult Index()
@@ -159,6 +169,27 @@ namespace ContentManagement.Areas.Manage.Controllers
             }
 
             return Json(!await _userService.ValidateEmailAsync(email));
+        }
+
+        private static bool areAllCharsEuqal(string data)
+        {
+            if (string.IsNullOrWhiteSpace(data)) return false;
+            data = data.ToLowerInvariant();
+            var firstElement = data.ElementAt(0);
+            var euqalCharsLen = data.ToCharArray().Count(x => x == firstElement);
+            if (euqalCharsLen == data.Length) return true;
+            return false;
+        }
+
+        [HttpPost]
+        public virtual IActionResult IsSafePassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password)) return Json(false);
+            if (password.Length < 8) return Json(false);
+            if (_passwordsBanList.Contains(password.ToLowerInvariant())) return Json(false);
+            if (areAllCharsEuqal(password)) return Json(false);
+
+            return Json(true);
         }
     }
 }

@@ -164,5 +164,21 @@
         {
             return _page.AnyAsync(p => p.Slug == slug.Trim());
         }
+
+        public async Task<ContentManagement.ViewModels.PdfViewModel> GetDataForPdfAsyc(long id, string portalKey, Language language = Language.FA)
+        {
+            var content = await _page.Where(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language).Select(x => new { x.Title, x.Text }).Cacheable().SingleOrDefaultAsync().ConfigureAwait(false);
+
+            if (content == null)
+            {
+                return null;
+            }
+
+            return new ContentManagement.ViewModels.PdfViewModel
+            {
+                Title = content.Title,
+                Text = content.Text
+            };
+        }
     }
 }

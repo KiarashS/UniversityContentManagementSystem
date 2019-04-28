@@ -2285,10 +2285,10 @@ table.dataTable {
     }
 
 .topbar-nav {
-    background-color: #395995 !important;
-    background: -webkit-linear-gradient(#102e6a, #395995) !important;
+    background-color: #102e6a !important; /*#395995*/
+    /*background: -webkit-linear-gradient(#102e6a, #395995) !important;
     background: -moz-linear-gradient(#102e6a, #395995) !important;
-    background: linear-gradient(#102e6a, #395995) !important;
+    background: linear-gradient(#102e6a, #395995) !important;*/
     font-size: 0.8rem;
 }
 
@@ -2296,10 +2296,10 @@ table.dataTable {
         padding: 0;
         margin: 0;
         list-style: none;
-        background-color: #395995 !important;
-        background: -webkit-linear-gradient(#102e6a, #395995) !important;
+        background-color: #102e6a !important; /*#395995*/
+        /*background: -webkit-linear-gradient(#102e6a, #395995) !important;
         background: -moz-linear-gradient(#102e6a, #395995) !important;
-        background: linear-gradient(#102e6a, #395995) !important;
+        background: linear-gradient(#102e6a, #395995) !important;*/
     }
 
     .topbar-nav .metismenu {
@@ -2624,6 +2624,14 @@ hr.hr14 {
     }
 }*/
 
+.color-bg-navbar {
+    /*background-color: #4b2e83 !important;*/
+    background-color: #102e6a !important;
+    /*background: -webkit-linear-gradient(#102e6a, #395995) !important;
+    background: -moz-linear-gradient(#102e6a, #395995) !important;
+    background: linear-gradient(#102e6a, #395995) !important;*/
+}
+
 .color-bg1 {
     /*background-color: #4b2e83 !important;*/
     background-color: #395995 !important;
@@ -2892,7 +2900,7 @@ hr.hr14 {
     }
 }
 
-#topheader-title {
+/*#topheader-title {
     text-shadow: 
             1px 5px 4px rgba(0,0,0,.3), 
             0 0 2px rgba(255,255,255,1), 
@@ -2903,7 +2911,7 @@ hr.hr14 {
             0 0 70px #82b1ff, 
             0 0 80px #82b1ff,
             0 0 100px #82b1ff;
-}
+}*/
 
 .m-4px {
     margin: 4px;

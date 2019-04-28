@@ -18,7 +18,7 @@ namespace ContentManagement.Infrastructure
         public static readonly string ContentGalleriesRootPath = "contentgalleries";
 
         public static readonly int SlideWidthSize = 1890;
-        public static readonly int SlideHeightSize = 740;
+        public static readonly int SlideHeightSize = 750;
 
         public static readonly int PageImageWidthSize = 820;
         public static readonly int PageImageHeightSize = 300;

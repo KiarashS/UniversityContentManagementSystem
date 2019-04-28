@@ -11,7 +11,8 @@ namespace ContentManagement.Infrastructure
 {
     public class CustomViewBase<TModel> : RazorPage<TModel>
     {
-        [RazorInject]        public IRequestService RequestService { get; set; }
+        [RazorInject]
+        public IRequestService RequestService { get; set; }
 
         [RazorInject]
         public SeoService SeoService { get; set; }
@@ -19,7 +20,8 @@ namespace ContentManagement.Infrastructure
         [RazorInject]
         public IOptionsSnapshot<SiteSettings> SiteSettings { get; set; }
 
-        [RazorInject]        public IUrlUtilityService UrlUtilityService { get; set; }
+        [RazorInject]
+        public IUrlUtilityService UrlUtilityService { get; set; }
 
         //[RazorInject]
         //public IHtmlLocalizerFactory MyHtmlLocalizerFactory { get; set; }
@@ -28,9 +30,17 @@ namespace ContentManagement.Infrastructure
         //            baseName: "SharedResource" /*مشخصات*/,
         //            location: "Core1RtmTestResources.ExternalResources" /*نام اسمبلی ثالث*/);
 
-        //public RequestLanguage CurrentLanguage()        //{        //    return RequestService.CurrentLanguage();        //}
+        //public RequestLanguage CurrentLanguage()
+        //{
+        //    return RequestService.CurrentLanguage();
+        //}
 
 
-#pragma warning disable 1998        public override async Task ExecuteAsync()        {        }#pragma warning restore 1998
+#pragma warning disable 1998
+        public override async Task ExecuteAsync()
+        {
+        }
+#pragma warning restore 1998
+
     }
 }

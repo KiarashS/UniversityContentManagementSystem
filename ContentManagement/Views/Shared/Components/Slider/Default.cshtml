@@ -18,15 +18,14 @@
                             @if (string.IsNullOrEmpty(item.Url))
                             {
                                 <span class="picture">
-                                    @*<img class="d-block w-100" src="/home/getslideimage/?name=@item.Filename" title="@item.Title" alt="@item.Title" />*@
-                                    <img class="d-block w-100" src="/slides/@item.Filename" title="@item.Title" alt="@item.Title" asp-append-version="true" />
+                                    <img class="d-block w-100" src="/home/getslideimage/?name=@item.Filename" title="@item.Title" alt="@item.Title" />
                                 </span>
                             }
                             else
                             {
                                 <a href="@item.Url" target="@UrlUtilityService.Target(item.Url, item.IsBlankUrlTarget)" condition-rel-nofollow="@UrlUtilityService.IsExternal(item.Url)" condition-class-external="@UrlUtilityService.IsExternal(item.Url)">
                                     <span class="picture">
-                                        <img class="d-block w-100" src="/slides/@item.Filename" title="@item.Title" alt="@item.Title" asp-append-version="true" />
+                                        <img class="d-block w-100" src="/home/getslideimage/?name=@item.Filename" title="@item.Title" alt="@item.Title" />
                                     </span>
                                 </a>
                             }

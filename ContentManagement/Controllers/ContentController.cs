@@ -44,8 +44,9 @@ namespace ContentManagement.Controllers
         private readonly SeoService _seoService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IConverter _converter;
+        private readonly IPageService _pageService;
 
-        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService, IUrlUtilityService urlUtilityService, IHostingEnvironment hostingEnvironment, IConverter converter)
+        public ContentController(IContentService contentService, IOptionsSnapshot<SiteSettings> siteSettings, IRequestService requestService, IStringLocalizer<SharedResource> sharedLocalizer, SeoService seoService, IUrlUtilityService urlUtilityService, IHostingEnvironment hostingEnvironment, IConverter converter, IPageService pageService)
         {
             _contentService = contentService;
             _contentService.CheckArgumentIsNull(nameof(contentService));
@@ -70,6 +71,9 @@ namespace ContentManagement.Controllers
 
             _converter = converter;
             _converter.CheckArgumentIsNull(nameof(converter));
+
+            _pageService = pageService;
+            _pageService.CheckArgumentIsNull(nameof(pageService));
         }
 
         public async virtual Task<IActionResult> Index(int? page, ContentType? t, bool otherContents = false, bool favorite = false)
@@ -390,6 +394,52 @@ namespace ContentManagement.Controllers
             var language = _requestService.CurrentLanguage().Language;
             var data = await _contentService.GetDataForPdfAsyc(id, portalKey, language).ConfigureAwait(false);
             if(data == null)
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = data.Title
+            };
+
+            var dir = _requestService.IsRtl() ? "rtl" : "ltr";
+            var textAlign = _requestService.IsRtl() ? "right" : "left";
+
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = $"<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>{data.Title}</title></head><body><div dir=\"{dir}\" style=\"direction: {dir}; text-align: {textAlign}; font-family: Tahoma;\">{data.Text}</div></body></html>",
+                WebSettings = { DefaultEncoding = "utf-8"/*, UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "css", "common.min.css")*/ },
+                HeaderSettings = { FontName = "Tahoma", FontSize = 9, Right = "[page] - [toPage]", Line = true },
+                FooterSettings = { FontName = "Tahoma", FontSize = 9, Line = true }
+            };
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+            var file = _converter.Convert(pdf);
+            return File(file, "application/pdf", $"{id.ToString()}.pdf");
+        }
+
+        public async virtual Task<IActionResult> PagePdf(long id)
+        {
+            if (id == 0)
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
+            var portalKey = _requestService.PortalKey();
+            var language = _requestService.CurrentLanguage().Language;
+            var data = await _pageService.GetDataForPdfAsyc(id, portalKey, language).ConfigureAwait(false);
+            if (data == null)
             {
                 return RedirectToAction("index", "error", new { id = 404 });
             }

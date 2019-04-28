@@ -19,5 +19,6 @@ namespace ContentManagement.Services.Contracts
         Task<string> GetPageImagenameAsync(long id);
         Task<bool> ValidatePageSlugAsync(string slug);
         Task<ViewModels.PageViewModel> GetPageDetails(string portalKey, Language language, string slug);
+        Task<ContentManagement.ViewModels.PdfViewModel> GetDataForPdfAsyc(long id, string portalKey, Language language = Language.FA);
     }
 }
