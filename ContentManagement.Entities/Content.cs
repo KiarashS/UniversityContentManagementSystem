@@ -21,6 +21,7 @@ namespace ContentManagement.Entities
         public int ViewCount { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsFavorite { get; set; } = false;
+        public bool IsArchive { get; set; } = false;
         public int? Priority { get; set; }
         public ContentGalleryPosition GalleryPosition { get; set; } = ContentGalleryPosition.None;
         public virtual Portal Portal { get; set; }
