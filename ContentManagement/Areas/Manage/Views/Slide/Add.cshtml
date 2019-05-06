@@ -21,20 +21,31 @@
         در صورت انتخاب نکردن تاریخ انتشار اسلاید هم اکنون منتشر شده و در صورت انتخاب نکردن تاریخ انقضا اسلاید به صورت دائمی فعال می باشد.
     </div>
 
+    <div class="alert alert-info" role="alert">
+        لطفاً متن جایگزین تصویر را به دقت و مناسب با موضوع اسلاید وارد نمائید.
+    </div>
+
     <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
         @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
 
         @await Component.InvokeAsync(nameof(PortalsAndLanguages))
 
         <div class="form-group row">
-            <label asp-for="Title" class="col-sm-2 form-control-label">عنوان</label>
+            <label asp-for="Title" class="col-sm-2 form-control-label">متن جایگزین تصویر</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" asp-for="Title" placeholder="عنوان اسلاید">
+                <input type="text" class="form-control" asp-for="Title" placeholder="متن جایگزین تصویر">
                 <span class="text-danger" asp-validation-for="Title"></span>
             </div>
         </div>
         <div class="form-group row">
-            <label asp-for="SubTitle" class="col-sm-2 form-control-label">زیرعنوان</label>
+            <label asp-for="SupTitle" class="col-sm-2 form-control-label">عنوان</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="SupTitle" placeholder="عنوان اسلاید">
+                <span class="text-danger" asp-validation-for="SupTitle"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="SubTitle" class="col-sm-2 form-control-label">زیرعنوان اسلاید</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" asp-for="SubTitle" placeholder="زیرعنوان اسلاید">
                 <span class="text-danger" asp-validation-for="SubTitle"></span>

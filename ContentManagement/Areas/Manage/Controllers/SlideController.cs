@@ -143,6 +143,7 @@ namespace ContentManagement.Areas.Manage.Controllers
             {
                 Id = slide.Id,
                 Title = slide.Title,
+                SupTitle = slide.SupTitle,
                 SubTitle = slide.SubTitle,
                 Filename = slide.Filename,
                 Url = slide.Url,

@@ -256,7 +256,7 @@ namespace ContentManagement
                 dbInitializer.SeedData();
             }
             
-            app.UseEFSecondLevelCache();
+            //app.UseEFSecondLevelCache();
 
             app.UseResponseCompression();
 

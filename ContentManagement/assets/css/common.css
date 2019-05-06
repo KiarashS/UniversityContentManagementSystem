@@ -3146,3 +3146,11 @@ a:hover svg.fa-telegram {
 #linksTabContent-tabs-above {
     height: 100% !important;
 }
+
+ul#header-navbar.metismenu > li ul li ul li {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+ul#header-navbar.metismenu > li > ul > li > ul > li {
+    background-color: rgba(0, 0, 0, 0.2);
+}

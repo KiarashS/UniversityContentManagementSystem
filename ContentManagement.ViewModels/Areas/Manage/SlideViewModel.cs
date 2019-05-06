@@ -16,8 +16,9 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public int PortalId { get; set; }
         [Required(ErrorMessage = "لطفاً زبان را انتخاب نمایید.")]
         public Language Language { get; set; } = Language.FA;
-        [Required(ErrorMessage = "عنوان اسلاید را وارد نمایید.")]
+        [Required(ErrorMessage = "متن جایگزین تصویر را وارد نمایید.")]
         public string Title { get; set; }
+        public string SupTitle { get; set; }
         public string SubTitle { get; set; }
         public DateTimeOffset PublishDate { get; set; }
         public string Url { get; set; }

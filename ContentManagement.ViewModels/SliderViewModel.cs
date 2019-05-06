@@ -7,6 +7,7 @@ namespace ContentManagement.ViewModels
     public class SliderViewModel
     {
         public string Title { get; set; }
+        public string SupTitle { get; set; }
         public string SubTitle { get; set; }
         public DateTimeOffset PublishDate { get; set; } = DateTimeOffset.UtcNow;
         public string Url { get; set; }

@@ -82,17 +82,29 @@
                         "className": "align-middle",
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            if (data.subTitle && data.url) {
-                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
+                            if (data.subTitle && data.supTitle && data.url) {
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">متن جایگزین: ' + data.title + '</a><hr><span class="text-muted" style="font-size: 14px;">عنوان: ' + data.supTitle + '</span><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
                             }
-                            else if (data.subTitle && !data.url) {
-                                return '<span>' + data.title + '</span><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
+                            else if (data.subTitle && data.supTitle && !data.url) {
+                                return '<span>متن جایگزین: ' + data.title + '</span><hr><span class="text-muted" style="font-size: 14px;">عنوان: ' + data.supTitle + '</span><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
                             }
-                            else if (!data.subTitle && data.url) {
-                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">' + data.title + '</a>';
+                            else if (!data.subTitle && !data.supTitle && data.url) {
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">متن جایگزین: ' + data.title + '</a>';
                             }
-                            else if (!data.subTitle && !data.url) {
-                                return '<span>' + data.title + '</span>';
+                            else if (!data.subTitle && data.supTitle && data.url) {
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">متن جایگزین: ' + data.title + '</a><hr><span class="text-muted" style="font-size: 14px;">عنوان: ' + data.supTitle + '</span>';
+                            }
+                            else if (data.subTitle && !data.supTitle && data.url) {
+                                return '<a href="' + data.url + '" target="_blank" rel="noreferrer">متن جایگزین: ' + data.title + '</a><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
+                            }
+                            else if (!data.subTitle && data.supTitle && !data.url) {
+                                return '<span>متن جایگزین: ' + data.title + '</span><hr><span class="text-muted" style="font-size: 14px;">عنوان: ' + data.supTitle + '</span>';
+                            }
+                            else if (data.subTitle && !data.supTitle && !data.url) {
+                                return '<span>متن جایگزین: ' + data.title + '</span><hr><span class="text-muted" style="font-size: 14px;">زیرعنوان: ' + data.subTitle + '</span>';
+                            }
+                            else if (!data.subTitle && !data.supTitle && !data.url) {
+                                return '<span>متن جایگزین: ' + data.title + '</span>';
                             }
                         }
                     },

@@ -34,6 +34,7 @@ namespace ContentManagement.Services
                 {
                     Title = slide.Title?.Trim(),
                     Url = slide.Url?.Trim(),
+                    SupTitle = slide.SupTitle?.Trim(),
                     SubTitle = slide.SubTitle?.Trim(),
                     IsBlankUrlTarget = slide.IsBlankUrlTarget,
                     Priority = slide.Priority,
@@ -52,6 +53,7 @@ namespace ContentManagement.Services
             var currentSlide = await FindSlideByIdAsync(slide.Id).ConfigureAwait(false);
 
             currentSlide.Title = slide.Title?.Trim();
+            currentSlide.SupTitle = slide.SupTitle?.Trim();
             currentSlide.SubTitle = slide.SubTitle?.Trim();
             currentSlide.Url = slide.Url?.Trim();
             currentSlide.IsBlankUrlTarget = slide.IsBlankUrlTarget;
@@ -87,7 +89,7 @@ namespace ContentManagement.Services
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 searchTerm = searchTerm.Trim();
-                query = query.Where(x => x.Title.Contains(searchTerm) || x.SubTitle.Contains(searchTerm) || x.Url.Contains(searchTerm));
+                query = query.Where(x => x.Title.Contains(searchTerm) || x.SupTitle.Contains(searchTerm) || x.SubTitle.Contains(searchTerm) || x.Url.Contains(searchTerm));
             }
 
             var slides = await query
@@ -96,10 +98,10 @@ namespace ContentManagement.Services
                                     .Skip(start)
                                     .Take(length)
                                     .Cacheable()
-                                    .Select(x => new { x.Id, x.Title, x.SubTitle, x.Url, x.Filename, x.PublishDate, x.ExpireDate, x.IsBlankUrlTarget, x.Priority })
+                                    .Select(x => new { x.Id, x.Title, x.SupTitle, x.SubTitle, x.Url, x.Filename, x.PublishDate, x.ExpireDate, x.IsBlankUrlTarget, x.Priority })
                                     .ToListAsync();
 
-            return slides.Select(x => new SlideViewModel { Id = x.Id, Title = x.Title, SubTitle = x.SubTitle, Filename = x.Filename, PublishDate = x.PublishDate, ExpireDate = x.ExpireDate, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority }).ToList();
+            return slides.Select(x => new SlideViewModel { Id = x.Id, Title = x.Title, SupTitle = x.SupTitle, SubTitle = x.SubTitle, Filename = x.Filename, PublishDate = x.PublishDate, ExpireDate = x.ExpireDate, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority }).ToList();
         }
 
         public async Task<string> GetSlideFilenameAsync(long id)
@@ -116,7 +118,7 @@ namespace ContentManagement.Services
                                 .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.PublishDate <= nowDate && (x.ExpireDate== null || x.ExpireDate >= nowDate))
                                 .OrderByDescending(x => x.Priority)
                                 .ThenByDescending(x => x.Id)
-                                .Select(x => new { x.Title, x.SubTitle, x.Url, x.PublishDate, x.Priority, x.IsBlankUrlTarget, x.Filename })
+                                .Select(x => new { x.Title, x.SupTitle, x.SubTitle, x.Url, x.PublishDate, x.Priority, x.IsBlankUrlTarget, x.Filename })
                                 .Cacheable()
                                 .ToListAsync();
             
@@ -125,6 +127,7 @@ namespace ContentManagement.Services
                 sliderViewModel.Add(new SliderViewModel {
                     Url = item.Url,
                     Title = item.Title,
+                    SupTitle = item.SupTitle,
                     SubTitle = item.SubTitle,
                     PublishDate = item.PublishDate,
                     Priority = item.Priority,
@@ -149,7 +152,7 @@ namespace ContentManagement.Services
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 searchTerm = searchTerm.Trim();
-                query = query.Where(x => x.Title.Contains(searchTerm) || x.SubTitle.Contains(searchTerm) || x.Url.Contains(searchTerm));
+                query = query.Where(x => x.Title.Contains(searchTerm) || x.SupTitle.Contains(searchTerm) || x.SubTitle.Contains(searchTerm) || x.Url.Contains(searchTerm));
             }
 
             var count = await query.LongCountAsync().ConfigureAwait(false);

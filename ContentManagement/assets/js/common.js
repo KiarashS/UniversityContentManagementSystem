@@ -519,4 +519,20 @@ $(document).ready(function () {
                 });
         });
     }
+
+    // close menu root elemts after click on theme
+    $(document).on('click', 'body', function (e) {
+        var $expandedMenu = $('ul#header-navbar.metismenu > li.mm-active');
+        $expandedMenu.removeClass('mm-active');
+        $('ul.mm-collapse').removeClass('mm-show');
+        $($expandedMenu.children()[0]).attr('aria-expanded', 'false');
+    });
+
+    // close menu root elemts after click on theme
+    $('ul#header-navbar > li').hover(function () { }, function (e) {
+        var $expandedMenu = $('ul#header-navbar.metismenu > li.mm-active');
+        $expandedMenu.removeClass('mm-active');
+        $('ul.mm-collapse').removeClass('mm-show');
+        $($expandedMenu.children()[0]).attr('aria-expanded', 'false');
+    });
 });
