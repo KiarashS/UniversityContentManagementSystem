@@ -39,6 +39,7 @@ namespace ContentManagement.ViewModels
         public string Imagename { get; set; }
         public string Link { get; set; }
         public bool IsLastItem { get; set; }
+        public bool IsArchive { get; set; }
     }
 
     public class SearchAutoCompleteViewModel
@@ -48,6 +49,7 @@ namespace ContentManagement.ViewModels
         public string Text { get; set; }
         public ContentType ContentType { get; set; }
         public string Imagename { get; set; }
+        public bool IsArchive { get; set; } 
         public Language Language { get; set; }
 
 

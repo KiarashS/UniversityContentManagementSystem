@@ -1,6 +1,22 @@
 ﻿--SQL Server Job to Delete ActivityLogs Where Older Than 93 Days Ago (Must be Run at Every Midnight)
-
 Use Portal;
 Go
 
-Delete From ActivityLog Where ActivityLog.ActionDate < DATEADD(day, -93, GETUTCDATE())
+Delete From ActivityLog Where ActivityLog.ActionDate < DATEADD(day, -93, GETUTCDATE());
+Go
+
+
+
+
+--SQL Server Job to Update Archive Contents (Must be Run at Every Half-Hour)
+Use Portal;
+Go
+
+Update Content Set IsArchive = 1 Where ArchiveDate Is Not Null And GETUTCDATE() >= ArchiveDate;
+Go
+
+Update Content Set IsArchive = 0 Where ArchiveDate Is Not Null And GETUTCDATE() < ArchiveDate;
+Go
+
+Update Content Set IsArchive = 0 Where ArchiveDate Is Null;
+Go

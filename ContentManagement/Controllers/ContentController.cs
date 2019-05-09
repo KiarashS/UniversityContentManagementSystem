@@ -147,6 +147,77 @@ namespace ContentManagement.Controllers
             return View(vm);
         }
 
+        public async virtual Task<IActionResult> Archives(int? page, ContentType? t, bool otherContents = false, bool favorite = false)
+        {
+            if (!page.HasValue || page < 1)
+            {
+                page = 1;
+            }
+
+            var vm = new ContentsListViewModel();
+            var portalKey = _requestService.PortalKey();
+            var language = _requestService.CurrentLanguage().Language;
+            vm.Page = page.Value;
+            vm.PageSize = _siteSettings.Value.PagesSize.ContentsSize;
+            //vm.Start = (vm.Page - 1) * vm.PageSize;
+            vm.Start = (vm.PageSize * vm.Page) - vm.PageSize;
+            vm.ContentType = t;
+            vm.OtherContents = otherContents;
+            vm.Favorite = favorite;
+            vm.Language = language;
+
+            if (favorite)
+            {
+                vm.ContentsViewModel = await _contentService.GetArchivedFavoritesAsync(portalKey, t, language, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ArchivedFavoritesCountAsync(portalKey, t, language);
+
+                _seoService.Title = _sharedLocalizer["Favorite Contents"];
+                if (t.HasValue)
+                {
+                    _seoService.Title = _sharedLocalizer["Favorite Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                }
+            }
+            else if (otherContents)
+            {
+                vm.ContentsViewModel = await _contentService.GetOtherArchivedContentsAsync(portalKey, t, language, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.OtherArchivedContentsCountAsync(portalKey, t, language);
+
+                _seoService.Title = _sharedLocalizer["Other Contents"];
+                if (t.HasValue)
+                {
+                    _seoService.Title = _sharedLocalizer["Other Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                }
+            }
+            else if (t.HasValue)
+            {
+                vm.ContentsViewModel = await _contentService.GetArchivedContentsAsync(portalKey, language, t.Value, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ArchivedContentsCountAsync(portalKey, language, t.Value);
+                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+            }
+            else
+            {
+                vm.ContentsViewModel = await _contentService.GetArchivedContentsAsync(portalKey, language, ContentType.News, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ArchivedContentsCountAsync(portalKey, language, ContentType.News);
+                t = ContentType.News;
+                vm.ContentType = t;
+                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+            }
+
+            foreach (var item in vm.ContentsViewModel)
+            {
+                item.Link = _urlUtilityService.GenerateUrl(portalKey, item.Id, item.Title, Url, scheme: Request.Scheme);
+            }
+
+            this.AddBreadCrumb(new BreadCrumb
+            {
+                Title = _sharedLocalizer["Contents"],
+                Order = 1,
+                GlyphIcon = "fas fa-list"
+            });
+
+            return View(vm);
+        }
+
         //[ResponseCache(Duration = 3600)]
         [HttpPost]
         [AjaxOnly]

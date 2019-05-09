@@ -50,6 +50,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public int ViewCount { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsFavorite { get; set; } = false;
+        public bool IsArchive { get; set; } = false;
         public int? Priority { get; set; }
         public string PortalKey { get; set; }
         public string ContentLink { get; set; }

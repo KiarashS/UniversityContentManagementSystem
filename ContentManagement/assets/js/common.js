@@ -211,16 +211,30 @@ $(document).ready(function () {
             template: function (query, item) {
                 var moreResults = $jsGlobalInfo.data('searchAutocompleteMoreresult');
                 var searchPath = $jsGlobalInfo.data('searchPath');
+                var archiveText = $jsGlobalInfo.data('archive');
                 var randomNumber = Math.floor(Math.random() * (10000000 - 100000 + 1)) + 100000;
+                var template = '';
 
-                var template = '<div class="row no-gutters">' +
-                    '<div class="col-12" style="font-size: 0.8rem !important;">' +
-                    '<img class="img-thumbnail d-sm-none d-md-inline mr-1" style="max-width: 35px; max-height: 35px;" src="{{imagename}}?width=35&height=35&rmode=pad&bgcolor=white&v=' + randomNumber + '">' +
-                                '<span>{{title}}</span>&nbsp;' +
-                                '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
-                                '</div>' +
-                                '</div>';
-                
+                if (item.isArchive) {
+                    template = '<div class="row no-gutters">' +
+                        '<div class="col-12" style="font-size: 0.8rem !important;">' +
+                        '<img class="img-thumbnail d-sm-none d-md-inline mr-1" style="max-width: 35px; max-height: 35px;" src="{{imagename}}?width=35&height=35&rmode=pad&bgcolor=white&v=' + randomNumber + '">' +
+                        '<span>{{title}}</span>&nbsp;' +
+                        '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
+                        '&nbsp;<span style="top: -2px; position: relative;" class="badge badge-secondary">' + archiveText + '</span>' +
+                        '</div>' +
+                        '</div>';
+                }
+                else {
+                    template = '<div class="row no-gutters">' +
+                        '<div class="col-12" style="font-size: 0.8rem !important;">' +
+                        '<img class="img-thumbnail d-sm-none d-md-inline mr-1" style="max-width: 35px; max-height: 35px;" src="{{imagename}}?width=35&height=35&rmode=pad&bgcolor=white&v=' + randomNumber + '">' +
+                        '<span>{{title}}</span>&nbsp;' +
+                        '<span style="top: -2px; position: relative;" class="badge badge-warning">{{contentType}}</span>' +
+                        '</div>' +
+                        '</div>';
+                }
+
                 if (item.isLastItem === true) {
                     template = template +
                         '<div class="row no-gutters">' +
@@ -521,18 +535,22 @@ $(document).ready(function () {
     }
 
     // close menu root elemts after click on theme
-    $(document).on('click', 'body', function (e) {
-        var $expandedMenu = $('ul#header-navbar.metismenu > li.mm-active');
-        $expandedMenu.removeClass('mm-active');
-        $('ul.mm-collapse').removeClass('mm-show');
-        $($expandedMenu.children()[0]).attr('aria-expanded', 'false');
-    });
+    //$(document).on('click', 'body', function (e) {
+    //    var $expandedMenu = $('ul#header-navbar.metismenu > li.mm-active');
+    //    $expandedMenu.removeClass('mm-active');
+    //    $('ul.mm-collapse').removeClass('mm-show');
+    //    $($expandedMenu.children()[0]).attr('aria-expanded', 'false');
+    //});
 
     // close menu root elemts after click on theme
-    $('ul#header-navbar > li').hover(function () { }, function (e) {
-        var $expandedMenu = $('ul#header-navbar.metismenu > li.mm-active');
-        $expandedMenu.removeClass('mm-active');
-        $('ul.mm-collapse').removeClass('mm-show');
-        $($expandedMenu.children()[0]).attr('aria-expanded', 'false');
-    });
+    $('ul#header-navbar.metismenu > li').hover(
+        function () { }, function (e) {
+            var $expandedMenu = $('ul#header-navbar.metismenu li.mm-active');
+            $expandedMenu.removeClass('mm-active');
+            $('ul.mm-collapse').removeClass('mm-show');
+            $expandedMenu.each(function () {
+                var $this = $(this);
+                $($this.children()[0]).attr('aria-expanded', 'false').blur();
+            });
+        });
 });

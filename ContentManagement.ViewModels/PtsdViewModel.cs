@@ -14,7 +14,7 @@ namespace ContentManagement.ViewModels
         public string Surname { get; set; }
         public string Affiliation { get; set; }
         public string MilitaryRank { get; set; }
-        [Required(ErrorMessage = "Please enter major")]
+        [Required(ErrorMessage = "Please enter specialty")]
         public string Major { get; set; }
         [Required(ErrorMessage = "Please enter academic degree")]
         public string AcademicDegree { get; set; }

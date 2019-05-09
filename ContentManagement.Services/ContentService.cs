@@ -95,7 +95,7 @@
                 {
                     var content = await _content
                                         .Where(x => x.Id == id)
-                                        .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Language, x.ContentType, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
+                                        .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Language, x.IsArchive, x.ContentType, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
                                         .SingleOrDefaultAsync();
 
                     if (content == null)
@@ -111,6 +111,7 @@
                             Imagename = content.Imagename,
                             IsActive = content.IsActive,
                             IsFavorite = content.IsFavorite,
+                            IsArchive = content.IsArchive,
                             Priority = content.Priority,
                             PublishDate = content.PublishDate,
                             Text = content.Text,
@@ -122,6 +123,37 @@
                     };
                 }
             }
+            //else if (!string.IsNullOrEmpty(searchTerm) && searchTerm.StartsWith("@isarchive", StringComparison.InvariantCultureIgnoreCase))
+            //{
+            //    var archiveContents = await _content
+            //                        .Where(x => x.IsArchive)
+            //                        .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Language, x.IsArchive, x.ContentType, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
+            //                        .ToListAsync();
+
+            //    if (!archiveContents.Any())
+            //    {
+            //        return new List<ContentManagement.ViewModels.Areas.Manage.ContentViewModel>();
+            //    }
+
+            //    return new List<ContentManagement.ViewModels.Areas.Manage.ContentViewModel> {
+            //        new ViewModels.Areas.Manage.ContentViewModel {
+            //            Id = content.Id,
+            //            PortalKey = content.PortalKey,
+            //            ContentType = content.ContentType,
+            //            Imagename = content.Imagename,
+            //            IsActive = content.IsActive,
+            //            IsFavorite = content.IsFavorite,
+            //            IsArchive = content.IsArchive,
+            //            Priority = content.Priority,
+            //            PublishDate = content.PublishDate,
+            //            Text = content.Text,
+            //            Title = content.Title,
+            //            Summary = content.Summary,
+            //            ViewCount = content.ViewCount,
+            //            Language = content.Language
+            //        }
+            //    };
+            //}
 
             var query = _content.Where(x => x.PortalId == portalId && x.Language == language).AsQueryable();
 
@@ -132,8 +164,16 @@
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                searchTerm = searchTerm.Trim();
-                query = query.Where(x => x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm));
+                if (searchTerm.StartsWith("@isarchive", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    searchTerm = searchTerm.Replace("@isarchive", string.Empty).Trim();
+                    query = query.Where(x => x.IsArchive && (x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm)));
+                }
+                else
+                {
+                    searchTerm = searchTerm.Trim();
+                    query = query.Where(x => x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm));
+                }
             }
 
             var contents = await query
@@ -142,10 +182,10 @@
                                     .Skip(start)
                                     .Take(length)
                                     .Cacheable()
-                                    .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.Priority, x.ViewCount, x.Portal.PortalKey })
+                                    .Select(x => new { x.Id, x.Title, x.Text, x.Summary, x.Imagename, x.PublishDate, x.IsActive, x.IsFavorite, x.IsArchive, x.Priority, x.ViewCount, x.Portal.PortalKey })
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentManagement.ViewModels.Areas.Manage.ContentViewModel(null) { Id = x.Id, Title = x.Title, Text = x.Text, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, IsActive = x.IsActive, IsFavorite = x.IsFavorite, ViewCount = x.ViewCount, Priority = x.Priority, PortalKey = x.PortalKey }).ToList();
+            return contents.Select(x => new ContentManagement.ViewModels.Areas.Manage.ContentViewModel(null) { Id = x.Id, Title = x.Title, Text = x.Text, Summary = x.Summary, Imagename = x.Imagename, PublishDate = x.PublishDate, IsActive = x.IsActive, IsFavorite = x.IsFavorite, IsArchive = x.IsArchive, ViewCount = x.ViewCount, Priority = x.Priority, PortalKey = x.PortalKey }).ToList();
         }
 
         public async Task<long> ContentsCountAsync()
@@ -180,8 +220,16 @@
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                searchTerm = searchTerm.Trim();
-                query = query.Where(x => x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm));
+                if (searchTerm.StartsWith("@isarchive", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    searchTerm = searchTerm.Replace("@isarchive", string.Empty).Trim();
+                    query = query.Where(x => x.IsArchive && (x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm)));
+                }
+                else
+                {
+                    searchTerm = searchTerm.Trim();
+                    query = query.Where(x => x.Title.Contains(searchTerm) || x.RawText.Contains(searchTerm));
+                }
             }
 
             var count = await query.LongCountAsync().ConfigureAwait(false);
@@ -198,7 +246,7 @@
         {
             var subPortalsContentsViewModel = new List<SubPortalsContentsViewModel>();
             var subPortalsContents = await _content
-                                        .Where(x => x.IsActive && x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
+                                        .Where(x => x.IsActive && !x.IsArchive && x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
                                         .OrderByDescending(x => x.Priority)
                                         .ThenByDescending(x => x.PublishDate).AsQueryable()
                                         .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.IsFavorite, x.Portal.PortalKey, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
@@ -226,8 +274,7 @@
 
         public async Task<IList<ContentsViewModel>> GetContentsAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News, int start = 0, int length = 10)
         {
-            //var nowDate = DateTimeOffset.UtcNow;
-            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive)
+            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive && !x.IsArchive)
                                     .OrderByDescending(x => x.Priority)
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
@@ -241,8 +288,7 @@
 
         public async Task<long> ContentsCountAsync(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News)
         {
-            //var nowDate = DateTimeOffset.UtcNow;
-            var count = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive)
+            var count = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive && !x.IsArchive)
                                     .Cacheable()
                                     .LongCountAsync()
                                     .ConfigureAwait(false);
@@ -252,8 +298,7 @@
 
         public async Task<IList<ContentsViewModel>> GetFavoritesAsync(string portalKey, ContentType? contentType, Language language = Language.FA, int start = 0, int length = 10)
         {
-            //var nowDate = DateTimeOffset.UtcNow;
-            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive).AsQueryable();
+            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive && !x.IsArchive).AsQueryable();
                                     
             if (contentType.HasValue)
             {
@@ -265,11 +310,11 @@
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.IsArchive, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, IsArchive = x.IsArchive, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType }).ToList();
         }
 
         public async Task<long> FavoritesCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
@@ -292,14 +337,14 @@
 
         public async Task<bool> IsExistContent(string portalKey, Language language = Language.FA, ContentType contentType = ContentType.News)
         {
-            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive).Cacheable().AnyAsync().ConfigureAwait(false);
+            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.ContentType == contentType && x.IsActive && !x.IsArchive).Cacheable().AnyAsync().ConfigureAwait(false);
 
             return isExist;
         }
 
         public async Task<bool> IsExistFavorite(string portalKey, ContentType? contentType, Language language = Language.FA)
         {
-            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive).AsQueryable();
+            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsFavorite && x.IsActive && !x.IsArchive).AsQueryable();
 
             if (contentType.HasValue)
             {
@@ -317,9 +362,8 @@
         public async Task<IList<ViewModels.ContentVisibilityViewModel>> CheckContentsVisibility(string portalKey, Language language)
         {
             var vm = new List<ViewModels.ContentVisibilityViewModel>();
-            //var nowDate = DateTimeOffset.UtcNow;
             var contents = await _content
-                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+                .Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive && !x.IsArchive)
                 .GroupBy(x => x.ContentType)
                 .Select(g => new { ContentType = g.Key, IsVisible = g.Any() })
                 .Cacheable()
@@ -361,7 +405,7 @@
 
         public async Task<IList<ContentsViewModel>> GetOtherContentsAsync(string portalKey, ContentType? contentType, Language language = Language.FA, int start = 0, int length = 10)
         {
-            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive).AsQueryable();
+            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive && !x.IsArchive).AsQueryable();
 
             if (contentType.HasValue)
             {
@@ -396,7 +440,7 @@
 
         public async Task<long> OtherContentsCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA)
         {
-            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive).AsQueryable();
+            var query = _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive && !x.IsArchive).AsQueryable();
 
             if (contentType.HasValue)
             {
@@ -485,11 +529,11 @@
                                     .OrderByDescending(x => x.PublishDate)
                                     .Skip(0)
                                     .Take(size)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.ContentType, x.Imagename })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.IsArchive, x.ContentType, x.Imagename })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new SearchAutoCompleteViewModel { Id = x.Id, Title = x.Title, Text = x.RawText, ContentType = x.ContentType, Imagename = x.Imagename, Language = language }).ToList();
+            return contents.Select(x => new SearchAutoCompleteViewModel { Id = x.Id, Title = x.Title, Text = x.RawText, IsArchive = x.IsArchive, ContentType = x.ContentType, Imagename = x.Imagename, Language = language }).ToList();
         }
 
         public async Task<IList<ContentsViewModel>> GetSearchResultsAsync(string portalKey, Language language, string searchQuery, int start = 0, int size = 15)
@@ -500,11 +544,11 @@
                                     .OrderByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(size)
-                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.IsArchive, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, ContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, HasGallery = x.HasGallery }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, IsArchive = x.IsArchive, ContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, HasGallery = x.HasGallery }).ToList();
         }
 
         public async Task<long> GetSearchResultsCountAsync(string portalKey, Language language, string searchQuery)
@@ -587,13 +631,13 @@
 
         public async Task<bool> IsExistContent(string portalKey, Language language = Language.FA)
         {
-            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive).Cacheable().AnyAsync().ConfigureAwait(false);
+            var isExist = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive && !x.IsArchive).Cacheable().AnyAsync().ConfigureAwait(false);
             return isExist;
         }
 
         public async Task<IList<ContentsViewModel>> GetMostViewedContentsAsync(string portalKey, Language language = Language.FA, int size = 10)
         {
-            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive)
+            var contents = await _content.Where(x => x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive && !x.IsArchive)
                         .OrderByDescending(x => x.ViewCount)
                         .ThenByDescending(x => x.PublishDate)
                         .Take(size)
@@ -623,7 +667,7 @@
         public async Task<bool> IsArchiveAsync(long id, string portalKey, Language language = Language.FA)
         {
             var nowDate = DateTimeOffset.UtcNow;
-            var isArchive = await _content.AnyAsync(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && (x.ArchiveDate != null && x.ArchiveDate <= nowDate));
+            var isArchive = await _content.AnyAsync(x => x.Id == id && x.Portal.PortalKey == portalKey && x.Language == language && x.IsActive && x.IsArchive);
             return isArchive;
         }
     }

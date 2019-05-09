@@ -39,7 +39,7 @@ namespace ContentManagement
         public static void AddInternalServices(this IServiceCollection services, IHostingEnvironment environment)
         {
             var extraAllowedTags = new HashSet<string> { "iframe", "style", "video", "source" };
-            var extraAllowedAttributes = new HashSet<string> { "controls" };
+            var extraAllowedAttributes = new HashSet<string> { "controls", "autoplay", "loop", "muted" };
             extraAllowedTags.UnionWith(HtmlSanitizer.DefaultAllowedTags);
             extraAllowedAttributes.UnionWith(HtmlSanitizer.DefaultAllowedAttributes);
 

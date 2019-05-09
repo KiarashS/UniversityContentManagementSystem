@@ -375,4 +375,7 @@
   <data name="Main Portal" xml:space="preserve">
     <value>پرتال اصلی دانشگاه</value>
   </data>
+  <data name="Archive" xml:space="preserve">
+    <value>آرشیو</value>
+  </data>
 </root>

@@ -145,6 +145,7 @@ namespace ContentManagement.Controllers
                     Imagename = !string.IsNullOrEmpty(item.Imagename) ? $"/{contentsImagePath}/{item.Imagename}" : "/statics/logo.png",
                     ContentType = item.TypeOfContent,
                     Link = _urlUtilityService.GenerateUrl(currentPortalKey, item.Id, item.Title, Url, scheme: Request.Scheme),
+                    IsArchive = item.IsArchive,
                     IsLastItem = results.Last() == item
                 });
             }
