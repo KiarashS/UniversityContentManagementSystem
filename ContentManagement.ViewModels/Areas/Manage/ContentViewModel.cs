@@ -54,6 +54,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public int? Priority { get; set; }
         public string PortalKey { get; set; }
         public string ContentLink { get; set; }
+        public string ArchiveDateText { get; set; }
 
 
         public string JPublishDate
@@ -61,6 +62,19 @@ namespace ContentManagement.ViewModels.Areas.Manage
             get
             {
                 return PublishDate.ToLongPersianDateTimeString();
+            }
+        }
+
+        public string JArchiveDate
+        {
+            get
+            {
+                if (ArchiveDate == null)
+                {
+                    return "ندارد";
+                }
+
+                return ArchiveDate.ToLongPersianDateTimeString();
             }
         }
 

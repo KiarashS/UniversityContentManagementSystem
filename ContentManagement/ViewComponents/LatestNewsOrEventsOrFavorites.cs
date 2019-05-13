@@ -35,22 +35,23 @@ namespace ContentManagement.ViewComponents
             var eventsSize = _siteSettings.Value.PagesSize.UpcomingEventsTabSize;
             var favoriteContentsSize = _siteSettings.Value.PagesSize.FavoritesTabSize;
             var vm = new LatestNewsOrEventsOrFavoritesViewModel();
+            var portalKey = _requestService.PortalKey();
 
-            vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.News, 0, newsSize).ConfigureAwait(false);
+            vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetContentsAsync(portalKey, Entities.ContentType.News, currentLanguage, 0, newsSize).ConfigureAwait(false);
 
             vm.IsExistNews = vm.NewsOrEventsOrFavoritesViewModel.Any(x => x.ContentType == Entities.ContentType.News);
-            vm.IsExistEvent = await _contentService.IsExistContent(_requestService.PortalKey(), currentLanguage, Entities.ContentType.UpcomingEvent).ConfigureAwait(false);
-            vm.IsExistAnnouncement = await _contentService.IsExistContent(_requestService.PortalKey(), currentLanguage, Entities.ContentType.Announcement).ConfigureAwait(false);
-            vm.IsExistFavorite = await _contentService.IsExistFavorite(_requestService.PortalKey(), null, currentLanguage).ConfigureAwait(false);
-
+            vm.IsExistEvent = await _contentService.IsExistContent(portalKey, currentLanguage, Entities.ContentType.UpcomingEvent).ConfigureAwait(false);
+            vm.IsExistAnnouncement = await _contentService.IsExistContent(portalKey, currentLanguage, Entities.ContentType.Announcement).ConfigureAwait(false);
+            vm.IsExistFavorite = await _contentService.IsExistFavorite(portalKey, null, currentLanguage).ConfigureAwait(false);
+            vm.IsExistArchive = await _contentService.IsExistArchiveAsync(portalKey, currentLanguage).ConfigureAwait(false);
 
             if (!vm.IsExistNews && vm.IsExistAnnouncement) // just for tab initialize, in order
             {
-                vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.UpcomingEvent, 0, eventsSize).ConfigureAwait(false);
+                vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetContentsAsync(portalKey, Entities.ContentType.UpcomingEvent, currentLanguage, 0, eventsSize).ConfigureAwait(false);
             }
             else if (!vm.IsExistNews && vm.IsExistFavorite)
             {
-                vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetFavoritesAsync(_requestService.PortalKey(), null, currentLanguage, 0, favoriteContentsSize).ConfigureAwait(false);
+                vm.NewsOrEventsOrFavoritesViewModel = await _contentService.GetFavoritesAsync(portalKey, null, currentLanguage, 0, favoriteContentsSize).ConfigureAwait(false);
             }
 
 
@@ -70,12 +71,12 @@ namespace ContentManagement.ViewComponents
                 ViewData["IsFavorite"] = false;
             }
 
-            vm.IsExistContent = await _contentService.IsExistContent(_requestService.PortalKey(), currentLanguage);
+            vm.IsExistContent = await _contentService.IsExistContent(portalKey, currentLanguage);
             if (vm.IsExistContent && !vm.IsExistFavorite && !vm.IsExistNews && !vm.IsExistEvent)
             {
                 ViewData["IsFavorite"] = true; // for show contents type
                 ViewData["IsMostViewed"] = true;
-                vm.MostViewedContentsViewModel = await _contentService.GetMostViewedContentsAsync(_requestService.PortalKey(), currentLanguage, _siteSettings.Value.PagesSize.MostViewedContentsSize);
+                vm.MostViewedContentsViewModel = await _contentService.GetMostViewedContentsAsync(portalKey, currentLanguage, _siteSettings.Value.PagesSize.MostViewedContentsSize);
             }
 
             return View(vm);

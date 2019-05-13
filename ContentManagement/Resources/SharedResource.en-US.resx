@@ -378,4 +378,13 @@
   <data name="Archive" xml:space="preserve">
     <value>Archive</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>Archived</value>
+  </data>
+  <data name="Favorite Archives" xml:space="preserve">
+    <value>Favorite Archives</value>
+  </data>
+  <data name="Other Archives" xml:space="preserve">
+    <value>Other Archives</value>
+  </data>
 </root>

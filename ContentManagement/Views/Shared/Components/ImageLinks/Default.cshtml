@@ -35,7 +35,7 @@
                 </div>*@
 
                 <div class="box">
-                    <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename"  class="img-fluid" style="display: inline-block; width: 100%; height: 100%;" alt="@item.Title">
+                    <img src="/@ContentManagement.Infrastructure.Constants.ImageLinksRootPath/@item.Imagename" asp-append-version="true" class="img-fluid" style="display: inline-block; width: 100%; height: 100%;" alt="@item.Title">
                     <div class="box-content">
                         <h3 class="title">@item.Title</h3>
                         <span class="post">@Html.Raw(item.Description.Replace(System.Environment.NewLine, "<br />"))</span>

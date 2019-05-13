@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.5.7.87</AssemblyVersion>
+    <AssemblyVersion>2019.5.13.89</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
@@ -74,7 +74,7 @@
     <PackageReference Include="CacheManager.Core" Version="1.2.0" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.2.0" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
-    <PackageReference Include="EFSecondLevelCache.Core" Version="1.8.1" />
+    <PackageReference Include="EFSecondLevelCache.Core" Version="2.2.0" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <PlatformTarget>anycpu</PlatformTarget>

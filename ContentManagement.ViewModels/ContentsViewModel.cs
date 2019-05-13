@@ -11,7 +11,8 @@ namespace ContentManagement.ViewModels
     {
         public long Id { get; set; }
         public Entities.Language Language { get; set; }
-        public ContentType ContentType { get; set; }
+        public ContentType? ContentType { get; set; }
+        public ContentType DisplayContentType { get; set; }
         public string Title { get; set; }
         public string Summary { private get; set; }
         public string RawText { private get; set; }
@@ -54,11 +55,11 @@ namespace ContentManagement.ViewModels
             {
                 if (Language == Entities.Language.EN)
                 {
-                    return ContentType.GetAttributeOfType<ContentTypeTextEnAttribute>().Description;
+                    return DisplayContentType.GetAttributeOfType<ContentTypeTextEnAttribute>().Description;
                 }
                 else
                 {
-                    return ContentType.GetAttributeOfType<ContentTypeTextFaAttribute>().Description;
+                    return DisplayContentType.GetAttributeOfType<ContentTypeTextFaAttribute>().Description;
                 }
             }
         }
@@ -67,7 +68,7 @@ namespace ContentManagement.ViewModels
         {
             get
             {
-                if (!string.IsNullOrEmpty(Title) && ContentType == ContentType.Announcement)
+                if (!string.IsNullOrEmpty(Title) && DisplayContentType == Entities.ContentType.Announcement)
                 {
                     return Title.TruncateAtWord(50);
                 }

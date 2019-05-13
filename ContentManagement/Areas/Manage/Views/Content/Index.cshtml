@@ -103,7 +103,7 @@
                         "className": "align-middle",
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            return '<strong>' + data.title + '</strong><br/><span dir="rtl" class="badge badge-light">[تاریخ ایجاد: ' + data.jPublishDate +']</span>';
+                            return '<strong>' + data.title + '</strong><br/><span dir="rtl" class="badge badge-light">[تاریخ ایجاد: ' + data.jPublishDate + ']</span><br/><span dir="rtl" class="badge badge-light">[تاریخ آرشیو: ' + data.jArchiveDate +']</span>';
                         }
                     },
                     {
@@ -168,9 +168,9 @@
                         "render": function (data, type, row, meta) {
                             var shortUrl = data.contentLink.replace('content/details', 'c').slice(0, -1);
                             var url = shortUrl.substring(0, shortUrl.lastIndexOf('/')) + '/';
-                            var links = '<a class="pr-1 facebook-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری در فیسبوک"><i class="fab fa-facebook"></i></a>' +
-                                '<a class="pr-1 twitter-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>' +
-                                '<a class="pr-1 linkedin-sharing" href="#" data-url="' + url + '" data-title="' + data.title + '" title="اشتراک گذاری لینکداین"><i class="fab fa-linkedin-in"></i></a>' +
+                            var links = '<a class="pr-1 facebook-sharing" href="#" data-url="' + url + '" data-title="' + encodeURIComponent(data.title) + '" title="اشتراک گذاری در فیسبوک"><i class="fab fa-facebook"></i></a>' +
+                                '<a class="pr-1 twitter-sharing" href="#" data-url="' + url + '" data-title="' + encodeURIComponent(data.title) + '" title="اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>' +
+                                '<a class="pr-1 linkedin-sharing" href="#" data-url="' + url + '" data-title="' + encodeURIComponent(data.title) + '" title="اشتراک گذاری لینکداین"><i class="fab fa-linkedin-in"></i></a>' +
                                 '<a class="pr-1 telegram-sharing" href="https://telegram.me/share/url?url=' + url + '" target="_blank" title="اشتراک گذاری در تلگرام"><i class="fab fa-telegram"></i></a>';
 
                             return links;

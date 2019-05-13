@@ -24,6 +24,7 @@ using System.Linq;
 using ContentManagement.Common.ReflectionToolkit;
 using ContentManagement.Common.WebToolkit.Attributes;
 using System.Net;
+using DNTPersianUtils.Core;
 
 namespace ContentManagement.Areas.Manage.Controllers
 {
@@ -81,6 +82,7 @@ namespace ContentManagement.Areas.Manage.Controllers
                 var baseOfCurrentDomain = _siteSettings.Value.DomainName;
                 var pageHost = $"{item.PortalKey ?? "www"}.{baseOfCurrentDomain}";
                 item.ContentLink = Url.RouteUrl("default", new { controller = "content", action = "details", id = item.Id, title = WebUtility.UrlDecode(item.Title.SeoFriendlyTitle()) }, Request.Scheme, pageHost);
+                item.ArchiveDateText = item.ArchiveDate != null ? item.ArchiveDate?.ToShortPersianDateTimeString() : "بدون تاریخ آرشیو";
             }
 
             var response = DataTablesResponse.Create(request, (int)contentsCount, (int)contentsPagedCount, contents);
@@ -162,12 +164,14 @@ namespace ContentManagement.Areas.Manage.Controllers
                         file = System.IO.Path.Combine(webRoot, Infrastructure.Constants.ContentsRootPath, content.Imagename);
                     }
 
+                    content.ArchiveDate = content.ArchiveDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
                     await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
                     image.Save(file); // Automatic encoder selected based on extension.
                 }
             }
             else
             {
+                content.ArchiveDate = content.ArchiveDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
                 await _contentService.AddOrUpdateContentAsync(content).ConfigureAwait(false);
             }
 
@@ -199,7 +203,9 @@ namespace ContentManagement.Areas.Manage.Controllers
                 ContentType = content.ContentType,
                 Priority = content.Priority,
                 Language = content.Language,
-                PortalId = content.PortalId
+                PortalId = content.PortalId,
+                ArchiveDate = content.ArchiveDate?.ToIranTimeZoneDateTimeOffset(),
+                ArchiveDateText = content.ArchiveDate != null ? content.ArchiveDate?.ToIranTimeZoneDateTimeOffset().ToShortPersianDateTimeString() : string.Empty
             };
 
             return View(contentViewModel);
@@ -222,6 +228,9 @@ namespace ContentManagement.Areas.Manage.Controllers
             var webRoot = _env.WebRootPath;
             var baseOfCurrentDomain = _siteSettings.Value.DomainName;
             var currentImagename = await _contentService.GetContentImagenameAsync(content.Id);
+
+            content.ArchiveDate = content.ArchiveDateText.ToGregorianDateTimeOffset()?.AddHours(-1).ToUniversalTime();
+
             if (content.EnableImage && content.Image != null)
             {
                 if (!content.Image.IsImageFile())

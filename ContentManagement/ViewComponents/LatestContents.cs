@@ -40,31 +40,31 @@ namespace ContentManagement.ViewComponents
             if (vm.IsExistEducation) // just for tab initialize, in order
             {
                 size = _siteSettings.Value.PagesSize.EducationsTabSize;
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.Education, 0, size).ConfigureAwait(false);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), Entities.ContentType.Education, currentLanguage, 0, size).ConfigureAwait(false);
                 ViewData["ContentsQuery"] = "?t=education";
             }
             else if (vm.IsExistForm)
             {
                 size = _siteSettings.Value.PagesSize.FormsTabSize;
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.Form, 0, size).ConfigureAwait(false);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), Entities.ContentType.Form, currentLanguage, 0, size).ConfigureAwait(false);
                 ViewData["ContentsQuery"] = "?t=form";
             }
             else if (vm.IsExistEducationalCalendar)
             {
                 size = _siteSettings.Value.PagesSize.EducationalCalendarsTabSize;
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.EducationalCalendar, 0, size).ConfigureAwait(false);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), Entities.ContentType.EducationalCalendar, currentLanguage, 0, size).ConfigureAwait(false);
                 ViewData["ContentsQuery"] = "?t=educationalcalendar";
             }
             else if (vm.IsExistStudentAndCultural)
             {
                 size = _siteSettings.Value.PagesSize.StudentAndCulturalsTabSize;
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.StudentAndCultural, 0, size).ConfigureAwait(false);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), Entities.ContentType.StudentAndCultural, currentLanguage, 0, size).ConfigureAwait(false);
                 ViewData["ContentsQuery"] = "?t=studentandcultural";
             }
             else if (vm.IsExistPoliticalAndIdeological)
             {
                 size = _siteSettings.Value.PagesSize.PoliticalAndIdeologicalsTabSize;
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.PoliticalAndIdeological, 0, size).ConfigureAwait(false);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(_requestService.PortalKey(), Entities.ContentType.PoliticalAndIdeological, currentLanguage, 0, size).ConfigureAwait(false);
                 ViewData["ContentsQuery"] = "?t=politicalandideological";
             }
             else if (vm.IsExistOtherContents)

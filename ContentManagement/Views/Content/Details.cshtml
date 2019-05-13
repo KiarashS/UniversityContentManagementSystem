@@ -3,6 +3,7 @@
 @{
     var url = UrlUtilityService.GenerateUrl(RequestService.PortalKey(), Model.Id, null, Url, scheme: Context.Request.Scheme, forceAbsoluteUrl: true);
     var shortUrl = url.Replace("content/details", "c");
+    var title = WebUtility.UrlEncode(Model.Title);
 }
 
 <div class="container-fluid">
@@ -29,9 +30,9 @@
                         <div class="float-right">
                             <a class="pr-1" id="qrcode-button" onclick="return false;" data-url="@url" href="#" data-tippy-content="@SharedLocalizer["QR Code"]" data-tippy><i class="fas fa-qrcode"></i></a>
                             <a class="pr-1" href="#" id="print-button" onclick="return false;" data-tippy-content="@SharedLocalizer["Print"]" data-tippy><i class="fas fa-print"></i></a>
-                            <a class="pr-1" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=@shortUrl&title=@Model.Title','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Facebook"]" data-tippy><i class="fab fa-facebook"></i></a>
-                            <a class="pr-1" href="#" onclick="window.open('http://twitter.com/share?text=@Model.Title&url=@shortUrl&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Twitter"]" data-tippy><i class="fab fa-twitter"></i></a>
-                            <a class="pr-1" href="#" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=@shortUrl&title=@Model.Title&source=ajaums.ac.ir','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in LinkedIn"]" data-tippy><i class="fab fa-linkedin-in"></i></a>
+                            <a class="pr-1" href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=@shortUrl&title=@title','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Facebook"]" data-tippy><i class="fab fa-facebook"></i></a>
+                            <a class="pr-1" href="#" onclick="window.open('http://twitter.com/share?text=@title&url=@shortUrl&hashtags=ajaums,دانشگاه_علوم_پزشکی_ارتش','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in Twitter"]" data-tippy><i class="fab fa-twitter"></i></a>
+                            <a class="pr-1" href="#" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=@shortUrl&title=@title&source=ajaums.ac.ir','popUpWindow','height=550,width=550,left=350,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'); return false;" data-tippy-content="@SharedLocalizer["Share in LinkedIn"]" data-tippy><i class="fab fa-linkedin-in"></i></a>
                             <a class="pr-1" href="https://telegram.me/share/url?url=@shortUrl" target="_blank" data-tippy-content="@SharedLocalizer["Share in Telegram"]" data-tippy><i class="fab fa-telegram"></i></a>
                         </div>
                     </div>
@@ -84,8 +85,9 @@
                 <div class="card-footer" style="font-size: 0.9rem !important;">
                     <span class="mr-2"><i class="far fa-clock fa-lg light-green-text"></i> @SharedLocalizer["Publish At"]: @Model.GetPublishDate <container asp-if="Model.IsNew"><span class="badge badge-pill badge-danger">@SharedLocalizer["New"]</span></container></span>
                     <span class="mr-2"><i class="fas fa-eye fa-lg light-blue-text"></i> @SharedLocalizer["View Times"]: @Model.GetViewCount</span>
-                    <span class="mr-2"><i class="fas fa-tag fa-lg amber-text"></i> @SharedLocalizer["Content Type"]: @Model.TypeOfContent</span>
+                    <span class="mr-2"><i class="fas fa-tag fa-lg red-text"></i> @SharedLocalizer["Content Type"]: @Model.TypeOfContent</span>
                     <span asp-if="Model.HasGallery" condition-class-mr-2="Model.HasGallery"><i class="fas fa-camera fa-lg cyan-text"></i> @SharedLocalizer["Gallery"]</span>
+                    <span asp-if="Model.IsArchive" condition-class-mr-2="Model.IsArchive"><i class="fas fa-archive fa-lg orange-text"></i> @SharedLocalizer["Archived"]</span>
                     <span><i class="fas fa-barcode fa-lg pink-text"></i> @SharedLocalizer["Content Code"]: @Model.GetId</span>
                     <div class="mr-2 mt-2 sr-only"><a class="btn btn-secondary btn-sm" href="@Url.Action("Pdf", "Content", new { id = Model.Id })"><i class="far fa-file-pdf"></i> @SharedLocalizer["Download PDF"]</a></div>
                 </div>

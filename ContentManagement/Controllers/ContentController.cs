@@ -119,17 +119,25 @@ namespace ContentManagement.Controllers
             }
             else if (t.HasValue)
             {
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, language, t.Value, vm.Start, vm.PageSize);
-                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, language, t.Value);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, t.Value, language, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, t.Value, language);
                 _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
             }
             else
             {
-                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, language, ContentType.News, vm.Start, vm.PageSize);
-                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, language, ContentType.News);
-                t = ContentType.News;
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, null, language, vm.Start, vm.PageSize);
+                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, null, language);
+                t = null;
                 vm.ContentType = t;
-                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+
+                if (t.HasValue)
+                {
+                    _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                }
+                else
+                {
+                    _seoService.Title = _sharedLocalizer["Contents"];
+                }
             }
 
             foreach (var item in vm.ContentsViewModel)
@@ -168,39 +176,47 @@ namespace ContentManagement.Controllers
 
             if (favorite)
             {
-                vm.ContentsViewModel = await _contentService.GetArchivedFavoritesAsync(portalKey, t, language, vm.Start, vm.PageSize);
-                vm.TotalCount = await _contentService.ArchivedFavoritesCountAsync(portalKey, t, language);
+                vm.ContentsViewModel = await _contentService.GetFavoritesAsync(portalKey, t, language, vm.Start, vm.PageSize, isArchive: true);
+                vm.TotalCount = await _contentService.FavoritesCountAsync(portalKey, t, language, isArchive: true);
 
-                _seoService.Title = _sharedLocalizer["Favorite Contents"];
+                _seoService.Title = _sharedLocalizer["Favorite Archives"];
                 if (t.HasValue)
                 {
-                    _seoService.Title = _sharedLocalizer["Favorite Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                    _seoService.Title = _sharedLocalizer["Favorite Archives"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
                 }
             }
             else if (otherContents)
             {
-                vm.ContentsViewModel = await _contentService.GetOtherArchivedContentsAsync(portalKey, t, language, vm.Start, vm.PageSize);
-                vm.TotalCount = await _contentService.OtherArchivedContentsCountAsync(portalKey, t, language);
+                vm.ContentsViewModel = await _contentService.GetOtherContentsAsync(portalKey, t, language, vm.Start, vm.PageSize, isArchive: true);
+                vm.TotalCount = await _contentService.OtherContentsCountAsync(portalKey, t, language, isArchive: true);
 
-                _seoService.Title = _sharedLocalizer["Other Contents"];
+                _seoService.Title = _sharedLocalizer["Other Archives"];
                 if (t.HasValue)
                 {
-                    _seoService.Title = _sharedLocalizer["Other Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                    _seoService.Title = _sharedLocalizer["Other Archives"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
                 }
             }
             else if (t.HasValue)
             {
-                vm.ContentsViewModel = await _contentService.GetArchivedContentsAsync(portalKey, language, t.Value, vm.Start, vm.PageSize);
-                vm.TotalCount = await _contentService.ArchivedContentsCountAsync(portalKey, language, t.Value);
-                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, t.Value, language, vm.Start, vm.PageSize, isArchive: true);
+                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, t.Value, language, isArchive: true);
+                _seoService.Title = _sharedLocalizer["Archive"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
             }
             else
             {
-                vm.ContentsViewModel = await _contentService.GetArchivedContentsAsync(portalKey, language, ContentType.News, vm.Start, vm.PageSize);
-                vm.TotalCount = await _contentService.ArchivedContentsCountAsync(portalKey, language, ContentType.News);
-                t = ContentType.News;
+                vm.ContentsViewModel = await _contentService.GetContentsAsync(portalKey, contentType: null, language, vm.Start, vm.PageSize, isArchive: true);
+                vm.TotalCount = await _contentService.ContentsCountAsync(portalKey, contentType: null, language, isArchive: true);
+                t = null;
                 vm.ContentType = t;
-                _seoService.Title = _sharedLocalizer["Contents"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+
+                if (t.HasValue)
+                {
+                    _seoService.Title = _sharedLocalizer["Archive"] + " " + (language == Language.EN ? t.Value.GetAttributeOfType<ContentTypeTextEnAttribute>().Description : t.Value.GetAttributeOfType<ContentTypeTextFaAttribute>().Description);
+                }
+                else
+                {
+                    _seoService.Title = _sharedLocalizer["Archive"];
+                }
             }
 
             foreach (var item in vm.ContentsViewModel)
@@ -210,9 +226,9 @@ namespace ContentManagement.Controllers
 
             this.AddBreadCrumb(new BreadCrumb
             {
-                Title = _sharedLocalizer["Contents"],
+                Title = _sharedLocalizer["Archive"],
                 Order = 1,
-                GlyphIcon = "fas fa-list"
+                GlyphIcon = "fas fa-archive"
             });
 
             return View(vm);
@@ -249,7 +265,7 @@ namespace ContentManagement.Controllers
                 ViewData["NewsQuery"] = "?t=upcomingevent";
                 ViewData["IsFavorite"] = false;
                 size = _siteSettings.Value.PagesSize.UpcomingEventsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.UpcomingEvent, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.UpcomingEvent, currentLanguage, 0, size).ConfigureAwait(false);
                 t = ContentType.UpcomingEvent;
             }
             else
@@ -257,7 +273,7 @@ namespace ContentManagement.Controllers
                 ViewData["NewsQuery"] = "?t=news";
                 ViewData["IsFavorite"] = false;
                 size = _siteSettings.Value.PagesSize.NewsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.News, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.News, currentLanguage, 0, size).ConfigureAwait(false);
             }
 
             return PartialView(t == ContentType.News ? "_News" : "_OtherContents", vm);
@@ -329,31 +345,31 @@ namespace ContentManagement.Controllers
             {
                 ViewData["ContentsQuery"] = "?t=form";
                 size = _siteSettings.Value.PagesSize.FormsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.Form, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.Form, currentLanguage, 0, size).ConfigureAwait(false);
             }
             else if (t == ContentType.EducationalCalendar)
             {
                 ViewData["ContentsQuery"] = "?t=educationalcalendar";
                 size = _siteSettings.Value.PagesSize.EducationalCalendarsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.EducationalCalendar, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.EducationalCalendar, currentLanguage, 0, size).ConfigureAwait(false);
             }
             else if (t == ContentType.StudentAndCultural)
             {
                 ViewData["ContentsQuery"] = "?t=studentandcultural";
                 size = _siteSettings.Value.PagesSize.StudentAndCulturalsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.StudentAndCultural, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.StudentAndCultural, currentLanguage, 0, size).ConfigureAwait(false);
             }
             else if (t == ContentType.PoliticalAndIdeological)
             {
                 ViewData["ContentsQuery"] = "?t=politicalandideological";
                 size = _siteSettings.Value.PagesSize.PoliticalAndIdeologicalsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.PoliticalAndIdeological, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.PoliticalAndIdeological, currentLanguage, 0, size).ConfigureAwait(false);
             }
             else
             {
                 ViewData["ContentsQuery"] = "?t=education";
                 size = _siteSettings.Value.PagesSize.EducationsTabSize;
-                vm = await _contentService.GetContentsAsync(currentPortalKey, currentLanguage, ContentType.Education, 0, size).ConfigureAwait(false);
+                vm = await _contentService.GetContentsAsync(currentPortalKey, ContentType.Education, currentLanguage, 0, size).ConfigureAwait(false);
             }
 
             return PartialView("_Contents", vm);
@@ -391,6 +407,7 @@ namespace ContentManagement.Controllers
             }
 
             contentDetails.HasGallery = await _contentService.HasGallery(id).ConfigureAwait(false);
+            contentDetails.IsArchive = await _contentService.IsExistArchiveAsync(id, portalKey, language).ConfigureAwait(false);
 
             _seoService.Title = contentDetails.Title;
             _seoService.MetaDescription = contentDetails.GetSummary;

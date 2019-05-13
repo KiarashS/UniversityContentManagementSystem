@@ -31,6 +31,13 @@ namespace ContentManagement.ViewModels
             {
                 var contentTypeItems = new List<SelectListItem>();
 
+                contentTypeItems.Add(new SelectListItem
+                {
+                    Text = Language == Entities.Language.FA ? "همه" : "All",
+                    Value = "",
+                    Selected = !ContentType.HasValue
+                });
+
                 foreach (ContentType type in Enum.GetValues(typeof(ContentType)))
                 {
                     if (Language == Entities.Language.EN)

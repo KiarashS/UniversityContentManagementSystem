@@ -378,4 +378,13 @@
   <data name="Archive" xml:space="preserve">
     <value>آرشیو</value>
   </data>
+  <data name="Archived" xml:space="preserve">
+    <value>آرشیو شده</value>
+  </data>
+  <data name="Favorite Archives" xml:space="preserve">
+    <value>آرشیو برگزیده</value>
+  </data>
+  <data name="Other Archives" xml:space="preserve">
+    <value>آرشیوهای دیگر</value>
+  </data>
 </root>

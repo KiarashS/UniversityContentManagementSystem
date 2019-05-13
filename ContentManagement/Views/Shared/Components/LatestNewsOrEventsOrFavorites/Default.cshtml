@@ -31,6 +31,11 @@
                                             <i class="fas fa-eye blue-grey-text"></i> @SharedLocalizer["Most Viewed Contents"]
                                         </a>
                                     </li>
+                                    <li asp-if="Model.IsExistArchive" class="nav-item ml-1" style="background-color: rgba(80, 50, 50, 0.06); border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem;">
+                                        <a class="nav-link" id="archivedcontents-tab-tabs-above" href="@Url.Action("Archives", "Content")" role="tab" aria-controls="archivedcontents">
+                                            <i class="fas fa-archive orange-text"></i> @SharedLocalizer["Archive"]
+                                        </a>
+                                    </li>
                                 </ul>
 
                                 <div id="newsTabContent-tabs-above" class="tab-content">

@@ -31,7 +31,7 @@ namespace ContentManagement.ViewComponents
             var currentLanguage = _requestService.CurrentLanguage().Language;
             var contentsSize = _siteSettings.Value.PagesSize.AnnouncementTabSize;
 
-            var vm = await _contentService.GetContentsAsync(_requestService.PortalKey(), currentLanguage, Entities.ContentType.Announcement, 0, contentsSize).ConfigureAwait(false);
+            var vm = await _contentService.GetContentsAsync(_requestService.PortalKey(), Entities.ContentType.Announcement, currentLanguage, 0, contentsSize).ConfigureAwait(false);
 
             return View(vm);
         }

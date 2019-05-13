@@ -25,6 +25,7 @@ namespace ContentManagement.ViewModels
         public bool IsExistNews { get; set; }
         public bool IsExistEvent { get; set; }
         public bool IsExistContent { get; set; }
+        public bool IsExistArchive { get; set; }
 
 
         public bool JustNewsAndEventAndFavorite

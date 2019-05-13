@@ -191,6 +191,19 @@ $(document).ready(function () {
         });
     }
 
+    var $archivesForm = $("#archives-form");
+    if ($archivesForm.length > 0) {
+        $archivesForm.on('submit', function (e) {
+            e.preventDefault();
+
+            var archivesPath = $('#js-global-info').data('archivesPath');
+            var contentsFormType = $archivesForm.find('#cct').val();
+            var otherContentsForm = $archivesForm.find('#OtherContents').is(':checked');
+            var favoriteForm = $archivesForm.find('#Favorite').is(':checked');
+            window.location = archivesPath + '?t=' + contentsFormType + '&othercontents=' + otherContentsForm + '&favorite=' + favoriteForm;
+        });
+    }
+
     var $searchInput = $("#search-input");
     if ($searchInput.length > 0) {
 

@@ -17,11 +17,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="content-title mb-0"><i class="fas fa-list"></i> @SharedLocalizer["Contents"]</h2>
+                    <h2 class="content-title mb-0"><i class="fas fa-archive"></i> @SharedLocalizer["Archive"]</h2>
                 </div>
                 <div class="card-body">
 
-                    <form id="contents-form" class="form-inline unselectable">
+                    <form id="archives-form" class="form-inline unselectable">
                         <div class="form-group mb-2 mr-2">
                             <label style="font-size: 0.9rem !important;" for="cct">@SharedLocalizer["Content Type"]:&nbsp;</label>
                             <select class="form-control form-control-sm custom-select custom-select-sm " name="t" id="cct" asp-items="@Model.ContentTypeItems" asp-for="@Model.ContentType">

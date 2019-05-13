@@ -23,6 +23,7 @@ namespace ContentManagement.ViewModels
         public bool IsFavorite { get; set; }
         public ContentGalleryPosition GalleryPosition { get; set; }
         public bool HasGallery { get; set; }
+        public bool IsArchive { get; set; }
 
 
         public bool HasImage
