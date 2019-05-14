@@ -139,7 +139,6 @@ namespace ContentManagement.Controllers
             }
 
             var user = await _usersService.FindUserByEmailAsync(loginUser.Email, loginUser.Password).ConfigureAwait(false);
-            var userPortalId = await _usersService.GetPortalIdAsync(loginUser.Email).ConfigureAwait(false);
             if (user == null || !user.IsActive)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -148,7 +147,7 @@ namespace ContentManagement.Controllers
                 {
                     ActionBy = "--کاربر مهمان",
                     ActionType = "login",
-                    Portal = userPortalId.HasValue ? userPortalId.ToString() : string.Empty,
+                    Portal = string.Empty,
                     Language = _requestService.CurrentLanguage().Language.ToString(),
                     Message = $"چنین کاربری موجود نیست و یا غیرفعال می باشد، ایمیل وارد شده: {loginUser.Email}",
                     SourceAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
@@ -157,7 +156,8 @@ namespace ContentManagement.Controllers
                 return View(await GetPortalsList(loginUser));
             }
 
-            if(!ModelState.IsValid)
+            var userPortalId = await _usersService.GetPortalIdAsync(loginUser.Email).ConfigureAwait(false);
+            if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "پست الکترونیک و یا کلمه عبور اشتباه می باشند.");
                 await _logs.CreateActivityLogAsync(new ActivityLogViewModel

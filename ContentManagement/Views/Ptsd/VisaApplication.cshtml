@@ -1,0 +1,305 @@
+﻿@model ContentManagement.ViewModels.VisaApplicationViewModel
+
+<div class="container-fluid bg-white shadow-sm">
+    <div class="row">
+        <div class="container">
+            <div dir="ltr" class="row" style="text-align: left;">
+                <div class="col my-5 mx-3">
+                    <h5><i class="fas fa-users"></i> PTSD International Workshop - Visa Application</h5>
+
+                    <hr class="hr14" />
+
+                    @if (ViewBag.IsSuccess != null && (bool)ViewBag.IsSuccess)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @ViewBag.AlertMessage
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" title="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+
+                        <form method="post">
+                            @Html.AntiForgeryToken()
+
+                            @if (ViewData.ModelState.Any(keyValuePair => keyValuePair.Value.Errors.Any()))
+                            {
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">×</a>
+                                    <div asp-validation-summary="All"></div>
+                                </div>
+                            }
+
+                            <div class="form-group row">
+                                <label for="Name" class="col-sm-2 col-form-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+                                    <span class="text-danger" asp-validation-for="Name"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Surname" class="col-sm-2 col-form-label">Surname</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="Surname" placeholder="Surname">
+                                    <span class="text-danger" asp-validation-for="Surname"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Forename" class="col-sm-2 col-form-label">Forename</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="Forename" placeholder="Forename">
+                                    <span class="text-danger" asp-validation-for="Forename"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Fatherame" class="col-sm-2 col-form-label">Father's Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="Fatherame" placeholder="Father's Name">
+                                    <span class="text-danger" asp-validation-for="Fatherame"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="BirthPlace" class="col-sm-2 col-form-label">Birth Place</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="BirthPlace" placeholder="Birth Place">
+                                    <span class="text-danger" asp-validation-for="BirthPlace"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="BirthDate" class="col-sm-2 col-form-label">Birth Date</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="BirthDate" placeholder="Birth Date">
+                                    <span class="text-danger" asp-validation-for="BirthDate"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" asp-for="Email" placeholder="Email">
+                                    <span class="text-danger" asp-validation-for="Email"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PassportType" class="col-sm-2 col-form-label">Passport Type</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="PassportType" placeholder="Passport Type">
+                                    <span class="text-danger" asp-validation-for="PassportType"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PassportNumber" class="col-sm-2 col-form-label">Passport Number</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="PassportNumber" placeholder="Passport Number">
+                                    <span class="text-danger" asp-validation-for="PassportNumber"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PassportIssueDate" class="col-sm-2 col-form-label">Passport Issue Date</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="PassportIssueDate" placeholder="Passport Issue Date">
+                                    <span class="text-danger" asp-validation-for="PassportIssueDate"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PassportIssuePlace" class="col-sm-2 col-form-label">Passport Issue Place</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="PassportIssuePlace" placeholder="Passport Issue Place">
+                                    <span class="text-danger" asp-validation-for="PassportIssuePlace"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PassportExpireDate" class="col-sm-2 col-form-label">Passport Expire Date</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="PassportExpireDate" placeholder="Passport Expire Date">
+                                    <span class="text-danger" asp-validation-for="PassportExpireDate"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PresentNationality" class="col-sm-2 col-form-label">Present Nationality</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="PresentNationality" placeholder="Present Nationality">
+                                    <span class="text-danger" asp-validation-for="PresentNationality"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="FormerNationality" class="col-sm-2 col-form-label">Former Nationality</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="FormerNationality" placeholder="Former Nationality">
+                                    <span class="text-danger" asp-validation-for="FormerNationality"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MaritalStatus" class="col-sm-2 col-form-label">Marital Status</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" name="MaritalStatus" value="Single" /> Single
+                                    <input type="radio" name="MaritalStatus" value="Married" /> Married
+                                    <span class="text-danger" asp-validation-for="MaritalStatus"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MarriedDescription" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="MarriedDescription" class="form-control" rows="3" placeholder="If married; please write the particulars and nationalty of spouse"></textarea>
+                                    <span class="text-muted">If married; please write the particulars and nationalty of spouse</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Occupation" class="col-sm-2 col-form-label">Occupation</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="Occupation" placeholder="Occupation">
+                                    <span class="text-danger" asp-validation-for="Occupation"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="EmployerAddressPhone" class="col-sm-2 col-form-label">Employer's Name, Address and Phone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="EmployerAddressPhone" placeholder="Employer's Name, Address and Phone">
+                                    <span class="text-danger" asp-validation-for="EmployerAddressPhone"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PermanentAddressPhone" class="col-sm-2 col-form-label">Permanent Address and Phone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="PermanentAddressPhone" placeholder="Permanent Address and Phone">
+                                    <span class="text-danger" asp-validation-for="PermanentAddressPhone"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="IranAddressPhone" class="col-sm-2 col-form-label">Address / Phone in Iran</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="IranAddressPhone" placeholder="Address / Phone in Iran">
+                                    <span class="text-danger" asp-validation-for="IranAddressPhone"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="TripedCountries" class="col-sm-2 col-form-label">Which countries have already visited?</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="TripedCountries" class="form-control" rows="3" placeholder="Which countries have already visited?"></textarea>
+                                    <span class="text-danger" asp-validation-for="TripedCountries"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="VisaType" class="col-sm-2 col-form-label">Type of visa required</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" name="VisaType" value="Transit" /> Transit
+                                    <input type="radio" name="VisaType" value="Tourist or Pilgrimage" /> Tourist or Pilgrimage
+                                    <input type="radio" name="VisaType" value="Entry" /> Entry
+                                    <input type="radio" name="VisaType" value="Other" /> Other
+                                    <span class="text-danger" asp-validation-for="VisaType"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PurposeOfTravelingIran" class="col-sm-2 col-form-label">Purpose of traveling to Iran?</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="PurposeOfTravelingIran" placeholder="Purpose of traveling to Iran?">
+                                    <span class="text-danger" asp-validation-for="PurposeOfTravelingIran"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="LengthOfStayInIran" class="col-sm-2 col-form-label">How long do you intend to stay in the I. R. of Iran?</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="LengthOfStayInIran" placeholder="How long do you intend to stay in the I. R. of Iran?">
+                                    <span class="text-danger" asp-validation-for="LengthOfStayInIran"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="EntryExitBorder" class="col-sm-2 col-form-label">Place/ border of entry and exit</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="EntryExitBorder" placeholder="Place/ border of entry and exit">
+                                    <span class="text-danger" asp-validation-for="EntryExitBorder"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="DateOfArrivalInIran" class="col-sm-2 col-form-label">Approximate date of arrival in the I. R. of Iran</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="DateOfArrivalInIran" placeholder="Approximate date of arrival in the I. R. of Iran">
+                                    <span class="text-danger" asp-validation-for="DateOfArrivalInIran"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MeettingIndivisualsOrganization" class="col-sm-2 col-form-label">Name of individuals and / or organizations</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="MeettingIndivisualsOrganization" placeholder="Name of individuals and / or organizations">
+                                    <span class="text-danger" asp-validation-for="MeettingIndivisualsOrganization"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ExpenseCover" class="col-sm-2 col-form-label">Who covers your expenses while staying in Iran?</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="ExpenseCover" placeholder="Who covers your expenses while staying in Iran?">
+                                    <span class="text-danger" asp-validation-for="ExpenseCover"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="MoneyAmount" class="col-sm-2 col-form-label">How much money do you intend to have with you?</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" asp-for="MoneyAmount" placeholder="How much money do you intend to have with you?">
+                                    <span class="text-danger" asp-validation-for="MoneyAmount"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PreviousTripToIran" class="col-sm-2 col-form-label">Have you been in Iran before?</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" name="PreviousTripToIran" value="Yes" /> Yes
+                                    <input type="radio" name="PreviousTripToIran" value="No" /> No
+                                    <span class="text-danger" asp-validation-for="PreviousTripToIran"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PreviousTripToIranDescription" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="PreviousTripToIranDescription" class="form-control" rows="3" placeholder="If yes; How many times? When? Which cities?"></textarea>
+                                    <span class="text-muted">If yes; How many times? When? Which cities?</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="VisaApplicationRejection" class="col-sm-2 col-form-label">Has your visa application ever been rejected?</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" name="VisaApplicationRejection" value="Yes" /> Yes
+                                    <input type="radio" name="VisaApplicationRejection" value="No" /> No
+                                    <span class="text-danger" asp-validation-for="VisaApplicationRejection"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="VisaApplicationRejectionDate" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" asp-for="VisaApplicationRejectionDate" placeholder="If yes; What date?">
+                                    <span class="text-muted">If yes; What date?</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="VisaApplicationForNextCountry" class="col-sm-2 col-form-label">If you are passing Iran in transit; Have you obtained appropriate visa for your next country of stay?</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" name="VisaApplicationForNextCountry" value="Yes" /> Yes
+                                    <input type="radio" name="VisaApplicationForNextCountry" value="No" /> No
+                                    <span class="text-danger" asp-validation-for="VisaApplicationForNextCountry"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PersonsAlongWithYou" class="col-sm-2 col-form-label">Please write the name and relationship of persons traveling with you</label>
+                                <div class="col-sm-10">
+                                    <textarea asp-for="PersonsAlongWithYou" class="form-control" rows="3" placeholder="Please write the name and relationship of persons traveling with you"></textarea>
+                                    <span class="text-danger" asp-validation-for="PersonsAlongWithYou"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Rules" class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <ul>
+                                        <li>I declare that the above information is true and correct.</li>
+                                        <li>I undertake to observe, while in the Islamic Republic of Iran, all laws and regulations applicable to foreign nationals.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

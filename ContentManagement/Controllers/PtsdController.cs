@@ -102,5 +102,59 @@ namespace ContentManagement.Controllers
             ModelState.Clear(); // clear form values
             return View(new PtsdViewModel());
         }
+
+        public virtual IActionResult VisaApplication()
+        {
+            _seoService.Title = "PTSD International Workshop - Visa Application";
+            return View(new VisaApplicationViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async virtual Task<IActionResult> VisaApplication(VisaApplicationViewModel vm)
+        {
+            if (ModelState.ErrorCount > 0)
+            {
+                return View(vm);
+            }
+
+            var smtp = _siteSettings.Value.Smtp;
+            var adminEmail = _siteSettings.Value.PtsdEmail;
+            var smtpConfig = new DNTCommon.Web.Core.SmtpConfig
+            {
+                FromAddress = smtp.FromAddress,
+                FromName = smtp.FromName,
+                LocalDomain = smtp.LocalDomain,
+                Password = smtp.Password,
+                PickupFolder = smtp.PickupFolder,
+                Port = smtp.Port,
+                Server = smtp.Server,
+                UsePickupFolder = smtp.UsePickupFolder,
+                Username = smtp.Username
+            };
+
+            vm.SenderIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            vm.SubmitDateTime = DateTimeOffset.UtcNow;
+
+            await _webMailService.SendEmailAsync(
+                   smtpConfig: smtpConfig,
+                   emails: new List<MailAddress>
+                   {
+                        new MailAddress { ToName = "PTSD - Visa Application", ToAddress = adminEmail },
+                   },
+                   replyTos: new List<MailAddress>
+                   {
+                        new MailAddress { ToName = vm.Name, ToAddress = vm.Email },
+                   },
+                   subject: $"PTSD Visa Application | دانشگاه علوم پزشکی آجا | Ajaums",
+                   viewNameOrPath: "~/Views/EmailTemplates/_VisaApplication.cshtml",
+                   viewModel: vm
+               );
+
+            ViewBag.IsSuccess = true;
+            ViewBag.AlertMessage = "Your visa application has been successfully submitted.";
+            ModelState.Clear(); // clear form values
+            return View(new VisaApplicationViewModel());
+        }
     }
 }

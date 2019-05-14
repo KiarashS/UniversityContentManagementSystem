@@ -1,0 +1,51 @@
+﻿@using DNTPersianUtils.Core
+@model ContentManagement.ViewModels.VisaApplicationViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PTSD - Visa Application</title>
+</head>
+<body style="font-family: Tahoma, serif;">
+    <div dir="ltr" style="text-align:left;">
+        <p>Name: @(Model.Name ?? "")</p>
+        <p>Surname: @(Model.Surname ?? "")</p>
+        <p>Forename: @(Model.Forename ?? "")</p>
+        <p>Father's Name: @(Model.Fatherame ?? "")</p>
+        <p>Birth Date: @(Model.BirthDate ?? "")</p>
+        <p>Birth Place: @(Model.BirthPlace ?? "")</p>
+        <div><span>Email: @(Model.Email ?? "")</span> (<a href="mailto:@Model.Email">جهت ارسال پاسخ به این درخواست اینجا را کلیک نمائید</a>)</div>
+        <p>Passport Type: @(Model.PassportType ?? "")</p>
+        <p>Passport Number: @(Model.PassportNumber ?? "")</p>
+        <p>Date of Issue of Passport: @(Model.PassportIssueDate ?? "")</p>
+        <p>Place of Issue of Passport: @(Model.PassportIssuePlace ?? "")</p>
+        <p>Passport Expire Date: @(Model.PassportExpireDate ?? "")</p>
+        <p>Present Nationality: @(Model.PresentNationality ?? "")</p>
+        <p>Former Nationality: @(Model.FormerNationality ?? "")</p>
+        <p>Marital Status: @(Model.MaritalStatus ?? "")<br />@(Model.MarriedDescription?.Replace(System.Environment.NewLine, "<br />") ?? "")</p>
+        <p>Occupation: @(Model.Occupation ?? "")</p>
+        <p>Employer's name, address / phone: @(Model.EmployerAddressPhone ?? "")</p>
+        <p>Permanent address and phone: @Model.PermanentAddressPhone</p>
+        <p>Address / phone in Iran: @(Model.IranAddressPhone ?? "")</p>
+        <p>Which countries have already visited: @(Model.TripedCountries?.Replace(System.Environment.NewLine, "<br />") ?? "")</p>
+        <p>Type of Visa Required: @(Model.VisaType ?? "")</p>
+        <p>Purpose of Traveling to Iran: @(Model.PurposeOfTravelingIran ?? "")</p>
+        <p>How long do you intend to stay in the I. R. of Iran: @(Model.LengthOfStayInIran ?? "")</p>
+        <p>Place/ border of entry and exit: @(Model.EntryExitBorder ?? "")</p>
+        <p>Approximate date of arrival in the I. R. of Iran: @(Model.DateOfArrivalInIran ?? "")</p>
+        <p>Name of individuals and / or organizations: @(Model.MeettingIndivisualsOrganization ?? "")</p>
+        <p>Who covers your expenses while staying in Iran: @(Model.ExpenseCover ?? "")</p>
+        <p>How much money do you intend to have with you: @(Model.MoneyAmount ?? "")</p>
+        <p>Have you been in Iran before: @(Model.PreviousTripToIran ?? "")<br />@(Model.PreviousTripToIranDescription?.Replace(System.Environment.NewLine, "<br />") ?? "")</p>
+        <p>Has your visa application ever been rejected: @(Model.VisaApplicationRejection ?? "")</p>
+        <p>Visa Application Rejection Date: @(Model.VisaApplicationRejectionDate ?? "")</p>
+        <p>If you are passing Iran in transit; Have you obtained appropriate visa for your next country of stay: @(Model.VisaApplicationForNextCountry ?? "")</p>
+        <p>Please write the name and relationship of persons traveling with you: @(Model.PersonsAlongWithYou?.Replace(System.Environment.NewLine, "<br />") ?? "")</p>
+        <br />
+        <br />
+        <p>IP Address: @Model.SenderIpAddress</p>
+        <p>Submit Time: @Model.SubmitDateTime.ToIranTimeZoneDateTimeOffset().ToLongPersianDateTimeString() (@Model.SubmitDateTime)</p>
+    </div>
+    <hr />
+</body>
+</html>
