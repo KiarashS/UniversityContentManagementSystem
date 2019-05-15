@@ -293,10 +293,10 @@ $(document).ready(function () {
             qr.make();
 
             $(document).on('click', '#qrcode-button', function (e) {
-                swal({
+                swal.fire({
                     type: null,
                     html: qr.createImgTag(),
-                    target: document.getElementById('swal-container'),
+                    //target: document.getElementById('swal-container'),
                     showCloseButton: true,
                     showConfirmButton: false,
                     //focusConfirm: true,
@@ -457,10 +457,10 @@ $(document).ready(function () {
     if ($voteSubmitForm.length > 0) {
         $(document).on('click', '#vote-submit-btn', function (e) {
             if ($('[name="voteItem"]:checked').length === 0) {
-                swal({
+                swal.fire({
                     type: 'info',
                     text: $jsGlobalInfo.data('voteRequiredMsg'),
-                    target: document.getElementById('swal-container'),
+                    //target: document.getElementById('swal-container'),
                     showCloseButton: true,
                     showConfirmButton: true,
                     confirmButtonText: $jsGlobalInfo.data('ok') 
@@ -473,10 +473,10 @@ $(document).ready(function () {
             var $voteId = $('#vid');
             var voteCookieName = 'vote-' + $voteId.val();
             if (getCookie(voteCookieName)) {
-                swal({
+                swal.fire({
                     type: 'info',
                     text: $jsGlobalInfo.data('votePreSubmitedMsg'),
-                    target: document.getElementById('swal-container'),
+                    //target: document.getElementById('swal-container'),
                     showCloseButton: true,
                     showConfirmButton: true,
                     confirmButtonText: $jsGlobalInfo.data('ok') 
@@ -487,10 +487,10 @@ $(document).ready(function () {
             }
 
             if ($('#IsActiveVote').val() === 'false') {
-                swal({
+                swal.fire({
                     type: 'info',
                     text: $jsGlobalInfo.data('voteDisabledMsg'),
-                    target: document.getElementById('swal-container'),
+                    //target: document.getElementById('swal-container'),
                     showCloseButton: true,
                     showConfirmButton: true,
                     confirmButtonText: $jsGlobalInfo.data('ok')
@@ -501,10 +501,10 @@ $(document).ready(function () {
             }
 
             if ($('#IsExpiredVote').val() === 'true') {
-                swal({
+                swal.fire({
                     type: 'info',
                     text: $jsGlobalInfo.data('voteExpiredMsg'),
-                    target: document.getElementById('swal-container'),
+                    //target: document.getElementById('swal-container'),
                     showCloseButton: true,
                     showConfirmButton: true,
                     confirmButtonText: $jsGlobalInfo.data('ok')
@@ -525,20 +525,20 @@ $(document).ready(function () {
                 .then(function (response) {
                     setCookie(voteCookieName, $voteId.val(), 186);
 
-                    swal({
+                    swal.fire({
                         type: 'success',
                         text: $jsGlobalInfo.data('voteSuccessMsg'),
-                        target: document.getElementById('swal-container'),
+                        //target: document.getElementById('swal-container'),
                         showCloseButton: true,
                         showConfirmButton: true,
                         confirmButtonText: $jsGlobalInfo.data('ok') 
                     });
                 })
                 .catch(function (error) {
-                    swal({
+                    swal.fire({
                         type: 'error',
                         text: $jsGlobalInfo.data('errorOccurred'),
-                        target: document.getElementById('swal-container'),
+                        //target: document.getElementById('swal-container'),
                         showCloseButton: true,
                         showConfirmButton: true,
                         confirmButtonText: $jsGlobalInfo.data('ok') 

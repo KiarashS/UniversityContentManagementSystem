@@ -20,6 +20,10 @@
 </div>
 
 <div class="alert alert-info" role="alert">
+    جهت جستجو در مطالب آرشیو شده، ابتدا <strong dir="ltr">@@isarchive</strong> را در کادر جستجو تایپ کرده و بعد از آن متن جستجو را وارد نمائید. به عنوان مثال: <strong dir="ltr">@@isarchive همایش</strong>
+</div>
+
+<div class="alert alert-info" role="alert">
     توجه داشته باشید که در صورت نیاز، سایز تصویر صفحه می بایست حداکثر @ContentManagement.Infrastructure.Constants.ContentImageWidthSize در @ContentManagement.Infrastructure.Constants.ContentImageHeightSize پیکسل باشد.
 </div>
 
@@ -103,7 +107,7 @@
                         "className": "align-middle",
                         "data": null,
                         "render": function (data, type, row, meta) {
-                            return '<strong>' + data.title + '</strong><br/><span dir="rtl" class="badge badge-light">[تاریخ ایجاد: ' + data.jPublishDate + ']</span><br/><span dir="rtl" class="badge badge-light">[تاریخ آرشیو: ' + data.jArchiveDate +']</span>';
+                            return '<strong>' + data.title + '</strong><br/><span dir="rtl" class="badge badge-light">[تاریخ ایجاد: ' + data.jPublishDate + ']</span><br/><span dir="rtl" class="badge badge-light">[تاریخ آرشیو: ' + data.jArchiveDate + ']</span>';
                         }
                     },
                     {
@@ -191,7 +195,7 @@
                 var row = table.row($(this).parents('tr'));
                 var data = row.data();
 
-                swal({
+                swal.fire({
                     title: 'آیا از انجام این کار اطمینان دارید؟',
                     html: "این عملیات غیرقابل بازگشت می باشد!<br/><strong style='font-weight: 900;'>توجه:</strong> حتی الامکان از حذف کردن مطالب بدلیل تاثیر منفی در رتبه وبومتریک دانشگاه، جداً خودداری نمائید.",
                     type: 'warning',
@@ -207,7 +211,7 @@
                         axios.post('/manage/content/delete/' + data.id + '/')
                             .then(function (response) {
                                 row.remove().draw();
-                                swal({
+                                swal.fire({
                                     title: 'انجام شد!',
                                     text: response.data,
                                     type: 'success',
@@ -215,7 +219,7 @@
                                 });
                             })
                             .catch(function (error) {
-                                swal({
+                                swal.fire({
                                     title: 'خطا!',
                                     text: 'عملیات با خطا مواجه گشت.',
                                     type: 'error',
@@ -232,7 +236,7 @@
 
             var clipboard = new ClipboardJS('.clipboardjs');
             clipboard.on('success', function (e) {
-                swal({
+                swal.fire({
                     title: 'کپی شد!',
                     type: 'success',
                     //timer: 1000,

@@ -50,7 +50,7 @@ namespace ContentManagement
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging(configure =>
                 {
-                    configure.UseRinLogger();
+                    //configure.UseRinLogger();
                 })
                 .UseStartup<Startup>()
                 .ConfigureKestrel((context, options) => {
@@ -145,12 +145,9 @@ namespace ContentManagement
             })
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization()
-            .AddRinMvcSupport()
             .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             //services.AddProgressiveWebApp();
-
-            services.AddRin();
 
             services.AddWebMarkupMin(options =>
             {
@@ -227,12 +224,9 @@ namespace ContentManagement
 
             if (env.IsDevelopment())
             {
-                app.UseRin();
-                app.UseRinMvcSupport();
                 app.UseMiniProfiler();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseRinDiagnosticsHandler();
                 //app.UseBrowserLink();
             }
             else

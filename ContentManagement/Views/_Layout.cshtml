@@ -3,7 +3,6 @@
 @using DNTCommon.Web.Core
 
 @inject Microsoft.AspNetCore.Hosting.IHostingEnvironment HostingEnvironment
-@inject Rin.Mvc.View.RinHelperService RinHelper
 
 <!--
     By: Kiarash Soleimanzadeh
@@ -38,10 +37,6 @@
             <script>window.LogRocket && window.LogRocket.init('hgfalp/ajaums');</script>
         </container>*@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-    <environment include="Development">
-        @RinHelper.RenderInViewInspector()
-    </environment>
 
     <environment include="Development">
         <mini-profiler position="RenderPosition.BottomLeft" />

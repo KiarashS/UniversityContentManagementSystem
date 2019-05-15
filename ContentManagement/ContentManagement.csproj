@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.5.14.90</AssemblyVersion>
+    <AssemblyVersion>2019.5.14.91</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
@@ -60,13 +60,11 @@
     <PackageReference Include="NWebsec.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="NWebsec.AspNetCore.Mvc.TagHelpers" Version="2.0.0" />
     <PackageReference Include="OwaspHeaders.Core" Version="3.4.0" />
-    <PackageReference Include="Rin" Version="1.0.5" />
-    <PackageReference Include="Rin.Mvc" Version="1.0.5" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-dev001258" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-dev001258" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.0-dev000087" />
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="TagHelperPack" Version="0.1.0-ci-30" />
+    <PackageReference Include="TagHelperPack" Version="0.3.0-20190504.2" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.5.0" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.8.0" />
     <PackageReference Include="DNTCaptcha.Core" Version="1.6.7" />

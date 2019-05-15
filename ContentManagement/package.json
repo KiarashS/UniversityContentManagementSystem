@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "del": "^3.0.0",
-    "gulp": "^4.0.1",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.1",
     "gulp-minify": "^3.1.0",
@@ -28,7 +28,7 @@
     "datatables.net-responsive-bs4": "^2.2.3",
     "fontawesome-iconpicker": "^3.2.0",
     "hover.css": "^2.3.2",
-    "jquery": "^3.4.0",
+    "jquery": "^3.4.1",
     "jquery-ajax-unobtrusive": "^3.2.6",
     "jquery-responsive-image": "^1.6.0",
     "jquery-typeahead": "^2.10.6",
@@ -37,7 +37,7 @@
     "jquery.easing": "^1.4.1",
     "lightgallery": "^1.6.12",
     "lightslider": "^1.1.6",
-    "md.bootstrappersiandatetimepicker": "^3.4.0",
+    "md.bootstrappersiandatetimepicker": "^3.4.1",
     "metismenu": "^3.0.0",
     "persianjs": "^0.4.0",
     "popper.js": "^1.15.0",
@@ -47,7 +47,7 @@
     "shabnam-font": "^4.0.0",
     "startbootstrap-sb-admin": "^4.0.0",
     "stickybits": "^3.6.5",
-    "sweetalert2": "^7.33.1",
+    "sweetalert2": "^8.10.7",
     "vazir-font": "^19.2.0"
   }
 }

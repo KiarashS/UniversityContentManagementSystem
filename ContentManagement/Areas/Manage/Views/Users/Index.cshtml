@@ -157,7 +157,7 @@
                 var row = table.row($(this).parents('tr'));
                 var data = row.data();
 
-                swal({
+                swal.fire({
                     title: 'آیا از انجام این کار اطمینان دارید؟',
                     text: "این عملیات غیرقابل بازگشت می باشد!",
                     type: 'warning',
@@ -173,7 +173,7 @@
                         axios.post('/manage/users/delete/' + data.id + '/')
                             .then(function (response) {
                                 row.remove().draw();
-                                swal({
+                                swal.fire({
                                     title: 'انجام شد!',
                                     text: response.data,
                                     type: 'success',
@@ -181,7 +181,7 @@
                                 });
                             })
                             .catch(function (error) {
-                                swal({
+                                swal.fire({
                                     title: 'خطا!',
                                     text: 'عملیات با خطا مواجه گشت.',
                                     type: 'error',

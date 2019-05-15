@@ -118,7 +118,7 @@
                 var row = table.row($(this).parents('tr'));
                 var data = row.data();
 
-                swal({
+                swal.fire({
                     title: 'آیا از انجام این کار اطمینان دارید؟',
                     text: "این عملیات غیرقابل بازگشت می باشد!",
                     type: 'warning',
@@ -134,7 +134,7 @@
                         axios.post('/manage/contentgallery/delete/' + data.id + '/?cid=@contentId')
                             .then(function (response) {
                                 row.remove().draw();
-                                swal({
+                                swal.fire({
                                     title: 'انجام شد!',
                                     text: response.data,
                                     type: 'success',
@@ -142,7 +142,7 @@
                                 })
                             })
                             .catch(function (error) {
-                                swal({
+                                swal.fire({
                                     title: 'خطا!',
                                     text: 'عملیات با خطا مواجه گشت.',
                                     type: 'error',
@@ -157,7 +157,7 @@
                 var position = $(this).val();
                 axios.post('/manage/contentgallery/updateposition/?cid=@(contentId)&position=' + position)
                     .then(function (response) {
-                        swal({
+                        swal.fire({
                             title: 'انجام شد!',
                             text: response.data,
                             type: 'success',
@@ -165,7 +165,7 @@
                         })
                     })
                     .catch(function (error) {
-                        swal({
+                        swal.fire({
                             title: 'خطا!',
                             text: 'عملیات با خطا مواجه گشت.',
                             type: 'error',
