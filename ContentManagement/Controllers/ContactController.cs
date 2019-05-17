@@ -112,7 +112,7 @@ namespace ContentManagement.Controllers
                    {
                         new MailAddress { ToName = portalName, ToAddress = portalAdminEmail },
                    },
-                   blindCarpbonCopies: blindCarbonCopies,
+                   blindCarpbonCopies: blindCarbonCopies.Count > 0 ? blindCarbonCopies : null,
                    replyTos: new List<MailAddress>
                    {
                         new MailAddress { ToName = msg.Name, ToAddress = msg.Email },

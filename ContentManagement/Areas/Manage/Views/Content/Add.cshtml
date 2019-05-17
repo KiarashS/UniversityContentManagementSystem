@@ -302,7 +302,7 @@
                         tooltip: "درج خط افقی",
                         exec: function (e) {
                             var editor = $(this).data("kendoEditor");
-                            editor.exec("inserthtml", { value: '<hr/>' });
+                            editor.exec("insertHtml", { value: '<hr/>' });
                         }
                     },
                     {
@@ -311,7 +311,7 @@
                         exec: function (e) {
                             var editor = $(this).data("kendoEditor");
                             var html = editor.selectedHtml();
-                            editor.exec("inserthtml", { value: '<p dir="rtl">' + html + '</p>' });
+                            editor.exec("insertHtml", { value: '<p dir="rtl">' + html + '</p>' });
                         }
                     },
                     {
@@ -320,7 +320,7 @@
                         exec: function (e) {
                             var editor = $(this).data("kendoEditor");
                             var html = editor.selectedHtml();
-                            editor.exec("inserthtml", { value: '<p dir="ltr">' + html + '</p>' });
+                            editor.exec("insertHtml", { value: '<p dir="ltr">' + html + '</p>' });
                         }
                     },
                     {
