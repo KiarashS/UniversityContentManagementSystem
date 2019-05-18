@@ -3154,3 +3154,7 @@ ul#header-navbar.metismenu > li ul li ul li {
 ul#header-navbar.metismenu > li > ul > li > ul > li {
     background-color: rgba(0, 0, 0, 0.2);
 }
+
+.mds-bootstrap-persian-datetime-picker-container {
+    z-index: 0 !important;
+}
