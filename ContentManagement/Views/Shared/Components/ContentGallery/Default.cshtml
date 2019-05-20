@@ -24,7 +24,7 @@
                 var lines = item.Caption.Split(System.Environment.NewLine);
                 var title = lines.FirstOrDefault();
                 var body = string.Join("<br />", lines.Skip(1));
-                <div id="gallerycaption@(item.Id)" style="display: none;"><h4 asp-if="!string.IsNullOrEmpty(title)" style="font-weight: 900;">@title</h4><p asp-if="!string.IsNullOrEmpty(body)">@Html.Raw(body)</p></div>
+                <div id="gallerycaption@(item.Id)" style="display: none;"><h4 asp-if="!string.IsNullOrEmpty(title)" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")" style="font-weight: 900;">@title</h4><p asp-if="!string.IsNullOrEmpty(body)" dir="@(RequestService.IsRtl() ? "rtl" : "ltr")">@Html.Raw(body)</p></div>
             }
         }
 
