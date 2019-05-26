@@ -387,4 +387,16 @@
   <data name="Other Archives" xml:space="preserve">
     <value>آرشیوهای دیگر</value>
   </data>
+  <data name="Your browser does not support the video tag" xml:space="preserve">
+    <value>مرورگر شما از تگ ویدئو پشتیبانی نمی کند. مرورگر خود را بروز کنید.</value>
+  </data>
+  <data name="Your browser does not support the audio element" xml:space="preserve">
+    <value>مرورگر شما از تگ صوت پشتیبانی نمی کند. مرورگر خود را بروز کنید.</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>ویدئو</value>
+  </data>
+  <data name="Audio" xml:space="preserve">
+    <value>صوت</value>
+  </data>
 </root>

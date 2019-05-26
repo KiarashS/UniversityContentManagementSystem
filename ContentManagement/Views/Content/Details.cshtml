@@ -37,21 +37,21 @@
                         </div>
                     </div>
                     @*<container asp-if="Model.HasSummary || Model.HasImage">
-                            <div class="row mb-3">
-                                <container asp-if="Model.HasSummary">
-                                    <div class="col-12 col-sm-12" condition-class-col-md-8="Model.HasImage">
-                                        <div class="jumbotron">
-                                            @Model.Summary
-                                        </div>
-                                    </div>
-                                </container>
-                                <container asp-if="Model.HasImage">
-                                    <div class="col-12 col-sm-12 h-100 text-center" condition-class-col-md-4="Model.HasSummary">
-                                        <img src="/@(ContentManagement.Infrastructure.Constants.ContentsRootPath)/@Model.Imagename" alt="@Model.Title" class="img-fluid img-thumbnail z-depth-1" />
-                                    </div>
-                                </container>
-                            </div>
-                        </container>*@
+            <div class="row mb-3">
+                <container asp-if="Model.HasSummary">
+                    <div class="col-12 col-sm-12" condition-class-col-md-8="Model.HasImage">
+                        <div class="jumbotron">
+                            @Model.Summary
+                        </div>
+                    </div>
+                </container>
+                <container asp-if="Model.HasImage">
+                    <div class="col-12 col-sm-12 h-100 text-center" condition-class-col-md-4="Model.HasSummary">
+                        <img src="/@(ContentManagement.Infrastructure.Constants.ContentsRootPath)/@Model.Imagename" alt="@Model.Title" class="img-fluid img-thumbnail z-depth-1" />
+                    </div>
+                </container>
+            </div>
+        </container>*@
                     <container asp-if="Model.HasSummary">
                         <div class="row">
                             <div class="col-12">
@@ -76,17 +76,36 @@
                         @await Component.InvokeAsync(nameof(ContentManagement.ViewComponents.ContentGallery))
                     </container>
 
+                    <container asp-if="Model.HasVideo && Model.VideoPosition == ContentVideoPosition.TopOfContent">
+                        @await Component.InvokeAsync(nameof(ContentManagement.ViewComponents.ContentVideo))
+                    </container>
+
+                    <container asp-if="Model.HasAudio && Model.AudioPosition == ContentAudioPosition.TopOfContent">
+                        @await Component.InvokeAsync(nameof(ContentManagement.ViewComponents.ContentAudio))
+                    </container>
+
                     <div id="content-detail" style="overflow-x: auto;">@Html.Raw(Model.Text)</div>
 
                     <container asp-if="Model.HasGallery && Model.GalleryPosition == ContentGalleryPosition.BottomOfContent">
                         @await Component.InvokeAsync(nameof(ContentManagement.ViewComponents.ContentGallery))
                     </container>
+
+                    <container asp-if="Model.HasVideo && Model.VideoPosition == ContentVideoPosition.BottomOfContent">
+                        @await Component.InvokeAsync(nameof(ContentManagement.ViewComponents.ContentVideo))
+                    </container>
+
+                    <container asp-if="Model.HasAudio && Model.AudioPosition == ContentAudioPosition.BottomOfContent">
+                        @await Component.InvokeAsync(nameof(ContentManagement.ViewComponents.ContentAudio))
+                    </container>
+
                 </div>
                 <div class="card-footer" style="font-size: 0.9rem !important;">
                     <span class="mr-2"><i class="far fa-clock fa-lg light-green-text"></i> @SharedLocalizer["Publish At"]: @Model.GetPublishDate <container asp-if="Model.IsNew"><span class="badge badge-pill badge-danger">@SharedLocalizer["New"]</span></container></span>
                     <span class="mr-2"><i class="fas fa-eye fa-lg light-blue-text"></i> @SharedLocalizer["View Times"]: @Model.GetViewCount</span>
                     <span class="mr-2"><i class="fas fa-tag fa-lg purple-text"></i> @SharedLocalizer["Content Type"]: @Model.TypeOfContent</span>
-                    <span asp-if="Model.HasGallery" condition-class-mr-2="Model.HasGallery"><i class="fas fa-camera fa-lg cyan-text"></i> @SharedLocalizer["Gallery"]</span>
+                    <span asp-if="Model.HasGallery" condition-class-mr-2="Model.HasGallery"><i class="far fa-images fa-lg cyan-text"></i> @SharedLocalizer["Gallery"]</span>
+                    <span asp-if="Model.HasVideo" condition-class-mr-2="Model.HasVideo"><i class="fas fa-video fa-lg cyan-text"></i> @SharedLocalizer["Video"]</span>
+                    <span asp-if="Model.HasAudio" condition-class-mr-2="Model.HasAudio"><i class="fas fa-volume-up fa-lg cyan-text"></i> @SharedLocalizer["Audio"]</span>
                     <span asp-if="Model.IsArchive" condition-class-mr-2="Model.IsArchive"><i class="fas fa-archive fa-lg orange-text"></i> @SharedLocalizer["Archived"]</span>
                     <span><i class="fas fa-barcode fa-lg pink-text"></i> @SharedLocalizer["Content Code"]: @Model.GetId</span>
                     <div class="mr-2 mt-2 sr-only"><a class="btn btn-secondary btn-sm" href="@Url.Action("Pdf", "Content", new { id = Model.Id })"><i class="far fa-file-pdf"></i> @SharedLocalizer["Download PDF"]</a></div>

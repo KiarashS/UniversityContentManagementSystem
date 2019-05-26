@@ -254,7 +254,7 @@
                                         .Where(x => x.IsActive && !x.IsArchive && x.Language == language && x.Portal.PortalKey != null && x.Portal.ShowInMainPortal)
                                         .OrderByDescending(x => x.Priority)
                                         .ThenByDescending(x => x.PublishDate).AsQueryable()
-                                        .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.IsFavorite, x.Portal.PortalKey, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
+                                        .Select(x => new { x.Id, x.Title, x.ContentType, x.PublishDate, x.IsFavorite, x.Portal.PortalKey, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), HasVideo = (x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0), HasAudio = (x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0), PortalTitle = (language == Language.EN ? x.Portal.TitleEn : x.Portal.TitleFa) })
                                         .Cacheable()
                                         .ToListAsync();
 
@@ -271,7 +271,9 @@
                     IsFavorite = item.IsFavorite,
                     Title = item.Title,
                     PublishDate = item.PublishDate,
-                    HasGallery = item.HasGallery
+                    HasGallery = item.HasGallery,
+                    HasVideo = item.HasVideo,
+                    HasAudio = item.HasAudio
                 });
             }
 
@@ -292,11 +294,11 @@
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), HasVideo = (x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0), HasAudio = (x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, DisplayContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = contentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, HasVideo = x.HasVideo, HasAudio = x.HasAudio, Summary = x.Summary, DisplayContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = contentType }).ToList();
         }
 
         public async Task<long> ContentsCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA, bool isArchive = false)
@@ -330,11 +332,11 @@
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.IsArchive, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.IsArchive, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), HasVideo = (x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0), HasAudio = (x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, IsArchive = x.IsArchive, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, DisplayContentType = x.ContentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, HasGallery = x.HasGallery, HasVideo = x.HasVideo, HasAudio = x.HasAudio, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, IsArchive = x.IsArchive, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, DisplayContentType = x.ContentType }).ToList();
         }
 
         public async Task<long> FavoritesCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA, bool isArchive = false)
@@ -450,11 +452,11 @@
                                     .ThenByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(length)
-                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), HasVideo = (x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0), HasAudio = (x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, DisplayContentType = x.ContentType, HasGallery = x.HasGallery }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, DisplayContentType = x.ContentType, HasGallery = x.HasGallery, HasVideo = x.HasVideo, HasAudio = x.HasAudio }).ToList();
         }
 
         public async Task<long> OtherContentsCountAsync(string portalKey, ContentType? contentType, Language language = Language.FA, bool isArchive = false)
@@ -519,7 +521,9 @@
                 PublishDate = content.PublishDate,
                 IsFavorite = content.IsFavorite,
                 ViewCount = content.ViewCount,
-                GalleryPosition = content.GalleryPosition
+                GalleryPosition = content.GalleryPosition,
+                VideoPosition = content.VideoPosition,
+                AudioPosition = content.AudioPosition
             };
         }
 
@@ -563,11 +567,11 @@
                                     .OrderByDescending(x => x.PublishDate)
                                     .Skip(start)
                                     .Take(size)
-                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.IsArchive, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                                    .Select(x => new { x.Id, x.Title, x.Summary, x.RawText, x.IsArchive, x.ContentType, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), HasVideo = (x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0), HasAudio = (x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0) })
                                     .Cacheable()
                                     .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, IsArchive = x.IsArchive, ContentType = x.ContentType, DisplayContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, HasGallery = x.HasGallery }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, Summary = x.Summary, RawText = x.RawText, IsArchive = x.IsArchive, ContentType = x.ContentType, DisplayContentType = x.ContentType, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, HasGallery = x.HasGallery, HasVideo = x.HasVideo, HasAudio = x.HasAudio }).ToList();
         }
 
         public async Task<long> GetSearchResultsCountAsync(string portalKey, Language language, string searchQuery)
@@ -599,6 +603,46 @@
         {
             var hasGallery = await _content.AnyAsync(x => x.Id == contentId && x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0).ConfigureAwait(false);
             return hasGallery;
+        }
+
+        public async Task<ContentVideoPosition> GetVideosPosition(long contentId)
+        {
+            var position = await _content.Where(x => x.Id == contentId).Select(x => x.VideoPosition).Cacheable().SingleOrDefaultAsync().ConfigureAwait(false);
+            return position;
+        }
+
+        public async Task UpdateVideoPosition(long contentId, ContentVideoPosition newPosition)
+        {
+            var content = await FindContentByIdAsync(contentId).ConfigureAwait(false);
+            content.VideoPosition = newPosition;
+
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<bool> HasVideo(long contentId)
+        {
+            var hasVideo = await _content.AnyAsync(x => x.Id == contentId && x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0).ConfigureAwait(false);
+            return hasVideo;
+        }
+
+        public async Task<ContentAudioPosition> GetAudiosPosition(long contentId)
+        {
+            var position = await _content.Where(x => x.Id == contentId).Select(x => x.AudioPosition).Cacheable().SingleOrDefaultAsync().ConfigureAwait(false);
+            return position;
+        }
+
+        public async Task UpdateAudioPosition(long contentId, ContentAudioPosition newPosition)
+        {
+            var content = await FindContentByIdAsync(contentId).ConfigureAwait(false);
+            content.AudioPosition = newPosition;
+
+            await _uow.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<bool> HasAudio(long contentId)
+        {
+            var hasAudio = await _content.AnyAsync(x => x.Id == contentId && x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0).ConfigureAwait(false);
+            return hasAudio;
         }
 
         public async Task<IList<RssViewModel>> GetRssResult(string portalKey, ContentType? contentType, int size = 20)
@@ -660,11 +704,11 @@
                         .OrderByDescending(x => x.ViewCount)
                         .ThenByDescending(x => x.PublishDate)
                         .Take(size)
-                        .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0) })
+                        .Select(x => new { x.Id, x.Title, x.RawText, x.Summary, x.Imagename, x.IsFavorite, x.PublishDate, x.Priority, x.ContentType, HasGallery = (x.GalleryPosition != ContentGalleryPosition.None && x.ContentGalleries.Count > 0), HasVideo = (x.VideoPosition != ContentVideoPosition.None && x.ContentVideos.Count > 0), HasAudio = (x.AudioPosition != ContentAudioPosition.None && x.ContentAudios.Count > 0) })
                         .Cacheable()
                         .ToListAsync();
 
-            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, DisplayContentType = x.ContentType }).ToList();
+            return contents.Select(x => new ContentsViewModel { Id = x.Id, Title = x.Title, RawText = x.RawText, HasGallery = x.HasGallery, HasVideo = x.HasVideo, HasAudio = x.HasAudio, Summary = x.Summary, Imagename = x.Imagename, IsFavorite = x.IsFavorite, PublishDate = x.PublishDate, Priority = x.Priority, Language = language, ContentType = x.ContentType, DisplayContentType = x.ContentType }).ToList();
         }
 
         public async Task<PdfViewModel> GetDataForPdfAsyc(long id, string portalKey, Language language = Language.FA)

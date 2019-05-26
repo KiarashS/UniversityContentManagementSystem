@@ -156,6 +156,26 @@ namespace ContentManagement.Entities
         BottomOfContent = 2
     }
 
+    public enum ContentVideoPosition
+    {
+        [ContentGalleryPossitionTitleInAdminAttribute("غیر فعال")]
+        None = 0, // Disable
+        [ContentGalleryPossitionTitleInAdminAttribute("در بالای متن مطلب")]
+        TopOfContent = 1,
+        [ContentGalleryPossitionTitleInAdminAttribute("در پایین متن مطلب")]
+        BottomOfContent = 2
+    }
+
+    public enum ContentAudioPosition
+    {
+        [ContentGalleryPossitionTitleInAdminAttribute("غیر فعال")]
+        None = 0, // Disable
+        [ContentGalleryPossitionTitleInAdminAttribute("در بالای متن مطلب")]
+        TopOfContent = 1,
+        [ContentGalleryPossitionTitleInAdminAttribute("در پایین متن مطلب")]
+        BottomOfContent = 2
+    }
+
     public enum ActionLevel : byte
     {
         [Description("پایین")]

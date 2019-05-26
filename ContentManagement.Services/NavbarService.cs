@@ -178,10 +178,10 @@ namespace ContentManagement.Services
                                     .Skip(start)
                                     .Take(length)
                                     .Cacheable()
-                                    .Select(x => new { x.Id, x.Text, x.Url, x.Icon, x.IsBlankUrlTarget, x.Priority, x.ParentId })
+                                    .Select(x => new { x.Id, x.Text, x.Url, x.Icon, x.IsBlankUrlTarget, x.Priority, x.ParentId, ParentText = x.Parent.Text })
                                     .ToListAsync();
 
-            return navbars.Select(x => new NavbarViewModel { Id = x.Id, Text = x.Text, Icon = x.Icon, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority, ParentId = x.ParentId }).ToList();
+            return navbars.Select(x => new NavbarViewModel { Id = x.Id, Text = x.Text, Icon = x.Icon, IsBlankUrlTarget = x.IsBlankUrlTarget, Url = x.Url, Priority = x.Priority, ParentId = x.ParentId, ParentText = x.ParentText }).ToList();
         }
 
         /// <summary>

@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.5.14.91</AssemblyVersion>
+    <AssemblyVersion>2019.5.26.93</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
@@ -68,11 +68,11 @@
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.5.0" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.8.0" />
     <PackageReference Include="DNTCaptcha.Core" Version="1.6.7" />
-    <PackageReference Include="DNTPersianUtils.Core" Version="3.2.0" />
+    <PackageReference Include="DNTPersianUtils.Core" Version="3.2.1" />
     <PackageReference Include="CacheManager.Core" Version="1.2.0" />
     <PackageReference Include="CacheManager.Microsoft.Extensions.Caching.Memory" Version="1.2.0" />
     <PackageReference Include="CacheManager.Serialization.Json" Version="1.2.0" />
-    <PackageReference Include="EFSecondLevelCache.Core" Version="2.2.0" />
+    <PackageReference Include="EFSecondLevelCache.Core" Version="2.3.0" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <PlatformTarget>anycpu</PlatformTarget>
@@ -156,6 +156,8 @@
     <Folder Include="wwwroot\is-cache\" />
     <Folder Include="wwwroot\linkimages\" />
     <Folder Include="wwwroot\contentgalleries\" />
+    <Folder Include="wwwroot\contentvideos\" />
+    <Folder Include="wwwroot\contentaudios\" />
     <Folder Include="wwwroot\pagesimage\" />
     <Folder Include="wwwroot\slides\" />
   </ItemGroup>
@@ -164,6 +166,24 @@
     <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Areas\Manage\Views\ContentAudio\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentAudio\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentAudio\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentVideo\Add.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentVideo\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Manage\Views\ContentVideo\Update.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Manage\Views\Users\ResetPassword.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -291,6 +311,12 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Search\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\ContentAudio\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\ContentVideo\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\Footer\Default1.cshtml">

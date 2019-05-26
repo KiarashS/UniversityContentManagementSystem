@@ -62,6 +62,8 @@ namespace ContentManagement
             services.AddScoped<IImageLinkService, ImageLinkService>();
             services.AddScoped<IContentService, ContentService>();
             services.AddScoped<IContentGalleryService, ContentGalleryService>();
+            services.AddScoped<IContentVideoService, ContentVideoService>();
+            services.AddScoped<IContentAudioService, ContentAudioService>();
             services.AddScoped<IUrlUtilityService, UrlUtilityService>();
             services.AddScoped<IActivityLogService, ActivityLogService>();
             services.AddScoped<IFooterSectionService, FooterSectionService>();

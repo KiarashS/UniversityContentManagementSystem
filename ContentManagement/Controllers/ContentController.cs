@@ -407,6 +407,8 @@ namespace ContentManagement.Controllers
             }
 
             contentDetails.HasGallery = await _contentService.HasGallery(id).ConfigureAwait(false);
+            contentDetails.HasVideo = await _contentService.HasVideo(id).ConfigureAwait(false);
+            contentDetails.HasAudio = await _contentService.HasAudio(id).ConfigureAwait(false);
             contentDetails.IsArchive = await _contentService.IsExistArchiveAsync(id, portalKey, language).ConfigureAwait(false);
 
             _seoService.Title = contentDetails.Title;

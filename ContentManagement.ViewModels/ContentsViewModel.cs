@@ -22,6 +22,8 @@ namespace ContentManagement.ViewModels
         public bool IsFavorite { get; set; }
         public bool IsArchive { get; set; }
         public bool HasGallery { get; set; }
+        public bool HasVideo { get; set; }
+        public bool HasAudio { get; set; }
         public int? Priority { get; set; }
 
 

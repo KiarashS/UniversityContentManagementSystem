@@ -111,7 +111,7 @@
                         }
                     },
                     {
-                        "width": "9%",
+                        "width": "10%",
                         "targets": 2,
                         "className": "align-middle",
                         "data": 'contentLink',
@@ -120,7 +120,7 @@
                         }
                     },
                     {
-                        "width": "8%",
+                        "width": "6%",
                         "targets": 3,
                         "className": "text-center align-middle",
                         "data": "isActive",
@@ -132,7 +132,7 @@
                         }
                     },
                     {
-                        "width": "8%",
+                        "width": "6%",
                         "targets": 4,
                         "className": "text-center align-middle",
                         "data": "isFavorite",
@@ -181,12 +181,12 @@
                         }
                     },
                     {
-                        "width": "10%",
+                        "width": "13%",
                         "targets": 8,
                         "className": "text-center align-middle",
                         "data": "id",
                         "render": function (data, type, row, meta) {
-                            return '<a href="/manage/content/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="/manage/contentgallery/?cid=' + data + '" target="_blank" data-role="content-gallery" title="گالری" data-id="' + data + '"><i class="far fa-images fa-lg"></i></a>&nbsp;|&nbsp;<a href="#" data-role="delete-content" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                            return '<a href="/manage/content/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="/manage/contentgallery/?cid=' + data + '" target="_blank" data-role="content-gallery" title="گالری تصاویر" data-id="' + data + '"><i class="far fa-images fa-lg"></i></a>&nbsp;|&nbsp;<a href="/manage/contentvideo/?cid=' + data + '" target="_blank" data-role="content-video" title="مدیریت ویدئوها" data-id="' + data + '"><i class="fas fa-video fa-lg"></i></a>&nbsp;|&nbsp;<a href="/manage/contentaudio/?cid=' + data + '" target="_blank" data-role="content-audio" title="مدیریت صوت ها" data-id="' + data + '"><i class="fas fa-volume-up fa-lg"></i></a>&nbsp;|&nbsp;<a href="#" data-role="delete-content" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
                         }
                     }]
             });

@@ -1,0 +1,86 @@
+﻿@model ContentManagement.ViewModels.Areas.Manage.ContentAudioViewModel
+@{
+    ViewData["Title"] = "ویرایش صوت";
+    var contentId = ViewContext.HttpContext.Request.Query["cid"];
+}
+
+<style>
+    .custom-file-input ~ .custom-file-label::after {
+        content: "انتخاب فایل";
+    }
+</style>
+
+<h3>ویرایش صوت</h3>
+
+<div class="container">
+    <div class="alert alert-info" role="alert">
+        فرمت صوت می بایست .mp3 یا .wav یا .ogg باشد.
+    </div>
+
+    <form method="post" autocomplete="off" class="needs-validation" enctype="multipart/form-data" novalidate>
+        @{ await Html.RenderPartialAsync("_CustomValidationSummary"); }
+
+        <input type="hidden" id="cid" name="cid" value="@contentId" />
+        <input type="hidden" id="id" name="id" value="@Model.Id" />
+
+        <div class="form-group row" condition-class-mb-5="string.IsNullOrEmpty(Model.Audioname)" condition-class-mb-0="!string.IsNullOrEmpty(Model.Audioname)">
+            <label asp-for="Audio" class="col-sm-2 form-control-label">ویدئو</label>
+            <div class="col-sm-10 custom-file">
+                <input type="file" class="custom-file-input" asp-for="Audio" lang="fa">
+                <label class="custom-file-label" asp-for="Audio" style="margin-left: 15px; margin-right: 15px;">ویدئو</label>
+                <span class="text-danger" asp-validation-for="Audio"></span>
+            </div>
+        </div>
+        <container asp-if="!string.IsNullOrEmpty(Model.Audioname)">
+            <div class="form-group row mb-5">
+                <label class="col-sm-2 form-control-label">&nbsp;</label>
+                <div class="col-sm-10 custom-file">
+                    <a href="/@ContentManagement.Infrastructure.Constants.ContentAudiosRootPath/@Model.Audioname" target="_blank">دریافت صوت فعلی</a>
+                </div>
+            </div>
+        </container>
+        <div class="form-group row">
+            <label asp-for="Caption" class="col-sm-2 form-control-label">عنوان ویدئو(اختیاری)</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Caption" placeholder="عنوان ویدئو(اختیاری)">
+                <span class="text-danger" asp-validation-for="Caption"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Priority" class="col-sm-2 form-control-label">اولویت</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" asp-for="Priority" placeholder="اولویت قرارگیری">
+                <span class="text-danger" asp-validation-for="Priority"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="EnableControls" class="col-sm-2 form-control-label">قابلیت کنترل؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="EnableControls" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="EnableControls"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="EnableAutoplay" class="col-sm-2 form-control-label">پخش خودکار؟</label>
+            <div class="col-sm-10">
+                <input type="checkbox" class="form-control" asp-for="EnableAutoplay" style="width: 2%;">
+                <span class="text-danger" asp-validation-for="EnableAutoplay"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label"></label>
+            <div class="col-sm-10">
+                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <a role="button" class="btn btn-secondary" href="/manage/contentaudio/?cid=@contentId">بازگشت</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+        });
+    </script>
+}

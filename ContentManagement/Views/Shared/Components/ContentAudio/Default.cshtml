@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ContentManagement.ViewModels.ContentAudioViewModel>
+
+<div id="content-audio-container" class="row justify-content-center my-5">
+    <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
+
+        <div>
+
+            <ul id="content-audio-items" class="list-unstyled text-center">
+
+                @foreach (var item in Model)
+                {
+                    <li class="my-4">
+                        <audio condition-controls="@item.EnableControls" condition-autoplay="@item.EnableAutoplay">
+                            <source src="/@ContentManagement.Infrastructure.Constants.ContentAudiosRootPath/@item.Audioname" type="@item.GetMediaType">
+                            @SharedLocalizer["Your browser does not support the audio element"]
+                        </audio>
+                        <container asp-if="!string.IsNullOrEmpty(item.Caption)"><div class="text-muted" style="font-size: 0.75rem;">@item.Caption</div></container>
+                    </li>
+                }
+
+            </ul>
+
+        </div>
+
+    </div>
+</div>

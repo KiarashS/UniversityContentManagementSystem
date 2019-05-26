@@ -27,6 +27,7 @@
             <thead class="thead-default">
                 <tr>
                     <th>منو</th>
+                    <th>منوی والد</th>
                     <th>آیکن</th>
                     <th>نمایش در صفحه جدید؟</th>
                     <th>اولویت</th>
@@ -77,9 +78,21 @@
                         }
                     },
                     {
+                        "targets": 1,
+                        "data": "parentText",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            else {
+                                return '';
+                            }
+                        }
+                    },
+                    {
                         "className": "text-center",
                         "width": "4%",
-                        "targets": 1,
+                        "targets": 2,
                         "data": "icon",
                         "render": function (data, type, row, meta) {
                             if (data) {
@@ -91,7 +104,7 @@
                     {
                         "className": "text-center",
                         "width": "15%",
-                        "targets": 2,
+                        "targets": 3,
                         "data": "isBlankUrlTarget",
                         "render": function (data, type, row, meta) {
                             if (data) {
@@ -103,7 +116,7 @@
                     {
                         "className": "text-center",
                         "width": "8%",
-                        "targets": 3,
+                        "targets": 4,
                         "data": "priority",
                         "render": function (data, type, row, meta) {
                             if (data) {
@@ -114,7 +127,7 @@
                     },
                     {
                         "width": "4%",
-                        "targets": 4,
+                        "targets": 5,
                         "data": "id",
                         "render": function (data, type, row, meta) {
                             return '<a href="/manage/navbar/update/' + data + '/" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-navbar" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';

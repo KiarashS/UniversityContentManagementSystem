@@ -1,0 +1,226 @@
+﻿@using System.Collections.Generic;
+@{
+    ViewData["Title"] = "مدیریت ویدئوها";
+    Layout = "~/Areas/Manage/Views/_Layout.cshtml";
+    var contentId = ViewContext.HttpContext.Request.Query["cid"];
+}
+
+<div class="m-3">
+    <a class="btn btn-primary" role="button" href="/manage/contentvideo/add/?cid=@contentId">ایجاد ویدئو جدید</a>
+</div>
+
+@if (TempData["IsOk"] != null && (bool)TempData["IsOk"] == true)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <div>عملیات با موفقیت انجام شد.</div>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        ویدئوها
+    </div>
+    <div class="card-body">
+
+        <div class="row mb-4">
+            <div class="col-2">
+                <label for="videoposition">موقعیت قرارگیری ویدئوها:</label>
+                <select id="videoposition" name="videoposition" class="form-control" asp-items="@(IList<SelectListItem>)ViewBag.VideoPositions"></select>
+            </div>
+        </div>
+        
+        <table class="table table-bordered table-sm table-hover" id="contentVideosTable" style="width: 100%;">
+            <thead class="thead-default">
+                <tr>
+                    <th>ویدئو</th>
+                    <th>عنوان</th>
+                    <th>طول</th>
+                    <th>ارتفاع</th>
+                    <th>قابلیت کنترل؟</th>
+                    <th>پخش خودکار؟</th>
+                    <th>اولویت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var table;
+        $(document).ready(function () {
+            table = $('#contentVideosTable').DataTable({
+                language: {
+                    "url": "/statics/Datatable.Persian.json"
+                },
+                ordering: false,
+                paging: false,
+                searching: false,
+                processing: true,
+                serverSide: true,
+                stateSave: true,
+                stateDuration: 0,
+                searchDelay: null,
+                ajax: {
+                    url: '/manage/contentvideo/list/?cid=@contentId',
+                    type: "POST"
+                },
+                columnDefs: [
+                    {
+                        "width": "10%",
+                        "targets": 0,
+                        "data": null,
+                        "className": "text-center align-middle",
+                        "render": function (data, type, row, meta) {
+                            var contentVideoPath = $('#js-global-info').data('contentVideoPath');
+                            return '<a title="دریافت ویدئو" target="_blank" href="' + contentVideoPath + data.videoname + '">دریافت ویدئو</a>';
+                        }
+                    },
+                    {
+                        "width": "30%",
+                        "targets": 1,
+                        "className": "align-middle",
+                        "data": "caption",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 2,
+                        "className": "align-middle",
+                        "data": "width",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "10%",
+                        "targets": 3,
+                        "className": "align-middle",
+                        "data": "height",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "8%",
+                        "targets": 4,
+                        "className": "text-center align-middle",
+                        "data": "enableControls",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>بله</span>';
+                            }
+                            return '<span>خیر</span>';
+                        }
+                    },
+                    {
+                        "width": "8%",
+                        "targets": 5,
+                        "className": "text-center align-middle",
+                        "data": "enableAutoplay",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>بله</span>';
+                            }
+                            return '<span>خیر</span>';
+                        }
+                    },
+                    {
+                        "width": "5%",
+                        "targets": 6,
+                        "className": "align-middle",
+                        "data": "priority",
+                        "render": function (data, type, row, meta) {
+                            if (data) {
+                                return '<span>' + data + '</span>';
+                            }
+                            return '';
+                        }
+                    },
+                    {
+                        "width": "5%",
+                        "targets": 7,
+                        "className": "text-center align-middle",
+                        "data": "id",
+                        "render": function (data, type, row, meta) {
+                            return '<a href="/manage/contentvideo/update/' + data + '/?cid=@contentId" title="ویرایش"><i class="fa fa-edit fa-lg"></i></a>&nbsp|&nbsp;<a href="#" data-role="delete-contentvideo" title="حذف" data-id="' + data + '"><i class="far fa-trash-alt fa-lg"></i></a>';
+                        }
+                    }]
+            });
+
+            $('#contentVideosTable tbody').on('click', 'a[data-role="delete-contentvideo"]', function () {
+                var row = table.row($(this).parents('tr'));
+                var data = row.data();
+
+                swal.fire({
+                    title: 'آیا از انجام این کار اطمینان دارید؟',
+                    text: "این عملیات غیرقابل بازگشت می باشد!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'بله!',
+                    cancelButtonText: 'خیر',
+                    focusCancel: true,
+                    focusConfirm: false
+                }).then((result) => {
+                    if (result.value) {
+                        axios.post('/manage/contentvideo/delete/' + data.id + '/?cid=@contentId')
+                            .then(function (response) {
+                                row.remove().draw();
+                                swal.fire({
+                                    title: 'انجام شد!',
+                                    text: response.data,
+                                    type: 'success',
+                                    confirmButtonText: 'بستن',
+                                })
+                            })
+                            .catch(function (error) {
+                                swal.fire({
+                                    title: 'خطا!',
+                                    text: 'عملیات با خطا مواجه گشت.',
+                                    type: 'error',
+                                    confirmButtonText: 'بستن',
+                                })
+                            });
+                    }
+                })
+            });
+
+            $('#videoposition').on('change', function () {
+                var position = $(this).val();
+                axios.post('/manage/contentvideo/updateposition/?cid=@(contentId)&position=' + position)
+                    .then(function (response) {
+                        swal.fire({
+                            title: 'انجام شد!',
+                            text: response.data,
+                            type: 'success',
+                            confirmButtonText: 'بستن',
+                        })
+                    })
+                    .catch(function (error) {
+                        swal.fire({
+                            title: 'خطا!',
+                            text: 'عملیات با خطا مواجه گشت.',
+                            type: 'error',
+                            confirmButtonText: 'بستن',
+                        })
+                    });
+            });
+        });
+    </script>
+}

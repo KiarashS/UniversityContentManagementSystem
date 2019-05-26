@@ -75,6 +75,8 @@ namespace ContentManagement.DataLayer.Migrations
 
                     b.Property<DateTimeOffset?>("ArchiveDate");
 
+                    b.Property<int>("AudioPosition");
+
                     b.Property<int>("ContentType");
 
                     b.Property<int>("GalleryPosition");
@@ -107,6 +109,8 @@ namespace ContentManagement.DataLayer.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<int>("VideoPosition");
+
                     b.Property<int>("ViewCount");
 
                     b.HasKey("Id");
@@ -114,6 +118,32 @@ namespace ContentManagement.DataLayer.Migrations
                     b.HasIndex("PortalId");
 
                     b.ToTable("Content");
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ContentAudio", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Audioname")
+                        .IsRequired();
+
+                    b.Property<string>("Caption");
+
+                    b.Property<long>("ContentId");
+
+                    b.Property<bool>("EnableAutoplay");
+
+                    b.Property<bool>("EnableControls");
+
+                    b.Property<int?>("Priority");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ContentAudio");
                 });
 
             modelBuilder.Entity("ContentManagement.Entities.ContentGallery", b =>
@@ -136,6 +166,36 @@ namespace ContentManagement.DataLayer.Migrations
                     b.HasIndex("ContentId");
 
                     b.ToTable("ContentGallery");
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ContentVideo", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Caption");
+
+                    b.Property<long>("ContentId");
+
+                    b.Property<bool>("EnableAutoplay");
+
+                    b.Property<bool>("EnableControls");
+
+                    b.Property<int?>("Height");
+
+                    b.Property<int?>("Priority");
+
+                    b.Property<string>("Videoname")
+                        .IsRequired();
+
+                    b.Property<int?>("Width");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ContentVideo");
                 });
 
             modelBuilder.Entity("ContentManagement.Entities.FooterLink", b =>
@@ -575,10 +635,26 @@ namespace ContentManagement.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ContentManagement.Entities.ContentAudio", b =>
+                {
+                    b.HasOne("ContentManagement.Entities.Content", "Content")
+                        .WithMany("ContentAudios")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ContentManagement.Entities.ContentGallery", b =>
                 {
                     b.HasOne("ContentManagement.Entities.Content", "Content")
                         .WithMany("ContentGalleries")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ContentManagement.Entities.ContentVideo", b =>
+                {
+                    b.HasOne("ContentManagement.Entities.Content", "Content")
+                        .WithMany("ContentVideos")
                         .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -2,6 +2,7 @@
 using ContentManagement.ViewModels;
 using ContentManagement.ViewModels.Areas.Manage;
 using DNTCommon.Web.Core;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -34,7 +35,13 @@ namespace ContentManagement.Services.Contracts
         Task<long> GetSearchResultsCountAsync(string portalKey, Language language, string searchQuery);
         Task<ContentGalleryPosition> GetGalleryPosition(long contentId);
         Task UpdateGalleryPosition(long contentId, ContentGalleryPosition newPosition);
+        Task<ContentVideoPosition> GetVideosPosition(long contentId);
+        Task UpdateVideoPosition(long contentId, ContentVideoPosition newPosition);
+        Task<ContentAudioPosition> GetAudiosPosition(long contentId);
+        Task UpdateAudioPosition(long contentId, ContentAudioPosition newPosition);
         Task<bool> HasGallery(long contentId);
+        Task<bool> HasVideo(long contentId);
+        Task<bool> HasAudio(long contentId);
         Task<IList<RssViewModel>> GetRssResult(string portalKey, ContentType? contentType, int size = 20);
         Task<bool> IsExistContent(string portalKey, Language language = Language.FA);
         Task<IList<ContentsViewModel>> GetMostViewedContentsAsync(string portalKey, Language language = Language.FA, int size = 10);

@@ -23,8 +23,14 @@ namespace ContentManagement.Entities
         public bool IsFavorite { get; set; } = false;
         public bool IsArchive { get; set; } = false;
         public int? Priority { get; set; }
+
         public ContentGalleryPosition GalleryPosition { get; set; } = ContentGalleryPosition.None;
+        public ContentVideoPosition VideoPosition { get; set; } = ContentVideoPosition.None;
+        public ContentAudioPosition AudioPosition { get; set; } = ContentAudioPosition.None;
+
         public virtual Portal Portal { get; set; }
         public virtual ICollection<ContentGallery> ContentGalleries { get; set; }
+        public virtual ICollection<ContentVideo> ContentVideos { get; set; }
+        public virtual ICollection<ContentAudio> ContentAudios { get; set; }
     }
 }

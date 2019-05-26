@@ -3158,3 +3158,15 @@ ul#header-navbar.metismenu > li > ul > li > ul > li {
 .mds-bootstrap-persian-datetime-picker-container {
     z-index: 0 !important;
 }
+
+ul.list-box > li {
+    -webkit-box-shadow: 0 0 5px;
+    box-shadow: 0 0 5px;
+    padding: 8px 4px;
+    border-radius: 4px;
+}
+
+video, audio {
+    max-width: 100%;
+    /*height: auto;*/
+}

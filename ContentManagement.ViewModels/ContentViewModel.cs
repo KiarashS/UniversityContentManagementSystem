@@ -22,7 +22,11 @@ namespace ContentManagement.ViewModels
         public int ViewCount { get; set; }
         public bool IsFavorite { get; set; }
         public ContentGalleryPosition GalleryPosition { get; set; }
+        public ContentVideoPosition VideoPosition { get; set; }
+        public ContentAudioPosition AudioPosition { get; set; }
         public bool HasGallery { get; set; }
+        public bool HasVideo { get; set; }
+        public bool HasAudio { get; set; }
         public bool IsArchive { get; set; }
 
 
