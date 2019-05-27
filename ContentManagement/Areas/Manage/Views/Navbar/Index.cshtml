@@ -79,10 +79,15 @@
                     },
                     {
                         "targets": 1,
-                        "data": "parentText",
+                        "data": null,
                         "render": function (data, type, row, meta) {
-                            if (data) {
-                                return '<span>' + data + '</span>';
+                            if (data.parentText) {
+                                if (data.parentUrl) {
+                                    return '<a href="' + data.parentUrl + '" target="_blank" rel="noreferrer">' + data.parentText + '</a>';
+                                }
+                                else {
+                                    return '<span>' + data.parentText + '</span>';
+                                }
                             }
                             else {
                                 return '';

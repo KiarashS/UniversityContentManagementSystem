@@ -19,6 +19,7 @@ namespace ContentManagement.ViewModels.Areas.Manage
         public string Text { get; set; }
         public string ParentText { get; set; }
         public string Url { get; set; }
+        public string ParentUrl { get; set; }
         public string Icon { get; set; }
         public bool IsBlankUrlTarget { get; set; }
         public int? Priority { get; set; }
