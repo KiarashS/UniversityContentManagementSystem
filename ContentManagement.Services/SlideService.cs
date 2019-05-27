@@ -119,6 +119,7 @@ namespace ContentManagement.Services
                                 .OrderByDescending(x => x.Priority)
                                 .ThenByDescending(x => x.Id)
                                 .Select(x => new { x.Title, x.SupTitle, x.SubTitle, x.Url, x.PublishDate, x.Priority, x.IsBlankUrlTarget, x.Filename })
+                                .Take(size)
                                 .Cacheable()
                                 .ToListAsync();
             

@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.5.26.93</AssemblyVersion>
+    <AssemblyVersion>2019.5.27.94</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
