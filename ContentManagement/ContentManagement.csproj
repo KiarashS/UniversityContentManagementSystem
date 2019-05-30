@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.5.27.95</AssemblyVersion>
+    <AssemblyVersion>2019.5.30.99</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
@@ -150,14 +150,14 @@
     <Folder Include="Errors\" />
     <Folder Include="logs\" />
     <Folder Include="Resources\Controllers\" />
+    <Folder Include="wwwroot\contentaudios\" />
     <Folder Include="wwwroot\contentfiles\" />
+    <Folder Include="wwwroot\contentvideos\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\contentimg\" />
     <Folder Include="wwwroot\is-cache\" />
     <Folder Include="wwwroot\linkimages\" />
     <Folder Include="wwwroot\contentgalleries\" />
-    <Folder Include="wwwroot\contentvideos\" />
-    <Folder Include="wwwroot\contentaudios\" />
     <Folder Include="wwwroot\pagesimage\" />
     <Folder Include="wwwroot\slides\" />
   </ItemGroup>
