@@ -3160,10 +3160,12 @@ ul#header-navbar.metismenu > li > ul > li > ul > li {
 }
 
 ul.list-box > li {
-    -webkit-box-shadow: 0 0 5px;
-    box-shadow: 0 0 5px;
     padding: 8px 4px;
-    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    -webkit-box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    border-radius: 8px;
+    border-bottom: 1px hidden #fff;
 }
 
 video, audio {
