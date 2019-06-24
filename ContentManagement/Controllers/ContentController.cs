@@ -438,7 +438,12 @@ namespace ContentManagement.Controllers
             var imagePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, Infrastructure.Constants.ContentsRootPath, imageName);
             new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
 
-            return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
+            if (!System.IO.File.Exists(imagePath))
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
+            return PhysicalFile(imagePath, contentType ?? "application/octet-stream", name);
         }
 
         public virtual IActionResult GetGalleryImage(string name, int? w, int? h)
@@ -447,9 +452,14 @@ namespace ContentManagement.Controllers
             var imagePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, Infrastructure.Constants.ContentGalleriesRootPath, imageName);
             new FileExtensionContentTypeProvider().TryGetContentType(imageName, out string contentType);
 
+            if (!System.IO.File.Exists(imagePath))
+            {
+                return RedirectToAction("index", "error", new { id = 404 });
+            }
+
             if (!w.HasValue && !h.HasValue)
             {
-                return PhysicalFile(imagePath, contentType ?? "application/octet-stream");
+                return PhysicalFile(imagePath, contentType ?? "application/octet-stream", name);
             }
             else
             {

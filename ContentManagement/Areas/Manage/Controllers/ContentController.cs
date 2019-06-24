@@ -92,6 +92,7 @@ namespace ContentManagement.Areas.Manage.Controllers
         public virtual IActionResult Add(ContentManagement.Entities.ContentType? t)
         {
             var vm = new ContentViewModel(t);
+            vm.EnableImage = true;
             return View(vm);
         }
 
@@ -106,6 +107,11 @@ namespace ContentManagement.Areas.Manage.Controllers
             }
             else if (!ModelState.IsValid)
             {
+                return View(content);
+            }
+            else if (content.EnableImage && content.Image == null)
+            {
+                ModelState.AddModelError("", "لطفاً تصویر را انتخاب نمائید.");
                 return View(content);
             }
             else if (content.EnableImage && content.Image != null && !content.Image.IsImageFile())

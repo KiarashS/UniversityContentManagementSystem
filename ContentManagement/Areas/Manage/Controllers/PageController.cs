@@ -94,6 +94,11 @@ namespace ContentManagement.Areas.Manage.Controllers
                 ModelState.AddModelError("", "لطفاً یک شناسه یکتا(انگلیسی) وارد نمائید.");
                 return View(page);
             }
+            else if (page.EnableImage && page.Image == null)
+            {
+                ModelState.AddModelError("", "لطفاً تصویر را انتخاب نمائید.");
+                return View(page);
+            }
             else if (page.EnableImage && page.Image != null && !page.Image.IsImageFile())
             {
                 ModelState.AddModelError("", "لطفاً یک تصویر معتبر انتخاب نمائید.");

@@ -3172,3 +3172,7 @@ video, audio {
     max-width: 100%;
     /*height: auto;*/
 }
+
+.lSSlideOuter .lSPager.lSGallery li.active {
+    border-bottom: 4px solid #ffca28;
+}

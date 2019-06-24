@@ -30,6 +30,7 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.Linq;
+using System.Net;
 
 namespace ContentManagement
 {
@@ -54,6 +55,12 @@ namespace ContentManagement
                 })
                 .UseStartup<Startup>()
                 .ConfigureKestrel((context, options) => {
+                    //options.ListenAnyIP(8080, listenOptions =>
+                    //{
+                    //    listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
+                    //    //listenOptions.UseHttps();
+                    //});
+                    options.ConfigureEndpointDefaults(c => c.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2);
                     options.AddServerHeader = false;
                     options.Limits.MaxRequestBodySize = 1073741824; /*1GB*/
                     options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(30);
@@ -224,6 +231,7 @@ namespace ContentManagement
 
             if (env.IsDevelopment())
             {
+                app.UseMiddleware<StackifyMiddleware.RequestTracerMiddleware>();
                 app.UseMiniProfiler();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();

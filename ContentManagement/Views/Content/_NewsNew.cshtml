@@ -24,16 +24,37 @@
                 {
                     var item = Model[i];
 
-                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 text-center mb-3">
-                    <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline">
-                        <img class="img-fluid img-thumbnail hoverable mb-1" style="min-width: 200px; min-height: 120px;" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=200&height=120&rmode=pad&bgcolor=white" alt="@item.Title" asp-append-version="true" data-tippy-content="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>
-                        <h1 class="mt-0 mb-1" style="font-size: 0.75rem !important;"><span class="">@(item.Title.Length <= 50 ? item.Title : item.Title.Substring(0, 50) + "...")<sup asp-if="item.IsNew" class="red-text">@SharedLocalizer["New"]</sup></span> <i asp-if="item.IsPinned" title="@SharedLocalizer["Pinned"]" class="fas fa-thumbtack fa-sm grey-text"></i></h1>
-                    </a>
-                </div>
+                    if ((i % 3) == 0)
+                    {
+                        @:<div class="card-deck mr-sm-0 ml-sm-0 w-100">
+                    }
+
+                    @*<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 text-center mb-3">
+                        <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline">
+                            <img class="mr-3 img-fluid img-thumbnail hoverable mb-1" style="min-width: 200px; min-height: 120px;" src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}" : "/statics/logo.png")?width=200&height=120&rmode=pad&bgcolor=white" alt="@item.Title" asp-append-version="true" data-tippy-content="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>
+                            <h1 class="mt-0 mb-1" style="font-size: 0.75rem !important;"><span class="">@(item.Title.Length <= 50 ? item.Title : item.Title.Substring(0, 50) + "...")</span> <i asp-if="item.IsPinned" title="@SharedLocalizer["Pinned"]" class="fas fa-thumbtack fa-sm grey-text"></i></h1>
+                        </a>
+                    </div>*@
+
+                    <div class="card" data-tippy-content="@item.Title" data-tippy-animation="shift-away" data-tippy-size="small" data-tippy-inertia="true" data-tippy-duration="[600, 300]" data-tippy-arrow="true" data-tippy>
+                        <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline">
+                            <img src="@(!string.IsNullOrEmpty(item.Imagename) ? $"/{ContentManagement.Infrastructure.Constants.ContentsRootPath}/{item.Imagename}?width=275&height=150&rmode=pad&bgcolor=white" : "/statics/logo.png?width=375&height=75&rmode=pad&bgcolor=white")" class="card-img-top" alt="@item.Title" asp-append-version="true">
+                        </a>
+                        <div class="card-body">
+                            <a href="@UrlUtilityService.GenerateUrl(RequestService.PortalKey(), item.Id, item.Title, Url, Context.Request.Scheme, controller: "content", action: "details")" class="nounderline">
+                                <h6 class="card-title">@(item.Title.Length <= 50 ? item.Title : item.Title.Substring(0, 50) + "...")</h6>
+                            </a>
+                            @*<p class="card-text"></p>*@
+                        </div>
+                        @*<div class="card-footer">
+                            <small class="text-muted"><i class="far fa-clock fa-sm orange-text"></i> @item.GetPublishDate <i asp-if="item.IsPinned" title="@SharedLocalizer["Pinned"]" class="fas fa-thumbtack fa-sm grey-text"></i></small>
+                        </div>*@
+                    </div>
 
                     @if((i + 1) % 3 == 0)
                     {
-                        <div class="w-100 d-none d-md-block"></div>
+                        @:</div>
+                        @:<div class="w-100 mt-4"></div>
                     }
                 }
             </div>
@@ -41,7 +62,7 @@
             @*<hr class="hr14" />*@
         </div>
 
-        <div class="col-12">
+        <div class="col-12 mt-3">
             <a class="float-right nounderline btn btn-primary btn-sm" style="font-size: 0.8rem !important;" condition-class-hvr-icon-back="@RequestService.IsRtl()" condition-class-hvr-icon-forward="@RequestService.IsLtr()" href="/content/@ViewData["NewsQuery"]">@SharedLocalizer["View All"]&nbsp;<i class="hvr-icon fas" condition-class-fa-angle-double-left="@RequestService.IsRtl()" condition-class-fa-angle-double-right="@RequestService.IsLtr()"></i></a>
         </div>
     </div>
