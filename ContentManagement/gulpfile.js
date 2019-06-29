@@ -44,7 +44,8 @@ var filesPath = {
         "assets/css/transform/rtl/fixedHeader.bootstrap4-rtl.css",
         "assets/css/transform/rtl/responsive.bootstrap4-rtl.css",
         "node_modules/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css",
-        "node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.style.css"
+        "node_modules/md.bootstrappersiandatetimepicker/dist/jquery.md.bootstrap.datetimepicker.style.css",
+        "assets/css/manage.css"
     ],
     systemRtlCss: [
         //"assets/css/transform/rtl/mdb.min-rtl.css",

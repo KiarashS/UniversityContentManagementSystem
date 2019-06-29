@@ -1,0 +1,14 @@
+﻿input:-moz-placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+input:-ms-input-placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+input::-webkit-input-placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+}

@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <AspNetCoreModuleHostingModel>inprocess</AspNetCoreModuleHostingModel>
     <UserSecretsId>4c307888-8846-49e9-b012-344df37f4186</UserSecretsId>
-    <AssemblyVersion>2019.6.24.105</AssemblyVersion>
+    <AssemblyVersion>2019.6.29.106</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="wkhtmltox\v0.12.4\32 bit\libwkhtmltox.dll">
@@ -43,7 +43,7 @@
     <PackageReference Include="Boilerplate.AspNetCore.Razor" Version="2.1.1" />
     <PackageReference Include="Boilerplate.AspNetCore.TagHelpers" Version="3.0.0" />
     <PackageReference Include="BundlerMinifier.Core" Version="2.9.406" />
-    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.10" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.11" />
     <PackageReference Include="DataTables.AspNet.AspNetCore" Version="2.0.2" />
     <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
@@ -64,7 +64,7 @@
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-dev001258" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.0-dev000087" />
     <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.0.0" />
-    <PackageReference Include="StackifyMiddleware" Version="3.0.4" />
+    <PackageReference Include="StackifyMiddleware" Version="3.0.4.1" />
     <PackageReference Include="TagHelperPack" Version="0.3.0-20190504.2" />
     <PackageReference Include="WebMarkupMin.AspNetCore2" Version="2.5.0" />
     <PackageReference Include="DNTBreadCrumb.Core" Version="1.8.0" />

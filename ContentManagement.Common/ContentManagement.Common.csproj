@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AhoCorasick" Version="2.0.11" />
+    <PackageReference Include="AhoCorasick" Version="2.0.29" />
     <PackageReference Include="DNTCommon.Web.Core" Version="1.4.0" />
     <PackageReference Include="DNTPersianUtils.Core" Version="3.3.0" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.7" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
